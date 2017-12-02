@@ -2,7 +2,7 @@
 = Springify
 == Hypermedia Driven (HAL) Music Api
 
-image:https://github.com/drumaddict/springify/blob/master/src/main/java/resources/static/springify.png
+image:https://github.com/drumaddict/springify/blob/master/src/main/resources/static/springify.png
 
 == Overview
 
