@@ -1,0 +1,13 @@
+
+= Springify
+== Hypermedia Driven (HAL) Music Api
+
+image:https://github.com/drumaddict/springify/blob/master/src/main/java/resources/static/springify.png
+
+== Overview
+
+== Features
+
+== References
+
+* link:[Ref one] - Ref one
