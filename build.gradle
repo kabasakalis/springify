@@ -7,12 +7,66 @@ buildscript {
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath "org.liquibase:liquibase-gradle-plugin:1.2.4"
+        classpath('org.postgresql:postgresql:9.4.1212')
+        classpath('org.yaml:snakeyaml:1.15')
 	}
 }
+
+plugins {
+	id 'org.liquibase.gradle' version '1.2.4'
+}
+
+
+def changeLogYml = "$projectDir/src/main/db/changeLog.yml"
+def changeLogGroovy = "$projectDir/src/main/db/changeLog.groovy"
+
+task('dev') << {
+println "Executing Dev"
+liquibase {
+    activities {
+        main {
+            changeLogFile changeLogYml
+            url 'jdbc:postgresql://localhost:5432/springify'
+            username 'spiros'
+            password '1'
+        }
+    }
+}
+}
+task('qa') << {
+println "Executing QA"
+liquibase {
+    activities {
+        main {
+            changeLogFile changeLog
+           url 'jdbc:postgresql://localhost:5432/springify'
+            username 'spiros'
+            password '1'
+        }
+    }
+}
+}
+task('prod') << {
+println "Executing production"
+liquibase {
+    activities {
+        main {
+            changeLogFile changeLogYml
+            url 'jdbc:postgresql://localhost:5432/springify'
+            username 'spiros'
+            password '1'
+        }
+    }
+}
+}
+
+
 
 apply plugin: 'java'
 apply plugin: 'eclipse-wtp'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'org.liquibase.gradle'
 apply plugin: 'war'
 
 group = 'com.kabasakalis'
@@ -38,6 +92,8 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-jersey')
 	compile('org.springframework.boot:spring-boot-starter-jooq')
 	compile('org.liquibase:liquibase-core')
+//    compile group: 'org.yaml', name: 'snakeyaml', version: '1.19'
+    compile('org.yaml:snakeyaml:1.19')
 	compile('org.springframework.boot:spring-boot-starter-security')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	runtime('org.springframework.boot:spring-boot-devtools')

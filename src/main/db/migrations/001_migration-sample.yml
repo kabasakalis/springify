@@ -1,0 +1,24 @@
+databaseChangeLog:
+    - changeSet:
+        id: 001
+        author: "Spiros Kabaskalis"
+        comment: "Database setup"
+        changes:
+            - createTable:
+                tableName: springify
+                columns:
+                    - column:
+                        name: id
+                        type: int
+                        autoIncrement: true
+                        constraints:
+                            primaryKey: true
+                            nullable: false
+                    - column:
+                        name: name
+                        type: varchar(255)
+                        constraints:
+                            nullable: false
+                    - column:
+                        name: age
+                        type: int

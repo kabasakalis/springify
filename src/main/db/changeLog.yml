@@ -1,0 +1,7 @@
+databaseChangeLog:
+- include:
+      file: migrations/001_create_artists.sql
+      relativeToChangelogFile: true
+- include:
+      file: migrations/002_populate_artists.sql
+      relativeToChangelogFile: true
