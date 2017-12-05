@@ -1,44 +1,180 @@
 def changeLogYml = "$projectDir/src/main/db/changeLog.yml"
 
 def changeLogGroovy = "$projectDir/src/main/db/changeLog.groovy"
+// propertyDrivenProfiles
+
+file("./src/main/resources/application-${propertyDrivenProfiles}.properties").withReader {
+  Properties props = new Properties()
+    props.load(it)
+    project.ext.appProps = props
+}
+
+
+println "Exctracting application properties for ${propertyDrivenProfiles} profile."
+println "${ext.appProps}"
+
+def _url =       "${ext.appProps['spring.datasource.url']}"
+def _username =  "${ext.appProps['spring.datasource.username']}"
+def _password =  "${ext.appProps['spring.datasource.password']}"
+
+def _lurl =       "${ext.appProps['liquibase.url']}"
+def _lusername =  "${ext.appProps['liquibase.user']}"
+def _lpassword =  "${ext.appProps['liquibase.password']}"
+def _changelog =  "${ext.appProps['liquibase.change-log']}"
+
+
+ext.set("spring.datasource.url", "${ext.appProps['spring.datasource.url']}")
+ext.set("spring.datasource.username", "${ext.appProps['spring.datasource.username']}")
+ext.set("spring.datasource.password", "${ext.appProps['spring.datasource.password']}")
+
+
+println "url ${_url}"
+println "username ${_username}"
+println "password ${_password}"
+println "lurl ${_lurl}"
+println "lusername ${_lusername}"
+println "lpassword ${_lpassword}"
+println "changelog ${_changelog}"
+
+// spring.datasource.url= jdbc:postgresql://localhost:5432/springify
+// spring.datasource.username=spiros
+// spring.datasource.password=1
+// spring.jpa.hibernate.ddl-auto=create-drop
+//
+// liquibase.url=  ${spring.datasource.url}
+// liquibase.user= ${spring.datasource.username}
+// liquibase.password= ${spring.datasource.password}
+// liquibase.change-log=classpath:/db/migrations/changeLog.yaml
+
+
+// bootRun will rely on the -P profile argument,
+// defaulting to the "test" profile if no -P arguments are provided
+bootRun {
+    systemProperties = [
+        'spring.profiles.active': propertyDrivenProfiles
+    ]
+
+    // Use -Pproperty.name=value in addition to a -P profile argument
+    // for each property below to pass database connection properties.
+    //
+    // These will only be used if profile specific property files do not override them.
+    // They are intended for use with the "prod" profile.
+    ext.applyPropertyIfExists = { propertyKey ->
+        if(project.hasProperty(propertyKey)) {
+            systemProperties[propertyKey] = project.getProperty(propertyKey)
+        }
+    }
+    applyPropertyIfExists('spring.datasource.url')
+    applyPropertyIfExists('spring.datasource.username')
+    applyPropertyIfExists('spring.datasource.password')
+}
+
+
+def dev_migrations() {
+  // Method code goes here
+    println "Executing development db actions"
+      liquibase {
+        activities {
+          main {
+            changeLogFile changeLogYml
+              // url 'jdbc:postgresql://localhost:5432/springify'
+              // username 'spiros'
+              // password '1'
+              url _url
+              username _username
+              password _password
+
+          }
+        }
+      }
+}
+
+def prod_migrations() {
+  // Method code goes here
+    println "Executing production db actions"
+      liquibase {
+        activities {
+          main {
+            changeLogFile changeLogYml
+              url 'jdbc:postgresql://localhost:5432/springify'
+              username 'spiros'
+              password '1'
+          }
+        }
+      }
+}
+
+def test_migrations() {
+  // Method code goes here
+}
+
+
+
+task migrate {
+  // supports only one profile.
+ doLast {
+
+  "${propertyDrivenProfiles}_migrations"();
+ }
+  // switch (num) {
+  //        case 1: println "One"; break;
+  //        case 2: println "Two"; break;
+  //        case 3: println "Three"; break;
+  //        default: println "Something else";
+  //     }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 task devdb {
-    doLast {
+  doLast {
 
-        println "Executing development db actions"
-        liquibase {
-            activities {
-                main {
-                    changeLogFile changeLogYml
-                    url 'jdbc:postgresql://localhost:5432/springify'
-                    username 'spiros'
-                    password '1'
-                }
-            }
+    println "Executing development db actions"
+      liquibase {
+        activities {
+          main {
+            changeLogFile changeLogYml
+              url 'jdbc:postgresql://localhost:5432/springify'
+              username 'spiros'
+              password '1'
+          }
         }
+      }
 
 
-    }
+  }
 }
 
 
 task proddb {
-    doLast {
+  doLast {
 
-        println "Executing production db actions"
-        liquibase {
-            activities {
-                main {
-                    changeLogFile changeLogYml
-                    url 'jdbc:postgresql://localhost:5432/springify'
-                    username 'spiros'
-                    password '1'
-                }
-            }
+    println "Executing production db actions"
+      liquibase {
+        activities {
+          main {
+            changeLogFile changeLogYml
+              url 'jdbc:postgresql://localhost:5432/springify'
+              username 'spiros'
+              password '1'
+          }
         }
+      }
 
 
-    }
+  }
 }
 
 //task('dev') << {
