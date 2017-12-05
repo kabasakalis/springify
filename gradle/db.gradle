@@ -1,0 +1,82 @@
+def changeLogYml = "$projectDir/src/main/db/changeLog.yml"
+
+def changeLogGroovy = "$projectDir/src/main/db/changeLog.groovy"
+
+task devdb {
+    doLast {
+
+        println "Executing development db actions"
+        liquibase {
+            activities {
+                main {
+                    changeLogFile changeLogYml
+                    url 'jdbc:postgresql://localhost:5432/springify'
+                    username 'spiros'
+                    password '1'
+                }
+            }
+        }
+
+
+    }
+}
+
+
+task proddb {
+    doLast {
+
+        println "Executing production db actions"
+        liquibase {
+            activities {
+                main {
+                    changeLogFile changeLogYml
+                    url 'jdbc:postgresql://localhost:5432/springify'
+                    username 'spiros'
+                    password '1'
+                }
+            }
+        }
+
+
+    }
+}
+
+//task('dev') << {
+//    println "Executing Dev"
+//    liquibase {
+//        activities {
+//            main {
+//                changeLogFile changeLogYml
+//                url 'jdbc:postgresql://localhost:5432/springify'
+//                username 'spiros'
+//                password '1'
+//            }
+//        }
+//    }
+//}
+//task('qa') << {
+//    println "Executing QA"
+//    liquibase {
+//        activities {
+//            main {
+//                changeLogFile changeLog
+//                url 'jdbc:postgresql://localhost:5432/springify'
+//                username 'spiros'
+//                password '1'
+//            }
+//        }
+//    }
+//}
+//task('prod') << {
+//    println "Executing production"
+//    liquibase {
+//        activities {
+//            main {
+//                changeLogFile changeLogYml
+//                url 'jdbc:postgresql://localhost:5432/springify'
+//                username 'spiros'
+//                password '1'
+//            }
+//        }
+//    }
+//}
