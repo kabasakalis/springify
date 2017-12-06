@@ -30,5 +30,45 @@ if (project.hasProperty("${prodProfile}")) {
 ext.set("propertyDrivenProfile", propertyDrivenProfile)
 println 'Using profile: "' + propertyDrivenProfile + '" for ' + project.getName()
 
+// Reading environment specific properties.
+file("./src/main/resources/application-${propertyDrivenProfile}.properties").withReader {
+  Properties props = new Properties()
+    props.load(it)
+    project.ext.appProps = props
+}
 
+// Exctract application properties needed for build.
+println "Exctracting application properties for ${propertyDrivenProfile} profile."
 
+// ext.set("datasource_url", "${ext.appProps['spring.datasource.url']}")
+// ext.set("datasource_username", "${ext.appProps['spring.datasource.username']}")
+// ext.set("datasource_password", "${ext.appProps['spring.datasource.password']}")
+// ext.set("liquibase_changelog",  "${ext.appProps['liquibase.change-log']}")
+
+ext.set("spring.datasource.url", "${ext.appProps['spring.datasource.url']}")
+ext.set("spring.datasource.username", "${ext.appProps['spring.datasource.username']}")
+ext.set("spring.datasource.password", "${ext.appProps['spring.datasource.password']}")
+ext.set("liquibase.change-log", "${ext.appProps['liquibase.change-log']}")
+// bootRun will rely on the -P profile argument,
+// defaulting to the "test" profile if no -P arguments are provided
+bootRun {
+  systemProperties = [
+    'spring.profiles.active':   propertyDrivenProfile  ]
+
+      // Use -Pproperty.name=value in addition to a -P profile argument
+      // for each property below to pass database connection properties.
+      //
+      // These will only be used if profile specific property files do not override them.
+      // They are intended for use with the "prod" profile.
+      ext.applyPropertyIfExists = { propertyKey ->
+        if(project.hasProperty(propertyKey)) {
+          systemProperties[propertyKey] = project.getProperty(propertyKey)
+        }
+      }
+    applyPropertyIfExists('spring.datasource.username')
+    applyPropertyIfExists("spring.datasource.url")
+    applyPropertyIfExists('spring.datasource.password')
+    println "System Properties :"
+    println systemProperties
+
+}
