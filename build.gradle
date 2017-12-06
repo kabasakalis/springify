@@ -22,7 +22,6 @@ apply plugin: 'eclipse-wtp'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'org.liquibase.gradle'
 apply plugin: 'war'
-// apply plugin: 'spring-boot'
 
 apply from: './gradle/profiles.gradle'
 apply from: './gradle/db.gradle'
@@ -31,6 +30,7 @@ apply from: './gradle/db.gradle'
 group = 'com.kabasakalis'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
+description = 'Hypermedia Driven Music API.'
 
 repositories {
 	mavenCentral()

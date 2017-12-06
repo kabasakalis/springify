@@ -1,3 +1,16 @@
+// ----
+// How to use Profiles with -P arguments
+// ----
+//
+// Run gradle bootRun tasks with the -P argument to utilize a profile.
+//
+// For example, within a subproject's directory:
+// gradle -Pdev bootRun
+//
+// Or, if in the parent project's directory,
+// individual projects can be targeted using their name:
+// gradle -Pdev subproject:bootRun
+
 def prodProfile='prod'
 def devProfile='dev'
 def testsProfile='tests'
@@ -10,13 +23,13 @@ if (project.hasProperty("${prodProfile}")) {
 
 } else if (project.hasProperty('tests')) {
 
-  // Used for local development
+  // Used for test environment
   propertyDrivenProfile = testsProfile
     apply from: rootProject.file("./gradle/${testsProfile}.gradle");
 
 } else if (project.hasProperty('dev')) {
 
-  // Used for local development
+  // Used for development environment
   propertyDrivenProfile = devProfile
     apply from: rootProject.file("./gradle/${devProfile}.gradle");
 
@@ -37,18 +50,14 @@ file("./src/main/resources/application-${propertyDrivenProfile}.properties").wit
     project.ext.appProps = props
 }
 
-// Exctract application properties needed for build.
+// Extract application properties needed for build.
 println "Exctracting application properties for ${propertyDrivenProfile} profile."
-
-// ext.set("datasource_url", "${ext.appProps['spring.datasource.url']}")
-// ext.set("datasource_username", "${ext.appProps['spring.datasource.username']}")
-// ext.set("datasource_password", "${ext.appProps['spring.datasource.password']}")
-// ext.set("liquibase_changelog",  "${ext.appProps['liquibase.change-log']}")
 
 ext.set("spring.datasource.url", "${ext.appProps['spring.datasource.url']}")
 ext.set("spring.datasource.username", "${ext.appProps['spring.datasource.username']}")
 ext.set("spring.datasource.password", "${ext.appProps['spring.datasource.password']}")
 ext.set("liquibase.change-log", "${ext.appProps['liquibase.change-log']}")
+
 // bootRun will rely on the -P profile argument,
 // defaulting to the "test" profile if no -P arguments are provided
 bootRun {
@@ -71,4 +80,18 @@ bootRun {
     println "System Properties :"
     println systemProperties
 
+    // Alternative to using the extended bootRun task above to set properties.
+    // Comment out the bootRun task extension above (lines 45 to 63) and un-comment this task (lines 72 to 78) to try it.
+    //
+    // Appends properties to each subproject's application.properties file during compilation,
+    // which ensures WARs and JARs always run with the profiles they were built with.
+    // Also works with the bootRun task without requiring it to be extended.
+    // Defaults to the "test" profile if no -P arguments are provided.
+    // classes << {
+    //     println 'Adding spring.profiles.active=' + propertyDrivenProfiles + ' to application.properties'
+    //     FileTree tree = fileTree(dir: "build/resources/main").include("application.properties")
+    //     tree.each { File file ->
+    //         file.append('\nspring.profiles.active=' + propertyDrivenProfiles);
+    //     }
+    // }
 }
