@@ -1,16 +1,16 @@
-def changeLogYml = "$projectDir/src/main/db/changeLog.yml"
+// def changeLogYml = "$projectDir/src/main/db/changeLog.yml"
 
-def changeLogGroovy = "$projectDir/src/main/db/changeLog.groovy"
+// def changeLogGroovy = "$projectDir/src/main/db/changeLog.groovy"
 // propertyDrivenProfiles
 
-file("./src/main/resources/application-${propertyDrivenProfiles}.properties").withReader {
+file("./src/main/resources/application-${propertyDrivenProfile}.properties").withReader {
   Properties props = new Properties()
     props.load(it)
     project.ext.appProps = props
 }
 
 
-println "Exctracting application properties for ${propertyDrivenProfiles} profile."
+println "Exctracting application properties for ${propertyDrivenProfile} profile."
 println "${ext.appProps}"
 
 def _url =       "${ext.appProps['spring.datasource.url']}"
@@ -23,9 +23,10 @@ def _lpassword =  "${ext.appProps['liquibase.password']}"
 def _changelog =  "${ext.appProps['liquibase.change-log']}"
 
 
-ext.set("spring.datasource.url", "${ext.appProps['spring.datasource.url']}")
-ext.set("spring.datasource.username", "${ext.appProps['spring.datasource.username']}")
-ext.set("spring.datasource.password", "${ext.appProps['spring.datasource.password']}")
+ext.set("datasource_url", "${ext.appProps['spring.datasource.url']}")
+ext.set("datasource_username", "${ext.appProps['spring.datasource.username']}")
+ext.set("datasource_password", "${ext.appProps['spring.datasource.password']}")
+ext.set("liquibase_changelog",  "${ext.appProps['liquibase.change-log']}")
 
 
 println "url ${_url}"
@@ -51,8 +52,7 @@ println "changelog ${_changelog}"
 // defaulting to the "test" profile if no -P arguments are provided
 bootRun {
     systemProperties = [
-        'spring.profiles.active': propertyDrivenProfiles
-    ]
+        'spring.profiles.active':   propertyDrivenProfile  ]
 
     // Use -Pproperty.name=value in addition to a -P profile argument
     // for each property below to pass database connection properties.
@@ -67,7 +67,33 @@ bootRun {
     applyPropertyIfExists('spring.datasource.url')
     applyPropertyIfExists('spring.datasource.username')
     applyPropertyIfExists('spring.datasource.password')
+// println "${spring.datasource.url}"
+println systemProperties
+// throw new GradleException('Stopped for debugging ------------------------------------------------')
+
 }
+
+task migrate {
+  // supports only one profile.
+ doLast {
+  // Method code goes here
+    println "Executing ${propertyDrivenProfile} db actions"
+      liquibase {
+        activities {
+          main {
+              changeLogFile project.getProperty("liquibase_changelog")
+              url           project.getProperty("datasource_url")
+              username      project.getProperty("datasource_username")
+              password      project.getProperty("datasource_password")
+          }
+        }
+      }
+  // "${propertyDrivenProfiles}_migrations"();
+ }
+}
+
+
+
 
 
 def dev_migrations() {
@@ -110,19 +136,6 @@ def test_migrations() {
 
 
 
-task migrate {
-  // supports only one profile.
- doLast {
-
-  "${propertyDrivenProfiles}_migrations"();
- }
-  // switch (num) {
-  //        case 1: println "One"; break;
-  //        case 2: println "Two"; break;
-  //        case 3: println "Three"; break;
-  //        default: println "Something else";
-  //     }
-}
 
 
 

@@ -1,34 +1,34 @@
-def prodProfiles='prod'
-def devProfiles='dev'
-def testProfiles='test'
-def propertyDrivenProfiles;
+def prodProfile='prod'
+def devProfile='dev'
+def testsProfile='tests'
+def propertyDrivenProfile;
 
-if (project.hasProperty('prod')) {
+if (project.hasProperty("${prodProfile}")) {
   // Used for production environment
-  propertyDrivenProfiles = prodProfiles
-    apply from: rootProject.file('./gradle/prod.gradle');
+  propertyDrivenProfile = prodProfile
+    apply from: rootProject.file("./gradle/${prodProfile}.gradle");
 
-} else if (project.hasProperty('test')) {
+} else if (project.hasProperty('tests')) {
 
   // Used for local development
-  propertyDrivenProfiles = testProfiles
-    apply from: rootProject.file('./gradle/test.gradle');
+  propertyDrivenProfile = testsProfile
+    apply from: rootProject.file("./gradle/${testsProfile}.gradle");
 
 } else if (project.hasProperty('dev')) {
 
   // Used for local development
-  propertyDrivenProfiles = devProfiles
-    apply from: rootProject.file('./gradle/dev.gradle');
+  propertyDrivenProfile = devProfile
+    apply from: rootProject.file("./gradle/${devProfile}.gradle");
 
 } else {
 
   // Default when no profile property is specified, development
-  propertyDrivenProfiles = devProfiles
-    apply from: rootProject.file('./gradle/dev.gradle');
+  propertyDrivenProfile = devProfile
+    apply from: rootProject.file("./gradle/${devProfile}.gradle");
 
 }
-ext.set("propertyDrivenProfiles", propertyDrivenProfiles)
-println 'Using profile(s): "' + propertyDrivenProfiles + '" for ' + project.getName()
+ext.set("propertyDrivenProfile", propertyDrivenProfile)
+println 'Using profile: "' + propertyDrivenProfile + '" for ' + project.getName()
 
 
 
