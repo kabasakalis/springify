@@ -74,9 +74,9 @@ bootRun {
           systemProperties[propertyKey] = project.getProperty(propertyKey)
         }
       }
-    // applyPropertyIfExists('spring.datasource.username')
-    // applyPropertyIfExists("spring.datasource.url")
-    // applyPropertyIfExists('spring.datasource.password')
+    applyPropertyIfExists('spring.datasource.username')
+    applyPropertyIfExists("spring.datasource.url")
+    applyPropertyIfExists('spring.datasource.password')
     applyPropertyIfExists('jasypt.encryptor.password')
     println "System Properties :"
     println systemProperties

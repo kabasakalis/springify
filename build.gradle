@@ -10,7 +10,8 @@ buildscript {
 		classpath "org.liquibase:liquibase-gradle-plugin:1.2.4"
     classpath('org.postgresql:postgresql:9.4.1212')
     classpath('org.yaml:snakeyaml:1.15')
-    // classpath 'com.github.mowedgrass:jasypt-gradle-boot-plugin:0.1.33'
+    // classpath 'org.liquibase.ext:liquibase-hibernate4'
+    classpath "org.liquibase.ext:liquibase-hibernate4:3.5"
 	}
 }
 
