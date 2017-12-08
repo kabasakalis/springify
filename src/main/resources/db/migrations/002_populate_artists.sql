@@ -5,3 +5,5 @@ insert into artists (id, name) values (2, 'Iron Maiden');
 insert into artists (id, name) values (3, 'Judas Priest');
 insert into artists (id, name) values (4, 'Savatage');
 insert into artists (id, name) values (5, 'Post Malone');
+
+--rollback delete from  artists where id in (1,2,3, 4,5)

@@ -5,7 +5,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.util.Properties;
  import java.net.URL;
 import java.net.URLClassLoader;
+import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
+import com.ulisesbocchio.jasyptspringboot.annotation.EncryptablePropertySource;
 
+
+@EnableEncryptableProperties
+// @PropertySource(name="EncryptedProperties", value = "classpath:encrypted.properties")
 @SpringBootApplication
 public class SpringifyApiApplication {
 
