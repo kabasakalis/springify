@@ -54,7 +54,7 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-jersey')
 	compile('org.springframework.boot:spring-boot-starter-jooq')
 	compile('org.liquibase:liquibase-core')
-	compile('org.springframework.boot:spring-boot-starter-security')
+	// compile('org.springframework.boot:spring-boot-starter-security')
 	compile('org.springframework.boot:spring-boot-starter-web')
 
   compile( 'com.github.ulisesbocchio:jasypt-spring-boot-starter:1.16')

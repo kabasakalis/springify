@@ -17,7 +17,8 @@ public class ArtistResource extends ResourceSupport {
         id = model.getId();
         name = model.getName();
         country = model.getCountry();
-        group = model.getGroup();
+        created = model.getCreated();
+        // group = model.getGroup();
     }
 
 }

@@ -7,6 +7,8 @@ import java.util.Properties;
 import java.net.URLClassLoader;
 import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.orm.jpa.vendor.HibernateJpaSessionFactoryBean;
 
 @EnableEncryptableProperties
 @SpringBootApplication
@@ -26,4 +28,14 @@ ClassLoader cl = ClassLoader.getSystemClassLoader();
         	System.out.println(url.getFile());
         }
 	}
+
+
+
+
+    @Bean
+    public HibernateJpaSessionFactoryBean sessionFactory() {
+        return new HibernateJpaSessionFactoryBean();
+    }
+
+
 }
