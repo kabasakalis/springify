@@ -8,10 +8,11 @@ buildscript {
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
 		classpath "org.liquibase:liquibase-gradle-plugin:1.2.4"
-    classpath('org.postgresql:postgresql:9.4.1212')
+    // classpath('org.postgresql:postgresql:9.4.1212')
     classpath('org.yaml:snakeyaml:1.15')
     // classpath 'org.liquibase.ext:liquibase-hibernate4'
-    classpath "org.liquibase.ext:liquibase-hibernate4:3.5"
+    // classpath "org.liquibase.ext:liquibase-hibernate4:3.5"
+    classpath "org.liquibase.ext:liquibase-hibernate5:3.6"
 	}
 }
 
@@ -60,7 +61,10 @@ dependencies {
   compile( 'com.github.ulisesbocchio:jasypt-spring-boot-starter:1.16')
 
 	runtime('org.springframework.boot:spring-boot-devtools')
-	runtime('org.postgresql:postgresql')
+
+	// runtime('org.postgresql:postgresql')
+  compile group: 'org.postgresql', name: 'postgresql', version: '42.1.4'
+
 	compileOnly('org.springframework.boot:spring-boot-configuration-processor')
 	compileOnly('org.projectlombok:lombok')
 	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
