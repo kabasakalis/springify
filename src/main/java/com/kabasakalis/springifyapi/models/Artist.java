@@ -2,8 +2,13 @@ package com.kabasakalis.springifyapi.models;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import com.kabasakalis.springifyapi.models.Album;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
   // create_table "artists", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
   //   t.string   "title"
   //   t.string   "country"
@@ -23,6 +28,20 @@ public class Artist{
     private String country;
     private String created;//Todo - Date type...
 
+    //relations
+    private List<Album> albums = new ArrayList<Album>();
+
+    @OneToMany(mappedBy = "artist", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonManagedReference
+    @JsonIgnore
+    public List<Album> getAlbums() {
+        return albums;
+    }
+    public void setAlbums(List<Album> albums) {
+        this.albums = albums;
+    }
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
@@ -32,6 +51,8 @@ public class Artist{
     public void setId(Long id) {
         this.id = id;
     }
+
+
 
     public String getName() {
         return name;

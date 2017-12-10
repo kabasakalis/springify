@@ -1,19 +1,12 @@
 
-package com.kabasakalis.spingify.models;
+package com.kabasakalis.springifyapi.models;
 
+
+import com.kabasakalis.springifyapi.models.Artist;
 
 import javax.persistence.*;
 
-
-  // create_table "artists", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-  //   t.string   "title"
-  //   t.string   "country"
-  //   t.integer  "genre_id"
-  //   t.datetime "created_at", null: false
-  //   t.datetime "updated_at", null: false
-  //   t.index ["genre_id"], title: "index_artists_on_genre_id", using: :btree
-  // end
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
   // create_table "albums", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
   //   t.string   "title"
   //   t.integer  "year"
@@ -33,6 +26,21 @@ public class Album{
     // private String country;
     private String created;//Todo - Date type...
 
+
+    //relations
+    private Artist artist;
+
+    @ManyToOne
+    @JoinColumn(name = "artist_id")
+    @JsonBackReference
+    public Artist getArtist() {
+        return artist;
+    }
+
+    public void setArtist(Artist artist) {
+        this.artist = artist;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer getId() {
@@ -42,6 +50,7 @@ public class Album{
     public void setId(Integer id) {
         this.id = id;
     }
+
 
     public String getTitle() {
         return title;
