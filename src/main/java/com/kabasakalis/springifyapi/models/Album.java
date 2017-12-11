@@ -3,12 +3,16 @@ package com.kabasakalis.springifyapi.models;
 
 
 import com.kabasakalis.springifyapi.models.Artist;
+import com.kabasakalis.springifyapi.models.Playlist;
 
 import javax.persistence.*;
 import org.hibernate.annotations.UpdateTimestamp;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -19,6 +23,8 @@ public class Album{
     private Integer id;
     private String title;
     private String year;
+
+    private List<Playlist> playlists = new ArrayList<Playlist>();
     // private String country;
     // private String created;//Todo - Date type...
     @CreationTimestamp
@@ -45,6 +51,16 @@ public class Album{
     public void setArtist(Artist artist) {
         this.artist = artist;
     }
+
+   @ManyToMany(mappedBy = "albums")
+    public List<Playlist> getPlaylists() {
+        return playlists;
+    }
+
+  public void setPlaylists(List<Playlist> playlists) {
+    this.playlists = playlists;
+  }
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

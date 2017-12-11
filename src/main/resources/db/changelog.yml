@@ -51,6 +51,38 @@ databaseChangeLog:
       - tagDatabase:
           - tag: 020
 
+  - include:
+        file: migrations/030_create_playlists.sql
+        relativeToChangelogFile: true
+  - changeSet:
+    - id: '030_tag'
+    - author: kabasakalis
+    - changes:
+      - tagDatabase:
+          - tag: 030
+
+  - include:
+        file: migrations/040_create_playlists_albums.sql
+        relativeToChangelogFile: true
+  - changeSet:
+    - id: '040_tag'
+    - author: kabasakalis
+    - changes:
+      - tagDatabase:
+          - tag: 040
+
+  - include:
+        file: migrations/050_create_users.sql
+        relativeToChangelogFile: true
+  - changeSet:
+    - id: '050_tag'
+    - author: kabasakalis
+    - changes:
+      - tagDatabase:
+          - tag: 050
+
+
+
   # - include:
   #       file: migrations/002_populate_artists.sql
   #       relativeToChangelogFile: true
