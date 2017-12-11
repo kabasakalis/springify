@@ -5,16 +5,12 @@ package com.kabasakalis.springifyapi.models;
 import com.kabasakalis.springifyapi.models.Artist;
 
 import javax.persistence.*;
+import org.hibernate.annotations.UpdateTimestamp;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-  // create_table "albums", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-  //   t.string   "title"
-  //   t.integer  "year"
-  //   t.integer  "artist_id"
-  //   t.datetime "created_at", null: false
-  //   t.datetime "updated_at", null: false
-  //   t.index ["artist_id"], title: "index_albums_on_artist_id", using: :btree
-  // end
 
 @Entity
 @Table(name = "albums")
@@ -24,7 +20,16 @@ public class Album{
     private String title;
     private String year;
     // private String country;
-    private String created;//Todo - Date type...
+    // private String created;//Todo - Date type...
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_date")
+    private java.util.Calendar createdDate;
+
+    @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "updated_date")
+    private java.util.Calendar updatedDate;
 
 
     //relations
@@ -69,11 +74,11 @@ public class Album{
         this.title = year;
     }
 
-    public String getCreated() {
-        return created;
-    }
-
-    public void setCreated(String created) {
-        this.created = created;
-    }
+    // public String getCreated() {
+    //     return created;
+    // }
+    //
+    // public void setCreated(String created) {
+    //     this.created = created;
+    // }
 }

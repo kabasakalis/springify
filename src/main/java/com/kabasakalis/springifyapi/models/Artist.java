@@ -5,19 +5,11 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import com.kabasakalis.springifyapi.models.Album;
-
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-  // create_table "artists", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-  //   t.string   "title"
-  //   t.string   "country"
-  //   t.integer  "genre_id"
-  //   t.datetime "created_at", null: false
-  //   t.datetime "updated_at", null: false
-  //   t.index ["genre_id"], name: "index_artists_on_genre_id", using: :btree
-  // end
-
 
 @Entity
 @Table(name = "artists")
@@ -26,7 +18,18 @@ public class Artist{
     private Long id;
     private String name;
     private String country;
-    private String created;//Todo - Date type...
+    // private String created;//Todo - Date type...
+
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_date")
+    private java.util.Calendar createdDate;
+
+    @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "updated_date")
+    private java.util.Calendar updatedDate;
+
 
     //relations
     private List<Album> albums = new ArrayList<Album>();
@@ -53,7 +56,6 @@ public class Artist{
     }
 
 
-
     public String getName() {
         return name;
     }
@@ -61,7 +63,6 @@ public class Artist{
     public void setName(String name) {
         this.name = name;
     }
-
 
     public String getCountry() {
         return country;
@@ -71,11 +72,19 @@ public class Artist{
         this.country = country;
     }
 
-    public String getCreated() {
-        return created;
+    public String getCreatedDate() {
+        return createdDate;
     }
 
-    public void setCreated(String created) {
-        this.created = created;
+    public void setCreatedDate(String created) {
+        this.createdDate = created;
     }
+    public String getUpdatedDate() {
+        return updatedDate;
+    }
+
+    public void setUpdatedDate(String updated) {
+        this.updatedDate = updated;
+    }
+
 }

@@ -1,2 +1,62 @@
-databaseChangeLog: []
+#  Spirgify ChangeLog File
+#
+#  Liquibase Commands  http://www.liquibase.org/documentation/command_line.html
+#  migrate task applies db connection info and changelog location, these can differ per environment.
+#
+#  Basic Commands
+#
+#  gradle -Pdev migrate tagExists -PliquibaseCommandValue=1      Check for tag
+#  gradle -Pdev migrate rollback  -PliquibaseCommandValue=1      Rollback to tag
+#  gradle -Pdev migrate rollbackCount -PliquibaseCommandValue=2  Rollback 2 changesets.
+#  gradle -Pdev migrate status                                   Check status
+#  gradle -Pdev migrate dropAll                                  Judgement Day
+#  gradle -Pdev migrate validate                                 Validation
+#  gradle -Pdev migrate update                                   Apply new changesets
+#  gradle -Pdev migrate updateTestingRollback                    Testing
+#  gradle -Pdev migrate updateCount -PliquibaseCommandValue=4    Applies next 4 changesets.
+#
+databaseChangeLog:
+  - comment: 'Springify'
+  - preConditions:
+    - onFail: 'WARN'
+    - runningAs:
+      - username: spiros
+    - dbms:
+      - type: postgresql
 
+  - changeSet:
+    - id: '000_tag'
+    - author: kabasakalis
+    - changes:
+      - tagDatabase:
+          - tag: 000
+
+  - include:
+        file: migrations/010_create_artists.sql
+        relativeToChangelogFile: true
+  - changeSet:
+    - id: '010_tag'
+    - author: kabasakalis
+    - changes:
+      - tagDatabase:
+          - tag: 010
+
+  - include:
+        file: migrations/020_create_albums.sql
+        relativeToChangelogFile: true
+  - changeSet:
+    - id: '020_tag'
+    - author: kabasakalis
+    - changes:
+      - tagDatabase:
+          - tag: 020
+
+  # - include:
+  #       file: migrations/002_populate_artists.sql
+  #       relativeToChangelogFile: true
+  # - changeSet:
+  #   - id: '002_tag'
+  #   - author: kabasakalis
+  #   - changes:
+  #     - tagDatabase:
+  #         - tag: 002
