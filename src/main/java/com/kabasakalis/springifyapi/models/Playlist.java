@@ -12,6 +12,9 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.util.Calendar;
+
+
 @Entity
 @Table(name = "playlists")
 public class Playlist {
@@ -63,18 +66,18 @@ public class Playlist {
     this.name = name;
   }
 
-  public String getCreatedDate() {
+  public Calendar getCreatedDate() {
     return createdDate;
   }
 
-  public void setCreatedDate(String created) {
+  public void setCreatedDate(Calendar created) {
     this.createdDate = created;
   }
-  public String getUpdatedDate() {
+  public Calendar getUpdatedDate() {
     return updatedDate;
   }
 
-  public void setUpdatedDate(String updated) {
+  public void setUpdatedDate(Calendar updated) {
     this.updatedDate = updated;
   }
 

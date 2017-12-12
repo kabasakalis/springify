@@ -1,41 +1,52 @@
+
 package com.kabasakalis.springifyapi.models;
 
-// import org.springframework.security.core.userdetails.UserDetails;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import com.kabasakalis.springifyapi.models.Artist;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
-import javax.persistence.*;
-
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.Calendar;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "users")
-public class User{
+@Table(name = "genres")
+public class Genre {
 
-  private Integer id;
+  private Long id;
   private String name;
-  private String email;
-  private String password;
-  private String token;
+  //relations
+  private List<Artist> artists = new ArrayList<Artist>();
 
   @CreationTimestamp
   @Temporal(TemporalType.TIMESTAMP)
   @Column(name = "created_date")
-  private java.util.Calendar createdDate;
+  private Calendar createdDate;
 
   @UpdateTimestamp
   @Temporal(TemporalType.TIMESTAMP)
   @Column(name = "updated_date")
-  private java.util.Calendar updatedDate;
+  private Calendar updatedDate;
 
+   @OneToMany(mappedBy = "genre", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonManagedReference
+    @JsonIgnore
+    public List<Artist> getArtists() {
+      return artists;
+    }
+  public void setArtists(List<Artist> artists) {
+    this.artists = artists;
+  }
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  public Integer getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(Integer id) {
+  public void setId(Long id) {
     this.id = id;
   }
 
@@ -45,31 +56,6 @@ public class User{
 
   public void setName(String name) {
     this.name = name;
-  }
-
-  @Column(unique = true)
-    public String getEmail() {
-      return email;
-    }
-
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
-  }
-
-  public String getToken() {
-    return token;
-  }
-
-  public void setToken(String token) {
-    this.token = token;
   }
 
   public Calendar getCreatedDate() {
@@ -86,4 +72,5 @@ public class User{
   public void setUpdatedDate(Calendar updated) {
     this.updatedDate = updated;
   }
+
 }

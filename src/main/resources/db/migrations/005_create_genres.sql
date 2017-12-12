@@ -1,13 +1,11 @@
 --liquibase formatted sql
---changeset kabasakalis:010
-create table artists (
+--changeset kabasakalis:005
+create table genres (
     id int primary key,
-    genre_id int REFERENCES genres(id),
     name varchar(255),
-    country varchar(255),
     created_date timestamp without time zone NOT NULL DEFAULT (current_timestamp AT TIME ZONE 'UTC'),
     updated_date timestamp without time zone NOT NULL DEFAULT (current_timestamp AT TIME ZONE 'UTC')
     -- createdDate varchar(255),
     -- updatedDate varchar(255)
 );
---rollback drop table artists;
+--rollback drop table genres;

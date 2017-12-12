@@ -83,7 +83,7 @@ public class ArtistController extends CoreController{
 
         updatedArtist.setName(artist.getName());
         updatedArtist.setCountry(artist.getCountry());
-        updatedArtist.setCreated(artist.getCreated());
+        updatedArtist.setCreatedDate(artist.getCreatedDate());
 
         return springifyService.saveArtist(updatedArtist);
     }

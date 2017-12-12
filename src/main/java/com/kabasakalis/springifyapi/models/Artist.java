@@ -5,11 +5,14 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import com.kabasakalis.springifyapi.models.Album;
+import com.kabasakalis.springifyapi.models.Genre;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.Calendar;
 
 @Entity
 @Table(name = "artists")
@@ -19,6 +22,8 @@ public class Artist{
     private String name;
     private String country;
     // private String created;//Todo - Date type...
+
+    private Genre genre;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -43,6 +48,18 @@ public class Artist{
     public void setAlbums(List<Album> albums) {
         this.albums = albums;
     }
+
+    @ManyToOne
+    @JoinColumn(name = "genre_id")
+    @JsonBackReference
+    public Genre getGenre() {
+        return genre;
+    }
+
+    public void setGenre(Genre genre) {
+        this.genre = genre;
+    }
+
 
 
     @Id
@@ -72,19 +89,19 @@ public class Artist{
         this.country = country;
     }
 
-    public String getCreatedDate() {
-        return createdDate;
-    }
+  public Calendar getCreatedDate() {
+    return createdDate;
+  }
 
-    public void setCreatedDate(String created) {
-        this.createdDate = created;
-    }
-    public String getUpdatedDate() {
-        return updatedDate;
-    }
+  public void setCreatedDate(Calendar created) {
+    this.createdDate = created;
+  }
+  public Calendar getUpdatedDate() {
+    return updatedDate;
+  }
 
-    public void setUpdatedDate(String updated) {
-        this.updatedDate = updated;
-    }
+  public void setUpdatedDate(Calendar updated) {
+    this.updatedDate = updated;
+  }
 
 }

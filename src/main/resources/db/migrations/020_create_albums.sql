@@ -10,7 +10,7 @@ create table albums (
     created_date timestamp without time zone NOT NULL DEFAULT (current_timestamp AT TIME ZONE 'UTC'),
     updated_date timestamp without time zone NOT NULL DEFAULT (current_timestamp AT TIME ZONE 'UTC')
 );
-CREATE UNIQUE INDEX artist_idx ON albums (artist_id);
+CREATE INDEX artist_idx ON albums (artist_id);
 --rollback drop table albums;
 
 

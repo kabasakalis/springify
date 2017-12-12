@@ -14,6 +14,8 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.Calendar;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
@@ -35,7 +37,7 @@ public class Album{
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_date")
-    private java.util.Calendar updatedDate;
+    private Calendar updatedDate;
 
 
     //relations
@@ -90,11 +92,18 @@ public class Album{
         this.title = year;
     }
 
-    // public String getCreated() {
-    //     return created;
-    // }
-    //
-    // public void setCreated(String created) {
-    //     this.created = created;
-    // }
+  public Calendar getCreatedDate() {
+    return createdDate;
+  }
+
+  public void setCreatedDate(Calendar created) {
+    this.createdDate = created;
+  }
+  public Calendar getUpdatedDate() {
+    return updatedDate;
+  }
+
+  public void setUpdatedDate(Calendar updated) {
+    this.updatedDate = updated;
+  }
 }

@@ -32,6 +32,17 @@ databaseChangeLog:
           - tag: 000
 
   - include:
+        file: migrations/005_create_genres.sql
+        relativeToChangelogFile: true
+  - changeSet:
+    - id: '005_tag'
+    - author: kabasakalis
+    - changes:
+      - tagDatabase:
+          - tag: 005
+
+
+  - include:
         file: migrations/010_create_artists.sql
         relativeToChangelogFile: true
   - changeSet:
@@ -80,6 +91,17 @@ databaseChangeLog:
     - changes:
       - tagDatabase:
           - tag: 050
+
+  - include:
+        file: migrations/060_populate_tables.sql
+        relativeToChangelogFile: true
+  - changeSet:
+    - id: '060_tag'
+    - author: kabasakalis
+    - changes:
+      - tagDatabase:
+          - tag: 060
+
 
 
 
