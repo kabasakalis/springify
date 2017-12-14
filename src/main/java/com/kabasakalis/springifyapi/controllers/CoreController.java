@@ -1,7 +1,6 @@
 package com.kabasakalis.springifyapi.controllers;
 
 import org.springframework.hateoas.Link;
-
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 public class CoreController {

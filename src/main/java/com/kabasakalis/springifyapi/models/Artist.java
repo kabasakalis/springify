@@ -13,10 +13,11 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Calendar;
+import org.springframework.hateoas.Identifiable;
 
 @Entity
 @Table(name = "artists")
-public class Artist{
+public class Artist implements Identifiable<Long> {
 
     private Long id;
     private String name;

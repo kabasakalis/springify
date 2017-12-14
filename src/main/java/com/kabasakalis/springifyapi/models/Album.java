@@ -13,16 +13,16 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-
+import org.springframework.hateoas.Identifiable;
 import java.util.Calendar;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "albums")
-public class Album{
+public class Album implements Identifiable<Long> {
 
-    private Integer id;
+    private Long id;
     private String title;
     private String year;
 
@@ -66,11 +66,11 @@ public class Album{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -89,7 +89,7 @@ public class Album{
     }
 
     public void setYear(String year) {
-        this.title = year;
+        this.year = year;
     }
 
   public Calendar getCreatedDate() {

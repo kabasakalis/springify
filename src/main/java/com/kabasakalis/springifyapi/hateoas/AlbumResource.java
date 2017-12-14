@@ -1,25 +1,27 @@
 package com.kabasakalis.springifyapi.hateoas;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.kabasakalis.springifyapi.models.Artist;
+import com.kabasakalis.springifyapi.models.Album;
 import org.springframework.hateoas.ResourceSupport;
 import java.util.Calendar;
 
-public class ArtistResource extends ResourceSupport {
+public class AlbumResource extends ResourceSupport {
 
     @JsonProperty
     public long id;
-    public String name;
-    public String country;
+    public String title;
+    public String year;
     public Calendar created_date;
     public Calendar updated_date;
+    // public Object group;
 
-    public ArtistResource(Artist model){
+    public AlbumResource(Album model){
         id = model.getId();
-        name = model.getName();
-        country = model.getCountry();
+        title = model.getTitle();
+        year = model.getYear();
         created_date = model.getCreatedDate();
         updated_date = model.getUpdatedDate();
+        // group = model.getGroup();
     }
 
 }

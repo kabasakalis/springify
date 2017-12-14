@@ -2,6 +2,7 @@
 package  com.kabasakalis.springifyapi.controllers;
 
 import com.kabasakalis.springifyapi.hateoas.ArtistResource;
+import com.kabasakalis.springifyapi.hateoas.ArtistResourceAssembler;
 import com.kabasakalis.springifyapi.models.Artist;
 // import net.vatri.ecommerce.models.ArtistImage;
 
@@ -10,7 +11,7 @@ import com.kabasakalis.springifyapi.services.SpringifyService;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
+// import org.springframework.core.io.Resource;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -19,13 +20,28 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 // import org.springframework.web.multipart.MultipartFile;
 
+
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
+
+import org.springframework.hateoas.MediaTypes;
+import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.ResourceSupport;
+import org.springframework.hateoas.Resources;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/artists")
+@RequestMapping("/api")
 public class ArtistController extends CoreController{
 
     @Autowired
@@ -33,6 +49,10 @@ public class ArtistController extends CoreController{
     //
     // @Autowired
     // private StorageService storageService;
+
+
+    @Autowired
+	  private  ArtistResourceAssembler assembler;
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -44,18 +64,39 @@ public class ArtistController extends CoreController{
     //     binder.addValidators(artistValidator);
     // }
 
-    @GetMapping
-    public List<ArtistResource> index() {
-        List<Artist> res = springifyService.getArtists();
-        List<ArtistResource> output = new ArrayList<ArtistResource>();
-        res.forEach((a)->{
-            ArtistResource ar = new ArtistResource(a);
-            ar.add(createHateoasLink(a.getId()));
+    // @GetMapping
+    // public List<ArtistResource> index() {
+    //     List<Artist> res = springifyService.getArtists();
+    //     List<ArtistResource> output = new ArrayList<ArtistResource>();
+    //     res.forEach((a)->{
+    //         ArtistResource ar = new ArtistResource(a);
+    //         ar.add(createHateoasLink(a.getId()));
+    //
+    //         output.add(ar);
+    //     });
+    //     return output;
+    // }
 
-            output.add(ar);
-        });
-        return output;
-    }
+
+
+	@GetMapping(value = "/", produces = MediaTypes.HAL_JSON_VALUE)
+	public ResourceSupport root() {
+
+		ResourceSupport rootResource = new ResourceSupport();
+
+		rootResource.add(
+			linkTo(methodOn(ArtistController.class).root()).withSelfRel(),
+			linkTo(methodOn(AlbumController.class).index()).withRel("albumsss"));
+
+		return rootResource;
+	}
+
+
+	@GetMapping(value = "/artists", produces = MediaTypes.HAL_JSON_VALUE)
+	public Resources<Resource<Artist>> index() {
+		return assembler.toResources(springifyService.getArtists());
+	}
+
 
     @PostMapping
     public Artist create(@RequestBody @Valid Artist artist){
