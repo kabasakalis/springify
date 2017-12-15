@@ -41,7 +41,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/artists")
 public class ArtistController extends CoreController{
 
     @Autowired
@@ -79,20 +79,21 @@ public class ArtistController extends CoreController{
 
 
 
-	@GetMapping(value = "/", produces = MediaTypes.HAL_JSON_VALUE)
-	public ResourceSupport root() {
+	// @GetMapping(value = "/api", produces = MediaTypes.HAL_JSON_VALUE)
+	// public ResourceSupport root() {
+  //
+	// 	ResourceSupport rootResource = new ResourceSupport();
+  //
+	// 	rootResource.add(
+	// 		linkTo(methodOn(ArtistController.class).root()).withSelfRel(),
+	// 		linkTo(methodOn(AlbumController.class).index()).withRel("albumsss"));
+  //
+	// 	return rootResource;
+	// }
 
-		ResourceSupport rootResource = new ResourceSupport();
 
-		rootResource.add(
-			linkTo(methodOn(ArtistController.class).root()).withSelfRel(),
-			linkTo(methodOn(AlbumController.class).index()).withRel("albumsss"));
-
-		return rootResource;
-	}
-
-
-	@GetMapping(value = "/artists", produces = MediaTypes.HAL_JSON_VALUE)
+	// @GetMapping(value = "/", produces = MediaTypes.HAL_JSON_VALUE)
+	@GetMapping( produces = MediaTypes.HAL_JSON_VALUE)
 	public Resources<Resource<Artist>> index() {
 		return assembler.toResources(springifyService.getArtists());
 	}
