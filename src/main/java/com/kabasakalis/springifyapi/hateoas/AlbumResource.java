@@ -13,7 +13,6 @@ public class AlbumResource extends ResourceSupport {
     public String year;
     public Calendar created_date;
     public Calendar updated_date;
-    // public Object group;
 
     public AlbumResource(Album model){
         id = model.getId();
@@ -21,7 +20,6 @@ public class AlbumResource extends ResourceSupport {
         year = model.getYear();
         created_date = model.getCreatedDate();
         updated_date = model.getUpdatedDate();
-        // group = model.getGroup();
     }
 
 }

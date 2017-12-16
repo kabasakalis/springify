@@ -10,34 +10,12 @@ import java.util.Calendar;
 
 @Entity
 @Table(name = "users")
-public class User{
+public class User extends BaseEntity {
 
-  private Integer id;
   private String name;
   private String email;
   private String password;
   private String token;
-
-  @CreationTimestamp
-  @Temporal(TemporalType.TIMESTAMP)
-  @Column(name = "created_date")
-  private java.util.Calendar createdDate;
-
-  @UpdateTimestamp
-  @Temporal(TemporalType.TIMESTAMP)
-  @Column(name = "updated_date")
-  private java.util.Calendar updatedDate;
-
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  public Integer getId() {
-    return id;
-  }
-
-  public void setId(Integer id) {
-    this.id = id;
-  }
 
   public String getName() {
     return name;
@@ -72,18 +50,4 @@ public class User{
     this.token = token;
   }
 
-  public Calendar getCreatedDate() {
-    return createdDate;
-  }
-
-  public void setCreatedDate(Calendar created) {
-    this.createdDate = created;
-  }
-  public Calendar getUpdatedDate() {
-    return updatedDate;
-  }
-
-  public void setUpdatedDate(Calendar updated) {
-    this.updatedDate = updated;
-  }
 }

@@ -1,14 +1,17 @@
 package com.kabasakalis.springifyapi.models;
 
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import com.kabasakalis.springifyapi.models.Album;
+import com.kabasakalis.springifyapi.models.BaseEntity;
 import com.kabasakalis.springifyapi.models.Genre;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -17,62 +20,20 @@ import org.springframework.hateoas.Identifiable;
 
 @Entity
 @Table(name = "artists")
-public class Artist implements Identifiable<Long> {
+public class Artist extends BaseEntity {
 
-    private Long id;
     private String name;
     private String country;
-    // private String created;//Todo - Date type...
-
-    private Genre genre;
-
-    @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_date")
-    private java.util.Calendar createdDate;
-
-    @UpdateTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "updated_date")
-    private java.util.Calendar updatedDate;
-
-
-    //relations
-    private List<Album> albums = new ArrayList<Album>();
-
-    @OneToMany(mappedBy = "artist", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JsonManagedReference
-    @JsonIgnore
-    public List<Album> getAlbums() {
-        return albums;
-    }
-    public void setAlbums(List<Album> albums) {
-        this.albums = albums;
-    }
 
     @ManyToOne
     @JoinColumn(name = "genre_id")
     @JsonBackReference
-    public Genre getGenre() {
-        return genre;
-    }
+    private Genre genre;
 
-    public void setGenre(Genre genre) {
-        this.genre = genre;
-    }
-
-
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
+    @OneToMany(mappedBy = "artist", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonManagedReference
+    @JsonIgnore
+    private List<Album> albums = new ArrayList<Album>();
 
     public String getName() {
         return name;
@@ -90,19 +51,21 @@ public class Artist implements Identifiable<Long> {
         this.country = country;
     }
 
-  public Calendar getCreatedDate() {
-    return createdDate;
-  }
+   // relations
+    public Genre getGenre() {
+        return genre;
+    }
 
-  public void setCreatedDate(Calendar created) {
-    this.createdDate = created;
-  }
-  public Calendar getUpdatedDate() {
-    return updatedDate;
-  }
+    public void setGenre(Genre genre) {
+        this.genre = genre;
+    }
 
-  public void setUpdatedDate(Calendar updated) {
-    this.updatedDate = updated;
-  }
+    public List<Album> getAlbums() {
+        return albums;
+    }
+
+    public void setAlbums(List<Album> albums) {
+        this.albums = albums;
+    }
 
 }
