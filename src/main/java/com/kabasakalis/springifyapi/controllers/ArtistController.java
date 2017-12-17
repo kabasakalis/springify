@@ -1,25 +1,19 @@
-
 package  com.kabasakalis.springifyapi.controllers;
 
 import com.kabasakalis.springifyapi.hateoas.ArtistResource;
 import com.kabasakalis.springifyapi.hateoas.ArtistResourceAssembler;
 import com.kabasakalis.springifyapi.models.Artist;
-// import net.vatri.ecommerce.models.ArtistImage;
 
 import com.kabasakalis.springifyapi.services.SpringifyService;
-// import net.vatri.ecommerce.storage.StorageService;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.core.io.Resource;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-// import org.springframework.web.multipart.MultipartFile;
-
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
 
@@ -62,10 +56,12 @@ public class ArtistController extends CoreController{
   //     binder.addValidators(artistValidator);
   // }
 
-  @GetMapping( produces = MediaTypes.HAL_JSON_VALUE)
-    public Resources<Resource<Artist>> index() {
-      return assembler.toResources(springifyService.getArtists());
-    }
+//  @GetMapping("/{id}")
+// @RequestMapping(method = RequestMethod.GET)
+//  @GetMapping( produces = MediaTypes.HAL_JSON_VALUE)
+//    public Resources<Resource<Artist>> index() {
+//      return assembler.toResources(springifyService.getArtists());
+//    }
 
 
   @PostMapping
@@ -73,26 +69,24 @@ public class ArtistController extends CoreController{
     return springifyService.saveArtist(artist);
   }
 
-  @GetMapping("/{id}")
-  public ResourceSupport view(@PathVariable("id") long id){
-    Artist p = springifyService.getArtist(id);
-    ArtistResource pr = new ArtistResource(p);
-    pr.add(createHateoasLink(p.getId()));
-    return pr;
-  }
+//  @GetMapping("/{id}")
+// @RequestMapping(method = RequestMethod.GET)
+//  public ResourceSupport view(@PathVariable("id") long id){
+//    Artist p = springifyService.getArtist(id);
+//    ArtistResource pr = new ArtistResource(p);
+//    pr.add(createHateoasLink(p.getId()));
+//    return pr;
+//  }
 
   @PatchMapping(value = "/{id}")
     public Artist edit(@PathVariable("id") long id, @RequestBody @Valid Artist artist){
-
       Artist updatedArtist = springifyService.getArtist(id);
-
       if(updatedArtist == null){
         return null;
       }
 
       updatedArtist.setName(artist.getName());
       updatedArtist.setCountry(artist.getCountry());
-
       return springifyService.saveArtist(updatedArtist);
     }
 

@@ -2,8 +2,6 @@ package com.kabasakalis.springifyapi.services;
 
 import com.kabasakalis.springifyapi.models.Artist;
 import com.kabasakalis.springifyapi.models.Album;
-// import net.vatri.ecommerce.repositories.GroupRepository;
-// import net.vatri.ecommerce.repositories.OrderRepository;
 import com.kabasakalis.springifyapi.repositories.ArtistRepository;
 import com.kabasakalis.springifyapi.repositories.AlbumRepository;
 import org.hibernate.HibernateException;

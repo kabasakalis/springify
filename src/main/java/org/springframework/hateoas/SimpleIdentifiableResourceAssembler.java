@@ -66,7 +66,7 @@ public class SimpleIdentifiableResourceAssembler<T extends Identifiable<?>> exte
 
 	/**
 	 * Alternate constructor that falls back to {@link EvoInflectorRelProvider}.
-	 * 
+	 *
 	 * @param controllerClass
 	 */
 	public SimpleIdentifiableResourceAssembler(Class<?> controllerClass) {
