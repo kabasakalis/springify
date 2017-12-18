@@ -8,6 +8,8 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.sql.Connection;
@@ -34,8 +36,8 @@ public class SpringifyService {
 
 
     /* ARTIST */
-    public List<Artist> getArtists(){
-        return artistRepository.findAll();
+    public Page<Artist> getArtists(Pageable pageable){
+        return artistRepository.findAll( pageable);
     }
     public Artist getArtist(long id){
         return artistRepository.findOne(id);

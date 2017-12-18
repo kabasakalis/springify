@@ -23,9 +23,9 @@ public class CoreController {
 
 		ResourceSupport rootResource = new ResourceSupport();
 
-		rootResource.add(
-			linkTo(methodOn(ArtistController.class).root()).withSelfRel(),
-			linkTo(methodOn(AlbumController.class).index()).withRel("albumsss"));
+//		rootResource.add(
+//			linkTo(methodOn(ArtistController.class).root()).withSelfRel(),
+//			linkTo(methodOn(AlbumController.class).index()).withRel("albumsss"));
 		return rootResource;
 	}
 
