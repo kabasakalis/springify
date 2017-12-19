@@ -19,44 +19,62 @@ import java.util.List;
 @Service
 public class SpringifyService {
 
-    @Autowired
-    ArtistRepository artistRepository;
+  @Autowired
+  ArtistRepository artistRepository;
 
-    @Autowired
-    AlbumRepository albumRepository;
+  @Autowired
+  AlbumRepository albumRepository;
 
-    // @Autowired
-    // GroupRepository groupRepository;
-
-    // @Autowired
-    // OrderRepository orderRepository;
-
-    @Autowired
-    private SessionFactory sessionFactory;
+  @Autowired
+  private SessionFactory sessionFactory;
 
 
-    /* ARTIST */
-    public Page<Artist> getArtists(Pageable pageable){
-        return artistRepository.findAll( pageable);
-    }
-    public Artist getArtist(long id){
-        return artistRepository.findOne(id);
-    }
-    public Artist saveArtist(Artist artist){
-        return artistRepository.save(artist);
-    }
+  /* ARTIST */
+  public List<Artist> getArtists(){
+    return artistRepository.findAll();
+  }
+
+  public Page<Artist> getPagedArtists(Pageable pageable){
+    return artistRepository.findAll( pageable);
+  }
+
+  public Artist getArtist(long id){
+    return artistRepository.findOne(id);
+  }
+
+  public Artist createArtist(Artist artist){
+    return artistRepository.save(artist);
+  }
+
+  public Artist updateArtist(Long id, Artist artist){
+
+      Artist updatedArtist = getArtist(id);
+      if (updatedArtist == null) {
+        return null;
+      }
+      updatedArtist.setName(artist.getName());
+      updatedArtist.setCountry(artist.getCountry());
+      updatedArtist.setGenre(artist.getGenre());
+      return artistRepository.save(artist);
+  }
 
 
-    /* ALBUM */
-    public List<Album> getAlbums(){
-        return albumRepository.findAll();
-    }
-    public Album getAlbum(long id){
-        return albumRepository.findOne(id);
-    }
-    public Album saveAlbum(Album album){
-        return albumRepository.save(album);
-    }
+  public void deleteArtist(long id){
+    Artist artist =  artistRepository.findOne(id);
+    artistRepository.delete(artist);
+  }
+
+
+  /* ALBUM */
+  public List<Album> getAlbums(){
+    return albumRepository.findAll();
+  }
+  public Album getAlbum(long id){
+    return albumRepository.findOne(id);
+  }
+  public Album saveAlbum(Album album){
+    return albumRepository.save(album);
+  }
 
 
 

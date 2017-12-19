@@ -3,6 +3,7 @@ package com.kabasakalis.springifyapi.controllers;
 import com.kabasakalis.springifyapi.hateoas.ArtistResource;
 import com.kabasakalis.springifyapi.hateoas.ArtistResourceAssembler;
 import com.kabasakalis.springifyapi.models.Artist;
+import com.kabasakalis.springifyapi.controllers.ArtistController;
 
 import com.kabasakalis.springifyapi.services.SpringifyService;
 import org.hibernate.Session;
@@ -45,93 +46,65 @@ import java.util.stream.IntStream;
 @RepositoryRestController
 // @RequestMapping("/api/artistss")
 //@RequestMapping("/artists")
-public class ArtistController {
+public class ArtistController extends CoreController {
 
 
-    private PagedResourcesAssembler<Artist> pagedAssembler;
+  private PagedResourcesAssembler<Artist> pagedAssembler;
 
-    @Autowired
-    private SpringifyService springifyService;
+  @Autowired
+  private SpringifyService springifyService;
 
-    @Autowired
-    private ArtistResourceAssembler assembler;
+  @Autowired
+  private ArtistResourceAssembler assembler;
 
-    @Autowired
-    private SessionFactory sessionFactory;
-
-
-    @Autowired
-    public ArtistController(PagedResourcesAssembler<Artist> pagedAssembler) {
-        this.pagedAssembler = pagedAssembler;
-    }
-    // @Autowired Validator artistValidator;
-
-    // @InitBinder
-    // protected void initBinder(WebDataBinder binder){
-    //     binder.addValidators(artistValidator);
-    // }
-
-    private Page<Artist> getArtists(Pageable pageRequest) {
-//        int totalArtists = 50;
-//        List<Account> artisistsList = IntStream.rangeClosed(1, totalArtists)
-//                .boxed()
-//                .map(value -> new Artist(value, value.toString()))
-//                .skip(pageRequest.getOffset())
-//                .limit(pageRequest.getPageSize())
-//                .collect(Collectors.toList());
-//        return new PageImpl(artisistsList, pageRequest, totalAccounts);
+  @Autowired
+  private SessionFactory sessionFactory;
 
 
-        Page<Artist> artistsList = springifyService.getArtists(pageRequest);
+  @Autowired
+  public ArtistController(PagedResourcesAssembler<Artist> pagedAssembler) {
+    this.pagedAssembler = pagedAssembler;
+  }
+  // @Autowired Validator artistValidator;
 
-//        return new PageImpl(artistsList, pageRequest, 11);
-        return artistsList;
+  // @InitBinder
+  // protected void initBinder(WebDataBinder binder){
+  //     binder.addValidators(artistValidator);
+  // }
+
+
+  @RequestMapping(method = RequestMethod.GET, path = "/artists", produces = MediaTypes.HAL_JSON_VALUE)
+    public ResponseEntity<Page<Artist>> getArtistsHAL(Pageable pageRequest, ArtistResourceAssembler assembler) {
+      return new ResponseEntity(pagedAssembler.toResource(springifyService.getPagedArtists(pageRequest),  assembler), HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/artists", produces = "application/hal+json")
-    public ResponseEntity<Page<Artist>> getArtistHAL(Pageable pageRequest, ArtistResourceAssembler assembler) {
-        return new ResponseEntity(pagedAssembler.toResource(getArtists(pageRequest),  assembler), HttpStatus.OK);
+  @RequestMapping(method = RequestMethod.GET, path = "/artists/{id}", produces = MediaTypes.HAL_JSON_VALUE)
+    public ResponseEntity<Resource<Artist>>  getArtist(@PathVariable Long id) {
+      // return assembler.toResource(springifyService.getArtist(id));
+      return ResponseEntity.ok(assembler.toResource(springifyService.getArtist(id)));
+
     }
 
-
-//    @GetMapping(produces = MediaTypes.HAL_JSON_VALUE)
-////  @GetMapping("/{id}")
-//// @RequestMapping(method = RequestMethod.GET)
-////  @GetMapping( produces = MediaTypes.HAL_JSON_VALUE)
-//    public Resources<Resource<Artist>> index() {
-//
-//        // return assembler.toResources(new ArrayList<>());
-//        return assembler.toResources(springifyService.getArtists());
-//    }
+  @RequestMapping(method = RequestMethod.POST, path = "/artists", produces = MediaTypes.HAL_JSON_VALUE)
+    public ResponseEntity<Resource<Artist>>  createArtist(@RequestBody @Valid Artist artist) {
+      Artist createdArtist = springifyService.createArtist(artist);
+		return ResponseEntity
+			// .created(linkTo(methodOn(ArtistController.class).findOne(createdArtist.getId())).toUri())
+			.created(createHateoasLink(createdArtist.getId()))
+			.body(assembler.toResource(createdArtist));
+	}
 
 
-    @PostMapping
-    public Artist create(@RequestBody @Valid Artist artist) {
-        return springifyService.saveArtist(artist);
+  @RequestMapping(method = RequestMethod.PATCH, path = "/artists/{id}", produces = MediaTypes.HAL_JSON_VALUE)
+    public ResponseEntity<Resource<Artist>>  updateArtist(@RequestBody @Valid Artist artist, @PathVariable Long id) {
+      return springifyService.updateArtist(id, artist);
+      return ResponseEntity.noContent();
     }
 
-//  @GetMapping("/{id}")
-// @RequestMapping(method = RequestMethod.GET)
-//  public ResourceSupport view(@PathVariable("id") long id){
-//    Artist p = springifyService.getArtist(id);
-//    ArtistResource pr = new ArtistResource(p);
-//    pr.add(createHateoasLink(p.getId()));
-//    return pr;
-//  }
-
-    @PatchMapping(value = "/{id}")
-    public Artist edit(@PathVariable("id") long id, @RequestBody @Valid Artist artist) {
-        Artist updatedArtist = springifyService.getArtist(id);
-        if (updatedArtist == null) {
-            return null;
-        }
-
-        updatedArtist.setName(artist.getName());
-        updatedArtist.setCountry(artist.getCountry());
-        return springifyService.saveArtist(updatedArtist);
+  @RequestMapping(method = RequestMethod.DELETE, path = "/artists/{id}", produces = MediaTypes.HAL_JSON_VALUE)
+    public ResponseEntity<Resource<Artist>> deleteArtist(@PathVariable Long id) {
+      springifyService.deleteArtist(id);
+      return ResponseEntity.noContent();
     }
-
-
-    // Todo: add delete method
 
 }
