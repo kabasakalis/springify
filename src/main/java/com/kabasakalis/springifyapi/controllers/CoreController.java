@@ -18,16 +18,16 @@ public class CoreController {
         return link;
     }
 
-	@GetMapping(value = "/home", produces = MediaTypes.HAL_JSON_VALUE)
-	public ResourceSupport root() {
-
-		ResourceSupport rootResource = new ResourceSupport();
-
-//		rootResource.add(
-//			linkTo(methodOn(ArtistController.class).root()).withSelfRel(),
-//			linkTo(methodOn(AlbumController.class).index()).withRel("albumsss"));
-		return rootResource;
-	}
+// 	@GetMapping(value = "/home", produces = MediaTypes.HAL_JSON_VALUE)
+// 	public ResourceSupport root() {
+//
+// 		ResourceSupport rootResource = new ResourceSupport();
+//
+// //		rootResource.add(
+// //			linkTo(methodOn(ArtistController.class).root()).withSelfRel(),
+// //			linkTo(methodOn(AlbumController.class).index()).withRel("albumsss"));
+// 		return rootResource;
+// 	}
 
 
 

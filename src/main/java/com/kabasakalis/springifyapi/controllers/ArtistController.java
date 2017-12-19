@@ -34,14 +34,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpHeaders;
 
-
+import org.springframework.hateoas.Link;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.net.URI;
+import java.util.Optional;
+
 
 @RepositoryRestController
 // @RequestMapping("/api/artistss")
@@ -78,33 +82,84 @@ public class ArtistController extends CoreController {
       return new ResponseEntity(pagedAssembler.toResource(springifyService.getPagedArtists(pageRequest),  assembler), HttpStatus.OK);
     }
 
-  @RequestMapping(method = RequestMethod.GET, path = "/artists/{id}", produces = MediaTypes.HAL_JSON_VALUE)
-    public ResponseEntity<Resource<Artist>>  getArtist(@PathVariable Long id) {
-      // return assembler.toResource(springifyService.getArtist(id));
-      return ResponseEntity.ok(assembler.toResource(springifyService.getArtist(id)));
 
-    }
+  // @RequestMapping(method = RequestMethod.POST, path = "/artists", produces = MediaTypes.HAL_JSON_VALUE)
+  //   ResponseEntity<Void> createArtist( @RequestBody Artist a) {
+  //
+  //       Artist createdArtist = springifyService.createArtist(artist);
+  //       HttpHeaders httpHeaders = new HttpHeaders();
+  //       httpHeaders.setLocation(linkTo(methodOn(getClass()).loadSingleUserCustomer(user, customer.getId())).toUri());
+  //
+  //       return new ResponseEntity<>(httpHeaders, HttpStatus.CREATED);
+  //   }
 
-  @RequestMapping(method = RequestMethod.POST, path = "/artists", produces = MediaTypes.HAL_JSON_VALUE)
+@RequestMapping(method = RequestMethod.POST, path = "/artists", produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<Resource<Artist>>  createArtist(@RequestBody @Valid Artist artist) {
       Artist createdArtist = springifyService.createArtist(artist);
-		return ResponseEntity
-			// .created(linkTo(methodOn(ArtistController.class).findOne(createdArtist.getId())).toUri())
-			.created(createHateoasLink(createdArtist.getId()))
-			.body(assembler.toResource(createdArtist));
-	}
+       Link  artist_location = createHateoasLink(createdArtist.getId());
+      return ResponseEntity
+        // .created(linkTo(methodOn(ArtistController.class).findOne(createdArtist.getId())).toUri())
+        .created(createHateoasLink(createdArtist.getId()))
+        .body(assembler.toResource(createdArtist));
 
+        HttpHeaders httpHeaders = new HttpHeaders();
+        URI loc = new URI(artist_location.getHref());
+        // System.out.println(artist_location.getHref());
 
-  @RequestMapping(method = RequestMethod.PATCH, path = "/artists/{id}", produces = MediaTypes.HAL_JSON_VALUE)
-    public ResponseEntity<Resource<Artist>>  updateArtist(@RequestBody @Valid Artist artist, @PathVariable Long id) {
-      return springifyService.updateArtist(id, artist);
-      return ResponseEntity.noContent();
+        httpHeaders.setLocation(loc);
+        return new ResponseEntity<>(assembler.toResource(createdArtist), httpHeaders, HttpStatus.CREATED);
+        // return new ResponseEntity<>(  HttpStatus.CREATED);
     }
 
-  @RequestMapping(method = RequestMethod.DELETE, path = "/artists/{id}", produces = MediaTypes.HAL_JSON_VALUE)
-    public ResponseEntity<Resource<Artist>> deleteArtist(@PathVariable Long id) {
-      springifyService.deleteArtist(id);
-      return ResponseEntity.noContent();
+
+  // @RequestMapping(method = RequestMethod.GET, path = "/artists/{id}", produces = MediaTypes.HAL_JSON_VALUE)
+  //   public ResponseEntity<Resource<Artist>>  getArtist(@PathVariable Long id) {
+  //
+  //     // return assembler.toResource(springifyService.getArtist(id));
+  //
+  //     return this.springifyService
+  //       .getArtist(id)
+  //       .map(artist -> {
+  //         // Bookmark result = bookmarkRepository.save(new Bookmark(account,
+  //         //       input.uri, input.description));
+  //
+  //         // URI location = ServletUriComponentsBuilder
+  //         //   .fromCurrentRequest().path("/{id}")
+  //         //   .buildAndExpand(result.getId()).toUri();
+  //
+  //         URI artist_location = createHateoasLink(id).toUri();
+  //        Resource<?>  artistHAL = assembler.toResource(artist);
+  //        return ResponseEntity.ok(artistHAL).build();
+  //       })
+  //     .orElse(ResponseEntity.notFound().build());
+  //
+  //
+  //
+  //     // return ResponseEntity.ok(assembler.toResource(springifyService.getArtist(id)));
+  //
+  //   }
+
+
+  @RequestMapping(method = RequestMethod.GET, path = "/artists/{id}", produces = MediaTypes.HAL_JSON_VALUE)
+    ResponseEntity<Resource<Artist>> getArtist(@PathVariable Long id) {
+        return  this.springifyService.getArtist(id)
+                .map(a -> new ResponseEntity<>(assembler.toResource(a), HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+                // .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
     }
+
+
+
+  // @RequestMapping(method = RequestMethod.PATCH, path = "/artists/{id}", produces = MediaTypes.HAL_JSON_VALUE)
+  //   public ResponseEntity<Resource<Artist>>  updateArtist(@RequestBody @Valid Artist artist, @PathVariable Long id) {
+  //     return springifyService.updateArtist(id, artist);
+  //     return ResponseEntity.noContent();
+  //   }
+  //
+  // @RequestMapping(method = RequestMethod.DELETE, path = "/artists/{id}", produces = MediaTypes.HAL_JSON_VALUE)
+  //   public ResponseEntity<Resource<Artist>> deleteArtist(@PathVariable Long id) {
+  //     springifyService.deleteArtist(id);
+  //     return ResponseEntity.noContent();
+  //   }
 
 }

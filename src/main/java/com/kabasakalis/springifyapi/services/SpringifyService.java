@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SpringifyService {
@@ -38,25 +39,31 @@ public class SpringifyService {
     return artistRepository.findAll( pageable);
   }
 
-  public Artist getArtist(long id){
-    return artistRepository.findOne(id);
+  // public Optional<Artist> getArtist(long id){
+  //   return artistRepository.findOne(id);
+  // }
+
+  public Optional<Artist> getArtist(long id){
+    return artistRepository.findById(id);
   }
+
+
 
   public Artist createArtist(Artist artist){
     return artistRepository.save(artist);
   }
 
-  public Artist updateArtist(Long id, Artist artist){
-
-      Artist updatedArtist = getArtist(id);
-      if (updatedArtist == null) {
-        return null;
-      }
-      updatedArtist.setName(artist.getName());
-      updatedArtist.setCountry(artist.getCountry());
-      updatedArtist.setGenre(artist.getGenre());
-      return artistRepository.save(artist);
-  }
+  // public Artist updateArtist(Long id, Artist artist){
+  //
+  //     Artist updatedArtist = getArtist(id);
+  //     if (updatedArtist == null) {
+  //       return null;
+  //     }
+  //     updatedArtist.setName(artist.getName());
+  //     updatedArtist.setCountry(artist.getCountry());
+  //     updatedArtist.setGenre(artist.getGenre());
+  //     return artistRepository.save(artist);
+  // }
 
 
   public void deleteArtist(long id){
