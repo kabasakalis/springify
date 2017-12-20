@@ -2,8 +2,10 @@ package com.kabasakalis.springifyapi.services;
 
 import com.kabasakalis.springifyapi.models.Artist;
 import com.kabasakalis.springifyapi.models.Album;
+import com.kabasakalis.springifyapi.models.Genre;
 import com.kabasakalis.springifyapi.repositories.ArtistRepository;
 import com.kabasakalis.springifyapi.repositories.AlbumRepository;
+import com.kabasakalis.springifyapi.repositories.GenreRepository;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -25,6 +27,10 @@ public class SpringifyService {
 
   @Autowired
   AlbumRepository albumRepository;
+
+  @Autowired
+  GenreRepository genreRepository;
+
 
   @Autowired
   private SessionFactory sessionFactory;
@@ -86,6 +92,18 @@ public class SpringifyService {
   }
   public Album saveAlbum(Album album){
     return albumRepository.save(album);
+  }
+
+
+  /* Genres */
+  public List<Genre> getGenres(){
+    return genreRepository.findAll();
+  }
+  public Genre getGenre(long id){
+    return genreRepository.findOne(id);
+  }
+  public Genre saveGenre(Genre genre){
+    return genreRepository.save(genre);
   }
 
 

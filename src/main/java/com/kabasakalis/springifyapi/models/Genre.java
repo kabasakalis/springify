@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "genres")
 public class Genre  extends BaseEntity {
 
-  private Long id;
   private String name;
 
   @OneToMany(mappedBy = "genre", fetch = FetchType.EAGER, cascade = CascadeType.ALL)

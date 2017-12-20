@@ -15,7 +15,7 @@ import org.springframework.hateoas.Resource;
 public class AlbumResourceAssembler extends SimpleIdentifiableResourceAssembler<Album> {
 
 	AlbumResourceAssembler() {
-		super(ArtistController.class);
+		super(AlbumController.class);
 	}
 
 
