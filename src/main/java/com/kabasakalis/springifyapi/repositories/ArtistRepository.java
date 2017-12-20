@@ -16,5 +16,5 @@ import java.util.Optional;
 @RepositoryRestResource(collectionResourceRel = "artists", path = "artists")
 public interface ArtistRepository extends JpaRepository<Artist, Long> {
   Optional<Artist> findById(Long id);
-
+  // Artist addArtist(long genreId, String name, String country);
 }

@@ -4,6 +4,7 @@ import com.kabasakalis.springifyapi.hateoas.ArtistResource;
 import com.kabasakalis.springifyapi.hateoas.ArtistResourceAssembler;
 import com.kabasakalis.springifyapi.models.Artist;
 import com.kabasakalis.springifyapi.controllers.ArtistController;
+import com.kabasakalis.springifyapi.repositories.ArtistRepository;
 
 import com.kabasakalis.springifyapi.services.SpringifyService;
 import org.hibernate.Session;
@@ -59,6 +60,10 @@ public class ArtistController extends CoreController {
   private SpringifyService springifyService;
 
   @Autowired
+  private ArtistRepository artistRepository;
+
+
+  @Autowired
   private ArtistResourceAssembler assembler;
 
   @Autowired
@@ -94,21 +99,27 @@ public class ArtistController extends CoreController {
   //   }
 
 @RequestMapping(method = RequestMethod.POST, path = "/artists", produces = MediaTypes.HAL_JSON_VALUE)
-    public ResponseEntity<Resource<Artist>>  createArtist(@RequestBody @Valid Artist artist) {
-      Artist createdArtist = springifyService.createArtist(artist);
-       Link  artist_location = createHateoasLink(createdArtist.getId());
-      return ResponseEntity
-        // .created(linkTo(methodOn(ArtistController.class).findOne(createdArtist.getId())).toUri())
-        .created(createHateoasLink(createdArtist.getId()))
-        .body(assembler.toResource(createdArtist));
+    public ResponseEntity<Resource<Artist>>  createArtist(@RequestBody Artist artist) {
 
-        HttpHeaders httpHeaders = new HttpHeaders();
-        URI loc = new URI(artist_location.getHref());
+       // Artist createdArtist = springifyService.createArtist(artist);
+      Artist createdArtist = new Artist();
+
+      createdArtist.setGenre( artist.getGenre());
+      createdArtist.setName( artist.getName());
+      createdArtist.setCountry( artist.getCountry());
+        Artist a = springifyService.createArtist(createdArtist);
+       // Link  artist_location = createHateoasLink(createdArtist.getId());
+      // return ResponseEntity.body(assembler.toResource(createdArtist));
+        // .created(linkTo(methodOn(ArtistController.class).findOne(createdArtist.getId())).toUri())
+        // .created(createHateoasLink(createdArtist.getId()))
+
+        // HttpHeaders httpHeaders = new HttpHeaders();
+        // URI loc = new URI(artist_location.getHref());
         // System.out.println(artist_location.getHref());
 
-        httpHeaders.setLocation(loc);
-        return new ResponseEntity<>(assembler.toResource(createdArtist), httpHeaders, HttpStatus.CREATED);
-        // return new ResponseEntity<>(  HttpStatus.CREATED);
+        // httpHeaders.setLocation(loc);
+        // return new ResponseEntity<>(assembler.toResource(createdArtist), httpHeaders, HttpStatus.CREATED);
+        return new ResponseEntity<>(  HttpStatus.CREATED);
     }
 
 

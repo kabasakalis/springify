@@ -53,6 +53,11 @@ public class SpringifyService {
     return artistRepository.save(artist);
   }
 
+  // public Artist createArtist(Artist artist){
+  //   return artistRepository.addArtist(artist.getGenre().getId(), artist.getName(), artist.getCountry());
+  // }
+
+
   // public Artist updateArtist(Long id, Artist artist){
   //
   //     Artist updatedArtist = getArtist(id);

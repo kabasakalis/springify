@@ -24,6 +24,7 @@ public class Artist extends BaseEntity {
 
     private String name;
     private String country;
+    // private long genre_id;
 
     @ManyToOne
     @JoinColumn(name = "genre_id")
@@ -59,6 +60,12 @@ public class Artist extends BaseEntity {
     public void setGenre(Genre genre) {
         this.genre = genre;
     }
+
+    // public Long getGenreId() {
+    //     return genre_id;
+    // }
+
+
 
     public List<Album> getAlbums() {
         return albums;
