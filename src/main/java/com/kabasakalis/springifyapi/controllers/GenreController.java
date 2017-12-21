@@ -62,7 +62,7 @@ public class GenreController extends CoreController{
   private SpringifyService springifyService;
 
   @Autowired
-  private  GenreResourceAssembler assembler;
+  private  GenreResourceAssembler genreAssembler;
 
   @Autowired
   private  ArtistResourceAssembler artistAssembler;
@@ -77,33 +77,48 @@ public class GenreController extends CoreController{
   @Autowired
   ArtistRepository artistRepository;
 
-  private PagedResourcesAssembler<Genre> pagedAssembler;
+  private PagedResourcesAssembler<Genre> pagedGenreAssembler;
   private PagedResourcesAssembler<Artist> artistPagedAssembler;
 
   @Autowired
-  public GenreController(PagedResourcesAssembler<Genre> pagedAssembler, PagedResourcesAssembler<Artist> artistPagedAssembler) {
-    this.pagedAssembler = pagedAssembler;
+  public GenreController(PagedResourcesAssembler<Genre> pagedGenreAssembler, PagedResourcesAssembler<Artist> artistPagedAssembler) {
+    this.pagedGenreAssembler = pagedGenreAssembler;
     this.artistPagedAssembler = artistPagedAssembler;
   }
 
 
-  @RequestMapping(method = RequestMethod.GET, path = "/genres", produces = MediaTypes.HAL_JSON_VALUE)
-    public ResponseEntity<Page<Genre>> getGenresHAL(Pageable pageRequest, GenreResourceAssembler assembler) {
-      return new ResponseEntity(pagedAssembler.toResource(genreRepository.findAll( pageRequest),  assembler), HttpStatus.OK);
-    }
+  @RequestMapping(
+  method = RequestMethod.GET,
+  path = "/genres",
+  produces = MediaTypes.HAL_JSON_VALUE)
+    public ResponseEntity<Page<Genre>> getGenres(
+        Pageable pageRequest,
+        GenreResourceAssembler genreAssembler) {
+            Resources<Genre> pagedGenres = pagedGenreAssembler.toResource(genreRepository.findAll( pageRequest), genreAssembler);
+            return new ResponseEntity(pagedGenres, HttpStatus.OK);
+        }
 
-  @RequestMapping(method = RequestMethod.GET, path = "/genres/{id}", produces = MediaTypes.HAL_JSON_VALUE)
+  @RequestMapping(
+  method = RequestMethod.GET,
+  path = "/genres/{id}",
+  produces = MediaTypes.HAL_JSON_VALUE)
     ResponseEntity<Resource<Genre>> getGenre(@PathVariable Long id) {
-        return  this.genreRepository.findById(id)
-                .map(g -> new ResponseEntity<>(assembler.toResource(g), HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+      return  this.genreRepository.findById(id)
+        .map(g -> new ResponseEntity<>(artistAssembler.toResource(g), HttpStatus.OK))
+        .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
 
-  @RequestMapping(method = RequestMethod.GET, path = "/genres/{id}/artists", produces = MediaTypes.HAL_JSON_VALUE)
-    public ResponseEntity<Page<Artist>> getGenreArtistsHAL(Pageable pageRequest, ArtistResourceAssembler artistAssembler, @PathVariable Long id) {
-      return new ResponseEntity(artistPagedAssembler.toResource(artistRepository.findAllByGenreId(id,pageRequest),  artistAssembler), HttpStatus.OK);
-    }
-
+  @RequestMapping(
+  method = RequestMethod.GET,
+  path = "/genres/{id}/artists",
+  produces = MediaTypes.HAL_JSON_VALUE)
+    public ResponseEntity<Page<Artist>> getGenreArtists(
+        Pageable pageRequest,
+        ArtistResourceAssembler artistAssembler,
+        @PathVariable Long id) {
+            Resources<Artist> pagedGenreArtists = artistPagedAssembler.toResource(artistRepository.findAllByGenreId(id,pageRequest), artistAssembler);
+            return new ResponseEntity( pagedGenreArtists, HttpStatus.OK);
+        }
 
 }
