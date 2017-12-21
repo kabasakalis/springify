@@ -89,14 +89,14 @@ public class GenreController extends CoreController{
 
   @RequestMapping(
   method = RequestMethod.GET,
-  path = "/genres",
-  produces = MediaTypes.HAL_JSON_VALUE)
+  path = "/genres",  produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<Page<Genre>> getGenres(
         Pageable pageRequest,
         GenreResourceAssembler genreAssembler) {
-            Resources<Genre> pagedGenres = pagedGenreAssembler.toResource(genreRepository.findAll( pageRequest), genreAssembler);
+            PagedResources<Resource<Genre>> pagedGenres = pagedGenreAssembler.toResource(genreRepository.findAll( pageRequest), genreAssembler);
             return new ResponseEntity(pagedGenres, HttpStatus.OK);
         }
+
 
   @RequestMapping(
   method = RequestMethod.GET,
@@ -104,7 +104,7 @@ public class GenreController extends CoreController{
   produces = MediaTypes.HAL_JSON_VALUE)
     ResponseEntity<Resource<Genre>> getGenre(@PathVariable Long id) {
       return  this.genreRepository.findById(id)
-        .map(g -> new ResponseEntity<>(artistAssembler.toResource(g), HttpStatus.OK))
+        .map(g -> new ResponseEntity<>(genreAssembler.toResource(g), HttpStatus.OK))
         .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
@@ -117,7 +117,7 @@ public class GenreController extends CoreController{
         Pageable pageRequest,
         ArtistResourceAssembler artistAssembler,
         @PathVariable Long id) {
-            Resources<Artist> pagedGenreArtists = artistPagedAssembler.toResource(artistRepository.findAllByGenreId(id,pageRequest), artistAssembler);
+            PagedResources<Resource<Artist>>  pagedGenreArtists = artistPagedAssembler.toResource(artistRepository.findAllByGenreId(id,pageRequest), artistAssembler);
             return new ResponseEntity( pagedGenreArtists, HttpStatus.OK);
         }
 

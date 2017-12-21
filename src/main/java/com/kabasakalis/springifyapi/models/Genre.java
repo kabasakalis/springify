@@ -14,8 +14,8 @@ public class Genre  extends BaseEntity {
 
   private String name;
 
-  @OneToMany(mappedBy = "genre", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @OneToMany(mappedBy = "genre", orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    // @JsonManagedReference
     @JsonIgnore
     private List<Artist> artists = new ArrayList<Artist>();
 

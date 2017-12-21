@@ -19,53 +19,58 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 
-@MappedSuperclass
-@JsonInclude(JsonInclude.Include.NON_EMPTY)
-@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-public abstract class BaseEntity implements  Identifiable<Long>  {
+  @MappedSuperclass
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+  public abstract class BaseEntity implements  Identifiable<Long>  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 
     @Column(name = "created_date")
-    @CreatedDate
-    @Temporal(TemporalType.TIMESTAMP)
-    protected Calendar createdDate;
+      @CreatedDate
+      @Temporal(TemporalType.TIMESTAMP)
+      protected Calendar createdDate;
 
     @Column(name = "updated_date")
-    @LastModifiedDate
-    @Temporal(TemporalType.TIMESTAMP)
-    protected Calendar updatedDate;
+      @LastModifiedDate
+      @Temporal(TemporalType.TIMESTAMP)
+      protected Calendar updatedDate;
 
     @PrePersist
     @PreUpdate
     public void prePersist() {
-        Calendar now = Calendar.getInstance();
-        if (createdDate == null) {
-            createdDate = now;
-        }
-        updatedDate = now;
+      Calendar now = Calendar.getInstance();
+      if (createdDate == null) {
+        createdDate = now;
+      }
+      updatedDate = now;
     }
 
     protected BaseEntity() {
     }
 
     public Long getId() {
-        return id;
+      return id;
     }
 
-  public Calendar getCreatedDate() {
-    return createdDate;
-  }
-  public void setCreatedDate(Calendar created) {
-    this.createdDate = created;
-  }
-  public Calendar getUpdatedDate() {
-    return updatedDate;
-  }
+    public void setId(Long id) {
+      this.id = id;
+    }
 
-  public void setUpdatedDate(Calendar updated) {
-    this.updatedDate = updated;
+
+    public Calendar getCreatedDate() {
+      return createdDate;
+    }
+    public void setCreatedDate(Calendar created) {
+      this.createdDate = created;
+    }
+    public Calendar getUpdatedDate() {
+      return updatedDate;
+    }
+
+    public void setUpdatedDate(Calendar updated) {
+      this.updatedDate = updated;
+    }
   }
-}

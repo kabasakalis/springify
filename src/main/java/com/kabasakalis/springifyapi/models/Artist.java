@@ -28,10 +28,10 @@ public class Artist extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "genre_id")
-    @JsonBackReference
+    // @JsonBackReference
     private Genre genre;
 
-    @OneToMany(mappedBy = "artist", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "artist", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @JsonManagedReference
     @JsonIgnore
     private List<Album> albums = new ArrayList<Album>();
@@ -60,11 +60,6 @@ public class Artist extends BaseEntity {
     public void setGenre(Genre genre) {
         this.genre = genre;
     }
-
-    // public Long getGenreId() {
-    //     return genre_id;
-    // }
-
 
 
     public List<Album> getAlbums() {
