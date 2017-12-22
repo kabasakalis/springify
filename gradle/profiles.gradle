@@ -14,6 +14,7 @@
 def prodProfile='prod'
 def devProfile='dev'
 def testsProfile='tests'
+def debProfile='deb'
 def propertyDrivenProfile;
 
 if (project.hasProperty("${prodProfile}")) {
@@ -32,6 +33,11 @@ if (project.hasProperty("${prodProfile}")) {
   // Used for development environment
   propertyDrivenProfile = devProfile
     apply from: rootProject.file("./gradle/${devProfile}.gradle");
+} else if (project.hasProperty('deb')) {
+
+  // Used for development environment
+  propertyDrivenProfile = devProfile
+    apply from: rootProject.file("./gradle/${debProfile}.gradle");
 
 } else {
 

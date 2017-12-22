@@ -27,7 +27,7 @@ public class CoreController {
 // //			linkTo(methodOn(ArtistController.class).root()).withSelfRel(),
 // //			linkTo(methodOn(AlbumController.class).index()).withRel("albumsss"));
 // 		return rootResource;
-// 	}
+// 	ction CloseContent
 
 
 

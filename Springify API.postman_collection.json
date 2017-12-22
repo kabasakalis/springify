@@ -1,0 +1,350 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Springify API",
+		"_postman_id": "3e6490a8-b0b1-46e8-0412-99ee846408d8",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Artists",
+			"description": "",
+			"item": [
+				{
+					"name": "Get Artist",
+					"request": {
+						"url": "http://localhost:8080/api/artists/1003",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/hal+json;charset=UTF-8",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
+								"description": "",
+								"disabled": true
+							}
+						],
+						"body": {},
+						"description": "Perform a filtered search for message event data. The response is sorted by descending timestamp.\n\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Artists",
+					"request": {
+						"url": "http://localhost:8080/api/artists",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/hal+json;charset=UTF-8",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
+								"description": "",
+								"disabled": true
+							}
+						],
+						"body": {},
+						"description": "Perform a filtered search for message event data. The response is sorted by descending timestamp."
+					},
+					"response": []
+				},
+				{
+					"name": "Add Artist",
+					"request": {
+						"url": "http://localhost:8080/api/artists",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/hal+json;charset=UTF-8",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
+								"description": "",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"name\": \"Vio-lence\",\n\"country\": \"USA\"\n}"
+						},
+						"description": "Perform a filtered search for message event data. The response is sorted by descending timestamp."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Artist",
+					"request": {
+						"url": "http://localhost:8080/api/artists/1010",
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/hal+json;charset=UTF-8",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
+								"description": "",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"name\": \"Vio-lence _____\",\n\"country\": \"USA _____\"\n}"
+						},
+						"description": "Perform a filtered search for message event data. The response is sorted by descending timestamp."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Artist",
+					"request": {
+						"url": "http://localhost:8080/api/artists/1010",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/hal+json;charset=UTF-8",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
+								"description": "",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Perform a filtered search for message event data. The response is sorted by descending timestamp."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Albums",
+			"description": "",
+			"item": [
+				{
+					"name": "Get All Albums",
+					"request": {
+						"url": "http://localhost:8080/api/albums/",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get One Album",
+					"request": {
+						"url": "http://localhost:8080/api/albums/1",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add One Album",
+					"request": {
+						"url": "http://localhost:8080/api/albums",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\": \"Rockstar\",\n\"year\": \"2017\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update One Album",
+					"request": {
+						"url": "http://localhost:8080/api/albums/10000",
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\": \"Rockstar3213213\",\n\"year\": \"2020\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete One Album",
+					"request": {
+						"url": "http://localhost:8080/api/albums/10000",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\": \"Rockstar3213213\",\n\"year\": \"2020\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Genres",
+			"description": "",
+			"item": [
+				{
+					"name": "Get All Genres",
+					"request": {
+						"url": "http://localhost:8080/api/genres",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\": \"Rockstar3213213\",\n\"year\": \"2020\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get One Genre",
+					"request": {
+						"url": "http://localhost:8080/api/genres/1",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\": \"Rockstar3213213\",\n\"year\": \"2020\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add One Genre",
+					"request": {
+						"url": "http://localhost:8080/api/genres",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\": \"PsyTrance\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update One Genre",
+					"request": {
+						"url": "http://localhost:8080/api/genres/100",
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\": \"PsyTrance KOKO\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete One Genre",
+					"request": {
+						"url": "http://localhost:8080/api/genres/100",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

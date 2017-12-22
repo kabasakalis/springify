@@ -1,4 +1,4 @@
-println 'Loaded dev.gradle'
+println 'Loaded deb.gradle'
 // dependencies {
 //     // Start: Webserver
 //     providedCompile 'org.springframework.boot:spring-boot-starter-tomcat'
@@ -8,3 +8,4 @@ println 'Loaded dev.gradle'
 //     compile 'mysql:mysql-connector-java:5.1.6'
 //     // End: Database
 // }
+applicationDefaultJvmArgs = ["-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005" ]

@@ -12,5 +12,5 @@ import org.springframework.data.domain.Pageable;
 
 @Repository("albumRepository")
 public interface AlbumRepository extends JpaRepository<Album, Long> {
- Page<Album> findAllByArtistId(Long id, Pageable pageable);
+ Page<Album> findAllByArtistId(Long artistId, Pageable pageable);
 }
