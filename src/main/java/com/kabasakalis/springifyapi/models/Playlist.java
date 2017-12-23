@@ -16,8 +16,8 @@ public class Playlist extends BaseEntity {
   private Long id;
   private String name;
 
-  @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "playlist_album",
+  @ManyToMany
+  @JoinTable(name = "playlists_albums",
         joinColumns = @JoinColumn(name = "playlist_id", referencedColumnName = "id"),
         inverseJoinColumns = @JoinColumn(name = "album_id", referencedColumnName = "id"))
     private List<Album> albums = new ArrayList<Album>();

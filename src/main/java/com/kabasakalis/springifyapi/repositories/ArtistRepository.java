@@ -15,14 +15,15 @@ import org.springframework.transaction.annotation.Transactional;
 //@Repository("artistRepository")
 //public interface ArtistRepository extends JpaRepository<Artist, Long> {
 //
+
 //}
 
 @Transactional
 @RepositoryRestResource(collectionResourceRel = "artists", path = "artists")
 public interface ArtistRepository extends JpaRepository<Artist, Long> {
-  Optional<Artist> findById(Long id);
-  Optional<Artist> findArtistById(Long id);
-  void  deleteById(Long id);
+//  Optional<Artist> findById(Long id);
+//  Optional<Artist> findArtistById(Long id);
+//  void  deleteById(Long id);
   // Artist addArtist(long genreId, String name, String country);
- Page<Artist> findAllByGenreId(Long id, Pageable pageable);
+ List<Artist> findAllByGenreId(Long id, Pageable pageable);
 }
