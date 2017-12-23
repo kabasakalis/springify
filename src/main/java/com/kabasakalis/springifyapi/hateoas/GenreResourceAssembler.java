@@ -16,5 +16,13 @@ public class GenreResourceAssembler extends SimpleIdentifiableResourceAssembler<
 	GenreResourceAssembler() {
 		super(GenreController.class);
 	}
+		@Override
+	protected void addLinks(Resource<Genre> resource) {
+
+		 resource.add(getCollectionLinkBuilder().slash(resource.getContent()).withSelfRel());
+		 resource.add(getCollectionLinkBuilder().slash(resource.getContent()).withSelfRel());
+			 resource.add(getCollectionLinkBuilder().slash(resource.getContent()).withSelfRel());
+		// resource.add(getCollectionLinkBuilder().withRel(this.relProvider.getCollectionResourceRelFor(this.resourceType)));
+	}
 
 }
