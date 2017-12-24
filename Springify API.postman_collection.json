@@ -149,6 +149,140 @@
 						"description": "Perform a filtered search for message event data. The response is sorted by descending timestamp."
 					},
 					"response": []
+				},
+				{
+					"name": "Get Artists By Country",
+					"request": {
+						"url": {
+							"raw": "http://localhost:8080/api/artists/findByCountry?country=Aus",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"artists",
+								"findByCountry"
+							],
+							"query": [
+								{
+									"key": "country",
+									"value": "Aus",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/hal+json;charset=UTF-8",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
+								"description": "",
+								"disabled": true
+							}
+						],
+						"body": {},
+						"description": "Perform a filtered search for message event data. The response is sorted by descending timestamp."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Artists By Name",
+					"request": {
+						"url": {
+							"raw": "http://localhost:8080/api/artists/findByName?name=KI",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"artists",
+								"findByName"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "KI",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/hal+json;charset=UTF-8",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
+								"description": "",
+								"disabled": true
+							}
+						],
+						"body": {},
+						"description": "Perform a filtered search for message event data. The response is sorted by descending timestamp."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Artist Albums",
+					"request": {
+						"url": "http://localhost:8080/api/artists/1/albums",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/hal+json;charset=UTF-8",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
+								"description": "",
+								"disabled": true
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Artist Genre",
+					"request": {
+						"url": "http://localhost:8080/api/artists/1/genre",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/hal+json;charset=UTF-8",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
+								"description": "",
+								"disabled": true
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
 				}
 			]
 		},
@@ -341,6 +475,151 @@
 							"raw": ""
 						},
 						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Playlists",
+			"description": "",
+			"item": [
+				{
+					"name": "Get Playlists",
+					"request": {
+						"url": "http://localhost:8080/api/playlists",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/hal+json;charset=UTF-8",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
+								"description": "",
+								"disabled": true
+							}
+						],
+						"body": {},
+						"description": "Perform a filtered search for message event data. The response is sorted by descending timestamp."
+					},
+					"response": []
+				},
+				{
+					"name": "Get  One Playlist",
+					"request": {
+						"url": "http://localhost:8080/api/playlists/4",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/hal+json;charset=UTF-8",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
+								"description": "",
+								"disabled": true
+							}
+						],
+						"body": {},
+						"description": "Perform a filtered search for message event data. The response is sorted by descending timestamp."
+					},
+					"response": []
+				},
+				{
+					"name": "Add One Playlist",
+					"request": {
+						"url": "http://localhost:8080/api/playlists",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/hal+json;charset=UTF-8",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
+								"description": "",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\": \"Top Albania\"}"
+						},
+						"description": "Perform a filtered search for message event data. The response is sorted by descending timestamp."
+					},
+					"response": []
+				},
+				{
+					"name": "Update One Playlist",
+					"request": {
+						"url": "http://localhost:8080/api/playlists/6",
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/hal+json;charset=UTF-8",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
+								"description": "",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\": \"Top Bulgaria\"}"
+						},
+						"description": "Perform a filtered search for message event data. The response is sorted by descending timestamp."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete One Playlist",
+					"request": {
+						"url": "http://localhost:8080/api/playlists/100",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/hal+json;charset=UTF-8",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
+								"description": "",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Perform a filtered search for message event data. The response is sorted by descending timestamp."
 					},
 					"response": []
 				}

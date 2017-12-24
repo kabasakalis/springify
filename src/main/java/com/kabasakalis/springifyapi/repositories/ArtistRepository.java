@@ -11,19 +11,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
-//@RepositoryRestResource(collectionResourceRel = "accounts", path = "accounts")
-//@Repository("artistRepository")
-//public interface ArtistRepository extends JpaRepository<Artist, Long> {
-//
-
-//}
-
-@Transactional
-@RepositoryRestResource(collectionResourceRel = "artists", path = "artists")
+@Repository
 public interface ArtistRepository extends JpaRepository<Artist, Long> {
-//  Optional<Artist> findById(Long id);
-//  Optional<Artist> findArtistById(Long id);
-//  void  deleteById(Long id);
+
   // Artist addArtist(long genreId, String name, String country);
  List<Artist> findAllByGenreId(Long id, Pageable pageable);
+ Page<Artist> findByNameIgnoreCaseContaining(String namelike, Pageable pageable);
+ Page<Artist> findByCountryIgnoreCaseContaining(String countryLike, Pageable pageable);
 }

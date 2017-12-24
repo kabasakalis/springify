@@ -10,8 +10,10 @@ import com.kabasakalis.springifyapi.models.Genre;
 import com.kabasakalis.springifyapi.repositories.AlbumRepository;
 import com.kabasakalis.springifyapi.repositories.ArtistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.data.web.HateoasPageableHandlerMethodArgumentResolver;
 import org.springframework.data.web.PagedResourcesAssembler;
@@ -23,6 +25,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Optional;
 
@@ -32,6 +35,10 @@ import java.util.Optional;
 public class ArtistController extends AbstractBaseRestController<Artist> {
 
     private AlbumRepository albumRepository;
+
+    @Autowired
+    @Qualifier("artistRepository")
+    private ArtistRepository repository;
     private PagedResourcesAssembler<Album> pagedAlbumAssembler;
     private AlbumResourceAssembler albumResourceAssembler;
     private GenreResourceAssembler genreResourceAssembler;
@@ -73,6 +80,30 @@ public class ArtistController extends AbstractBaseRestController<Artist> {
         return Optional.ofNullable(repository.findOne(id))
                 .map(o -> new ResponseEntity<>(genreResourceAssembler.toResource(o.getGenre()), HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+
+    @RequestMapping(
+            method = RequestMethod.GET,
+            path = "/findByName",
+            produces = MediaTypes.HAL_JSON_VALUE)
+    ResponseEntity<Resource<Artist>> getArtistsByNameLike(@RequestParam("name") String name, Pageable pageRequest) {
+        PagedResources<Resource<Artist>> pagedResources = pagedAssembler.toResource(
+                repository.findByNameIgnoreCaseContaining(name, pageRequest),
+                assembler);
+        return new ResponseEntity(pagedResources, HttpStatus.OK);
+    }
+
+
+    @RequestMapping(
+            method = RequestMethod.GET,
+            path = "/findByCountry",
+            produces = MediaTypes.HAL_JSON_VALUE)
+    ResponseEntity<Resource<Artist>> getArtistsByCountryLike(@RequestParam("country") String country, Pageable pageRequest) {
+        PagedResources<Resource<Artist>> pagedResources = pagedAssembler.toResource(
+                repository.findByCountryIgnoreCaseContaining(country, pageRequest),
+                assembler);
+        return new ResponseEntity(pagedResources, HttpStatus.OK);
     }
 
 
