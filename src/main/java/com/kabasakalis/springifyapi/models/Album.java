@@ -19,6 +19,7 @@ public class Album extends BaseEntity {
   private String title;
   private String year;
 
+public Album(){};
   @ManyToMany(mappedBy = "albums")
   @JsonIgnore
   private List<Playlist> playlists = new ArrayList<Playlist>();

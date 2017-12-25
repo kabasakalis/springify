@@ -6,6 +6,7 @@ import com.kabasakalis.springifyapi.hateoas.ArtistResourceAssembler;
 import com.kabasakalis.springifyapi.hateoas.GenreResourceAssembler;
 import com.kabasakalis.springifyapi.models.Album;
 import com.kabasakalis.springifyapi.models.Artist;
+import com.kabasakalis.springifyapi.models.BaseEntity;
 import com.kabasakalis.springifyapi.models.Genre;
 import com.kabasakalis.springifyapi.repositories.AlbumRepository;
 import com.kabasakalis.springifyapi.repositories.ArtistRepository;
@@ -13,20 +14,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.data.rest.webmvc.ControllerUtils;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.data.web.HateoasPageableHandlerMethodArgumentResolver;
 import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.MediaTypes;
-import org.springframework.hateoas.PagedResources;
-import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.*;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -70,6 +73,59 @@ public class ArtistController extends AbstractBaseRestController<Artist> {
                 albumResourceAssembler);
         return new ResponseEntity(pagedArtistAlbums, HttpStatus.OK);
     }
+
+
+
+        @RequestMapping(
+            method = RequestMethod.POST,
+            path = "/{id}/albums",
+            produces = MediaTypes.HAL_JSON_VALUE)
+    public ResponseEntity<? extends ResourceSupport> addArtistAlbum(
+                @PathVariable long id,
+               @RequestBody(required = false) Resources<Album> albumLinks  ) {
+//       T entity= repository.save(entityBody);
+        HttpHeaders httpHeaders = new HttpHeaders();
+           List<Album> albums = new ArrayList<Album>();
+            // Add to the existing collection
+            for (Link link : albumLinks.getLinks()) {
+                albums.add( (Album) loadEntity(albumRepository, link));
+
+            }
+
+            Artist artist = repository.findOne(id);
+            artist.setAlbums(albums);
+            repository.save(artist);
+//        URI location_link = linkTo(methodOn(ArtistController.class).getOne(entity.getId())).toUri();
+//        httpHeaders.setLocation(location_link);
+//        return new ResponseEntity(albumResourceAssembler.toResource(entity), httpHeaders, HttpStatus.CREATED);
+//            return new ResponseEntity( HttpStatus.OK);
+//            return ControllerUtils.toEmptyResponse(HttpStatus);
+            return ControllerUtils.toEmptyResponse(HttpStatus.NO_CONTENT);
+    }
+
+
+//	private Album loadAlbum(Class<?> type, Link link) {
+//
+//		String href = link.expand().getHref();
+//		String id = href.substring(href.lastIndexOf('/') + 1);
+//
+//		RepositoryInvoker invoker = repositoryInvokerFactory.getInvokerFor(type);
+//
+//		return invoker.invokeFindOne(id);
+//	}
+
+//	private Object loadPropertyValue(Class<?> type, Link link) {
+//
+//		String href = link.expand().getHref();
+//		String id = href.substring(href.lastIndexOf('/') + 1);
+//
+//		RepositoryInvoker invoker = repositoryInvokerFactory.getInvokerFor(type);
+//
+//		return invoker.invokeFindOne(id);
+//	}
+
+
+
 
 
     @RequestMapping(

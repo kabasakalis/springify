@@ -3,6 +3,7 @@
 package com.kabasakalis.springifyapi.controllers;
 
 
+import com.fasterxml.jackson.databind.ser.Serializers;
 import com.kabasakalis.springifyapi.hateoas.ArtistResource;
 import com.kabasakalis.springifyapi.hateoas.AlbumResource;
 import com.kabasakalis.springifyapi.hateoas.ArtistResourceAssembler;
@@ -23,7 +24,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.support.RepositoryInvoker;
 import org.springframework.data.rest.webmvc.PersistentEntityResourceAssembler;
+//import org.springframework.data.rest.webmvc.RepositoryPropertyReferenceController;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.*;
@@ -57,7 +60,7 @@ import java.util.Optional;
 import org.springframework.data.web.HateoasPageableHandlerMethodArgumentResolver;
 
 
-public abstract class AbstractBaseRestController<T extends BaseEntity> {
+public abstract class AbstractBaseRestController<T extends BaseEntity>    {
 
     // private Logger logger = LoggerFactory.getLogger(RESTController.class);
 
@@ -137,7 +140,11 @@ public abstract class AbstractBaseRestController<T extends BaseEntity> {
     .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
   }
 
-
+	protected BaseEntity loadEntity(JpaRepository<? extends  BaseEntity, Long> repository,  Link link) {
+		String href = link.expand().getHref();
+		Long id = Long.parseLong( href.substring(href.lastIndexOf('/') + 1));
+        return repository.findOne(id);
+	}
 
 
 }

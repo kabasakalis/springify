@@ -25,6 +25,7 @@ public class Artist extends BaseEntity {
     private String name;
     private String country;
     // private long genre_id;
+public Artist(){};
 
     @ManyToOne
     @JoinColumn(name = "genre_id")

@@ -33,6 +33,7 @@ private AlbumResourceAssembler assembler;
 
     @Autowired
     public AlbumController(AlbumRepository repository, AlbumResourceAssembler assembler ) {
+
         super(repository, assembler);
     }
 }
