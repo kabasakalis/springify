@@ -151,27 +151,23 @@ public abstract class AbstractBaseRestController<T extends BaseEntity> {
 
 
     protected ResponseEntity<? extends ResourceSupport> addOneToManyResources(
-//            Class<? extends BaseEntity> relationshipOwnerClass,
             JpaRepository<? extends BaseEntity, Long> relationshipOwnerClassrepository,
             Long id,
             Resources<? extends BaseEntity> links) {
-//        ResolvableType resolvableType = ResolvableType.forClass(UserRepository.class).as(JpaRepository.class);
         return Optional.ofNullable(repository.findOne(id))
                 .map(resource -> {
                     for (Link link : links.getLinks()) {
                         Optional<? extends BaseEntity> subresource = Optional.ofNullable(loadEntity(relationshipOwnerClassrepository, link));
                         if (subresource.isPresent()) {
-                            Class subresourceClass = subresource.getClass();
-                            String subresourceClassName = subresourceClass.getName();
+                            Class subresourceClass = subresource.get().getClass();
+                            String subresourceClassName = subresourceClass.getSimpleName();
                             Class<T> resourceClass = (Class<T>) GenericTypeResolver.resolveTypeArgument(getClass(), AbstractBaseRestController.class);
-                            String resourceClassName = resourceClass.getName();
-
+                            String resourceClassName = resourceClass.getSimpleName();
                             PropertyAccessor subresourceAccessor = PropertyAccessorFactory.forBeanPropertyAccess(subresource.get());
                             PropertyAccessor resourceAccessor = PropertyAccessorFactory.forBeanPropertyAccess(resource);
-//                            subresource.get().setArtist(artist);
-                            subresourceAccessor.setPropertyValue(resourceClassName.toLowerCase(), subresource);
-//                            artist.getAlbums().add(subresource.get());
-                            resourceAccessor.getPropertyValue(subresourceClassName.toLowerCase().concat("s")).add(subresource.get());
+                            subresourceAccessor.setPropertyValue(resourceClassName.toLowerCase(), resource);
+                            List<BaseEntity> subresourceCollection = (List<BaseEntity>) resourceAccessor.getPropertyValue(subresourceClassName.toLowerCase().concat("s"));
+                            subresourceCollection.add(subresource.get());
                         } else {
                             return ControllerUtils.toEmptyResponse(HttpStatus.NOT_FOUND);
                         }
@@ -181,6 +177,9 @@ public abstract class AbstractBaseRestController<T extends BaseEntity> {
                 })
                 .orElse(ControllerUtils.toEmptyResponse(HttpStatus.NOT_FOUND));
     }
+
+
+
 
 
 }

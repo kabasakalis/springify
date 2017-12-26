@@ -75,6 +75,32 @@ public class ArtistController extends AbstractBaseRestController<Artist> {
     }
 
 
+//    @RequestMapping(
+//            method = {RequestMethod.PATCH, RequestMethod.PUT, RequestMethod.POST},
+//            path = "/{id}/albums",
+//            consumes = {"application/json", "text/uri-list"},
+//            produces = MediaTypes.HAL_JSON_VALUE)
+//    public ResponseEntity<? extends ResourceSupport> addArtistAlbums(
+//            @PathVariable long id,
+//            @RequestBody(required = false) Resources<? extends BaseEntity> albumLinks) {
+//        return Optional.ofNullable(repository.findOne(id))
+//                .map(artist -> {
+//                    for (Link link : albumLinks.getLinks()) {
+//                        Optional<Album> album = Optional.ofNullable((Album) loadEntity(albumRepository, link));
+//                        if (album.isPresent()) {
+//                            album.get().setArtist(artist);
+//                            artist.getAlbums().add(album.get());
+//                        } else {
+//                            return ControllerUtils.toEmptyResponse(HttpStatus.NOT_FOUND);
+//                        }
+//                    }
+//                    repository.save(artist);
+//                    return ControllerUtils.toEmptyResponse(HttpStatus.NO_CONTENT);
+//                })
+//                .orElse(ControllerUtils.toEmptyResponse(HttpStatus.NOT_FOUND));
+//    }
+
+
     @RequestMapping(
             method = {RequestMethod.PATCH, RequestMethod.PUT, RequestMethod.POST},
             path = "/{id}/albums",
@@ -83,22 +109,9 @@ public class ArtistController extends AbstractBaseRestController<Artist> {
     public ResponseEntity<? extends ResourceSupport> addArtistAlbums(
             @PathVariable long id,
             @RequestBody(required = false) Resources<? extends BaseEntity> albumLinks) {
-        return Optional.ofNullable(repository.findOne(id))
-                .map(artist -> {
-                    for (Link link : albumLinks.getLinks()) {
-                        Optional<Album> album = Optional.ofNullable((Album) loadEntity(albumRepository, link));
-                        if (album.isPresent()) {
-                            album.get().setArtist(artist);
-                            artist.getAlbums().add(album.get());
-                        } else {
-                            return ControllerUtils.toEmptyResponse(HttpStatus.NOT_FOUND);
-                        }
-                    }
-                    repository.save(artist);
-                    return ControllerUtils.toEmptyResponse(HttpStatus.NO_CONTENT);
-                })
-                .orElse(ControllerUtils.toEmptyResponse(HttpStatus.NOT_FOUND));
+        return addOneToManyResources(albumRepository, id, albumLinks);
     }
+
 
     @RequestMapping(
             method = RequestMethod.GET,
