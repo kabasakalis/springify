@@ -83,9 +83,6 @@ public class ArtistController extends AbstractBaseRestController<Artist> {
     public ResponseEntity<? extends ResourceSupport> addArtistAlbums(
             @PathVariable long id,
             @RequestBody(required = false) Resources<Album> albumLinks) {
-//        HttpHeaders httpHeaders = new HttpHeaders();
-//           List<Album> albums = new ArrayList<Album>();
-//        Artist artist = repository.findOne(id);
         return Optional.ofNullable(repository.findOne(id))
                 .map(artist -> {
                     for (Link link : albumLinks.getLinks()) {
