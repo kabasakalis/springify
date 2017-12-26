@@ -82,7 +82,7 @@ public class ArtistController extends AbstractBaseRestController<Artist> {
             produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<? extends ResourceSupport> addArtistAlbums(
             @PathVariable long id,
-            @RequestBody(required = false) Resources<Album> albumLinks) {
+            @RequestBody(required = false) Resources<? extends BaseEntity> albumLinks) {
         return Optional.ofNullable(repository.findOne(id))
                 .map(artist -> {
                     for (Link link : albumLinks.getLinks()) {

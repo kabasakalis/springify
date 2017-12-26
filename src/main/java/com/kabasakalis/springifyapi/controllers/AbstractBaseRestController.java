@@ -17,6 +17,9 @@ import com.kabasakalis.springifyapi.repositories.AlbumRepository;
 import com.kabasakalis.springifyapi.repositories.AlbumRepository;
 
 // import com.kabasakalis.springifyapi.services.SpringifyService;
+import org.springframework.beans.PropertyAccessor;
+import org.springframework.beans.PropertyAccessorFactory;
+import org.springframework.core.GenericTypeResolver;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -25,6 +28,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.support.RepositoryInvoker;
+import org.springframework.data.rest.webmvc.ControllerUtils;
 import org.springframework.data.rest.webmvc.PersistentEntityResourceAssembler;
 //import org.springframework.data.rest.webmvc.RepositoryPropertyReferenceController;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
@@ -60,7 +64,7 @@ import java.util.Optional;
 import org.springframework.data.web.HateoasPageableHandlerMethodArgumentResolver;
 
 
-public abstract class AbstractBaseRestController<T extends BaseEntity>    {
+public abstract class AbstractBaseRestController<T extends BaseEntity> {
 
     // private Logger logger = LoggerFactory.getLogger(RESTController.class);
 
@@ -103,7 +107,7 @@ public abstract class AbstractBaseRestController<T extends BaseEntity>    {
             method = RequestMethod.POST,
             produces = MediaTypes.HAL_JSON_VALUE)
     ResponseEntity<Void> addOne(@RequestBody T entityBody) {
-        T entity= repository.save(entityBody);
+        T entity = repository.save(entityBody);
         HttpHeaders httpHeaders = new HttpHeaders();
         URI location_link = linkTo(methodOn(ArtistController.class).getOne(entity.getId())).toUri();
         httpHeaders.setLocation(location_link);
@@ -111,40 +115,72 @@ public abstract class AbstractBaseRestController<T extends BaseEntity>    {
     }
 
 
-
-  @RequestMapping(
-    method = RequestMethod.PATCH,
-    path = "/{id}",
-    produces = MediaTypes.HAL_JSON_VALUE)
+    @RequestMapping(
+            method = RequestMethod.PATCH,
+            path = "/{id}",
+            produces = MediaTypes.HAL_JSON_VALUE)
     ResponseEntity<Resource<T>> updateOne(@RequestBody T entityPatch, @PathVariable long id) {
-      return  Optional.ofNullable(repository.findOne(id))
-        .map( entity ->{
-          entityPatch.setId(id);
-          repository.save(entityPatch);
-          return new ResponseEntity<>(assembler.toResource(entity), HttpStatus.OK);
-        })
-      .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return Optional.ofNullable(repository.findOne(id))
+                .map(entity -> {
+                    entityPatch.setId(id);
+                    repository.save(entityPatch);
+                    return new ResponseEntity<>(assembler.toResource(entity), HttpStatus.OK);
+                })
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @Transactional
-  @RequestMapping(
-  method = RequestMethod.DELETE,
-  path = "/{id}",
-  produces = MediaTypes.HAL_JSON_VALUE)
-  ResponseEntity<Resource<T>> deleteOne(@PathVariable Long id) {
-    return Optional.ofNullable(repository.findOne(id))
-      .map(entity ->{
-        repository.delete(entity);
-        return new ResponseEntity<>(assembler.toResource(entity), HttpStatus.OK);
-      })
-    .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-  }
+    @RequestMapping(
+            method = RequestMethod.DELETE,
+            path = "/{id}",
+            produces = MediaTypes.HAL_JSON_VALUE)
+    ResponseEntity<Resource<T>> deleteOne(@PathVariable Long id) {
+        return Optional.ofNullable(repository.findOne(id))
+                .map(entity -> {
+                    repository.delete(entity);
+                    return new ResponseEntity<>(assembler.toResource(entity), HttpStatus.OK);
+                })
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
 
-	protected BaseEntity loadEntity(JpaRepository<? extends  BaseEntity, Long> repository,  Link link) {
-		String href = link.expand().getHref();
-		Long id = Long.parseLong( href.substring(href.lastIndexOf('/') + 1));
+    protected BaseEntity loadEntity(JpaRepository<? extends BaseEntity, Long> repository, Link link) {
+        String href = link.expand().getHref();
+        Long id = Long.parseLong(href.substring(href.lastIndexOf('/') + 1));
         return repository.findOne(id);
-	}
+    }
+
+
+    protected ResponseEntity<? extends ResourceSupport> addOneToManyResources(
+//            Class<? extends BaseEntity> relationshipOwnerClass,
+            JpaRepository<? extends BaseEntity, Long> relationshipOwnerClassrepository,
+            Long id,
+            Resources<? extends BaseEntity> links) {
+//        ResolvableType resolvableType = ResolvableType.forClass(UserRepository.class).as(JpaRepository.class);
+        return Optional.ofNullable(repository.findOne(id))
+                .map(resource -> {
+                    for (Link link : links.getLinks()) {
+                        Optional<? extends BaseEntity> subresource = Optional.ofNullable(loadEntity(relationshipOwnerClassrepository, link));
+                        if (subresource.isPresent()) {
+                            Class subresourceClass = subresource.getClass();
+                            String subresourceClassName = subresourceClass.getName();
+                            Class<T> resourceClass = (Class<T>) GenericTypeResolver.resolveTypeArgument(getClass(), AbstractBaseRestController.class);
+                            String resourceClassName = resourceClass.getName();
+
+                            PropertyAccessor subresourceAccessor = PropertyAccessorFactory.forBeanPropertyAccess(subresource.get());
+                            PropertyAccessor resourceAccessor = PropertyAccessorFactory.forBeanPropertyAccess(resource);
+//                            subresource.get().setArtist(artist);
+                            subresourceAccessor.setPropertyValue(resourceClassName.toLowerCase(), subresource);
+//                            artist.getAlbums().add(subresource.get());
+                            resourceAccessor.getPropertyValue(subresourceClassName.toLowerCase().concat("s")).add(subresource.get());
+                        } else {
+                            return ControllerUtils.toEmptyResponse(HttpStatus.NOT_FOUND);
+                        }
+                    }
+                    repository.save(resource);
+                    return ControllerUtils.toEmptyResponse(HttpStatus.NO_CONTENT);
+                })
+                .orElse(ControllerUtils.toEmptyResponse(HttpStatus.NOT_FOUND));
+    }
 
 
 }
