@@ -27,6 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.core.support.DefaultRepositoryMetadata;
 import org.springframework.data.repository.support.RepositoryInvoker;
 import org.springframework.data.rest.webmvc.ControllerUtils;
 import org.springframework.data.rest.webmvc.PersistentEntityResourceAssembler;
@@ -70,6 +71,8 @@ public abstract class AbstractBaseRestController<T extends BaseEntity> {
 
     protected JpaRepository<T, Long> repository;
     protected PagedResourcesAssembler<T> pagedAssembler;
+    protected Class<T> resourceClass;
+    protected String resourceClassName;
 
     // @Autowired
     protected SimpleIdentifiableResourceAssembler<T> assembler;
@@ -81,6 +84,8 @@ public abstract class AbstractBaseRestController<T extends BaseEntity> {
         HateoasPageableHandlerMethodArgumentResolver resolver = new HateoasPageableHandlerMethodArgumentResolver();
         this.pagedAssembler = new PagedResourcesAssembler<T>(resolver, null);
         this.assembler = assembler;
+        this.resourceClass = (Class<T>) GenericTypeResolver.resolveTypeArgument(getClass(), AbstractBaseRestController.class);
+        this.resourceClassName = resourceClass.getSimpleName();
     }
 
 
@@ -154,19 +159,22 @@ public abstract class AbstractBaseRestController<T extends BaseEntity> {
             JpaRepository<? extends BaseEntity, Long> relationshipOwnerClassrepository,
             Long id,
             Resources<? extends BaseEntity> links) {
+        DefaultRepositoryMetadata drm = new DefaultRepositoryMetadata(
+                relationshipOwnerClassrepository.getClass().getInterfaces()[0]);
+        Class<?> subresourceClass = drm.getDomainType();
+        String subresourceClassName = subresourceClass.getSimpleName();
         return Optional.ofNullable(repository.findOne(id))
                 .map(resource -> {
                     for (Link link : links.getLinks()) {
-                        Optional<? extends BaseEntity> subresource = Optional.ofNullable(loadEntity(relationshipOwnerClassrepository, link));
+                        Optional<? extends BaseEntity> subresource = Optional.ofNullable(
+                                loadEntity(relationshipOwnerClassrepository, link));
                         if (subresource.isPresent()) {
-                            Class subresourceClass = subresource.get().getClass();
-                            String subresourceClassName = subresourceClass.getSimpleName();
-                            Class<T> resourceClass = (Class<T>) GenericTypeResolver.resolveTypeArgument(getClass(), AbstractBaseRestController.class);
-                            String resourceClassName = resourceClass.getSimpleName();
                             PropertyAccessor subresourceAccessor = PropertyAccessorFactory.forBeanPropertyAccess(subresource.get());
                             PropertyAccessor resourceAccessor = PropertyAccessorFactory.forBeanPropertyAccess(resource);
                             subresourceAccessor.setPropertyValue(resourceClassName.toLowerCase(), resource);
-                            List<BaseEntity> subresourceCollection = (List<BaseEntity>) resourceAccessor.getPropertyValue(subresourceClassName.toLowerCase().concat("s"));
+                            List<BaseEntity> subresourceCollection =
+                                    (List<BaseEntity>) resourceAccessor.getPropertyValue(
+                                            subresourceClassName.toLowerCase().concat("s"));
                             subresourceCollection.add(subresource.get());
                         } else {
                             return ControllerUtils.toEmptyResponse(HttpStatus.NOT_FOUND);
@@ -177,9 +185,6 @@ public abstract class AbstractBaseRestController<T extends BaseEntity> {
                 })
                 .orElse(ControllerUtils.toEmptyResponse(HttpStatus.NOT_FOUND));
     }
-
-
-
 
 
 }
