@@ -283,6 +283,31 @@
 						"description": ""
 					},
 					"response": []
+				},
+				{
+					"name": "Add Albums to Artist",
+					"request": {
+						"url": "http://localhost:8080/api/artists/1/albums",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/hal+json;charset=UTF-8",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "text/uri-list",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "/api/albums/10001\n/api/albums/10002"
+						},
+						"description": ""
+					},
+					"response": []
 				}
 			]
 		},
@@ -473,6 +498,31 @@
 						"body": {
 							"mode": "raw",
 							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add Artists  to Genre",
+					"request": {
+						"url": "http://localhost:8080/api/genres/6/artists",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/hal+json;charset=UTF-8",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "text/uri-list",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "/api/artists/1008\n/api/artists/1011"
 						},
 						"description": ""
 					},
