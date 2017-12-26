@@ -75,58 +75,33 @@ public class ArtistController extends AbstractBaseRestController<Artist> {
     }
 
 
-
-        @RequestMapping(
-            method = RequestMethod.POST,
+    @RequestMapping(
+            method = {RequestMethod.PATCH, RequestMethod.PUT, RequestMethod.POST},
             path = "/{id}/albums",
+            consumes = {"application/json", "text/uri-list"},
             produces = MediaTypes.HAL_JSON_VALUE)
-    public ResponseEntity<? extends ResourceSupport> addArtistAlbum(
-                @PathVariable long id,
-               @RequestBody(required = false) Resources<Album> albumLinks  ) {
-//       T entity= repository.save(entityBody);
-        HttpHeaders httpHeaders = new HttpHeaders();
-           List<Album> albums = new ArrayList<Album>();
-            // Add to the existing collection
-            for (Link link : albumLinks.getLinks()) {
-                albums.add( (Album) loadEntity(albumRepository, link));
-
-            }
-
-            Artist artist = repository.findOne(id);
-            artist.setAlbums(albums);
-            repository.save(artist);
-//        URI location_link = linkTo(methodOn(ArtistController.class).getOne(entity.getId())).toUri();
-//        httpHeaders.setLocation(location_link);
-//        return new ResponseEntity(albumResourceAssembler.toResource(entity), httpHeaders, HttpStatus.CREATED);
-//            return new ResponseEntity( HttpStatus.OK);
-//            return ControllerUtils.toEmptyResponse(HttpStatus);
-            return ControllerUtils.toEmptyResponse(HttpStatus.NO_CONTENT);
+    public ResponseEntity<? extends ResourceSupport> addArtistAlbums(
+            @PathVariable long id,
+            @RequestBody(required = false) Resources<Album> albumLinks) {
+//        HttpHeaders httpHeaders = new HttpHeaders();
+//           List<Album> albums = new ArrayList<Album>();
+//        Artist artist = repository.findOne(id);
+        return Optional.ofNullable(repository.findOne(id))
+                .map(artist -> {
+                    for (Link link : albumLinks.getLinks()) {
+                        Optional<Album> album = Optional.ofNullable((Album) loadEntity(albumRepository, link));
+                        if (album.isPresent()) {
+                            album.get().setArtist(artist);
+                            artist.getAlbums().add(album.get());
+                        } else {
+                            return ControllerUtils.toEmptyResponse(HttpStatus.NOT_FOUND);
+                        }
+                    }
+                    repository.save(artist);
+                    return ControllerUtils.toEmptyResponse(HttpStatus.NO_CONTENT);
+                })
+                .orElse(ControllerUtils.toEmptyResponse(HttpStatus.NOT_FOUND));
     }
-
-
-//	private Album loadAlbum(Class<?> type, Link link) {
-//
-//		String href = link.expand().getHref();
-//		String id = href.substring(href.lastIndexOf('/') + 1);
-//
-//		RepositoryInvoker invoker = repositoryInvokerFactory.getInvokerFor(type);
-//
-//		return invoker.invokeFindOne(id);
-//	}
-
-//	private Object loadPropertyValue(Class<?> type, Link link) {
-//
-//		String href = link.expand().getHref();
-//		String id = href.substring(href.lastIndexOf('/') + 1);
-//
-//		RepositoryInvoker invoker = repositoryInvokerFactory.getInvokerFor(type);
-//
-//		return invoker.invokeFindOne(id);
-//	}
-
-
-
-
 
     @RequestMapping(
             method = RequestMethod.GET,
