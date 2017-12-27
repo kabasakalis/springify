@@ -3,66 +3,56 @@
 package com.kabasakalis.springifyapi.controllers;
 
 
-import com.fasterxml.jackson.databind.ser.Serializers;
-import com.kabasakalis.springifyapi.hateoas.ArtistResource;
-import com.kabasakalis.springifyapi.hateoas.AlbumResource;
-import com.kabasakalis.springifyapi.hateoas.ArtistResourceAssembler;
-import com.kabasakalis.springifyapi.hateoas.AlbumResourceAssembler;
-import com.kabasakalis.springifyapi.models.Artist;
-import com.kabasakalis.springifyapi.models.Album;
-import com.kabasakalis.springifyapi.controllers.ArtistController;
 import com.kabasakalis.springifyapi.models.BaseEntity;
-import com.kabasakalis.springifyapi.repositories.ArtistRepository;
-import com.kabasakalis.springifyapi.repositories.AlbumRepository;
-import com.kabasakalis.springifyapi.repositories.AlbumRepository;
-
-// import com.kabasakalis.springifyapi.services.SpringifyService;
 import org.springframework.beans.PropertyAccessor;
 import org.springframework.beans.PropertyAccessorFactory;
-import org.springframework.core.GenericTypeResolver;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.CollectionFactory;
+import org.springframework.core.GenericTypeResolver;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mapping.PersistentEntity;
+import org.springframework.data.mapping.PersistentProperty;
+import org.springframework.data.mapping.PersistentPropertyAccessor;
 import org.springframework.data.repository.core.support.DefaultRepositoryMetadata;
+import org.springframework.data.repository.support.Repositories;
 import org.springframework.data.repository.support.RepositoryInvoker;
+import org.springframework.data.repository.support.RepositoryInvokerFactory;
+import org.springframework.data.rest.core.event.AfterLinkSaveEvent;
+import org.springframework.data.rest.core.event.BeforeLinkSaveEvent;
+import org.springframework.data.rest.core.mapping.PropertyAwareResourceMapping;
+import org.springframework.data.rest.core.mapping.ResourceMetadata;
+import org.springframework.data.rest.core.util.Function;
 import org.springframework.data.rest.webmvc.ControllerUtils;
-import org.springframework.data.rest.webmvc.PersistentEntityResourceAssembler;
-//import org.springframework.data.rest.webmvc.RepositoryPropertyReferenceController;
-import org.springframework.data.rest.webmvc.RepositoryRestController;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.data.rest.webmvc.RootResourceInformation;
+import org.springframework.data.rest.webmvc.support.BackendId;
+import org.springframework.data.web.HateoasPageableHandlerMethodArgumentResolver;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.*;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.Validator;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.*;
 import org.springframework.transaction.annotation.Transactional;
-
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
-
-import org.springframework.hateoas.ResourceSupport;
-import org.springframework.http.ResponseEntity;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.http.HttpHeaders;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-import org.springframework.hateoas.Link;
-
-import javax.validation.Valid;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+import java.io.Serializable;
 import java.net.URI;
-import java.util.Optional;
+import java.util.*;
 
-import org.springframework.data.web.HateoasPageableHandlerMethodArgumentResolver;
+import static org.springframework.data.rest.webmvc.RestMediaTypes.SPRING_DATA_COMPACT_JSON_VALUE;
+import static org.springframework.data.rest.webmvc.RestMediaTypes.TEXT_URI_LIST_VALUE;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
+
+// import com.kabasakalis.springifyapi.services.SpringifyService;
+//import org.springframework.data.rest.webmvc.RepositoryPropertyReferenceController;
+
+
 
 
 public abstract class AbstractBaseRestController<T extends BaseEntity> {
@@ -74,11 +64,22 @@ public abstract class AbstractBaseRestController<T extends BaseEntity> {
     protected Class<T> resourceClass;
     protected String resourceClassName;
 
+    @Autowired
+    protected  Repositories repositories;
+    @Autowired
+    protected  RepositoryInvokerFactory repositoryInvokerFactory;
     // @Autowired
     protected SimpleIdentifiableResourceAssembler<T> assembler;
 
+//    protected static final String BASE_MAPPING = "/{repository}/{id}/{property}";
+    protected static final String BASE_MAPPING = "/{id}/{property}";
+    protected static final Collection<HttpMethod> AUGMENTING_METHODS = Arrays.asList(HttpMethod.PATCH, HttpMethod.POST);
+
+
     @Autowired
     public AbstractBaseRestController(JpaRepository<T, Long> repository,
+//                                      Repositories repositories,
+//                                      RepositoryInvokerFactory repositoryInvokerFactory,
                                       SimpleIdentifiableResourceAssembler<T> assembler) {
         this.repository = repository;
         HateoasPageableHandlerMethodArgumentResolver resolver = new HateoasPageableHandlerMethodArgumentResolver();
@@ -86,6 +87,7 @@ public abstract class AbstractBaseRestController<T extends BaseEntity> {
         this.assembler = assembler;
         this.resourceClass = (Class<T>) GenericTypeResolver.resolveTypeArgument(getClass(), AbstractBaseRestController.class);
         this.resourceClassName = resourceClass.getSimpleName();
+
     }
 
 
@@ -109,7 +111,7 @@ public abstract class AbstractBaseRestController<T extends BaseEntity> {
     }
 
     @RequestMapping(
-            method = RequestMethod.POST,
+            method = POST,
             produces = MediaTypes.HAL_JSON_VALUE)
     ResponseEntity<Void> addOne(@RequestBody T entityBody) {
         T entity = repository.save(entityBody);
@@ -121,7 +123,7 @@ public abstract class AbstractBaseRestController<T extends BaseEntity> {
 
 
     @RequestMapping(
-            method = RequestMethod.PATCH,
+            method = PATCH,
             path = "/{id}",
             produces = MediaTypes.HAL_JSON_VALUE)
     ResponseEntity<Resource<T>> updateOne(@RequestBody T entityPatch, @PathVariable long id) {
@@ -186,5 +188,140 @@ public abstract class AbstractBaseRestController<T extends BaseEntity> {
                 .orElse(ControllerUtils.toEmptyResponse(HttpStatus.NOT_FOUND));
     }
 
+
+
+
+      @RequestMapping(value = BASE_MAPPING, method = { PATCH, PUT, POST }, //
+            consumes = { MediaType.APPLICATION_JSON_VALUE, SPRING_DATA_COMPACT_JSON_VALUE, TEXT_URI_LIST_VALUE })
+    public ResponseEntity<? extends ResourceSupport> createPropertyReference(
+              final RootResourceInformation resourceInformation, final HttpMethod requestMethod,
+              final @RequestBody(required = false) Resources<Object> incoming, @BackendId Serializable id,
+              @PathVariable String property) throws Exception {
+
+        final Resources<Object> source = incoming == null ? new Resources<Object>(Collections.emptyList()) : incoming;
+        final RepositoryInvoker invoker = resourceInformation.getInvoker();
+
+        Function<ReferencedProperty, ResourceSupport> handler = new Function<ReferencedProperty, ResourceSupport>() {
+
+            @Override
+            public ResourceSupport apply(ReferencedProperty prop) throws HttpRequestMethodNotSupportedException {
+
+                Class<?> propertyType = prop.property.getType();
+
+                if (prop.property.isCollectionLike()) {
+
+                    Collection<Object> collection = AUGMENTING_METHODS.contains(requestMethod)
+                            ? (Collection<Object>) prop.propertyValue : CollectionFactory.createCollection(propertyType, 0);
+
+                    // Add to the existing collection
+                    for (Link l : source.getLinks()) {
+                        collection.add(loadPropertyValue(prop.propertyType, l));
+                    }
+
+                    prop.accessor.setProperty(prop.property, collection);
+
+                } else if (prop.property.isMap()) {
+
+                    Map<String, Object> map = AUGMENTING_METHODS.contains(requestMethod)
+                            ? (Map<String, Object>) prop.propertyValue
+                            : CollectionFactory.<String, Object> createMap(propertyType, 0);
+
+                    // Add to the existing collection
+                    for (Link l : source.getLinks()) {
+                        map.put(l.getRel(), loadPropertyValue(prop.propertyType, l));
+                    }
+
+                    prop.accessor.setProperty(prop.property, map);
+
+                } else {
+
+                    if (HttpMethod.PATCH.equals(requestMethod)) {
+                        throw new HttpRequestMethodNotSupportedException(HttpMethod.PATCH.name(), new String[] { "PATCH" },
+                                "Cannot PATCH a reference to this singular property since the property type is not a List or a Map.");
+                    }
+
+                    if (source.getLinks().size() != 1) {
+                        throw new IllegalArgumentException(
+                                "Must send only 1 link to update a property reference that isn't a List or a Map.");
+                    }
+
+                    Object propVal = loadPropertyValue(prop.propertyType, source.getLinks().get(0));
+                    prop.accessor.setProperty(prop.property, propVal);
+                }
+
+//                publisher.publishEvent(new BeforeLinkSaveEvent(prop.accessor.getBean(), prop.propertyValue));
+                Object result = invoker.invokeSave(prop.accessor.getBean());
+//                publisher.publishEvent(new AfterLinkSaveEvent(result, prop.propertyValue));
+
+                return null;
+            }
+        };
+
+        doWithReferencedProperty(resourceInformation, id, property, handler, requestMethod);
+
+        return ControllerUtils.toEmptyResponse(HttpStatus.NO_CONTENT);
+    }
+
+
+
+
+
+
+        private ResourceSupport doWithReferencedProperty(RootResourceInformation resourceInformation, Serializable id,
+                                                     String propertyPath, Function<ReferencedProperty, ResourceSupport> handler, HttpMethod method) throws Exception {
+
+        ResourceMetadata metadata = resourceInformation.getResourceMetadata();
+        PropertyAwareResourceMapping mapping = metadata.getProperty(propertyPath);
+
+        if (mapping == null || !mapping.isExported()) {
+            throw new ResourceNotFoundException();
+        }
+
+        PersistentProperty<?> property = mapping.getProperty();
+        resourceInformation.verifySupportedMethod(method, property);
+
+        RepositoryInvoker invoker = resourceInformation.getInvoker();
+        Object domainObj = invoker.invokeFindOne(id);
+
+        if (null == domainObj) {
+            throw new ResourceNotFoundException();
+        }
+
+        PersistentPropertyAccessor accessor = property.getOwner().getPropertyAccessor(domainObj);
+        return handler.apply(new ReferencedProperty(property, accessor.getProperty(property), accessor));
+    }
+
+
+
+
+    private Object loadPropertyValue(Class<?> type, Link link) {
+
+        String href = link.expand().getHref();
+        String id = href.substring(href.lastIndexOf('/') + 1);
+
+        RepositoryInvoker invoker = repositoryInvokerFactory.getInvokerFor(type);
+
+        return invoker.invokeFindOne(id);
+    }
+
+
+private class ReferencedProperty {
+
+        final PersistentEntity<?, ?> entity;
+        final PersistentProperty<?> property;
+        final Class<?> propertyType;
+        final Object propertyValue;
+        final PersistentPropertyAccessor accessor;
+
+        private ReferencedProperty(PersistentProperty<?> property, Object propertyValue,
+                                   PersistentPropertyAccessor wrapper) {
+
+            this.property = property;
+            this.propertyValue = propertyValue;
+            this.accessor = wrapper;
+            this.propertyType = property.getActualType();
+            this.entity = repositories.getPersistentEntity(propertyType);
+        }
+    }
 
 }

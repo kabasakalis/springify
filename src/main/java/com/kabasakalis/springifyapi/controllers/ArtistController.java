@@ -56,6 +56,7 @@ public class ArtistController extends AbstractBaseRestController<Artist> {
         super(repository, assembler);
         this.albumRepository = albumRepository;
         this.albumResourceAssembler = albumResourceAssembler;
+
         this.genreResourceAssembler = genreResourceAssembler;
         HateoasPageableHandlerMethodArgumentResolver resolver = new HateoasPageableHandlerMethodArgumentResolver();
         this.pagedAlbumAssembler = new PagedResourcesAssembler<Album>(resolver, null);
@@ -77,16 +78,16 @@ public class ArtistController extends AbstractBaseRestController<Artist> {
 
 
 
-    @RequestMapping(
-            method = {RequestMethod.PATCH, RequestMethod.PUT, RequestMethod.POST},
-            path = "/{id}/albums",
-            consumes = {"application/json", "text/uri-list"},
-            produces = MediaTypes.HAL_JSON_VALUE)
-    public ResponseEntity<? extends ResourceSupport> addArtistAlbums(
-            @PathVariable long id,
-            @RequestBody(required = false) Resources<? extends BaseEntity> albumLinks) {
-        return addOneToManyResources(albumRepository, id, albumLinks);
-    }
+//    @RequestMapping(
+//            method = {RequestMethod.PATCH, RequestMethod.PUT, RequestMethod.POST},
+//            path = "/{id}/albums",
+//            consumes = {"application/json", "text/uri-list"},
+//            produces = MediaTypes.HAL_JSON_VALUE)
+//    public ResponseEntity<? extends ResourceSupport> addArtistAlbums(
+//            @PathVariable long id,
+//            @RequestBody(required = false) Resources<? extends BaseEntity> albumLinks) {
+//        return addOneToManyResources(albumRepository, id, albumLinks);
+//    }
 
 
     @RequestMapping(
