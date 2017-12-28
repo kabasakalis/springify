@@ -13,6 +13,7 @@ import com.kabasakalis.springifyapi.repositories.AlbumRepository;
 import com.kabasakalis.springifyapi.repositories.ArtistRepository;
 import com.kabasakalis.springifyapi.repositories.GenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -44,8 +45,10 @@ public class GenreController extends AbstractBaseRestController<Genre> {
     @Autowired
     public GenreController(GenreRepository repository,
                            ArtistRepository artistRepository,
+
+                           ApplicationContext appContext,
                            GenreResourceAssembler assembler) {
-        super(repository, assembler);
+        super(repository,appContext, assembler);
         this.artistRepository = artistRepository;
     }
 

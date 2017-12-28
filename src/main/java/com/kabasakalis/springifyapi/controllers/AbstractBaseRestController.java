@@ -4,11 +4,15 @@ package com.kabasakalis.springifyapi.controllers;
 
 
 import com.kabasakalis.springifyapi.models.BaseEntity;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.PropertyAccessor;
 import org.springframework.beans.PropertyAccessorFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.CollectionFactory;
 import org.springframework.core.GenericTypeResolver;
+import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,6 +20,7 @@ import org.springframework.data.mapping.PersistentEntity;
 import org.springframework.data.mapping.PersistentProperty;
 import org.springframework.data.mapping.PersistentPropertyAccessor;
 import org.springframework.data.repository.core.support.DefaultRepositoryMetadata;
+import org.springframework.data.repository.support.DefaultRepositoryInvokerFactory;
 import org.springframework.data.repository.support.Repositories;
 import org.springframework.data.repository.support.RepositoryInvoker;
 import org.springframework.data.repository.support.RepositoryInvokerFactory;
@@ -53,9 +58,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 //import org.springframework.data.rest.webmvc.RepositoryPropertyReferenceController;
 
 
-
-
-public abstract class AbstractBaseRestController<T extends BaseEntity> {
+public abstract class AbstractBaseRestController<T extends BaseEntity> implements ApplicationContextAware {
 
     // private Logger logger = LoggerFactory.getLogger(RESTController.class);
 
@@ -63,23 +66,17 @@ public abstract class AbstractBaseRestController<T extends BaseEntity> {
     protected PagedResourcesAssembler<T> pagedAssembler;
     protected Class<T> resourceClass;
     protected String resourceClassName;
-
-    @Autowired
-    protected  Repositories repositories;
-    @Autowired
-    protected  RepositoryInvokerFactory repositoryInvokerFactory;
-    // @Autowired
+    protected Repositories repositories;
+    protected RepositoryInvokerFactory repositoryInvokerFactory;
+    protected ApplicationContext appContext;
     protected SimpleIdentifiableResourceAssembler<T> assembler;
-
-//    protected static final String BASE_MAPPING = "/{repository}/{id}/{property}";
     protected static final String BASE_MAPPING = "/{id}/{property}";
     protected static final Collection<HttpMethod> AUGMENTING_METHODS = Arrays.asList(HttpMethod.PATCH, HttpMethod.POST);
 
 
     @Autowired
     public AbstractBaseRestController(JpaRepository<T, Long> repository,
-//                                      Repositories repositories,
-//                                      RepositoryInvokerFactory repositoryInvokerFactory,
+                                      ApplicationContext appContext,
                                       SimpleIdentifiableResourceAssembler<T> assembler) {
         this.repository = repository;
         HateoasPageableHandlerMethodArgumentResolver resolver = new HateoasPageableHandlerMethodArgumentResolver();
@@ -88,8 +85,20 @@ public abstract class AbstractBaseRestController<T extends BaseEntity> {
         this.resourceClass = (Class<T>) GenericTypeResolver.resolveTypeArgument(getClass(), AbstractBaseRestController.class);
         this.resourceClassName = resourceClass.getSimpleName();
 
+        this.repositories = new Repositories(appContext);
+        this.repositoryInvokerFactory = new DefaultRepositoryInvokerFactory(repositories, new DefaultConversionService());
+        this.appContext = appContext;
     }
 
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.appContext = applicationContext;
+    }
+
+    public ApplicationContext getContext() {
+        return appContext;
+    }
 
     @RequestMapping(
             method = RequestMethod.GET,
@@ -157,7 +166,8 @@ public abstract class AbstractBaseRestController<T extends BaseEntity> {
     }
 
 
-    protected ResponseEntity<? extends ResourceSupport> addOneToManyResources(
+    protected ResponseEntity<? extends ResourceSupport> associateResources(
+            final Association association,
             JpaRepository<? extends BaseEntity, Long> relationshipOwnerClassrepository,
             Long id,
             Resources<? extends BaseEntity> links) {
@@ -173,11 +183,28 @@ public abstract class AbstractBaseRestController<T extends BaseEntity> {
                         if (subresource.isPresent()) {
                             PropertyAccessor subresourceAccessor = PropertyAccessorFactory.forBeanPropertyAccess(subresource.get());
                             PropertyAccessor resourceAccessor = PropertyAccessorFactory.forBeanPropertyAccess(resource);
-                            subresourceAccessor.setPropertyValue(resourceClassName.toLowerCase(), resource);
-                            List<BaseEntity> subresourceCollection =
-                                    (List<BaseEntity>) resourceAccessor.getPropertyValue(
-                                            subresourceClassName.toLowerCase().concat("s"));
-                            subresourceCollection.add(subresource.get());
+
+                            if (association == Association.ONE_TO_MANY) {
+
+                                List<BaseEntity> subresourceCollection = getResourceCollection(resourceAccessor, subresourceClassName);
+                                subresourceAccessor.setPropertyValue(resourceClassName.toLowerCase(), resource);
+                                subresourceCollection.add(subresource.get());
+
+                            } else if (association == Association.MANY_TO_MANY) {
+
+                                List<BaseEntity> subresourceCollection = getResourceCollection(resourceAccessor, subresourceClassName);
+                                List<BaseEntity> resourceCollection = getResourceCollection(subresourceAccessor, resourceClassName);
+                                subresourceCollection.add(subresource.get());
+                                resourceCollection.add(resource);
+
+                            } else if (association == Association.ONE_TO_ONE) {
+                                resourceAccessor.setPropertyValue(subresourceClassName.toLowerCase(), subresource.get());
+                                subresourceAccessor.setPropertyValue(resourceClassName.toLowerCase(), resource);
+
+                            } else {
+                                return ControllerUtils.toEmptyResponse(HttpStatus.NOT_FOUND);
+                            }
+
                         } else {
                             return ControllerUtils.toEmptyResponse(HttpStatus.NOT_FOUND);
                         }
@@ -188,140 +215,16 @@ public abstract class AbstractBaseRestController<T extends BaseEntity> {
                 .orElse(ControllerUtils.toEmptyResponse(HttpStatus.NOT_FOUND));
     }
 
-
-
-
-      @RequestMapping(value = BASE_MAPPING, method = { PATCH, PUT, POST }, //
-            consumes = { MediaType.APPLICATION_JSON_VALUE, SPRING_DATA_COMPACT_JSON_VALUE, TEXT_URI_LIST_VALUE })
-    public ResponseEntity<? extends ResourceSupport> createPropertyReference(
-              final RootResourceInformation resourceInformation, final HttpMethod requestMethod,
-              final @RequestBody(required = false) Resources<Object> incoming, @BackendId Serializable id,
-              @PathVariable String property) throws Exception {
-
-        final Resources<Object> source = incoming == null ? new Resources<Object>(Collections.emptyList()) : incoming;
-        final RepositoryInvoker invoker = resourceInformation.getInvoker();
-
-        Function<ReferencedProperty, ResourceSupport> handler = new Function<ReferencedProperty, ResourceSupport>() {
-
-            @Override
-            public ResourceSupport apply(ReferencedProperty prop) throws HttpRequestMethodNotSupportedException {
-
-                Class<?> propertyType = prop.property.getType();
-
-                if (prop.property.isCollectionLike()) {
-
-                    Collection<Object> collection = AUGMENTING_METHODS.contains(requestMethod)
-                            ? (Collection<Object>) prop.propertyValue : CollectionFactory.createCollection(propertyType, 0);
-
-                    // Add to the existing collection
-                    for (Link l : source.getLinks()) {
-                        collection.add(loadPropertyValue(prop.propertyType, l));
-                    }
-
-                    prop.accessor.setProperty(prop.property, collection);
-
-                } else if (prop.property.isMap()) {
-
-                    Map<String, Object> map = AUGMENTING_METHODS.contains(requestMethod)
-                            ? (Map<String, Object>) prop.propertyValue
-                            : CollectionFactory.<String, Object> createMap(propertyType, 0);
-
-                    // Add to the existing collection
-                    for (Link l : source.getLinks()) {
-                        map.put(l.getRel(), loadPropertyValue(prop.propertyType, l));
-                    }
-
-                    prop.accessor.setProperty(prop.property, map);
-
-                } else {
-
-                    if (HttpMethod.PATCH.equals(requestMethod)) {
-                        throw new HttpRequestMethodNotSupportedException(HttpMethod.PATCH.name(), new String[] { "PATCH" },
-                                "Cannot PATCH a reference to this singular property since the property type is not a List or a Map.");
-                    }
-
-                    if (source.getLinks().size() != 1) {
-                        throw new IllegalArgumentException(
-                                "Must send only 1 link to update a property reference that isn't a List or a Map.");
-                    }
-
-                    Object propVal = loadPropertyValue(prop.propertyType, source.getLinks().get(0));
-                    prop.accessor.setProperty(prop.property, propVal);
-                }
-
-//                publisher.publishEvent(new BeforeLinkSaveEvent(prop.accessor.getBean(), prop.propertyValue));
-                Object result = invoker.invokeSave(prop.accessor.getBean());
-//                publisher.publishEvent(new AfterLinkSaveEvent(result, prop.propertyValue));
-
-                return null;
-            }
-        };
-
-        doWithReferencedProperty(resourceInformation, id, property, handler, requestMethod);
-
-        return ControllerUtils.toEmptyResponse(HttpStatus.NO_CONTENT);
+    enum Association {
+        ONE_TO_MANY,
+        MANY_TO_MANY,
+        ONE_TO_ONE
     }
 
 
-
-
-
-
-        private ResourceSupport doWithReferencedProperty(RootResourceInformation resourceInformation, Serializable id,
-                                                     String propertyPath, Function<ReferencedProperty, ResourceSupport> handler, HttpMethod method) throws Exception {
-
-        ResourceMetadata metadata = resourceInformation.getResourceMetadata();
-        PropertyAwareResourceMapping mapping = metadata.getProperty(propertyPath);
-
-        if (mapping == null || !mapping.isExported()) {
-            throw new ResourceNotFoundException();
-        }
-
-        PersistentProperty<?> property = mapping.getProperty();
-        resourceInformation.verifySupportedMethod(method, property);
-
-        RepositoryInvoker invoker = resourceInformation.getInvoker();
-        Object domainObj = invoker.invokeFindOne(id);
-
-        if (null == domainObj) {
-            throw new ResourceNotFoundException();
-        }
-
-        PersistentPropertyAccessor accessor = property.getOwner().getPropertyAccessor(domainObj);
-        return handler.apply(new ReferencedProperty(property, accessor.getProperty(property), accessor));
+    private List<BaseEntity> getResourceCollection(PropertyAccessor accessor, String className) {
+        return (List<BaseEntity>) accessor.getPropertyValue(className.toLowerCase().concat("s"));
     }
 
-
-
-
-    private Object loadPropertyValue(Class<?> type, Link link) {
-
-        String href = link.expand().getHref();
-        String id = href.substring(href.lastIndexOf('/') + 1);
-
-        RepositoryInvoker invoker = repositoryInvokerFactory.getInvokerFor(type);
-
-        return invoker.invokeFindOne(id);
-    }
-
-
-private class ReferencedProperty {
-
-        final PersistentEntity<?, ?> entity;
-        final PersistentProperty<?> property;
-        final Class<?> propertyType;
-        final Object propertyValue;
-        final PersistentPropertyAccessor accessor;
-
-        private ReferencedProperty(PersistentProperty<?> property, Object propertyValue,
-                                   PersistentPropertyAccessor wrapper) {
-
-            this.property = property;
-            this.propertyValue = propertyValue;
-            this.accessor = wrapper;
-            this.propertyType = property.getActualType();
-            this.entity = repositories.getPersistentEntity(propertyType);
-        }
-    }
 
 }

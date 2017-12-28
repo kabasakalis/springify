@@ -12,6 +12,7 @@ import com.kabasakalis.springifyapi.models.Album;
 import com.kabasakalis.springifyapi.repositories.ArtistRepository;
 import com.kabasakalis.springifyapi.repositories.AlbumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -32,8 +33,11 @@ public class AlbumController extends AbstractBaseRestController<Album> {
 private AlbumResourceAssembler assembler;
 
     @Autowired
-    public AlbumController(AlbumRepository repository, AlbumResourceAssembler assembler ) {
+    public AlbumController(AlbumRepository repository,
 
-        super(repository, assembler);
+                           ApplicationContext appContext,
+                           AlbumResourceAssembler assembler ) {
+
+        super(repository,appContext, assembler);
     }
 }

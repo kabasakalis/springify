@@ -12,10 +12,13 @@ import com.kabasakalis.springifyapi.repositories.AlbumRepository;
 import com.kabasakalis.springifyapi.repositories.ArtistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.data.repository.support.Repositories;
+import org.springframework.data.repository.support.RepositoryInvokerFactory;
 import org.springframework.data.rest.webmvc.ControllerUtils;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.data.web.HateoasPageableHandlerMethodArgumentResolver;
@@ -40,6 +43,7 @@ public class ArtistController extends AbstractBaseRestController<Artist> {
 
     @Autowired
     @Qualifier("artistRepository")
+
     private ArtistRepository repository;
     private PagedResourcesAssembler<Album> pagedAlbumAssembler;
     private AlbumResourceAssembler albumResourceAssembler;
@@ -50,13 +54,13 @@ public class ArtistController extends AbstractBaseRestController<Artist> {
     @Autowired
     public ArtistController(ArtistRepository repository,
                             AlbumResourceAssembler albumResourceAssembler,
-                            AlbumRepository albumRepository,
+                             AlbumRepository albumRepository,
+                            ApplicationContext appContext,
                             GenreResourceAssembler genreResourceAssembler,
                             ArtistResourceAssembler assembler) {
-        super(repository, assembler);
-        this.albumRepository = albumRepository;
-        this.albumResourceAssembler = albumResourceAssembler;
+        super(repository,appContext, assembler);
 
+        this.albumRepository = albumRepository;
         this.genreResourceAssembler = genreResourceAssembler;
         HateoasPageableHandlerMethodArgumentResolver resolver = new HateoasPageableHandlerMethodArgumentResolver();
         this.pagedAlbumAssembler = new PagedResourcesAssembler<Album>(resolver, null);
@@ -77,17 +81,23 @@ public class ArtistController extends AbstractBaseRestController<Artist> {
     }
 
 
+    @RequestMapping(
+            method = {RequestMethod.PATCH, RequestMethod.PUT, RequestMethod.POST},
+            path = "/{id}/albums",
+            consumes = {"application/json", "text/uri-list"},
+            produces = MediaTypes.HAL_JSON_VALUE)
+    public ResponseEntity<? extends ResourceSupport> addArtistAlbums(
+            @PathVariable long id,
+            @RequestBody(required = false) Resources<? extends BaseEntity> albumLinks) {
+        return associateResources(Association.ONE_TO_MANY,albumRepository, id, albumLinks);
+    }
 
-//    @RequestMapping(
-//            method = {RequestMethod.PATCH, RequestMethod.PUT, RequestMethod.POST},
-//            path = "/{id}/albums",
-//            consumes = {"application/json", "text/uri-list"},
-//            produces = MediaTypes.HAL_JSON_VALUE)
-//    public ResponseEntity<? extends ResourceSupport> addArtistAlbums(
-//            @PathVariable long id,
-//            @RequestBody(required = false) Resources<? extends BaseEntity> albumLinks) {
-//        return addOneToManyResources(albumRepository, id, albumLinks);
-//    }
+
+
+
+
+
+
 
 
     @RequestMapping(
