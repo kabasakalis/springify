@@ -252,47 +252,46 @@ public abstract class AbstractBaseRestController<T extends BaseEntity> implement
 
     protected ResponseEntity<?> getAssociatedResources(
             Long resourceId,
-            String associationfield,
-            JpaRepository<? extends BaseEntity, Long> relationshipOwnerClassrepository,
+            JpaRepository<? extends BaseEntity, Long> associatedClassrepository,
             SimpleIdentifiableResourceAssembler<BaseEntity> associatedResourceAssembler,
-            @Nullable Long associatedResourceId,
-            @Nullable PagedResourcesAssembler<BaseEntity> associatedResourcePagedAssembler,
-            @Nullable Pageable pageRequest,
+            PagedResourcesAssembler<BaseEntity> associatedResourcePagedAssembler,
+            Pageable pageRequest,
             ) {
-//        DefaultRepositoryMetadata drm = new DefaultRepositoryMetadata(
-//                relationshipOwnerClassrepository.getClass().getInterfaces()[0]);
-//        Class<?> subresourceClass = drm.getDomainType();
-//        String subresourceClassName = subresourceClass.getSimpleName();
+
         T resource = repository.findOne(id);
         Class<?> resourceClass = resource.getClass();
-
         String resourceClassName = resourceClass.getSimpleName();
+
         PropertyAccessor resourceAccessor = PropertyAccessorFactory.forBeanPropertyAccess(resource);
+        List<BaseEntity> associatedResources = (List<BaseEntity>) resourceAccessor.getPropertyValue(associationfield);
+        Page<BaseEntity> pagedAssociatedResources = new PageImpl<BaseEntity>(associatedResources, pageRequest, associatedResources.size());
+        return new ResponseEntity<>(pagedAssociatedResources, HttpStatus.OK);
+
+    }
 
 
-        if (associatedResourceId == null) {
-//            PagedResources<Resource< BaseEntity>> pagedResources =
-//                    associatedResourcePagedAssembler
-//                            .toResource((Page<BaseEntity>) relationshipOwnerClassrepository.findAll(pageRequest), associatedResourceAssembler);
+        protected ResponseEntity<?> getAssociatedResource(
+            Long resourceId,
+            JpaRepository<? extends BaseEntity, Long> associatedClassrepository,
+            SimpleIdentifiableResourceAssembler<BaseEntity> associatedResourceAssembler,
+            Long associatedResourceId
+            ) {
 
-            List<BaseEntity> associatedResources = (List<BaseEntity>) resourceAccessor.getPropertyValue(associationfield);
-//            PagedResources<Resource<BaseEntity>> pagedResources =
-//                    associatedResourcePagedAssembler
-//                            .toResource((Page<BaseEntity>) associatedResources, associatedResourceAssembler);
+        T resource = repository.findOne(id);
+        PropertyAccessor resourceAccessor = PropertyAccessorFactory.forBeanPropertyAccess(resource);
+        Object associatedResource = resourceAccessor.getPropertyValue(subresourceClassName.toLowerCase());
+        return new ResponseEntity<>(associatedResourceAssembler.toResource(associatedResource, HttpStatus.OK);
 
-            Class noparams[] = {};
-            int start = pageRequest.getOffset();
-            int end = (start + pageRequest.getPageSize()) > associatedResources.size() ? associatedResources.size() : (start + pageRequest.getPageSize());
-            Page<BaseEntity> pages = new PageImpl<BaseEntity>(associatedResources.subList(start, end), pageRequest, associatedResources.size());
-            return new ResponseEntity<>(pages, HttpStatus.OK);
-        } else {
+    }
+
+
+//        } else {
 
 //            T resource = repository.findOne(id);
 //            PropertyAccessor resourceAccessor = PropertyAccessorFactory.forBeanPropertyAccess(resource);
-            BaseEntity associatedResource = (BaseEntity) resourceAccessor.getPropertyValue(associationfield);
-
-            return new ResponseEntity<>(associatedResourceAssembler.toResource(associatedResource), HttpStatus.OK);
-        }
+//            BaseEntity associatedResource = (BaseEntity) resourceAccessor.getPropertyValue(associationfield);
+//            return new ResponseEntity<>(associatedResourceAssembler.toResource(associatedResource), HttpStatus.OK);
+//        }
 //        return Optional.ofNullable(repository.findOne(id))
 //                .map(resource -> {
 //                    if (id == null) {

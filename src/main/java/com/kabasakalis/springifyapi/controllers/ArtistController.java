@@ -101,12 +101,12 @@ public class ArtistController extends AbstractBaseRestController<Artist> {
             Pageable pageRequest,
             @PathVariable Long id) {
         return  getAssociatedResources(
-                "albums",
+                id,
                 albumRepository ,
                 albumResourceAssembler,
                 pagedAlbumAssembler,
-                null,
-                pageRequest);
+                pageRequest
+        );
     }
 
 
@@ -117,14 +117,12 @@ public class ArtistController extends AbstractBaseRestController<Artist> {
             public ResponseEntity<?> getArtistAlbum(
             Pageable pageRequest,
             @PathVariable Long id) {
-        return  getAssociatedResources(
-                Association.ONE_TO_MANY,
-                "albums",
+        return  getAssociatedResource(
+                id,
                 albumRepository ,
                 albumResourceAssembler,
-                null,
-                albumId,
-                null);
+                albumId
+                );
     }
 
 
