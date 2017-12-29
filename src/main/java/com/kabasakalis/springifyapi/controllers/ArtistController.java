@@ -45,8 +45,8 @@ public class ArtistController extends AbstractBaseRestController<Artist> {
     @Qualifier("artistRepository")
 
     private ArtistRepository repository;
-    private PagedResourcesAssembler<Album> pagedAlbumAssembler;
-    private AlbumResourceAssembler albumResourceAssembler;
+    private PagedResourcesAssembler<BaseEntity> pagedAlbumAssembler;
+    private SimpleIdentifiableResourceAssembler<BaseEntity> albumResourceAssembler;
     private GenreResourceAssembler genreResourceAssembler;
     private AlbumRepository albumRepository;
 
@@ -66,19 +66,19 @@ public class ArtistController extends AbstractBaseRestController<Artist> {
         this.pagedAlbumAssembler = new PagedResourcesAssembler<Album>(resolver, null);
     }
 
-    @RequestMapping(
-            method = RequestMethod.GET,
-            path = "/{id}/albums",
-            produces = MediaTypes.HAL_JSON_VALUE)
-    public ResponseEntity<Page<Album>> getArtistAlbums(
-            Pageable pageRequest,
-            @PathVariable Long id) {
-        PagedResources<Resource<Album>>
-                pagedArtistAlbums = pagedAlbumAssembler.toResource(
-                albumRepository.findAllByArtistId(id, pageRequest),
-                albumResourceAssembler);
-        return new ResponseEntity(pagedArtistAlbums, HttpStatus.OK);
-    }
+//    @RequestMapping(
+//            method = RequestMethod.GET,
+//            path = "/{id}/albums",
+//            produces = MediaTypes.HAL_JSON_VALUE)
+//    public ResponseEntity<Page<Album>> getArtistAlbums(
+//            Pageable pageRequest,
+//            @PathVariable Long id) {
+//        PagedResources<Resource<Album>>
+//                pagedArtistAlbums = pagedAlbumAssembler.toResource(
+//                albumRepository.findAllByArtistId(id, pageRequest),
+//                albumResourceAssembler);
+//        return new ResponseEntity(pagedArtistAlbums, HttpStatus.OK);
+//    }
 
 
     @RequestMapping(
@@ -93,6 +93,39 @@ public class ArtistController extends AbstractBaseRestController<Artist> {
     }
 
 
+    @RequestMapping(
+            method = RequestMethod.GET,
+            path = "/{id}/albums",
+            produces = MediaTypes.HAL_JSON_VALUE)
+    public ResponseEntity<?> getArtistAlbums(
+            Pageable pageRequest,
+            @PathVariable Long id) {
+        return  getAssociatedResources(
+                "albums",
+                albumRepository ,
+                albumResourceAssembler,
+                pagedAlbumAssembler,
+                null,
+                pageRequest);
+    }
+
+
+        @RequestMapping(
+            method = RequestMethod.GET,
+            path = "/{id}/albums/{albumId}",
+            produces = MediaTypes.HAL_JSON_VALUE)
+            public ResponseEntity<?> getArtistAlbum(
+            Pageable pageRequest,
+            @PathVariable Long id) {
+        return  getAssociatedResources(
+                Association.ONE_TO_MANY,
+                "albums",
+                albumRepository ,
+                albumResourceAssembler,
+                null,
+                albumId,
+                null);
+    }
 
 
 
