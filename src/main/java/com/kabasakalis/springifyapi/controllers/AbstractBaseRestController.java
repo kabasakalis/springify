@@ -3,7 +3,9 @@
 package com.kabasakalis.springifyapi.controllers;
 
 
+import com.fasterxml.jackson.databind.ser.Serializers;
 import com.kabasakalis.springifyapi.models.BaseEntity;
+import com.kabasakalis.springifyapi.models.Genre;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.PropertyAccessor;
 import org.springframework.beans.PropertyAccessorFactory;
@@ -47,13 +49,14 @@ public abstract class AbstractBaseRestController<T extends BaseEntity> implement
     // private Logger logger = LoggerFactory.getLogger(RESTController.class);
 
     protected JpaRepository<T, Long> repository;
+    protected SimpleIdentifiableResourceAssembler<T> assembler;
     protected PagedResourcesAssembler<T> pagedAssembler;
     protected Class<T> resourceClass;
     protected String resourceClassName;
     protected Repositories repositories;
+
     protected RepositoryInvokerFactory repositoryInvokerFactory;
     protected ApplicationContext appContext;
-    protected SimpleIdentifiableResourceAssembler<T> assembler;
     protected static final String BASE_MAPPING = "/{id}/{property}";
     protected static final Collection<HttpMethod> AUGMENTING_METHODS = Arrays.asList(HttpMethod.PATCH, HttpMethod.POST);
 
@@ -234,49 +237,51 @@ public abstract class AbstractBaseRestController<T extends BaseEntity> implement
     protected ResponseEntity<?> getAssociatedResources(
             Long resourceId,
             JpaRepository<? extends BaseEntity, Long> associatedClassrepository,
-            SimpleIdentifiableResourceAssembler<BaseEntity> associatedResourceAssembler,
-            PagedResourcesAssembler<BaseEntity> associatedResourcePagedAssembler,
-            Pageable pageRequest,
+            SimpleIdentifiableResourceAssembler<? extends BaseEntity> associatedResourceAssembler,
+            PagedResourcesAssembler<? extends BaseEntity> associatedResourcePagedAssembler,
+            Pageable pageRequest
             ) {
-
-        T resource = repository.findOne(id);
-        Class<?> resourceClass = resource.getClass();
-        String resourceClassName = resourceClass.getSimpleName();
-
+        T resource = repository.findOne(resourceId);
+        String subresourceClassName = getAssociatedClassFromRepository(associatedClassrepository).getSimpleName();
+        String associationField = subresourceClassName.toLowerCase().concat("s");
         PropertyAccessor resourceAccessor = PropertyAccessorFactory.forBeanPropertyAccess(resource);
-        List<BaseEntity> associatedResources = (List<BaseEntity>) resourceAccessor.getPropertyValue(associationfield);
-        Page<BaseEntity> pagedAssociatedResources = new PageImpl<BaseEntity>(associatedResources, pageRequest, associatedResources.size());
+        List<BaseEntity> associatedResources = (List<BaseEntity>) resourceAccessor.getPropertyValue(associationField);
+        Page<BaseEntity> pagedAssociatedResources = new PageImpl<>(associatedResources, pageRequest, associatedResources.size());
         return new ResponseEntity<>(pagedAssociatedResources, HttpStatus.OK);
-
     }
 
 
     protected ResponseEntity<Resource<BaseEntity>> getAssociatedResource(
             Long resourceId,
-            JpaRepository<? extends BaseEntity, Long> associatedClassrepository,
+            JpaRepository<BaseEntity , Long> associatedClassrepository,
             SimpleIdentifiableResourceAssembler<BaseEntity> associatedResourceAssembler) {
-        DefaultRepositoryMetadata drm = new DefaultRepositoryMetadata(
-                associatedClassrepository.getClass().getInterfaces()[0]);
-        String subresourceClassName = drm.getDomainType().getSimpleName();
+
+        Class<?> subresourceClass = getAssociatedClassFromRepository(associatedClassrepository);
+        String subresourceClassName = subresourceClass.getSimpleName();
         return Optional.ofNullable(repository.findOne(resourceId))
                 .map(PropertyAccessorFactory::forBeanPropertyAccess)
                 .map(resourceAccessor -> {
-                    return resourceAccessor.getPropertyValue(subresourceClassName.toLowerCase())
+                    return  resourceAccessor.getPropertyValue(subresourceClassName.toLowerCase());
                 })
-                .map(associatedResource -> new ResponseEntity<>(associatedResourceAssembler.toResource((BaseEntity) associatedResource), HttpStatus.OK))
+                .map(associatedResource -> new ResponseEntity<>(associatedResourceAssembler.toResource(
+                        (BaseEntity) associatedResource), HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
 
-enum Association {
-    ONE_TO_MANY,
-    MANY_TO_MANY,
-    ONE_TO_ONE
-}
+    enum Association {
+        ONE_TO_MANY,
+        MANY_TO_MANY,
+        ONE_TO_ONE
+    }
 
     private List<BaseEntity> getResourceCollection(PropertyAccessor accessor, String className) {
         return (List<BaseEntity>) accessor.getPropertyValue(className.toLowerCase().concat("s"));
     }
 
-
+    private Class<?> getAssociatedClassFromRepository(JpaRepository<? , Long> repository) {
+        DefaultRepositoryMetadata drm = new DefaultRepositoryMetadata(
+                repository.getClass().getInterfaces()[0]);
+        return drm.getDomainType();
+    }
 }
