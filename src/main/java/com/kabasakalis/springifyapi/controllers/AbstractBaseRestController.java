@@ -4,55 +4,36 @@ package com.kabasakalis.springifyapi.controllers;
 
 
 import com.kabasakalis.springifyapi.models.BaseEntity;
-import com.sun.istack.internal.Nullable;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.PropertyAccessor;
 import org.springframework.beans.PropertyAccessorFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.core.CollectionFactory;
 import org.springframework.core.GenericTypeResolver;
 import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.mapping.PersistentEntity;
-import org.springframework.data.mapping.PersistentProperty;
-import org.springframework.data.mapping.PersistentPropertyAccessor;
 import org.springframework.data.repository.core.support.DefaultRepositoryMetadata;
 import org.springframework.data.repository.support.DefaultRepositoryInvokerFactory;
 import org.springframework.data.repository.support.Repositories;
-import org.springframework.data.repository.support.RepositoryInvoker;
 import org.springframework.data.repository.support.RepositoryInvokerFactory;
-import org.springframework.data.rest.core.event.AfterLinkSaveEvent;
-import org.springframework.data.rest.core.event.BeforeLinkSaveEvent;
-import org.springframework.data.rest.core.mapping.PropertyAwareResourceMapping;
-import org.springframework.data.rest.core.mapping.ResourceMetadata;
-import org.springframework.data.rest.core.util.Function;
 import org.springframework.data.rest.webmvc.ControllerUtils;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
-import org.springframework.data.rest.webmvc.RootResourceInformation;
-import org.springframework.data.rest.webmvc.support.BackendId;
 import org.springframework.data.web.HateoasPageableHandlerMethodArgumentResolver;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.*;
 import org.springframework.http.*;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.io.Serializable;
-import java.lang.reflect.Method;
 import java.net.URI;
 import java.util.*;
 
-import static org.springframework.data.rest.webmvc.RestMediaTypes.SPRING_DATA_COMPACT_JSON_VALUE;
-import static org.springframework.data.rest.webmvc.RestMediaTypes.TEXT_URI_LIST_VALUE;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
@@ -270,52 +251,28 @@ public abstract class AbstractBaseRestController<T extends BaseEntity> implement
     }
 
 
-        protected ResponseEntity<?> getAssociatedResource(
+    protected ResponseEntity<Resource<BaseEntity>> getAssociatedResource(
             Long resourceId,
             JpaRepository<? extends BaseEntity, Long> associatedClassrepository,
-            SimpleIdentifiableResourceAssembler<BaseEntity> associatedResourceAssembler,
-            Long associatedResourceId
-            ) {
-
-        T resource = repository.findOne(id);
-        PropertyAccessor resourceAccessor = PropertyAccessorFactory.forBeanPropertyAccess(resource);
-        Object associatedResource = resourceAccessor.getPropertyValue(subresourceClassName.toLowerCase());
-        return new ResponseEntity<>(associatedResourceAssembler.toResource(associatedResource, HttpStatus.OK);
-
+            SimpleIdentifiableResourceAssembler<BaseEntity> associatedResourceAssembler) {
+        DefaultRepositoryMetadata drm = new DefaultRepositoryMetadata(
+                associatedClassrepository.getClass().getInterfaces()[0]);
+        String subresourceClassName = drm.getDomainType().getSimpleName();
+        return Optional.ofNullable(repository.findOne(resourceId))
+                .map(PropertyAccessorFactory::forBeanPropertyAccess)
+                .map(resourceAccessor -> {
+                    return resourceAccessor.getPropertyValue(subresourceClassName.toLowerCase())
+                })
+                .map(associatedResource -> new ResponseEntity<>(associatedResourceAssembler.toResource((BaseEntity) associatedResource), HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
 
-//        } else {
-
-//            T resource = repository.findOne(id);
-//            PropertyAccessor resourceAccessor = PropertyAccessorFactory.forBeanPropertyAccess(resource);
-//            BaseEntity associatedResource = (BaseEntity) resourceAccessor.getPropertyValue(associationfield);
-//            return new ResponseEntity<>(associatedResourceAssembler.toResource(associatedResource), HttpStatus.OK);
-//        }
-//        return Optional.ofNullable(repository.findOne(id))
-//                .map(resource -> {
-//                    if (id == null) {
-//                        PagedResources<ResourceSupport> pagedResources =
-//                                associatedResourcePagedAssembler
-//                                        .toResource(relationshipOwnerClassrepository.findAll(pageRequest), associatedResourceAssembler);
-//                        return new ResponseEntity(pagedResources, HttpStatus.OK);
-//                    } else {
-
-//                        PropertyAccessor resourceAccessor = PropertyAccessorFactory.forBeanPropertyAccess(resource);
-//                        Object associatedResource = resourceAccessor.getPropertyValue(subresourceClassName.toLowerCase());
-//                        return new ResponseEntity<>(associatedResourceAssembler.toResource(associatedResource), HttpStatus.OK);
-//                    }
-//                })
-//                .map(o - o > new ResponseEntity<>(associatedResourceAssembler.toResource(o), HttpStatus.OK))
-//                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-
-
-    enum Association {
-        ONE_TO_MANY,
-        MANY_TO_MANY,
-        ONE_TO_ONE
-    }
+enum Association {
+    ONE_TO_MANY,
+    MANY_TO_MANY,
+    ONE_TO_ONE
+}
 
     private List<BaseEntity> getResourceCollection(PropertyAccessor accessor, String className) {
         return (List<BaseEntity>) accessor.getPropertyValue(className.toLowerCase().concat("s"));

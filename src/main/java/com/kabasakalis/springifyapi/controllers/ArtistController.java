@@ -10,6 +10,7 @@ import com.kabasakalis.springifyapi.models.BaseEntity;
 import com.kabasakalis.springifyapi.models.Genre;
 import com.kabasakalis.springifyapi.repositories.AlbumRepository;
 import com.kabasakalis.springifyapi.repositories.ArtistRepository;
+import com.kabasakalis.springifyapi.repositories.GenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
@@ -49,6 +50,7 @@ public class ArtistController extends AbstractBaseRestController<Artist> {
     private SimpleIdentifiableResourceAssembler<BaseEntity> albumResourceAssembler;
     private GenreResourceAssembler genreResourceAssembler;
     private AlbumRepository albumRepository;
+    private GenreRepository genreRepository;
 
 
     @Autowired
@@ -57,13 +59,15 @@ public class ArtistController extends AbstractBaseRestController<Artist> {
                              AlbumRepository albumRepository,
                             ApplicationContext appContext,
                             GenreResourceAssembler genreResourceAssembler,
+                            GenreRepository genreRepository,
                             ArtistResourceAssembler assembler) {
         super(repository,appContext, assembler);
 
         this.albumRepository = albumRepository;
         this.genreResourceAssembler = genreResourceAssembler;
+        this.genreRepository = genreRepository;
         HateoasPageableHandlerMethodArgumentResolver resolver = new HateoasPageableHandlerMethodArgumentResolver();
-        this.pagedAlbumAssembler = new PagedResourcesAssembler<Album>(resolver, null);
+        this.pagedAlbumAssembler = new PagedResourcesAssembler<BaseEntity>(resolver, null);
     }
 
 //    @RequestMapping(
@@ -112,16 +116,15 @@ public class ArtistController extends AbstractBaseRestController<Artist> {
 
         @RequestMapping(
             method = RequestMethod.GET,
-            path = "/{id}/albums/{albumId}",
+            path = "/{id}/genre",
             produces = MediaTypes.HAL_JSON_VALUE)
             public ResponseEntity<?> getArtistAlbum(
             Pageable pageRequest,
             @PathVariable Long id) {
         return  getAssociatedResource(
                 id,
-                albumRepository ,
-                albumResourceAssembler,
-                albumId
+                genreRepository ,
+                genreResourceAssembler,
                 );
     }
 
