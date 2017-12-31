@@ -3,7 +3,6 @@
 package com.kabasakalis.springifyapi.controllers;
 
 
-import com.fasterxml.jackson.databind.ser.Serializers;
 import com.kabasakalis.springifyapi.models.BaseEntity;
 import com.kabasakalis.springifyapi.models.Genre;
 import org.springframework.beans.BeansException;
@@ -251,20 +250,18 @@ public abstract class AbstractBaseRestController<T extends BaseEntity> implement
     }
 
 
-    protected ResponseEntity<Resource<BaseEntity>> getAssociatedResource(
+    protected <R extends  BaseEntity> ResponseEntity<Resource<R>> getAssociatedResource(
+            Class<R> associatedResourceClass,
             Long resourceId,
-            JpaRepository<BaseEntity , Long> associatedClassrepository,
-            SimpleIdentifiableResourceAssembler<BaseEntity> associatedResourceAssembler) {
-
-        Class<?> subresourceClass = getAssociatedClassFromRepository(associatedClassrepository);
-        String subresourceClassName = subresourceClass.getSimpleName();
+            SimpleIdentifiableResourceAssembler<R> associatedResourceAssembler) {
         return Optional.ofNullable(repository.findOne(resourceId))
                 .map(PropertyAccessorFactory::forBeanPropertyAccess)
                 .map(resourceAccessor -> {
-                    return  resourceAccessor.getPropertyValue(subresourceClassName.toLowerCase());
+                    return  (R) resourceAccessor.getPropertyValue(associatedResourceClass.getSimpleName().toLowerCase());
                 })
-                .map(associatedResource -> new ResponseEntity<>(associatedResourceAssembler.toResource(
-                        (BaseEntity) associatedResource), HttpStatus.OK))
+                .map(associatedResource -> new ResponseEntity<Resource<R>> ( associatedResourceAssembler.toResource(
+                        (R) associatedResource),
+                        HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 

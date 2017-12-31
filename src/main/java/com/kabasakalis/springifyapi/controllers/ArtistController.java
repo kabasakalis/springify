@@ -128,8 +128,8 @@ public class ArtistController extends AbstractBaseRestController<Artist> {
             GenreResourceAssembler genreResourceAssembler,
             @PathVariable Long id) {
         return getAssociatedResource(
+                Genre.class,
                 id,
-                genreRepository,
                 genreResourceAssembler
                 );
     }
