@@ -46,8 +46,10 @@ public class ArtistController extends AbstractBaseRestController<Artist> {
     @Qualifier("artistRepository")
 
     private ArtistRepository repository;
-    private PagedResourcesAssembler<BaseEntity> pagedAlbumAssembler;
-    private SimpleIdentifiableResourceAssembler<BaseEntity> albumResourceAssembler;
+    //    private PagedResourcesAssembler<BaseEntity> pagedAlbumAssembler;
+    private PagedResourcesAssembler<Album> pagedAlbumAssembler;
+    //    private SimpleIdentifiableResourceAssembler<BaseEntity> albumResourceAssembler;
+    private AlbumResourceAssembler albumResourceAssembler;
     private GenreResourceAssembler genreResourceAssembler;
     private AlbumRepository albumRepository;
     private GenreRepository genreRepository;
@@ -62,15 +64,13 @@ public class ArtistController extends AbstractBaseRestController<Artist> {
                             GenreRepository genreRepository,
                             ArtistResourceAssembler assembler) {
         super(repository, appContext, assembler);
-
         this.albumRepository = albumRepository;
         this.genreResourceAssembler = genreResourceAssembler;
+        this.albumResourceAssembler = albumResourceAssembler;
         this.genreRepository = genreRepository;
         HateoasPageableHandlerMethodArgumentResolver resolver = new HateoasPageableHandlerMethodArgumentResolver();
-        this.pagedAlbumAssembler = new PagedResourcesAssembler<BaseEntity>(resolver, null);
+        this.pagedAlbumAssembler = new PagedResourcesAssembler<Album>(resolver, null);
     }
-
-
 
 
     @RequestMapping(
@@ -85,38 +85,17 @@ public class ArtistController extends AbstractBaseRestController<Artist> {
     }
 
 
-
     @RequestMapping(
             method = RequestMethod.GET,
             path = "/{id}/albums",
             consumes = {"application/json"},
             produces = MediaTypes.HAL_JSON_VALUE)
-    public ResponseEntity<?> getArtistAlbums(
+    public ResponseEntity getArtistAlbums(
             Pageable pageRequest,
             @PathVariable Long id) {
-        return getAssociatedResources(
-                id,
-                albumRepository,
-                albumResourceAssembler,
-                pagedAlbumAssembler,
-                pageRequest
-        );
+        return getAssociatedResources(id,
+                Album.class, albumResourceAssembler, pagedAlbumAssembler, pageRequest);
     }
-
-    //    @RequestMapping(
-//            method = RequestMethod.GET,
-//            path = "/{id}/albums",
-//            produces = MediaTypes.HAL_JSON_VALUE)
-//    public ResponseEntity<Page<Album>> getArtistAlbums(
-//            Pageable pageRequest,
-//            @PathVariable Long id) {
-//        PagedResources<Resource<Album>>
-//                pagedArtistAlbums = pagedAlbumAssembler.toResource(
-//                albumRepository.findAllByArtistId(id, pageRequest),
-//                albumResourceAssembler);
-//        return new ResponseEntity(pagedArtistAlbums, HttpStatus.OK);
-//    }
-
 
     @RequestMapping(
             method = RequestMethod.GET,
@@ -125,25 +104,9 @@ public class ArtistController extends AbstractBaseRestController<Artist> {
             produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<?> getArtistGenre(
             Pageable pageRequest,
-            GenreResourceAssembler genreResourceAssembler,
             @PathVariable Long id) {
-        return getAssociatedResource(
-                Genre.class,
-                id,
-                genreResourceAssembler
-                );
+        return getAssociatedResource(id, Genre.class, genreResourceAssembler);
     }
-
-
-//    @RequestMapping(
-//            method = RequestMethod.GET,
-//            path = "/{id}/genre",
-//            produces = MediaTypes.HAL_JSON_VALUE)
-//    ResponseEntity<Resource<Genre>> getGenre(@PathVariable Long id) {
-//        return Optional.ofNullable(repository.findOne(id))
-//                .map(o -> new ResponseEntity<>(genreResourceAssembler.toResource(o.getGenre()), HttpStatus.OK))
-//                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-//    }
 
 
     @RequestMapping(

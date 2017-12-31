@@ -27,6 +27,7 @@ import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.*;
 import org.springframework.http.*;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -203,82 +204,51 @@ public abstract class AbstractBaseRestController<T extends BaseEntity> implement
     }
 
 
-//       @RequestMapping(
-//            method = RequestMethod.GET,
-//            produces = MediaTypes.HAL_JSON_VALUE)
-//    public ResponseEntity<Page<T>> getAll(Pageable pageRequest) {
-//        PagedResources<Resource<T>> pagedResources = pagedAssembler.toResource(repository.findAll(pageRequest), assembler);
-//        return new ResponseEntity(pagedResources, HttpStatus.OK);
-//    }
-//
-//
-//    @RequestMapping(
-//            method = RequestMethod.GET,
-//            path = "/{id}",
-//            produces = MediaTypes.HAL_JSON_VALUE)
-//    ResponseEntity<Resource<T>> getOne(@PathVariable Long id) {
-//        return Optional.ofNullable(repository.findOne(id))
-//                .map(o -> new ResponseEntity<>(assembler.toResource(o), HttpStatus.OK))
-//                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-//    }
-//
-//
-//
-//          @RequestMapping(
-//            method = RequestMethod.GET,
-//            produces = MediaTypes.HAL_JSON_VALUE)
-//    public ResponseEntity<?> getAssociatedResources(Pageable pageRequest) {
-//        PagedResources<Resource<T>> pagedResources = pagedAssembler.toResource(repository.findAll(pageRequest), assembler);
-//        return new ResponseEntity(pagedResources, HttpStatus.OK);
-//    }
-
-
-    protected ResponseEntity<?> getAssociatedResources(
+    protected <R extends BaseEntity> ResponseEntity<Page<R>> getAssociatedResources(
             Long resourceId,
-            JpaRepository<? extends BaseEntity, Long> associatedClassrepository,
-            SimpleIdentifiableResourceAssembler<? extends BaseEntity> associatedResourceAssembler,
-            PagedResourcesAssembler<? extends BaseEntity> associatedResourcePagedAssembler,
-            Pageable pageRequest
-            ) {
+            Class<R> associatedResourceClass,
+            SimpleIdentifiableResourceAssembler<R> associatedResourceAssembler,
+            PagedResourcesAssembler<R> associatedResourcePagedAssembler,
+            Pageable pageRequest) {
         T resource = repository.findOne(resourceId);
-        String subresourceClassName = getAssociatedClassFromRepository(associatedClassrepository).getSimpleName();
-        String associationField = subresourceClassName.toLowerCase().concat("s");
+        String associationField = associatedResourceClass.getSimpleName().toLowerCase().concat("s");
         PropertyAccessor resourceAccessor = PropertyAccessorFactory.forBeanPropertyAccess(resource);
-        List<BaseEntity> associatedResources = (List<BaseEntity>) resourceAccessor.getPropertyValue(associationField);
-        Page<BaseEntity> pagedAssociatedResources = new PageImpl<>(associatedResources, pageRequest, associatedResources.size());
-        return new ResponseEntity<>(pagedAssociatedResources, HttpStatus.OK);
+        List<R> associatedResources = (List<R>) resourceAccessor.getPropertyValue(associationField);
+        Page<R> associatedResourcesPage = new PageImpl<>(associatedResources, pageRequest, associatedResources.size());
+        PagedResources<Resource<R>> pagedResponseBody = associatedResourcePagedAssembler
+                .toResource(associatedResourcesPage, associatedResourceAssembler);
+        return new ResponseEntity(pagedResponseBody, HttpStatus.OK);
     }
 
 
-    protected <R extends  BaseEntity> ResponseEntity<Resource<R>> getAssociatedResource(
-            Class<R> associatedResourceClass,
+    protected <R extends BaseEntity> ResponseEntity<Resource<R>> getAssociatedResource(
             Long resourceId,
+            Class<R> associatedResourceClass,
             SimpleIdentifiableResourceAssembler<R> associatedResourceAssembler) {
         return Optional.ofNullable(repository.findOne(resourceId))
                 .map(PropertyAccessorFactory::forBeanPropertyAccess)
                 .map(resourceAccessor -> {
-                    return  (R) resourceAccessor.getPropertyValue(associatedResourceClass.getSimpleName().toLowerCase());
+                    return (R) resourceAccessor.getPropertyValue(associatedResourceClass.getSimpleName().toLowerCase());
                 })
-                .map(associatedResource -> new ResponseEntity<Resource<R>> ( associatedResourceAssembler.toResource(
+                .map(associatedResource -> new ResponseEntity<Resource<R>>(associatedResourceAssembler.toResource(
                         (R) associatedResource),
                         HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-
-
-    enum Association {
-        ONE_TO_MANY,
-        MANY_TO_MANY,
-        ONE_TO_ONE
     }
 
     private List<BaseEntity> getResourceCollection(PropertyAccessor accessor, String className) {
         return (List<BaseEntity>) accessor.getPropertyValue(className.toLowerCase().concat("s"));
     }
 
-    private Class<?> getAssociatedClassFromRepository(JpaRepository<? , Long> repository) {
+    private Class<?> getAssociatedClassFromRepository(JpaRepository<?, Long> repository) {
         DefaultRepositoryMetadata drm = new DefaultRepositoryMetadata(
                 repository.getClass().getInterfaces()[0]);
         return drm.getDomainType();
+    }
+
+    enum Association {
+        ONE_TO_MANY,
+        MANY_TO_MANY,
+        ONE_TO_ONE
     }
 }

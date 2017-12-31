@@ -4,6 +4,7 @@ package com.kabasakalis.springifyapi.controllers;
 
 import com.kabasakalis.springifyapi.hateoas.ArtistResourceAssembler;
 import com.kabasakalis.springifyapi.hateoas.GenreResourceAssembler;
+import com.kabasakalis.springifyapi.models.Artist;
 import com.kabasakalis.springifyapi.models.BaseEntity;
 import com.kabasakalis.springifyapi.models.Genre;
 import com.kabasakalis.springifyapi.repositories.ArtistRepository;
@@ -28,7 +29,8 @@ public class GenreController extends AbstractBaseRestController<Genre> {
 
 //    @Qualifier("artistRepository")
 //    private GenreRepository genreRepository;
-    private PagedResourcesAssembler<BaseEntity> pagedArtistAssembler;
+//    private PagedResourcesAssembler<BaseEntity> pagedArtistAssembler;
+    private PagedResourcesAssembler<Artist> pagedArtistAssembler;
     private ArtistResourceAssembler artistResourceAssembler;
     private GenreResourceAssembler genreResourceAssembler;
     private ArtistRepository artistRepository;
@@ -53,7 +55,7 @@ public class GenreController extends AbstractBaseRestController<Genre> {
             @PathVariable Long id) {
         return getAssociatedResources(
                 id,
-                artistRepository,
+                Artist.class,
                 artistResourceAssembler,
                 pagedArtistAssembler,
                 pageRequest
