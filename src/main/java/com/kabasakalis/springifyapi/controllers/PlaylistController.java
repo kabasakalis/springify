@@ -1,5 +1,5 @@
 
-package  com.kabasakalis.springifyapi.controllers;
+package com.kabasakalis.springifyapi.controllers;
 
 import com.kabasakalis.springifyapi.hateoas.PlaylistResource;
 import com.kabasakalis.springifyapi.hateoas.PlaylistResourceAssembler;
@@ -18,7 +18,7 @@ import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import  org.springframework.data.web.HateoasPageableHandlerMethodArgumentResolver;
+import org.springframework.data.web.HateoasPageableHandlerMethodArgumentResolver;
 
 
 @RepositoryRestController
@@ -26,24 +26,22 @@ import  org.springframework.data.web.HateoasPageableHandlerMethodArgumentResolve
 public class PlaylistController extends AbstractBaseRestController<Playlist> {
 
 
-@Autowired
-private PlaylistResourceAssembler assembler;
+    @Autowired
+    private PlaylistResourceAssembler assembler;
     private AlbumRepository albumRepository;
-
 
 
     @Autowired
     public PlaylistController(PlaylistRepository repository,
                               AlbumRepository albumRepository,
                               ApplicationContext appContext,
-                              PlaylistResourceAssembler assembler ) {
+                              PlaylistResourceAssembler assembler) {
         super(repository, appContext, assembler);
         this.albumRepository = albumRepository;
     }
 
 
-
-        @RequestMapping(
+    @RequestMapping(
             method = {RequestMethod.PATCH, RequestMethod.PUT, RequestMethod.POST},
             path = "/{id}/albums",
             consumes = {"application/json", "text/uri-list"},
@@ -51,7 +49,25 @@ private PlaylistResourceAssembler assembler;
     public ResponseEntity<? extends ResourceSupport> addPlaylistAlbums(
             @PathVariable long id,
             @RequestBody(required = false) Resources<? extends BaseEntity> albumLinks) {
-        return associateResources( Association.MANY_TO_MANY,albumRepository, id, albumLinks);
+        return associateResources(Association.MANY_TO_MANY, albumRepository, id, albumLinks);
 
     }
+
+
+    @RequestMapping(
+            method = RequestMethod.DELETE,
+            path = "/{id}/albums/{albumId}",
+            consumes = {"application/json"},
+            produces = MediaTypes.HAL_JSON_VALUE)
+    public ResponseEntity deleteAlbum(
+            @PathVariable Long id, @PathVariable Long albumId) {
+        return deleteAssociation(
+                Association.MANY_TO_MANY,
+                albumRepository,
+                id,
+                albumId
+        );
+    }
+
+
 }

@@ -15,7 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 public interface ArtistRepository extends JpaRepository<Artist, Long> {
 
   // Artist addArtist(long genreId, String name, String country);
- List<Artist> findAllByGenreId(Long id, Pageable pageable);
+ Page<Artist> findAllByGenreId(Long id, Pageable pageable);
  Page<Artist> findByNameIgnoreCaseContaining(String namelike, Pageable pageable);
  Page<Artist> findByCountryIgnoreCaseContaining(String countryLike, Pageable pageable);
+
+
+
 }

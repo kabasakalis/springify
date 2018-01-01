@@ -204,19 +204,70 @@ public abstract class AbstractBaseRestController<T extends BaseEntity> implement
     }
 
 
+
+        protected ResponseEntity<? extends ResourceSupport> deleteAssociation(
+            final Association association,
+            JpaRepository<? extends BaseEntity, Long> relationshipOwnerClassrepository,
+            Long id,
+            Long albumId) {
+        DefaultRepositoryMetadata drm = new DefaultRepositoryMetadata(
+                relationshipOwnerClassrepository.getClass().getInterfaces()[0]);
+        Class<?> subresourceClass = drm.getDomainType();
+        String subresourceClassName = subresourceClass.getSimpleName();
+        return Optional.ofNullable(repository.findOne(id))
+                .map(resource -> {
+//                    for (Link link : links.getLinks()) {
+                        Optional<? extends BaseEntity> subresource = Optional.ofNullable(
+                                loadEntity(relationshipOwnerClassrepository, new Link("/".concat(albumId.toString()))));
+                        if (subresource.isPresent()) {
+                            PropertyAccessor subresourceAccessor = PropertyAccessorFactory.forBeanPropertyAccess(subresource.get());
+                            PropertyAccessor resourceAccessor = PropertyAccessorFactory.forBeanPropertyAccess(resource);
+
+                            if (association == Association.ONE_TO_MANY) {
+
+                                List<BaseEntity> subresourceCollection = getResourceCollection(resourceAccessor, subresourceClassName);
+                                subresourceAccessor.setPropertyValue(resourceClassName.toLowerCase(), null);
+//                                subresourceCollection.add(subresource.get());
+
+                            } else if (association == Association.MANY_TO_MANY) {
+
+                                List<BaseEntity> subresourceCollection = getResourceCollection(resourceAccessor, subresourceClassName);
+                                List<BaseEntity> resourceCollection = getResourceCollection(subresourceAccessor, resourceClassName);
+                                subresourceCollection.remove(subresource.get());
+                                resourceCollection.remove(resource);
+
+                            } else if (association == Association.ONE_TO_ONE) {
+                                resourceAccessor.setPropertyValue(subresourceClassName.toLowerCase(), null);
+                                subresourceAccessor.setPropertyValue(resourceClassName.toLowerCase(), null);
+
+                            } else {
+                                return ControllerUtils.toEmptyResponse(HttpStatus.NOT_FOUND);
+                            }
+
+                        } else {
+                            return ControllerUtils.toEmptyResponse(HttpStatus.NOT_FOUND);
+//                        }
+                    }
+                    repository.save(resource);
+                    return ControllerUtils.toEmptyResponse(HttpStatus.NO_CONTENT);
+                })
+                .orElse(ControllerUtils.toEmptyResponse(HttpStatus.NOT_FOUND));
+    }
+
+
+
+
+
+
+
+
     protected <R extends BaseEntity> ResponseEntity<Page<R>> getAssociatedResources(
-            Long resourceId,
-            Class<R> associatedResourceClass,
             SimpleIdentifiableResourceAssembler<R> associatedResourceAssembler,
             PagedResourcesAssembler<R> associatedResourcePagedAssembler,
+            Page<R> pagedAssociatedResources,
             Pageable pageRequest) {
-        T resource = repository.findOne(resourceId);
-        String associationField = associatedResourceClass.getSimpleName().toLowerCase().concat("s");
-        PropertyAccessor resourceAccessor = PropertyAccessorFactory.forBeanPropertyAccess(resource);
-        List<R> associatedResources = (List<R>) resourceAccessor.getPropertyValue(associationField);
-        Page<R> associatedResourcesPage = new PageImpl<>(associatedResources, pageRequest, associatedResources.size());
         PagedResources<Resource<R>> pagedResponseBody = associatedResourcePagedAssembler
-                .toResource(associatedResourcesPage, associatedResourceAssembler);
+                .toResource(pagedAssociatedResources, associatedResourceAssembler);
         return new ResponseEntity(pagedResponseBody, HttpStatus.OK);
     }
 

@@ -46,9 +46,7 @@ public class ArtistController extends AbstractBaseRestController<Artist> {
     @Qualifier("artistRepository")
 
     private ArtistRepository repository;
-    //    private PagedResourcesAssembler<BaseEntity> pagedAlbumAssembler;
     private PagedResourcesAssembler<Album> pagedAlbumAssembler;
-    //    private SimpleIdentifiableResourceAssembler<BaseEntity> albumResourceAssembler;
     private AlbumResourceAssembler albumResourceAssembler;
     private GenreResourceAssembler genreResourceAssembler;
     private AlbumRepository albumRepository;
@@ -93,8 +91,8 @@ public class ArtistController extends AbstractBaseRestController<Artist> {
     public ResponseEntity getArtistAlbums(
             Pageable pageRequest,
             @PathVariable Long id) {
-        return getAssociatedResources(id,
-                Album.class, albumResourceAssembler, pagedAlbumAssembler, pageRequest);
+        Page<Album> pagedAlbumsByArtistId = albumRepository.findAllByArtistId(id, pageRequest);
+        return getAssociatedResources(albumResourceAssembler, pagedAlbumAssembler, pagedAlbumsByArtistId, pageRequest);
     }
 
     @RequestMapping(
@@ -107,6 +105,28 @@ public class ArtistController extends AbstractBaseRestController<Artist> {
             @PathVariable Long id) {
         return getAssociatedResource(id, Genre.class, genreResourceAssembler);
     }
+
+
+
+
+
+        @RequestMapping(
+            method = RequestMethod.DELETE,
+            path = "/{id}/albums/{albumId}",
+            consumes = {"application/json"},
+            produces = MediaTypes.HAL_JSON_VALUE)
+    public ResponseEntity deleteAlbum(
+            @PathVariable Long id, @PathVariable Long albumId) {
+//        Page<Album> pagedAlbumsByArtistId = albumRepository.findAllByArtistId(id, pageRequest);
+        return deleteAssociation(
+                Association.ONE_TO_MANY,
+                albumRepository,
+                id,
+                albumId
+        );
+    }
+
+
 
 
     @RequestMapping(
