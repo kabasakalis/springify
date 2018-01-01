@@ -239,52 +239,6 @@
 					"response": []
 				},
 				{
-					"name": "Get Artist Albums",
-					"request": {
-						"url": "http://localhost:8080/api/artists/1/albums",
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/hal+json;charset=UTF-8",
-								"description": ""
-							},
-							{
-								"key": "Authorization",
-								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
-								"description": "",
-								"disabled": true
-							}
-						],
-						"body": {},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get Artist Genre",
-					"request": {
-						"url": "http://localhost:8080/api/artists/1/genre",
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/hal+json;charset=UTF-8",
-								"description": ""
-							},
-							{
-								"key": "Authorization",
-								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
-								"description": "",
-								"disabled": true
-							}
-						],
-						"body": {},
-						"description": ""
-					},
-					"response": []
-				},
-				{
 					"name": "Add Albums to Artist",
 					"request": {
 						"url": "http://localhost:8080/api/artists/1/albums",
@@ -306,6 +260,72 @@
 							"raw": "/api/albums/10001\n/api/albums/10002"
 						},
 						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Artist Albums",
+					"request": {
+						"url": "http://localhost:8080/api/artists/30/albums",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/hal+json;charset=UTF-8",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Artist Genre",
+					"request": {
+						"url": "http://localhost:8080/api/artists/1/genre",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/hal+json;charset=UTF-8",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Album From Artist",
+					"request": {
+						"url": "http://localhost:8080/api/artists/18/albums/10001",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/hal+json;charset=UTF-8",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "Perform a filtered search for message event data. The response is sorted by descending timestamp."
 					},
 					"response": []
 				}
@@ -393,6 +413,51 @@
 							"mode": "raw",
 							"raw": "{\"title\": \"Rockstar3213213\",\n\"year\": \"2020\"\n}"
 						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Album Playlists",
+					"request": {
+						"url": {
+							"raw": "http://localhost:8080/api/albums/3/playlists?page=0&size=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"albums",
+								"3",
+								"playlists"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "size",
+									"value": "10",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
 						"description": ""
 					},
 					"response": []
@@ -670,6 +735,131 @@
 							"raw": ""
 						},
 						"description": "Perform a filtered search for message event data. The response is sorted by descending timestamp."
+					},
+					"response": []
+				},
+				{
+					"name": "Add Albums to Playlist",
+					"request": {
+						"url": "http://localhost:8080/api/playlists/13/albums",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/hal+json;charset=UTF-8",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "text/uri-list",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "/api/albums/10001\n/api/albums/10002"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Albums By Playlist",
+					"request": {
+						"url": {
+							"raw": "http://localhost:8080/api/playlists/9/albums?page=0&size=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"playlists",
+								"9",
+								"albums"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "size",
+									"value": "10",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/hal+json;charset=UTF-8",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "/api/albums/10001\n/api/albums/10002"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add Albums to Playlist",
+					"request": {
+						"url": "http://localhost:8080/api/playlists/7/albums",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/hal+json;charset=UTF-8",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "text/uri-list",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "/api/albums/3\n"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Album From Playlist",
+					"request": {
+						"url": "http://localhost:8080/api/playlists/4/albums/33",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/hal+json;charset=UTF-8",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
 					},
 					"response": []
 				}

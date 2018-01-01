@@ -4,7 +4,6 @@ package com.kabasakalis.springifyapi.controllers;
 
 
 import com.kabasakalis.springifyapi.models.BaseEntity;
-import com.kabasakalis.springifyapi.models.Genre;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.PropertyAccessor;
 import org.springframework.beans.PropertyAccessorFactory;
@@ -14,7 +13,6 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.GenericTypeResolver;
 import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.core.support.DefaultRepositoryMetadata;
@@ -25,28 +23,27 @@ import org.springframework.data.rest.webmvc.ControllerUtils;
 import org.springframework.data.web.HateoasPageableHandlerMethodArgumentResolver;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.*;
-import org.springframework.http.*;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.net.URI;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
-import static org.springframework.web.bind.annotation.RequestMethod.*;
-
-// import com.kabasakalis.springifyapi.services.SpringifyService;
-//import org.springframework.data.rest.webmvc.RepositoryPropertyReferenceController;
+import static org.springframework.web.bind.annotation.RequestMethod.PATCH;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 
 public abstract class AbstractBaseRestController<T extends BaseEntity> implements ApplicationContextAware {
 
-    // private Logger logger = LoggerFactory.getLogger(RESTController.class);
 
     protected JpaRepository<T, Long> repository;
     protected SimpleIdentifiableResourceAssembler<T> assembler;
@@ -54,11 +51,8 @@ public abstract class AbstractBaseRestController<T extends BaseEntity> implement
     protected Class<T> resourceClass;
     protected String resourceClassName;
     protected Repositories repositories;
-
     protected RepositoryInvokerFactory repositoryInvokerFactory;
     protected ApplicationContext appContext;
-    protected static final String BASE_MAPPING = "/{id}/{property}";
-    protected static final Collection<HttpMethod> AUGMENTING_METHODS = Arrays.asList(HttpMethod.PATCH, HttpMethod.POST);
 
 
     @Autowired
@@ -71,15 +65,12 @@ public abstract class AbstractBaseRestController<T extends BaseEntity> implement
         this.assembler = assembler;
         this.resourceClass = (Class<T>) GenericTypeResolver.resolveTypeArgument(getClass(), AbstractBaseRestController.class);
         this.resourceClassName = resourceClass.getSimpleName();
-
         this.repositories = new Repositories(appContext);
         this.repositoryInvokerFactory = new DefaultRepositoryInvokerFactory(repositories, new DefaultConversionService());
         this.appContext = appContext;
     }
 
-
     @Override
-
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.appContext = applicationContext;
     }
@@ -147,10 +138,31 @@ public abstract class AbstractBaseRestController<T extends BaseEntity> implement
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    protected BaseEntity loadEntity(JpaRepository<? extends BaseEntity, Long> repository, Link link) {
-        String href = link.expand().getHref();
-        Long id = Long.parseLong(href.substring(href.lastIndexOf('/') + 1));
-        return repository.findOne(id);
+
+    protected <R extends BaseEntity> ResponseEntity<Page<R>> getAssociatedResources(
+            SimpleIdentifiableResourceAssembler<R> associatedResourceAssembler,
+            PagedResourcesAssembler<R> associatedResourcePagedAssembler,
+            Page<R> pagedAssociatedResources,
+            Pageable pageRequest) {
+        PagedResources<Resource<R>> pagedResponseBody = associatedResourcePagedAssembler
+                .toResource(pagedAssociatedResources, associatedResourceAssembler);
+        return new ResponseEntity(pagedResponseBody, HttpStatus.OK);
+    }
+
+
+    protected <R extends BaseEntity> ResponseEntity<Resource<R>> getAssociatedResource(
+            Long resourceId,
+            Class<R> associatedResourceClass,
+            SimpleIdentifiableResourceAssembler<R> associatedResourceAssembler) {
+        return Optional.ofNullable(repository.findOne(resourceId))
+                .map(PropertyAccessorFactory::forBeanPropertyAccess)
+                .map(resourceAccessor -> {
+                    return (R) resourceAccessor.getPropertyValue(associatedResourceClass.getSimpleName().toLowerCase());
+                })
+                .map(associatedResource -> new ResponseEntity<Resource<R>>(associatedResourceAssembler.toResource(
+                        (R) associatedResource),
+                        HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
 
@@ -204,49 +216,37 @@ public abstract class AbstractBaseRestController<T extends BaseEntity> implement
     }
 
 
-
-        protected ResponseEntity<? extends ResourceSupport> deleteAssociation(
+    protected ResponseEntity<? extends ResourceSupport> deleteAssociation(
             final Association association,
             JpaRepository<? extends BaseEntity, Long> relationshipOwnerClassrepository,
             Long id,
             Long albumId) {
-        DefaultRepositoryMetadata drm = new DefaultRepositoryMetadata(
-                relationshipOwnerClassrepository.getClass().getInterfaces()[0]);
-        Class<?> subresourceClass = drm.getDomainType();
-        String subresourceClassName = subresourceClass.getSimpleName();
+        String subresourceClassName = getAssociatedClassFromRepository(relationshipOwnerClassrepository).getSimpleName();
         return Optional.ofNullable(repository.findOne(id))
                 .map(resource -> {
-//                    for (Link link : links.getLinks()) {
-                        Optional<? extends BaseEntity> subresource = Optional.ofNullable(
-                                loadEntity(relationshipOwnerClassrepository, new Link("/".concat(albumId.toString()))));
-                        if (subresource.isPresent()) {
-                            PropertyAccessor subresourceAccessor = PropertyAccessorFactory.forBeanPropertyAccess(subresource.get());
-                            PropertyAccessor resourceAccessor = PropertyAccessorFactory.forBeanPropertyAccess(resource);
+                    Optional<? extends BaseEntity> subresource = Optional.ofNullable(
+                            loadEntity(relationshipOwnerClassrepository, new Link("/".concat(albumId.toString()))));
+                    if (subresource.isPresent()) {
+                        PropertyAccessor subresourceAccessor = PropertyAccessorFactory.forBeanPropertyAccess(subresource.get());
+                        PropertyAccessor resourceAccessor = PropertyAccessorFactory.forBeanPropertyAccess(resource);
 
-                            if (association == Association.ONE_TO_MANY) {
-
-                                List<BaseEntity> subresourceCollection = getResourceCollection(resourceAccessor, subresourceClassName);
-                                subresourceAccessor.setPropertyValue(resourceClassName.toLowerCase(), null);
-//                                subresourceCollection.add(subresource.get());
-
-                            } else if (association == Association.MANY_TO_MANY) {
-
-                                List<BaseEntity> subresourceCollection = getResourceCollection(resourceAccessor, subresourceClassName);
-                                List<BaseEntity> resourceCollection = getResourceCollection(subresourceAccessor, resourceClassName);
-                                subresourceCollection.remove(subresource.get());
-                                resourceCollection.remove(resource);
-
-                            } else if (association == Association.ONE_TO_ONE) {
-                                resourceAccessor.setPropertyValue(subresourceClassName.toLowerCase(), null);
-                                subresourceAccessor.setPropertyValue(resourceClassName.toLowerCase(), null);
-
-                            } else {
-                                return ControllerUtils.toEmptyResponse(HttpStatus.NOT_FOUND);
-                            }
+                        if (association == Association.ONE_TO_MANY) {
+                            subresourceAccessor.setPropertyValue(resourceClassName.toLowerCase(), null);
+                        } else if (association == Association.MANY_TO_MANY) {
+                            List<BaseEntity> subresourceCollection = getResourceCollection(resourceAccessor, subresourceClassName);
+                            List<BaseEntity> resourceCollection = getResourceCollection(subresourceAccessor, resourceClassName);
+                            subresourceCollection.remove(subresource.get());
+                            resourceCollection.remove(resource);
+                        } else if (association == Association.ONE_TO_ONE) {
+                            resourceAccessor.setPropertyValue(subresourceClassName.toLowerCase(), null);
+                            subresourceAccessor.setPropertyValue(resourceClassName.toLowerCase(), null);
 
                         } else {
                             return ControllerUtils.toEmptyResponse(HttpStatus.NOT_FOUND);
-//                        }
+                        }
+
+                    } else {
+                        return ControllerUtils.toEmptyResponse(HttpStatus.NOT_FOUND);
                     }
                     repository.save(resource);
                     return ControllerUtils.toEmptyResponse(HttpStatus.NO_CONTENT);
@@ -254,38 +254,6 @@ public abstract class AbstractBaseRestController<T extends BaseEntity> implement
                 .orElse(ControllerUtils.toEmptyResponse(HttpStatus.NOT_FOUND));
     }
 
-
-
-
-
-
-
-
-    protected <R extends BaseEntity> ResponseEntity<Page<R>> getAssociatedResources(
-            SimpleIdentifiableResourceAssembler<R> associatedResourceAssembler,
-            PagedResourcesAssembler<R> associatedResourcePagedAssembler,
-            Page<R> pagedAssociatedResources,
-            Pageable pageRequest) {
-        PagedResources<Resource<R>> pagedResponseBody = associatedResourcePagedAssembler
-                .toResource(pagedAssociatedResources, associatedResourceAssembler);
-        return new ResponseEntity(pagedResponseBody, HttpStatus.OK);
-    }
-
-
-    protected <R extends BaseEntity> ResponseEntity<Resource<R>> getAssociatedResource(
-            Long resourceId,
-            Class<R> associatedResourceClass,
-            SimpleIdentifiableResourceAssembler<R> associatedResourceAssembler) {
-        return Optional.ofNullable(repository.findOne(resourceId))
-                .map(PropertyAccessorFactory::forBeanPropertyAccess)
-                .map(resourceAccessor -> {
-                    return (R) resourceAccessor.getPropertyValue(associatedResourceClass.getSimpleName().toLowerCase());
-                })
-                .map(associatedResource -> new ResponseEntity<Resource<R>>(associatedResourceAssembler.toResource(
-                        (R) associatedResource),
-                        HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
 
     private List<BaseEntity> getResourceCollection(PropertyAccessor accessor, String className) {
         return (List<BaseEntity>) accessor.getPropertyValue(className.toLowerCase().concat("s"));
@@ -295,6 +263,12 @@ public abstract class AbstractBaseRestController<T extends BaseEntity> implement
         DefaultRepositoryMetadata drm = new DefaultRepositoryMetadata(
                 repository.getClass().getInterfaces()[0]);
         return drm.getDomainType();
+    }
+
+    protected BaseEntity loadEntity(JpaRepository<? extends BaseEntity, Long> repository, Link link) {
+        String href = link.expand().getHref();
+        Long id = Long.parseLong(href.substring(href.lastIndexOf('/') + 1));
+        return repository.findOne(id);
     }
 
     enum Association {

@@ -1,8 +1,11 @@
 
 package com.kabasakalis.springifyapi.controllers;
 
+import com.kabasakalis.springifyapi.hateoas.AlbumResourceAssembler;
+import com.kabasakalis.springifyapi.hateoas.GenreResourceAssembler;
 import com.kabasakalis.springifyapi.hateoas.PlaylistResource;
 import com.kabasakalis.springifyapi.hateoas.PlaylistResourceAssembler;
+import com.kabasakalis.springifyapi.models.Album;
 import com.kabasakalis.springifyapi.models.BaseEntity;
 import com.kabasakalis.springifyapi.models.Playlist;
 import com.kabasakalis.springifyapi.repositories.AlbumRepository;
@@ -25,19 +28,35 @@ import org.springframework.data.web.HateoasPageableHandlerMethodArgumentResolver
 @RequestMapping("/playlists")
 public class PlaylistController extends AbstractBaseRestController<Playlist> {
 
-
-    @Autowired
     private PlaylistResourceAssembler assembler;
     private AlbumRepository albumRepository;
-
+    private PagedResourcesAssembler<Album> pagedAlbumAssembler;
+    private AlbumResourceAssembler albumResourceAssembler;
 
     @Autowired
     public PlaylistController(PlaylistRepository repository,
                               AlbumRepository albumRepository,
+                              AlbumResourceAssembler albumResourceAssembler,
                               ApplicationContext appContext,
                               PlaylistResourceAssembler assembler) {
         super(repository, appContext, assembler);
         this.albumRepository = albumRepository;
+        this.albumResourceAssembler = albumResourceAssembler;
+        HateoasPageableHandlerMethodArgumentResolver resolver = new HateoasPageableHandlerMethodArgumentResolver();
+        this.pagedAlbumAssembler = new PagedResourcesAssembler<Album>(resolver, null);
+    }
+
+
+    @RequestMapping(
+            method = RequestMethod.GET,
+            path = "/{id}/albums",
+            consumes = {"application/json"},
+            produces = MediaTypes.HAL_JSON_VALUE)
+    public ResponseEntity getPlaylistAlbums(
+            Pageable pageRequest,
+            @PathVariable Long id) {
+        Page<Album> pagedPlaylistAlbums = albumRepository.findAllByPlaylists(repository.getOne(id), pageRequest);
+        return getAssociatedResources(albumResourceAssembler, pagedAlbumAssembler, pagedPlaylistAlbums, pageRequest);
     }
 
 
@@ -50,9 +69,7 @@ public class PlaylistController extends AbstractBaseRestController<Playlist> {
             @PathVariable long id,
             @RequestBody(required = false) Resources<? extends BaseEntity> albumLinks) {
         return associateResources(Association.MANY_TO_MANY, albumRepository, id, albumLinks);
-
     }
-
 
     @RequestMapping(
             method = RequestMethod.DELETE,
@@ -62,11 +79,7 @@ public class PlaylistController extends AbstractBaseRestController<Playlist> {
     public ResponseEntity deleteAlbum(
             @PathVariable Long id, @PathVariable Long albumId) {
         return deleteAssociation(
-                Association.MANY_TO_MANY,
-                albumRepository,
-                id,
-                albumId
-        );
+                Association.MANY_TO_MANY, albumRepository, id, albumId);
     }
 
 

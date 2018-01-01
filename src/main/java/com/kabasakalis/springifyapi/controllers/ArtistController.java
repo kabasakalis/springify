@@ -1,16 +1,12 @@
 
 package com.kabasakalis.springifyapi.controllers;
 
-import com.kabasakalis.springifyapi.hateoas.AlbumResourceAssembler;
-import com.kabasakalis.springifyapi.hateoas.ArtistResourceAssembler;
-import com.kabasakalis.springifyapi.hateoas.GenreResourceAssembler;
-import com.kabasakalis.springifyapi.models.Album;
-import com.kabasakalis.springifyapi.models.Artist;
-import com.kabasakalis.springifyapi.models.BaseEntity;
-import com.kabasakalis.springifyapi.models.Genre;
-import com.kabasakalis.springifyapi.repositories.AlbumRepository;
-import com.kabasakalis.springifyapi.repositories.ArtistRepository;
-import com.kabasakalis.springifyapi.repositories.GenreRepository;
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
@@ -30,11 +26,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import com.kabasakalis.springifyapi.hateoas.AlbumResourceAssembler;
+import com.kabasakalis.springifyapi.hateoas.ArtistResourceAssembler;
+import com.kabasakalis.springifyapi.hateoas.GenreResourceAssembler;
+import com.kabasakalis.springifyapi.models.Album;
+import com.kabasakalis.springifyapi.models.Artist;
+import com.kabasakalis.springifyapi.models.BaseEntity;
+import com.kabasakalis.springifyapi.models.Genre;
+import com.kabasakalis.springifyapi.repositories.AlbumRepository;
+import com.kabasakalis.springifyapi.repositories.ArtistRepository;
+import com.kabasakalis.springifyapi.repositories.GenreRepository;
 
 
 @RepositoryRestController
@@ -71,6 +72,31 @@ public class ArtistController extends AbstractBaseRestController<Artist> {
     }
 
 
+
+        @RequestMapping(
+            method = RequestMethod.GET,
+            path = "/{id}/albums",
+            consumes = {"application/json"},
+            produces = MediaTypes.HAL_JSON_VALUE)
+    public ResponseEntity getArtistAlbums(
+            Pageable pageRequest,
+            @PathVariable Long id) {
+        Page<Album> pagedAlbumsByArtistId = albumRepository.findAllByArtistId(id, pageRequest);
+        return getAssociatedResources(albumResourceAssembler, pagedAlbumAssembler, pagedAlbumsByArtistId, pageRequest);
+    }
+
+
+        @RequestMapping(
+            method = RequestMethod.GET,
+            path = "/{id}/genre",
+            consumes = {"application/json"},
+            produces = MediaTypes.HAL_JSON_VALUE)
+    public ResponseEntity<?> getArtistGenre(
+            Pageable pageRequest,
+            @PathVariable Long id) {
+        return getAssociatedResource(id, Genre.class, genreResourceAssembler);
+    }
+
     @RequestMapping(
             method = {RequestMethod.PATCH, RequestMethod.PUT, RequestMethod.POST},
             path = "/{id}/albums",
@@ -84,50 +110,14 @@ public class ArtistController extends AbstractBaseRestController<Artist> {
 
 
     @RequestMapping(
-            method = RequestMethod.GET,
-            path = "/{id}/albums",
-            consumes = {"application/json"},
-            produces = MediaTypes.HAL_JSON_VALUE)
-    public ResponseEntity getArtistAlbums(
-            Pageable pageRequest,
-            @PathVariable Long id) {
-        Page<Album> pagedAlbumsByArtistId = albumRepository.findAllByArtistId(id, pageRequest);
-        return getAssociatedResources(albumResourceAssembler, pagedAlbumAssembler, pagedAlbumsByArtistId, pageRequest);
-    }
-
-    @RequestMapping(
-            method = RequestMethod.GET,
-            path = "/{id}/genre",
-            consumes = {"application/json"},
-            produces = MediaTypes.HAL_JSON_VALUE)
-    public ResponseEntity<?> getArtistGenre(
-            Pageable pageRequest,
-            @PathVariable Long id) {
-        return getAssociatedResource(id, Genre.class, genreResourceAssembler);
-    }
-
-
-
-
-
-        @RequestMapping(
             method = RequestMethod.DELETE,
             path = "/{id}/albums/{albumId}",
             consumes = {"application/json"},
             produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity deleteAlbum(
             @PathVariable Long id, @PathVariable Long albumId) {
-//        Page<Album> pagedAlbumsByArtistId = albumRepository.findAllByArtistId(id, pageRequest);
-        return deleteAssociation(
-                Association.ONE_TO_MANY,
-                albumRepository,
-                id,
-                albumId
-        );
+        return deleteAssociation(Association.ONE_TO_MANY, albumRepository, id, albumId);
     }
-
-
-
 
     @RequestMapping(
             method = RequestMethod.GET,
@@ -151,6 +141,5 @@ public class ArtistController extends AbstractBaseRestController<Artist> {
                 assembler);
         return new ResponseEntity(pagedResources, HttpStatus.OK);
     }
-
 
 }
