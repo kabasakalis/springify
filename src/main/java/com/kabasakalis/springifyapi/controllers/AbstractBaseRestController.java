@@ -219,39 +219,29 @@ public abstract class AbstractBaseRestController<T extends BaseEntity> implement
     protected ResponseEntity<? extends ResourceSupport> deleteAssociation(
             final Association association,
             JpaRepository<? extends BaseEntity, Long> relationshipOwnerClassrepository,
-            Long id,
-            Long albumId) {
+            Long resourceId,
+            Long subresourceId) {
+
+        T resource = repository.findOne(resourceId);
+        BaseEntity subresource = loadEntity(relationshipOwnerClassrepository, new Link("/".concat(subresourceId.toString())));
+        if (!resourcesExistAndAreAssociated(association, relationshipOwnerClassrepository, resource, subresource))
+            return ControllerUtils.toEmptyResponse(HttpStatus.NOT_FOUND);
+        PropertyAccessor subresourceAccessor = PropertyAccessorFactory.forBeanPropertyAccess(subresource);
+        PropertyAccessor resourceAccessor = PropertyAccessorFactory.forBeanPropertyAccess(resource);
         String subresourceClassName = getAssociatedClassFromRepository(relationshipOwnerClassrepository).getSimpleName();
-        return Optional.ofNullable(repository.findOne(id))
-                .map(resource -> {
-                    Optional<? extends BaseEntity> subresource = Optional.ofNullable(
-                            loadEntity(relationshipOwnerClassrepository, new Link("/".concat(albumId.toString()))));
-                    if (subresource.isPresent()) {
-                        PropertyAccessor subresourceAccessor = PropertyAccessorFactory.forBeanPropertyAccess(subresource.get());
-                        PropertyAccessor resourceAccessor = PropertyAccessorFactory.forBeanPropertyAccess(resource);
 
-                        if (association == Association.ONE_TO_MANY) {
-                            subresourceAccessor.setPropertyValue(resourceClassName.toLowerCase(), null);
-                        } else if (association == Association.MANY_TO_MANY) {
-                            List<BaseEntity> subresourceCollection = getResourceCollection(resourceAccessor, subresourceClassName);
-                            List<BaseEntity> resourceCollection = getResourceCollection(subresourceAccessor, resourceClassName);
-                            subresourceCollection.remove(subresource.get());
-                            resourceCollection.remove(resource);
-                        } else if (association == Association.ONE_TO_ONE) {
-                            resourceAccessor.setPropertyValue(subresourceClassName.toLowerCase(), null);
-                            subresourceAccessor.setPropertyValue(resourceClassName.toLowerCase(), null);
-
-                        } else {
-                            return ControllerUtils.toEmptyResponse(HttpStatus.NOT_FOUND);
-                        }
-
-                    } else {
-                        return ControllerUtils.toEmptyResponse(HttpStatus.NOT_FOUND);
-                    }
-                    repository.save(resource);
-                    return ControllerUtils.toEmptyResponse(HttpStatus.NO_CONTENT);
-                })
-                .orElse(ControllerUtils.toEmptyResponse(HttpStatus.NOT_FOUND));
+        if (association == Association.ONE_TO_MANY) {
+            subresourceAccessor.setPropertyValue(resourceClassName.toLowerCase(), null);
+        } else if (association == Association.MANY_TO_MANY) {
+            List<BaseEntity> subresourceCollection = getResourceCollection(resourceAccessor, subresourceClassName);
+            List<BaseEntity> resourceCollection = getResourceCollection(subresourceAccessor, resourceClassName);
+            subresourceCollection.remove(subresource);
+            resourceCollection.remove(resource);
+        } else if (association == Association.ONE_TO_ONE) {
+            resourceAccessor.setPropertyValue(subresourceClassName.toLowerCase(), null);
+        }
+        repository.save(resource);
+        return ControllerUtils.toEmptyResponse(HttpStatus.NO_CONTENT);
     }
 
 
@@ -270,6 +260,34 @@ public abstract class AbstractBaseRestController<T extends BaseEntity> implement
         Long id = Long.parseLong(href.substring(href.lastIndexOf('/') + 1));
         return repository.findOne(id);
     }
+
+
+    private boolean resourcesExistAndAreAssociated(Association association,
+                                                   JpaRepository<? extends BaseEntity, Long> relationshipOwnerClassrepository,
+                                                   BaseEntity resource,
+                                                   BaseEntity subresource) {
+        if ((resource == null) || (subresource == null)) return false;
+        PropertyAccessor subresourceAccessor = PropertyAccessorFactory.forBeanPropertyAccess(subresource);
+        PropertyAccessor resourceAccessor = PropertyAccessorFactory.forBeanPropertyAccess(resource);
+        if (association == Association.ONE_TO_MANY) {
+            BaseEntity subresourceOwner = (BaseEntity) subresourceAccessor.getPropertyValue(resourceClassName.toLowerCase());
+            return subresourceOwner != null  &&  subresourceOwner.getId().equals(resource.getId());
+        } else if (association == Association.MANY_TO_MANY) {
+            List<BaseEntity> subresourceCollection = getResourceCollection(resourceAccessor, subresource.getClass().getSimpleName());
+            List<BaseEntity> resourceCollection = getResourceCollection(subresourceAccessor, resourceClassName);
+            return (subresourceCollection.contains(subresource) && resourceCollection.contains(resource));
+        } else if (association == Association.ONE_TO_ONE) {
+            BaseEntity subresourceOwner = (BaseEntity) subresourceAccessor.getPropertyValue(resourceClassName.toLowerCase());
+            BaseEntity resourceOwner = (BaseEntity) resourceAccessor.getPropertyValue(subresource.getClass().getSimpleName().toLowerCase());
+           return  (subresourceOwner != null) && (resourceOwner != null) &&
+                   (subresourceOwner.getId().equals(resource.getId())) &&
+                   (resourceOwner.getId().equals(subresource.getId()));
+        } else {
+            return false;
+        }
+
+    }
+
 
     enum Association {
         ONE_TO_MANY,

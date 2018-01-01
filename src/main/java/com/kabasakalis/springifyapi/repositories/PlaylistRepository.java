@@ -11,6 +11,5 @@ import org.springframework.stereotype.Repository;
 @RepositoryRestResource(collectionResourceRel = "playlists", path = "playlists")
 public interface PlaylistRepository extends JpaRepository<Playlist, Long> {
     Page<Playlist> findAllByAlbums(Album album, Pageable pageable);
-    boolean getPlaylistByIdExists(Long id);
 }
 
