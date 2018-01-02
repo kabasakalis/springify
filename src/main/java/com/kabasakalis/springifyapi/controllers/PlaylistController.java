@@ -1,9 +1,8 @@
 
 package com.kabasakalis.springifyapi.controllers;
 
+
 import com.kabasakalis.springifyapi.hateoas.AlbumResourceAssembler;
-import com.kabasakalis.springifyapi.hateoas.GenreResourceAssembler;
-import com.kabasakalis.springifyapi.hateoas.PlaylistResource;
 import com.kabasakalis.springifyapi.hateoas.PlaylistResourceAssembler;
 import com.kabasakalis.springifyapi.models.Album;
 import com.kabasakalis.springifyapi.models.BaseEntity;
@@ -13,16 +12,18 @@ import com.kabasakalis.springifyapi.repositories.PlaylistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.rest.webmvc.PersistentEntityResourceAssembler;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
-import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.*;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.data.web.HateoasPageableHandlerMethodArgumentResolver;
-
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.MediaTypes;
+import org.springframework.hateoas.ResourceSupport;
+import org.springframework.hateoas.Resources;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @RepositoryRestController
 @RequestMapping("/playlists")

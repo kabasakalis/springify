@@ -2,23 +2,30 @@
 
 package com.kabasakalis.springifyapi.controllers;
 
-import com.kabasakalis.springifyapi.hateoas.*;
-import com.kabasakalis.springifyapi.models.*;
-import com.kabasakalis.springifyapi.repositories.ArtistRepository;
+import com.kabasakalis.springifyapi.hateoas.AlbumResourceAssembler;
+import com.kabasakalis.springifyapi.hateoas.ArtistResourceAssembler;
+import com.kabasakalis.springifyapi.hateoas.PlaylistResourceAssembler;
+import com.kabasakalis.springifyapi.models.Album;
+import com.kabasakalis.springifyapi.models.Artist;
+import com.kabasakalis.springifyapi.models.BaseEntity;
+import com.kabasakalis.springifyapi.models.Playlist;
 import com.kabasakalis.springifyapi.repositories.AlbumRepository;
 import com.kabasakalis.springifyapi.repositories.PlaylistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.rest.webmvc.PersistentEntityResourceAssembler;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
-import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.*;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.data.web.HateoasPageableHandlerMethodArgumentResolver;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.MediaTypes;
+import org.springframework.hateoas.ResourceSupport;
+import org.springframework.hateoas.Resources;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 
 @RepositoryRestController
@@ -55,7 +62,7 @@ public class AlbumController extends AbstractBaseRestController<Album> {
             path = "/{id}/playlists",
             consumes = {"application/json"},
             produces = MediaTypes.HAL_JSON_VALUE)
-    public ResponseEntity getAlbumPlaylists(
+    public ResponseEntity getPlaylists(
             Pageable pageRequest,
             @PathVariable Long id) {
         Page<Playlist> pagedPlaylistsByAlbum = playlistRepository.findAllByAlbums(repository.getOne(id), pageRequest);
@@ -67,7 +74,7 @@ public class AlbumController extends AbstractBaseRestController<Album> {
             path = "/{id}/playlists",
             consumes = {"application/json", "text/uri-list"},
             produces = MediaTypes.HAL_JSON_VALUE)
-    public ResponseEntity<? extends ResourceSupport> addArtistAlbums(
+    public ResponseEntity<? extends ResourceSupport> addPlaylistAssociations(
             @PathVariable long id,
             @RequestBody(required = false) Resources<? extends BaseEntity> playlistLinks) {
         return associateResources(Association.MANY_TO_MANY, playlistRepository, id, playlistLinks);
@@ -79,7 +86,7 @@ public class AlbumController extends AbstractBaseRestController<Album> {
             path = "/{id}/playlists/{playlistId}",
             consumes = {"application/json"},
             produces = MediaTypes.HAL_JSON_VALUE)
-    public ResponseEntity deleteAlbum(
+    public ResponseEntity deletePlaylistAssociation(
             @PathVariable Long id, @PathVariable Long playlistId) {
         return deleteAssociation(Association.MANY_TO_MANY, playlistRepository, id, playlistId);
     }
@@ -90,7 +97,7 @@ public class AlbumController extends AbstractBaseRestController<Album> {
             path = "/{id}/artist",
             consumes = {"application/json"},
             produces = MediaTypes.HAL_JSON_VALUE)
-    public ResponseEntity<?> getArtistGenre(
+    public ResponseEntity<?> getArtist(
             @PathVariable Long id) {
         return getAssociatedResource(id, Artist.class, artistResourceAssembler);
     }

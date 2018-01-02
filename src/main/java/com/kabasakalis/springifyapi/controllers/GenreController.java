@@ -53,15 +53,11 @@ public class GenreController extends AbstractBaseRestController<Genre> {
             path = "/{id}/artists",
             consumes = {"application/json"},
             produces = MediaTypes.HAL_JSON_VALUE)
-    public ResponseEntity<?> getGenreArtists(
+    public ResponseEntity<?> getArtists(
             Pageable pageRequest,
             @PathVariable Long id) {
             Page<Artist> pagedArtistsByGenreId = artistRepository.findAllByGenreId(id, pageRequest);
-        return getAssociatedResources(
-                artistResourceAssembler,
-                pagedArtistAssembler,
-                pagedArtistsByGenreId,
-                pageRequest
+        return getAssociatedResources(artistResourceAssembler, pagedArtistAssembler, pagedArtistsByGenreId, pageRequest
         );
     }
 
@@ -71,13 +67,21 @@ public class GenreController extends AbstractBaseRestController<Genre> {
             path = "/{id}/artists",
             consumes = {"application/json", "text/uri-list"},
             produces = MediaTypes.HAL_JSON_VALUE)
-    public ResponseEntity<? extends ResourceSupport> addGenreArtists(
+    public ResponseEntity<? extends ResourceSupport> addArtistAssociations(
             @PathVariable long id,
             @RequestBody(required = false) Resources<? extends BaseEntity> artistLinks) {
         return associateResources(Association.ONE_TO_MANY, artistRepository,id, artistLinks);
     }
 
 
-
+    @RequestMapping(
+            method = RequestMethod.DELETE,
+            path = "/{id}/artists/{artistId}",
+            consumes = {"application/json"},
+            produces = MediaTypes.HAL_JSON_VALUE)
+    public ResponseEntity deleteArtistAssociation(
+            @PathVariable Long id, @PathVariable Long artistId) {
+        return deleteAssociation(Association.ONE_TO_MANY, artistRepository, id, artistId);
+    }
 
 }

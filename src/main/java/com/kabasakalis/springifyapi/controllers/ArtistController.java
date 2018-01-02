@@ -1,31 +1,6 @@
 
 package com.kabasakalis.springifyapi.controllers;
 
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.ApplicationContext;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.query.Param;
-import org.springframework.data.repository.support.Repositories;
-import org.springframework.data.repository.support.RepositoryInvokerFactory;
-import org.springframework.data.rest.webmvc.ControllerUtils;
-import org.springframework.data.rest.webmvc.RepositoryRestController;
-import org.springframework.data.web.HateoasPageableHandlerMethodArgumentResolver;
-import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.*;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import com.kabasakalis.springifyapi.hateoas.AlbumResourceAssembler;
 import com.kabasakalis.springifyapi.hateoas.ArtistResourceAssembler;
 import com.kabasakalis.springifyapi.hateoas.GenreResourceAssembler;
@@ -36,6 +11,18 @@ import com.kabasakalis.springifyapi.models.Genre;
 import com.kabasakalis.springifyapi.repositories.AlbumRepository;
 import com.kabasakalis.springifyapi.repositories.ArtistRepository;
 import com.kabasakalis.springifyapi.repositories.GenreRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.rest.webmvc.RepositoryRestController;
+import org.springframework.data.web.HateoasPageableHandlerMethodArgumentResolver;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 
 @RepositoryRestController
@@ -72,13 +59,12 @@ public class ArtistController extends AbstractBaseRestController<Artist> {
     }
 
 
-
-        @RequestMapping(
+    @RequestMapping(
             method = RequestMethod.GET,
             path = "/{id}/albums",
             consumes = {"application/json"},
             produces = MediaTypes.HAL_JSON_VALUE)
-    public ResponseEntity getArtistAlbums(
+    public ResponseEntity getAlbums(
             Pageable pageRequest,
             @PathVariable Long id) {
         Page<Album> pagedAlbumsByArtistId = albumRepository.findAllByArtistId(id, pageRequest);
@@ -86,23 +72,12 @@ public class ArtistController extends AbstractBaseRestController<Artist> {
     }
 
 
-        @RequestMapping(
-            method = RequestMethod.GET,
-            path = "/{id}/genre",
-            consumes = {"application/json"},
-            produces = MediaTypes.HAL_JSON_VALUE)
-    public ResponseEntity<?> getArtistGenre(
-            Pageable pageRequest,
-            @PathVariable Long id) {
-        return getAssociatedResource(id, Genre.class, genreResourceAssembler);
-    }
-
     @RequestMapping(
             method = {RequestMethod.PATCH, RequestMethod.PUT, RequestMethod.POST},
             path = "/{id}/albums",
             consumes = {"application/json", "text/uri-list"},
             produces = MediaTypes.HAL_JSON_VALUE)
-    public ResponseEntity<? extends ResourceSupport> addArtistAlbums(
+    public ResponseEntity<? extends ResourceSupport> addAlbumAssociations(
             @PathVariable long id,
             @RequestBody(required = false) Resources<? extends BaseEntity> albumLinks) {
         return associateResources(Association.ONE_TO_MANY, albumRepository, id, albumLinks);
@@ -114,10 +89,22 @@ public class ArtistController extends AbstractBaseRestController<Artist> {
             path = "/{id}/albums/{albumId}",
             consumes = {"application/json"},
             produces = MediaTypes.HAL_JSON_VALUE)
-    public ResponseEntity deleteAlbum(
+    public ResponseEntity deleteAlbumAssociation(
             @PathVariable Long id, @PathVariable Long albumId) {
         return deleteAssociation(Association.ONE_TO_MANY, albumRepository, id, albumId);
     }
+
+    @RequestMapping(
+            method = RequestMethod.GET,
+            path = "/{id}/genre",
+            consumes = {"application/json"},
+            produces = MediaTypes.HAL_JSON_VALUE)
+    public ResponseEntity<?> getGenre(
+            Pageable pageRequest,
+            @PathVariable Long id) {
+        return getAssociatedResource(id, Genre.class, genreResourceAssembler);
+    }
+
 
     @RequestMapping(
             method = RequestMethod.GET,

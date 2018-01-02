@@ -1,425 +1,186 @@
 {
-	"variables": [],
 	"info": {
 		"name": "Springify API",
-		"_postman_id": "3e6490a8-b0b1-46e8-0412-99ee846408d8",
+		"_postman_id": "ab4e3753-e125-a26a-c3aa-16f2053278b2",
 		"description": "",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Artists",
-			"description": "",
-			"item": [
-				{
-					"name": "Get Artist",
-					"request": {
-						"url": "http://localhost:8080/api/artists/1003",
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/hal+json;charset=UTF-8",
-								"description": ""
-							},
-							{
-								"key": "Authorization",
-								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
-								"description": "",
-								"disabled": true
-							}
-						],
-						"body": {},
-						"description": "Perform a filtered search for message event data. The response is sorted by descending timestamp.\n\n"
-					},
-					"response": []
-				},
-				{
-					"name": "Get Artists",
-					"request": {
-						"url": "http://localhost:8080/api/artists",
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/hal+json;charset=UTF-8",
-								"description": ""
-							},
-							{
-								"key": "Authorization",
-								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
-								"description": "",
-								"disabled": true
-							}
-						],
-						"body": {},
-						"description": "Perform a filtered search for message event data. The response is sorted by descending timestamp."
-					},
-					"response": []
-				},
-				{
-					"name": "Add Artist",
-					"request": {
-						"url": "http://localhost:8080/api/artists",
-						"method": "POST",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/hal+json;charset=UTF-8",
-								"description": ""
-							},
-							{
-								"key": "Authorization",
-								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
-								"description": "",
-								"disabled": true
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\"name\": \"Vio-lence\",\n\"country\": \"USA\"\n}"
-						},
-						"description": "Perform a filtered search for message event data. The response is sorted by descending timestamp."
-					},
-					"response": []
-				},
-				{
-					"name": "Update Artist",
-					"request": {
-						"url": "http://localhost:8080/api/artists/1010",
-						"method": "PATCH",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/hal+json;charset=UTF-8",
-								"description": ""
-							},
-							{
-								"key": "Authorization",
-								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
-								"description": "",
-								"disabled": true
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\"name\": \"Vio-lence _____\",\n\"country\": \"USA _____\"\n}"
-						},
-						"description": "Perform a filtered search for message event data. The response is sorted by descending timestamp."
-					},
-					"response": []
-				},
-				{
-					"name": "Delete Artist",
-					"request": {
-						"url": "http://localhost:8080/api/artists/1010",
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/hal+json;charset=UTF-8",
-								"description": ""
-							},
-							{
-								"key": "Authorization",
-								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
-								"description": "",
-								"disabled": true
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": "Perform a filtered search for message event data. The response is sorted by descending timestamp."
-					},
-					"response": []
-				},
-				{
-					"name": "Get Artists By Country",
-					"request": {
-						"url": {
-							"raw": "http://localhost:8080/api/artists/findByCountry?country=Aus",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"artists",
-								"findByCountry"
-							],
-							"query": [
-								{
-									"key": "country",
-									"value": "Aus",
-									"equals": true,
-									"description": ""
-								}
-							],
-							"variable": []
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/hal+json;charset=UTF-8",
-								"description": ""
-							},
-							{
-								"key": "Authorization",
-								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
-								"description": "",
-								"disabled": true
-							}
-						],
-						"body": {},
-						"description": "Perform a filtered search for message event data. The response is sorted by descending timestamp."
-					},
-					"response": []
-				},
-				{
-					"name": "Get Artists By Name",
-					"request": {
-						"url": {
-							"raw": "http://localhost:8080/api/artists/findByName?name=KI",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"artists",
-								"findByName"
-							],
-							"query": [
-								{
-									"key": "name",
-									"value": "KI",
-									"equals": true,
-									"description": ""
-								}
-							],
-							"variable": []
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/hal+json;charset=UTF-8",
-								"description": ""
-							},
-							{
-								"key": "Authorization",
-								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
-								"description": "",
-								"disabled": true
-							}
-						],
-						"body": {},
-						"description": "Perform a filtered search for message event data. The response is sorted by descending timestamp."
-					},
-					"response": []
-				},
-				{
-					"name": "Add Albums to Artist",
-					"request": {
-						"url": "http://localhost:8080/api/artists/1/albums",
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/hal+json;charset=UTF-8",
-								"description": ""
-							},
-							{
-								"key": "Content-Type",
-								"value": "text/uri-list",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "/api/albums/10001\n/api/albums/10002"
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get Artist Albums",
-					"request": {
-						"url": "http://localhost:8080/api/artists/30/albums",
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/hal+json;charset=UTF-8",
-								"description": ""
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							}
-						],
-						"body": {},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get Artist Genre",
-					"request": {
-						"url": "http://localhost:8080/api/artists/1/genre",
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/hal+json;charset=UTF-8",
-								"description": ""
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							}
-						],
-						"body": {},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Delete Album From Artist",
-					"request": {
-						"url": "http://localhost:8080/api/artists/18/albums/10001",
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/hal+json;charset=UTF-8",
-								"description": ""
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							}
-						],
-						"body": {},
-						"description": "Perform a filtered search for message event data. The response is sorted by descending timestamp."
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "Albums",
-			"description": "",
 			"item": [
 				{
 					"name": "Get All Albums",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f8668fc0-a3f2-4891-9e60-514e37ac5130",
+								"type": "text/javascript",
+								"exec": [
+									"pm.sendRequest(\"https://postman-echo.com/get\", function (err, response) {",
+									"    console.log(response.json());",
+									"});"
+								]
+							}
+						}
+					],
 					"request": {
-						"url": "http://localhost:8080/api/albums/",
 						"method": "GET",
 						"header": [],
 						"body": {},
-						"description": ""
+						"url": {
+							"raw": "http://localhost:8080/api/albums?page=0&size=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"albums"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"equals": true
+								},
+								{
+									"key": "size",
+									"value": "10",
+									"equals": true
+								}
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Get One Album",
 					"request": {
-						"url": "http://localhost:8080/api/albums/1",
 						"method": "GET",
 						"header": [],
-						"body": {},
-						"description": ""
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/albums/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"albums",
+								"1"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Add One Album",
 					"request": {
-						"url": "http://localhost:8080/api/albums",
 						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
+								"value": "application/json"
 							}
 						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\"title\": \"Rockstar\",\n\"year\": \"2017\"\n}"
 						},
-						"description": ""
+						"url": {
+							"raw": "http://localhost:8080/api/albums",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"albums"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Update One Album",
 					"request": {
-						"url": "http://localhost:8080/api/albums/10000",
 						"method": "PATCH",
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
+								"value": "application/json"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"title\": \"Rockstar3213213\",\n\"year\": \"2020\"\n}"
+							"raw": "{\"title\": \"Rockstar_Updated\",\n\"year\": \"2020\"\n}"
 						},
-						"description": ""
+						"url": {
+							"raw": "http://localhost:8080/api/albums/10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"albums",
+								"10"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Delete One Album",
 					"request": {
-						"url": "http://localhost:8080/api/albums/10000",
 						"method": "DELETE",
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
+								"value": "application/json"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"title\": \"Rockstar3213213\",\n\"year\": \"2020\"\n}"
+							"raw": ""
 						},
-						"description": ""
+						"url": {
+							"raw": "http://localhost:8080/api/albums/10000",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"albums",
+								"10000"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Get Album Playlists",
 					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {},
 						"url": {
 							"raw": "http://localhost:8080/api/albums/3/playlists?page=0&size=10",
 							"protocol": "http",
@@ -437,27 +198,113 @@
 								{
 									"key": "page",
 									"value": "0",
-									"equals": true,
-									"description": ""
+									"equals": true
 								},
 								{
 									"key": "size",
 									"value": "10",
-									"equals": true,
-									"description": ""
+									"equals": true
 								}
-							],
-							"variable": []
-						},
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Album Artist",
+					"request": {
 						"method": "GET",
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
+								"value": "application/json"
 							}
 						],
 						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/api/albums/1/artist",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"albums",
+								"1",
+								"artist"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add Playlists to Album",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/hal+json;charset=UTF-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "text/uri-list"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "/api/playlists/10\n/api/playlists/11"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/albums/1/playlists",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"albums",
+								"1",
+								"playlists"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Album-Playlist Association",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/hal+json;charset=UTF-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/api/albums/18/playlists/10001",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"albums",
+								"18",
+								"playlists",
+								"10001"
+							]
+						},
 						"description": ""
 					},
 					"response": []
@@ -466,103 +313,184 @@
 		},
 		{
 			"name": "Genres",
-			"description": "",
 			"item": [
 				{
 					"name": "Get All Genres",
 					"request": {
-						"url": "http://localhost:8080/api/genres",
 						"method": "GET",
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
+								"value": "application/json"
 							}
 						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\"title\": \"Rockstar3213213\",\n\"year\": \"2020\"\n}"
 						},
-						"description": ""
+						"url": {
+							"raw": "http://localhost:8080/api/genres",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"genres"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Get One Genre",
 					"request": {
-						"url": "http://localhost:8080/api/genres/1",
 						"method": "GET",
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
+								"value": "application/json"
 							}
 						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\"title\": \"Rockstar3213213\",\n\"year\": \"2020\"\n}"
 						},
-						"description": ""
+						"url": {
+							"raw": "http://localhost:8080/api/genres/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"genres",
+								"1"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Add One Genre",
 					"request": {
-						"url": "http://localhost:8080/api/genres",
 						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
+								"value": "application/json"
 							}
 						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\"name\": \"PsyTrance\"\n}"
 						},
-						"description": ""
+						"url": {
+							"raw": "http://localhost:8080/api/genres",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"genres"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Update One Genre",
 					"request": {
-						"url": "http://localhost:8080/api/genres/100",
 						"method": "PATCH",
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
+								"value": "application/json"
 							}
 						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\"name\": \"PsyTrance KOKO\"\n}"
 						},
-						"description": ""
+						"url": {
+							"raw": "http://localhost:8080/api/genres/100",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"genres",
+								"100"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Delete One Genre",
 					"request": {
-						"url": "http://localhost:8080/api/genres/100",
 						"method": "DELETE",
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
+								"value": "application/json"
 							}
 						],
 						"body": {
 							"mode": "raw",
 							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/genres/100",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"genres",
+								"100"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Genre-Artist Association",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/hal+json;charset=UTF-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/api/genres/1/artists/10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"genres",
+								"1",
+								"artists",
+								"10"
+							]
 						},
 						"description": ""
 					},
@@ -571,25 +499,496 @@
 				{
 					"name": "Add Artists  to Genre",
 					"request": {
-						"url": "http://localhost:8080/api/genres/6/artists",
 						"method": "PUT",
 						"header": [
 							{
 								"key": "Accept",
-								"value": "application/hal+json;charset=UTF-8",
-								"description": ""
+								"value": "application/hal+json;charset=UTF-8"
 							},
 							{
 								"key": "Content-Type",
-								"value": "text/uri-list",
-								"description": ""
+								"value": "text/uri-list"
 							}
 						],
 						"body": {
 							"mode": "raw",
 							"raw": "/api/artists/1008\n/api/artists/1011"
 						},
-						"description": ""
+						"url": {
+							"raw": "http://localhost:8080/api/genres/6/artists",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"genres",
+								"6",
+								"artists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Genre Artists",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/api/genres/3/artists?page=0&size=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"genres",
+								"3",
+								"artists"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"equals": true
+								},
+								{
+									"key": "size",
+									"value": "10",
+									"equals": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Artists",
+			"item": [
+				{
+					"name": "Get Artist",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/hal+json;charset=UTF-8"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/artists/1003",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"artists",
+								"1003"
+							]
+						},
+						"description": "\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Artists",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/hal+json;charset=UTF-8"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/artists",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"artists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Artist",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/hal+json;charset=UTF-8"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"name\": \"Vio-lence\",\n\"country\": \"USA\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/artists",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"artists"
+							]
+						},
+						"description": "Perform a filtered search for message event data. The response is sorted by descending timestamp."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Artist",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/hal+json;charset=UTF-8"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"name\": \"Vio-lence _____\",\n\"country\": \"USA _____\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/artists/1010",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"artists",
+								"1010"
+							]
+						},
+						"description": "Perform a filtered search for message event data. The response is sorted by descending timestamp."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Artist",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/hal+json;charset=UTF-8"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/artists/1010",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"artists",
+								"1010"
+							]
+						},
+						"description": "Perform a filtered search for message event data. The response is sorted by descending timestamp."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Artists By Country",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/hal+json;charset=UTF-8"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/artists/findByCountry?country=Aus",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"artists",
+								"findByCountry"
+							],
+							"query": [
+								{
+									"key": "country",
+									"value": "Aus",
+									"equals": true
+								}
+							]
+						},
+						"description": "Perform a filtered search for message event data. The response is sorted by descending timestamp."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Artists By Name",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/hal+json;charset=UTF-8"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/artists/findByName?name=KI",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"artists",
+								"findByName"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "KI",
+									"equals": true
+								}
+							]
+						},
+						"description": "Perform a filtered search for message event data. The response is sorted by descending timestamp."
+					},
+					"response": []
+				},
+				{
+					"name": "Add Albums to Artist",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/hal+json;charset=UTF-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "text/uri-list"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "/api/albums/10001\n/api/albums/10002"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/artists/1/albums",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"artists",
+								"1",
+								"albums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Artist Albums",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/hal+json;charset=UTF-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/artists/30/albums",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"artists",
+								"30",
+								"albums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Artist Genre",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/hal+json;charset=UTF-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/artists/1/genre",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"artists",
+								"1",
+								"genre"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Album-Artist Association",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/hal+json;charset=UTF-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/artists/18/albums/10001",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"artists",
+								"18",
+								"albums",
+								"10001"
+							]
+						}
 					},
 					"response": []
 				}
@@ -597,27 +996,38 @@
 		},
 		{
 			"name": "Playlists",
-			"description": "",
 			"item": [
 				{
 					"name": "Get Playlists",
 					"request": {
-						"url": "http://localhost:8080/api/playlists",
 						"method": "GET",
 						"header": [
 							{
 								"key": "Accept",
-								"value": "application/hal+json;charset=UTF-8",
-								"description": ""
+								"value": "application/hal+json;charset=UTF-8"
 							},
 							{
 								"key": "Authorization",
 								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
-								"description": "",
 								"disabled": true
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/playlists",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"playlists"
+							]
+						},
 						"description": "Perform a filtered search for message event data. The response is sorted by descending timestamp."
 					},
 					"response": []
@@ -625,22 +1035,35 @@
 				{
 					"name": "Get  One Playlist",
 					"request": {
-						"url": "http://localhost:8080/api/playlists/4",
 						"method": "GET",
 						"header": [
 							{
 								"key": "Accept",
-								"value": "application/hal+json;charset=UTF-8",
-								"description": ""
+								"value": "application/hal+json;charset=UTF-8"
 							},
 							{
 								"key": "Authorization",
 								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
-								"description": "",
 								"disabled": true
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/playlists/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"playlists",
+								"4"
+							]
+						},
 						"description": "Perform a filtered search for message event data. The response is sorted by descending timestamp."
 					},
 					"response": []
@@ -648,29 +1071,37 @@
 				{
 					"name": "Add One Playlist",
 					"request": {
-						"url": "http://localhost:8080/api/playlists",
 						"method": "POST",
 						"header": [
 							{
 								"key": "Accept",
-								"value": "application/hal+json;charset=UTF-8",
-								"description": ""
+								"value": "application/hal+json;charset=UTF-8"
 							},
 							{
 								"key": "Authorization",
 								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
-								"description": "",
 								"disabled": true
 							},
 							{
 								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
+								"value": "application/json"
 							}
 						],
 						"body": {
 							"mode": "raw",
 							"raw": "{ \"name\": \"Top Albania\"}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/playlists",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"playlists"
+							]
 						},
 						"description": "Perform a filtered search for message event data. The response is sorted by descending timestamp."
 					},
@@ -679,29 +1110,38 @@
 				{
 					"name": "Update One Playlist",
 					"request": {
-						"url": "http://localhost:8080/api/playlists/6",
 						"method": "PATCH",
 						"header": [
 							{
 								"key": "Accept",
-								"value": "application/hal+json;charset=UTF-8",
-								"description": ""
+								"value": "application/hal+json;charset=UTF-8"
 							},
 							{
 								"key": "Authorization",
 								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
-								"description": "",
 								"disabled": true
 							},
 							{
 								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
+								"value": "application/json"
 							}
 						],
 						"body": {
 							"mode": "raw",
 							"raw": "{ \"name\": \"Top Bulgaria\"}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/playlists/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"playlists",
+								"6"
+							]
 						},
 						"description": "Perform a filtered search for message event data. The response is sorted by descending timestamp."
 					},
@@ -710,62 +1150,61 @@
 				{
 					"name": "Delete One Playlist",
 					"request": {
-						"url": "http://localhost:8080/api/playlists/100",
 						"method": "DELETE",
 						"header": [
 							{
 								"key": "Accept",
-								"value": "application/hal+json;charset=UTF-8",
-								"description": ""
+								"value": "application/hal+json;charset=UTF-8"
 							},
 							{
 								"key": "Authorization",
 								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
-								"description": "",
 								"disabled": true
 							},
 							{
 								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
+								"value": "application/json"
 							}
 						],
 						"body": {
 							"mode": "raw",
 							"raw": ""
 						},
-						"description": "Perform a filtered search for message event data. The response is sorted by descending timestamp."
-					},
-					"response": []
-				},
-				{
-					"name": "Add Albums to Playlist",
-					"request": {
-						"url": "http://localhost:8080/api/playlists/13/albums",
-						"method": "POST",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/hal+json;charset=UTF-8",
-								"description": ""
-							},
-							{
-								"key": "Content-Type",
-								"value": "text/uri-list",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "/api/albums/10001\n/api/albums/10002"
+						"url": {
+							"raw": "http://localhost:8080/api/playlists/100",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"playlists",
+								"100"
+							]
 						},
-						"description": ""
+						"description": "Perform a filtered search for message event data. The response is sorted by descending timestamp."
 					},
 					"response": []
 				},
 				{
 					"name": "Get Albums By Playlist",
 					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/hal+json;charset=UTF-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "/api/albums/10001\n/api/albums/10002"
+						},
 						"url": {
 							"raw": "http://localhost:8080/api/playlists/9/albums?page=0&size=10",
 							"protocol": "http",
@@ -783,83 +1222,86 @@
 								{
 									"key": "page",
 									"value": "0",
-									"equals": true,
-									"description": ""
+									"equals": true
 								},
 								{
 									"key": "size",
 									"value": "10",
-									"equals": true,
-									"description": ""
+									"equals": true
 								}
-							],
-							"variable": []
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/hal+json;charset=UTF-8",
-								"description": ""
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "/api/albums/10001\n/api/albums/10002"
-						},
-						"description": ""
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Add Albums to Playlist",
 					"request": {
-						"url": "http://localhost:8080/api/playlists/7/albums",
 						"method": "PUT",
 						"header": [
 							{
 								"key": "Accept",
-								"value": "application/hal+json;charset=UTF-8",
-								"description": ""
+								"value": "application/hal+json;charset=UTF-8"
 							},
 							{
 								"key": "Content-Type",
-								"value": "text/uri-list",
-								"description": ""
+								"value": "text/uri-list"
 							}
 						],
 						"body": {
 							"mode": "raw",
 							"raw": "/api/albums/3\n"
 						},
-						"description": ""
+						"url": {
+							"raw": "http://localhost:8080/api/playlists/7/albums",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"playlists",
+								"7",
+								"albums"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Delete Album From Playlist",
 					"request": {
-						"url": "http://localhost:8080/api/playlists/4/albums/33",
 						"method": "DELETE",
 						"header": [
 							{
 								"key": "Accept",
-								"value": "application/hal+json;charset=UTF-8",
-								"description": ""
+								"value": "application/hal+json;charset=UTF-8"
 							},
 							{
 								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
+								"value": "application/json"
 							}
 						],
-						"body": {},
-						"description": ""
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/playlists/4/albums/33",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"playlists",
+								"4",
+								"albums",
+								"33"
+							]
+						}
 					},
 					"response": []
 				}
