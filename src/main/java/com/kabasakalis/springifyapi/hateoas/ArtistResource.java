@@ -12,16 +12,16 @@ public class ArtistResource extends ResourceSupport {
     public String name;
     public long  genre_id;
     public String country;
-    public Calendar created_date;
-    public Calendar updated_date;
+    public String created_date;
+    public String updated_date;
 
     public ArtistResource(Artist model){
         id = model.getId();
         name = model.getName();
         country = model.getCountry();
         genre_id = model.getGenre().getId();
-        created_date = model.getCreatedDate();
-        updated_date = model.getUpdatedDate();
+        created_date = model.getFormattedCreatedDate();
+        updated_date = model.getFormattedUpdatedDate();
     }
 
 }

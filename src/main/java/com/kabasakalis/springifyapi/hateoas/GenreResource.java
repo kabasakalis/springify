@@ -10,14 +10,14 @@ public class GenreResource extends ResourceSupport {
     @JsonProperty
     public long id;
     public String name;
-    public Calendar created_date;
-    public Calendar updated_date;
+    public String created_date;
+    public String updated_date;
 
     public GenreResource(Genre model){
         id = model.getId();
         name = model.getName();
-        created_date = model.getCreatedDate();
-        updated_date = model.getUpdatedDate();
+        created_date = model.getFormattedCreatedDate();
+        updated_date = model.getFormattedUpdatedDate();
     }
 
 }
