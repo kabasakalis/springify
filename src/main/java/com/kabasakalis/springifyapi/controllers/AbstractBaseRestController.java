@@ -40,7 +40,9 @@ import static org.springframework.web.bind.annotation.RequestMethod.PATCH;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 
-public abstract class AbstractBaseRestController<T extends BaseEntity> implements ApplicationContextAware {
+public abstract class AbstractBaseRestController<T extends BaseEntity>
+        extends CoreController
+        implements ApplicationContextAware {
 
 
     protected JpaRepository<T, Long> repository;
@@ -76,24 +78,6 @@ public abstract class AbstractBaseRestController<T extends BaseEntity> implement
     public ApplicationContext getContext() {
         return appContext;
     }
-
-
-
-
-    @GetMapping(value = "/home", produces = MediaTypes.HAL_JSON_VALUE)
-    public ResourceSupport root() {
-
-        ResourceSupport rootResource = new ResourceSupport();
-
-//        rootResource.add(
-//                linkTo(methodOn(EmployeeController.class).root()).withSelfRel(),
-//                linkTo(methodOn(EmployeeController.class).findAll()).withRel("employees"));
-
-        return rootResource;
-    }
-
-
-
 
     @RequestMapping(
             method = RequestMethod.GET,
@@ -288,7 +272,7 @@ public abstract class AbstractBaseRestController<T extends BaseEntity> implement
         PropertyAccessor resourceAccessor = PropertyAccessorFactory.forBeanPropertyAccess(resource);
         if (association == Association.ONE_TO_MANY) {
             BaseEntity subresourceOwner = (BaseEntity) subresourceAccessor.getPropertyValue(resourceClassName.toLowerCase());
-            return subresourceOwner != null  &&  subresourceOwner.getId().equals(resource.getId());
+            return subresourceOwner != null && subresourceOwner.getId().equals(resource.getId());
         } else if (association == Association.MANY_TO_MANY) {
             List<BaseEntity> subresourceCollection = getResourceCollection(resourceAccessor, subresource.getClass().getSimpleName());
             List<BaseEntity> resourceCollection = getResourceCollection(subresourceAccessor, resourceClassName);
@@ -296,9 +280,9 @@ public abstract class AbstractBaseRestController<T extends BaseEntity> implement
         } else if (association == Association.ONE_TO_ONE) {
             BaseEntity subresourceOwner = (BaseEntity) subresourceAccessor.getPropertyValue(resourceClassName.toLowerCase());
             BaseEntity resourceOwner = (BaseEntity) resourceAccessor.getPropertyValue(subresource.getClass().getSimpleName().toLowerCase());
-           return  (subresourceOwner != null) && (resourceOwner != null) &&
-                   (subresourceOwner.getId().equals(resource.getId())) &&
-                   (resourceOwner.getId().equals(subresource.getId()));
+            return (subresourceOwner != null) && (resourceOwner != null) &&
+                    (subresourceOwner.getId().equals(resource.getId())) &&
+                    (resourceOwner.getId().equals(subresource.getId()));
         } else {
             return false;
         }
