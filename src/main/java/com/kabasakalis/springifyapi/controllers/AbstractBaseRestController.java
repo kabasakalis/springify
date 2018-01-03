@@ -23,14 +23,12 @@ import org.springframework.data.rest.webmvc.ControllerUtils;
 import org.springframework.data.web.HateoasPageableHandlerMethodArgumentResolver;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.*;
+import org.springframework.hateoas.SimpleIdentifiableResourceAssembler;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
@@ -79,11 +77,30 @@ public abstract class AbstractBaseRestController<T extends BaseEntity> implement
         return appContext;
     }
 
+
+
+
+    @GetMapping(value = "/home", produces = MediaTypes.HAL_JSON_VALUE)
+    public ResourceSupport root() {
+
+        ResourceSupport rootResource = new ResourceSupport();
+
+//        rootResource.add(
+//                linkTo(methodOn(EmployeeController.class).root()).withSelfRel(),
+//                linkTo(methodOn(EmployeeController.class).findAll()).withRel("employees"));
+
+        return rootResource;
+    }
+
+
+
+
     @RequestMapping(
             method = RequestMethod.GET,
             produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<Page<T>> getAll(Pageable pageRequest) {
         PagedResources<Resource<T>> pagedResources = pagedAssembler.toResource(repository.findAll(pageRequest), assembler);
+        assembler.addLinks(pagedResources, pageRequest);
         return new ResponseEntity(pagedResources, HttpStatus.OK);
     }
 

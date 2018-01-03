@@ -15,6 +15,11 @@
  */
 package org.springframework.hateoas;
 
+import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.ResourceAssembler;
+import org.springframework.hateoas.ResourceSupport;
+import org.springframework.hateoas.Resources;
+
 /**
  * Analogous to {@link ResourceAssembler} but for resource collections.
  * 
