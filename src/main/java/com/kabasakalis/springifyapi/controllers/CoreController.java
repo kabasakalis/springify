@@ -34,9 +34,4 @@ public class CoreController {
         return ControllerUtils.toResponseEntity(HttpStatus.OK, new HttpHeaders(), rootResource);
     }
 
-//    protected Link createHateoasLink(long id){
-//        Link link = linkTo(getClass()).slash(id).withSelfRel();
-//        return link;
-//    }
-
 }

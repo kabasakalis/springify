@@ -1,6 +1,7 @@
 package com.kabasakalis.springifyapi.hateoas;
 
 import com.kabasakalis.springifyapi.controllers.ArtistController;
+import com.kabasakalis.springifyapi.controllers.CoreController;
 import com.kabasakalis.springifyapi.controllers.GenreController;
 import com.kabasakalis.springifyapi.controllers.PlaylistController;
 import com.kabasakalis.springifyapi.models.Genre;
@@ -28,7 +29,8 @@ public class GenreResourceAssembler extends SimpleIdentifiableResourceAssembler<
         // optionally add more custom links here.
         PageRequest pageRequest = getPageRequest(0, 20, null);
         resource.add(
-                linkTo(methodOn(GenreController.class).getArtists(pageRequest, resource.getContent().getId())).withRel("artists") );
+                linkTo(methodOn(GenreController.class).getArtists(pageRequest, resource.getContent().getId())).withRel("artists"),
+                linkTo(methodOn(CoreController.class).root(pageRequest)).withRel("home"));
     }
 
     /**
@@ -54,7 +56,8 @@ public class GenreResourceAssembler extends SimpleIdentifiableResourceAssembler<
         PageRequest pageRequest = getPageRequest(0, 20, null);
         pagedResources.add(
                 linkTo(methodOn(ArtistController.class).getAll(pageRequest)).withRel("artists"),
-                linkTo(methodOn(PlaylistController.class).getAll(pageRequest)).withRel("playlists"));
+                linkTo(methodOn(PlaylistController.class).getAll(pageRequest)).withRel("playlists"),
+                linkTo(methodOn(CoreController.class).root(pageRequest)).withRel("home"));
     }
 
 }

@@ -1,9 +1,6 @@
 package com.kabasakalis.springifyapi.hateoas;
 
-import com.kabasakalis.springifyapi.controllers.AlbumController;
-import com.kabasakalis.springifyapi.controllers.ArtistController;
-import com.kabasakalis.springifyapi.controllers.GenreController;
-import com.kabasakalis.springifyapi.controllers.PlaylistController;
+import com.kabasakalis.springifyapi.controllers.*;
 import com.kabasakalis.springifyapi.models.Playlist;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.hateoas.PagedResources;
@@ -29,7 +26,8 @@ public class PlaylistResourceAssembler extends SimpleIdentifiableResourceAssembl
         // optionally add more custom links here.
         PageRequest pageRequest = getPageRequest(0, 20, null);
         resource.add(
-                linkTo(methodOn(PlaylistController.class).getAlbums(pageRequest, resource.getContent().getId())).withRel("albums"));
+                linkTo(methodOn(PlaylistController.class).getAlbums(pageRequest, resource.getContent().getId())).withRel("albums"),
+                linkTo(methodOn(CoreController.class).root(pageRequest)).withRel("home"));
     }
 
 
@@ -57,7 +55,8 @@ public class PlaylistResourceAssembler extends SimpleIdentifiableResourceAssembl
         pagedResources.add(
                 linkTo(methodOn(ArtistController.class).getAll(pageRequest)).withRel("artists"),
                 linkTo(methodOn(GenreController.class).getAll(pageRequest)).withRel("genres"),
-                linkTo(methodOn(AlbumController.class).getAll(pageRequest)).withRel("albums"));
+                linkTo(methodOn(AlbumController.class).getAll(pageRequest)).withRel("albums"),
+                linkTo(methodOn(CoreController.class).root(pageRequest)).withRel("home"));
     }
 
 
