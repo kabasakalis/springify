@@ -97,7 +97,7 @@ public class SimpleResourceAssembler<T> implements ResourceAssembler<T, Resource
      *
      * @param pagedResources
      */
-    public void addLinks(PagedResources<Resource<T>> pagedResources, Pageable pageRequest) {
+    public void addLinks(PagedResources<Resource<T>> pagedResources) {
         Assert.notNull(pagedResources, "PagedResources must not be null!");
     }
 

@@ -17,10 +17,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
 public class CoreController {
-    protected Link createHateoasLink(long id){
-        Link link = linkTo(getClass()).slash(id).withSelfRel();
-        return link;
-    }
+
 
     @RequestMapping(
             method = RequestMethod.GET,
@@ -32,11 +29,14 @@ public class CoreController {
                 linkTo(methodOn(this.getClass()).root(pageRequest)).withSelfRel(),
                 linkTo(methodOn(GenreController.class).getAll(pageRequest)).withRel("genres"),
                 linkTo(methodOn(ArtistController.class).getAll(pageRequest)).withRel("artists"),
-                linkTo(methodOn(AlbumController.class).getAll(pageRequest)).withRel("artists"),
+                linkTo(methodOn(AlbumController.class).getAll(pageRequest)).withRel("albums"),
                 linkTo(methodOn(PlaylistController.class).getAll(pageRequest)).withRel("playlists"));
         return ControllerUtils.toResponseEntity(HttpStatus.OK, new HttpHeaders(), rootResource);
     }
 
-
+//    protected Link createHateoasLink(long id){
+//        Link link = linkTo(getClass()).slash(id).withSelfRel();
+//        return link;
+//    }
 
 }

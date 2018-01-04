@@ -51,9 +51,8 @@ public class PlaylistController extends AbstractBaseRestController<Playlist> {
     @RequestMapping(
             method = RequestMethod.GET,
             path = "/{id}/albums",
-            consumes = {"application/json"},
             produces = MediaTypes.HAL_JSON_VALUE)
-    public ResponseEntity getPlaylistAlbums(
+    public ResponseEntity getAlbums(
             Pageable pageRequest,
             @PathVariable Long id) {
         Page<Album> pagedPlaylistAlbums = albumRepository.findAllByPlaylists(repository.getOne(id), pageRequest);
@@ -75,7 +74,6 @@ public class PlaylistController extends AbstractBaseRestController<Playlist> {
     @RequestMapping(
             method = RequestMethod.DELETE,
             path = "/{id}/albums/{albumId}",
-            consumes = {"application/json"},
             produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity deleteAlbum(
             @PathVariable Long id, @PathVariable Long albumId) {

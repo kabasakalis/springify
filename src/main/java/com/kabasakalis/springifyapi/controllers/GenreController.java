@@ -51,7 +51,6 @@ public class GenreController extends AbstractBaseRestController<Genre> {
         @RequestMapping(
             method = RequestMethod.GET,
             path = "/{id}/artists",
-            consumes = {"application/json"},
             produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<?> getArtists(
             Pageable pageRequest,

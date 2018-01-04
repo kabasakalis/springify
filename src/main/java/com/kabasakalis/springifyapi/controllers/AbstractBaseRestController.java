@@ -84,7 +84,7 @@ public abstract class AbstractBaseRestController<T extends BaseEntity>
             produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<Page<T>> getAll(Pageable pageRequest) {
         PagedResources<Resource<T>> pagedResources = pagedAssembler.toResource(repository.findAll(pageRequest), assembler);
-        assembler.addLinks(pagedResources, pageRequest);
+        assembler.addLinks(pagedResources);
         return new ResponseEntity(pagedResources, HttpStatus.OK);
     }
 
@@ -95,7 +95,7 @@ public abstract class AbstractBaseRestController<T extends BaseEntity>
             produces = MediaTypes.HAL_JSON_VALUE)
     ResponseEntity<Resource<T>> getOne(@PathVariable Long id) {
         return Optional.ofNullable(repository.findOne(id))
-                .map(o -> new ResponseEntity<>(assembler.toResource(o), HttpStatus.OK))
+                .map(o -> new ResponseEntity<>(assembler.toResource(o ), HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 

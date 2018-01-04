@@ -18,6 +18,8 @@ package org.springframework.hateoas;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
 
 import org.springframework.core.GenericTypeResolver;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.hateoas.*;
 import org.springframework.hateoas.core.EvoInflectorRelProvider;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
@@ -134,5 +136,7 @@ public class SimpleIdentifiableResourceAssembler<T extends Identifiable<?>> exte
         this.basePath = basePath;
     }
 
-
+    public PageRequest getPageRequest(int page, int size, Sort sort) {
+       return new PageRequest(page, size, sort);
+    }
 }

@@ -1,22 +1,21 @@
 
 package com.kabasakalis.springifyapi.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import com.kabasakalis.springifyapi.models.Album;
-// import com.fasterxml.jackson.annotation.JsonManagedReference;
-// import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
 @Table(name = "playlists")
 public class Playlist extends BaseEntity {
 
-  private Long id;
   private String name;
 
   @ManyToMany
+  @JsonIgnore
   @JoinTable(name = "playlists_albums",
         joinColumns = @JoinColumn(name = "playlist_id", referencedColumnName = "id"),
         inverseJoinColumns = @JoinColumn(name = "album_id", referencedColumnName = "id"))

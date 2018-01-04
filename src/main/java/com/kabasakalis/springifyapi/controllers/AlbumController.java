@@ -60,7 +60,6 @@ public class AlbumController extends AbstractBaseRestController<Album> {
     @RequestMapping(
             method = RequestMethod.GET,
             path = "/{id}/playlists",
-            consumes = {"application/json"},
             produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity getPlaylists(
             Pageable pageRequest,
@@ -84,7 +83,6 @@ public class AlbumController extends AbstractBaseRestController<Album> {
     @RequestMapping(
             method = RequestMethod.DELETE,
             path = "/{id}/playlists/{playlistId}",
-            consumes = {"application/json"},
             produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity deletePlaylistAssociation(
             @PathVariable Long id, @PathVariable Long playlistId) {
@@ -95,7 +93,6 @@ public class AlbumController extends AbstractBaseRestController<Album> {
     @RequestMapping(
             method = RequestMethod.GET,
             path = "/{id}/artist",
-            consumes = {"application/json"},
             produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<?> getArtist(
             @PathVariable Long id) {
