@@ -14,14 +14,14 @@ public class ExceptionHandlers extends BaseExceptionHandler {
     public ExceptionHandlers() {
 //        super(log);
         registerMapping(
-                ArtistNotFoundException.class,
+                EntityNotFoundException.class,
                 new ErrorResponse(
-                        MethodArgumentTypeMismatchException.class.getSimpleName(),
+                        EntityNotFoundException.class.getSimpleName(),
                         HttpStatus.NOT_FOUND.value(),
                         "ARTIST_NOT_FOuND",
                         "Artist Not Found",
-                        "",
-                        Calendar.getInstance().getTime()
+                        null,
+                        null
                 ));
     }
 }
