@@ -1,11 +1,12 @@
 package com.kabasakalis.springifyapi.errors;
 
 import org.springframework.http.HttpStatus;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
+
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 public class BaseException extends RuntimeException {
 
-    private static final HttpStatus CODE = NOT_FOUND;
+    protected static final HttpStatus CODE = INTERNAL_SERVER_ERROR;
     protected HttpStatus code;
     protected String customMessage;
 

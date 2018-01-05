@@ -9,6 +9,7 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 public class EntityNotFoundException extends BaseException {
 
+    protected static final HttpStatus CODE = NOT_FOUND;
     private Class<? extends BaseEntity> entityClass;
     private long entity_id;
 
@@ -23,7 +24,7 @@ public class EntityNotFoundException extends BaseException {
     ) {
         super(code, message, cause, enableSuppression, writableStackTrace);
         this.entity_id = entity_id;
-        this.customMessage = String.format("%s with %d could not be found.", _class.getSimpleName(), entity_id);
+        this.customMessage = String.format("%s with id of %d could not be found.", _class.getSimpleName(), entity_id);
     }
 
     public Class<? extends BaseEntity> getEntityClass() {

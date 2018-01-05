@@ -10,6 +10,7 @@ import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,31 +23,27 @@ import java.util.Optional;
 import static org.springframework.http.HttpStatus.*;
 
 
-
-public abstract class BaseExceptionHandler {
-    private static final ErrorResponse DEFAULT_ERROR_RESPONSE =
+public abstract class BaseExceptionHandler extends DefaultHandlerExceptionResolver {
+    private static final ErrorResponse GENERIC_DEFAULT_ERROR_RESPONSE =
             new ErrorResponse(
                     InternalServerErrorException.class.getSimpleName(),
                     INTERNAL_SERVER_ERROR.value(),
-                    INTERNAL_SERVER_ERROR.toString(),
-                    "Internal Server Error",
-                    null,
-                    null
+                    INTERNAL_SERVER_ERROR.getReasonPhrase(),
+                    "Internal Server Error"
             );
 
     private final Map<Class, ErrorResponse> errorResponseMappings = new HashMap<>();
 
 
     public BaseExceptionHandler() {
+        super();
         registerMapping(
                 MissingServletRequestParameterException.class,
                 new ErrorResponse(
                         MissingServletRequestParameterException.class.getSimpleName(),
                         BAD_REQUEST.value(),
                         BAD_REQUEST.getReasonPhrase(),
-                        "Missing request Parameter",
-                        null,
-                        null
+                        "Missing request Parameter"
                 ));
 
         registerMapping(
@@ -56,9 +53,7 @@ public abstract class BaseExceptionHandler {
                         MethodArgumentTypeMismatchException.class.getSimpleName(),
                         BAD_REQUEST.value(),
                         BAD_REQUEST.getReasonPhrase(),
-                        "Argument type mismatch",
-                        null,
-                        null
+                        "Argument type mismatch"
                 ));
 
         registerMapping(
@@ -67,9 +62,7 @@ public abstract class BaseExceptionHandler {
                         HttpRequestMethodNotSupportedException.class.getSimpleName(),
                         METHOD_NOT_ALLOWED.value(),
                         METHOD_NOT_ALLOWED.getReasonPhrase(),
-                        "Argument type mismatch",
-                        null,
-                        null
+                        "Method Not Allowed"
                 ));
         registerMapping(
                 ServletRequestBindingException.class,
@@ -77,9 +70,7 @@ public abstract class BaseExceptionHandler {
                         ServletRequestBindingException.class.getSimpleName(),
                         BAD_REQUEST.value(),
                         BAD_REQUEST.getReasonPhrase(),
-                        "Missing header in request",
-                        null,
-                        null
+                        "Missing header in request"
                 ));
 
     }
@@ -94,12 +85,12 @@ public abstract class BaseExceptionHandler {
         String path = httpRequest.getRequestURI();
 
         Optional<ErrorResponse> customErrorResponse = Optional.ofNullable(errorResponseMappings.get(exception.getClass()));
-
         ErrorResponse errorResponse = customErrorResponse.map(er -> {
             er.setTimestamp(timestamp);
             er.setPath(path);
+            er.setMessage(er.getMessage().concat(". ").concat(exception.getMessage()));
             return er;
-        }).orElse(getDefaultErrorResponse(exception, httpRequest, httpResponse, timestamp, path));
+        }).orElse(getDefaultExceptionResponse(exception, path, timestamp));
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpResponse.setStatus(errorResponse.getStatus());
@@ -112,19 +103,19 @@ public abstract class BaseExceptionHandler {
         errorResponseMappings.put(_class, customErrorResponse);
     }
 
+    private ErrorResponse getDefaultExceptionResponse(Throwable exception,
+                                                      String path,
+                                                      String timestamp) {
 
-    private ErrorResponse getDefaultErrorResponse(Throwable exception,
-                                                  HttpServletRequest httpRequest,
-                                                  HttpServletResponse httpResponse,
-                                                  String path,
-                                                  String timestamp) {
-        return new ErrorResponse(exception.getClass().getSimpleName(),
-                httpResponse.getStatus(),
-                exception.getClass().getSimpleName(),
-                exception.getMessage(),
-                path,
-                timestamp);
+        ErrorResponse defautErrorResponse = new ErrorResponse(exception.getClass().getSimpleName(),
+                INTERNAL_SERVER_ERROR.value(),
+                INTERNAL_SERVER_ERROR.getReasonPhrase(),
+                exception.getMessage());
+        defautErrorResponse.setPath(path);
+        defautErrorResponse.setTimestamp(timestamp);
+        return defautErrorResponse;
 
     }
+
 
 }

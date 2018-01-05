@@ -1,31 +1,20 @@
 package com.kabasakalis.springifyapi.errors;
 
-import com.sun.istack.internal.Nullable;
-
-import java.util.Date;
-
 public class ErrorResponse {
 
-    @Nullable
+
     private String exceptionName;
-    @Nullable
     private int status;
-    @Nullable
     private String error;
-    @Nullable
     private String message;
-    @Nullable
     private String path;
-    @Nullable
     private String timestamp;
 
-    public ErrorResponse(String exceptionName, int status, String error, String message, String path, String timestamp) {
+    public ErrorResponse(String exceptionName, int status, String error, String message) {
         this.exceptionName = exceptionName;
         this.status = status;
         this.error = error;
         this.message = message;
-        this.path = path;
-        this.timestamp = timestamp;
     }
 
     public String getExceptionName() {
