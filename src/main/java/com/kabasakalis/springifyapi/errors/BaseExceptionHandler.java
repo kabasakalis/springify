@@ -1,17 +1,7 @@
 package com.kabasakalis.springifyapi.errors;
 
-import com.kabasakalis.springifyapi.errors.ErrorResponse;
-import com.kabasakalis.springifyapi.errors.ExceptionMapping;
-import liquibase.precondition.core.PreconditionContainer;
+import com.kabasakalis.springifyapi.models.BaseEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-
-import java.util.*;
-
-
-//import lombok.AllArgsConstructor;
-//import lombok.Data;
-//import org.slf4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -24,9 +14,14 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.InternalServerErrorException;
-import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 import static org.springframework.http.HttpStatus.*;
+
+
 
 public abstract class BaseExceptionHandler {
     private static final ErrorResponse DEFAULT_ERROR_RESPONSE =
@@ -41,45 +36,47 @@ public abstract class BaseExceptionHandler {
 
     private final Map<Class, ErrorResponse> errorResponseMappings = new HashMap<>();
 
+
     public BaseExceptionHandler() {
         registerMapping(
                 MissingServletRequestParameterException.class,
                 new ErrorResponse(
                         MissingServletRequestParameterException.class.getSimpleName(),
                         BAD_REQUEST.value(),
-                        "MISSING_PARAMETER",
-                        "Missing Parameter",
-                        "",
-                        Calendar.getInstance().getTime()
+                        BAD_REQUEST.getReasonPhrase(),
+                        "Missing request Parameter",
+                        null,
+                        null
                 ));
 
         registerMapping(
-                MissingServletRequestParameterException.class,
+
+                MethodArgumentTypeMismatchException.class,
                 new ErrorResponse(
                         MethodArgumentTypeMismatchException.class.getSimpleName(),
                         BAD_REQUEST.value(),
-                        "ARGUMENT_TYPE_MISMATCH",
+                        BAD_REQUEST.getReasonPhrase(),
                         "Argument type mismatch",
-                        "",
-                        Calendar.getInstance().getTime()
+                        null,
+                        null
                 ));
 
         registerMapping(
-                MissingServletRequestParameterException.class,
+                HttpRequestMethodNotSupportedException.class,
                 new ErrorResponse(
                         HttpRequestMethodNotSupportedException.class.getSimpleName(),
                         METHOD_NOT_ALLOWED.value(),
-                        METHOD_NOT_ALLOWED.toString(),
+                        METHOD_NOT_ALLOWED.getReasonPhrase(),
                         "Argument type mismatch",
-                        "",
-                        Calendar.getInstance().getTime()
+                        null,
+                        null
                 ));
         registerMapping(
-                MissingServletRequestParameterException.class,
+                ServletRequestBindingException.class,
                 new ErrorResponse(
                         ServletRequestBindingException.class.getSimpleName(),
                         BAD_REQUEST.value(),
-                        "MISSING_HEADER",
+                        BAD_REQUEST.getReasonPhrase(),
                         "Missing header in request",
                         null,
                         null
@@ -93,24 +90,20 @@ public abstract class BaseExceptionHandler {
                                           final HttpServletRequest httpRequest,
                                           final HttpServletResponse httpResponse) {
 
+        String timestamp = BaseEntity.DATE_FORMAT.format(new Date().getTime());
+        String path = httpRequest.getRequestURI();
 
-        ErrorResponse customErrorResponse = errorResponseMappings.getOrDefault(exception.getClass(),
-                DEFAULT_ERROR_RESPONSE);
+        Optional<ErrorResponse> customErrorResponse = Optional.ofNullable(errorResponseMappings.get(exception.getClass()));
 
-        response.setStatus(errorResponse.getStatus());
+        ErrorResponse errorResponse = customErrorResponse.map(er -> {
+            er.setTimestamp(timestamp);
+            er.setPath(path);
+            return er;
+        }).orElse(getDefaultErrorResponse(exception, httpRequest, httpResponse, timestamp, path));
 
-//        log.error("{} ({}): {}", errorResponse.getMessage(), errorResponse.getStatus(), ex.getMessage(), ex);
-
-//        return new ErrorResponse(mapping.code, mapping.message);
-        ErrorResponse errorResponse = new ErrorResponse(ex.getClass().getSimpleName(),
-                response.getStatus(), ex.getMessage(), ex.getMessage(), request.getRequestURI(), )
         HttpHeaders httpHeaders = new HttpHeaders();
-
-        httpResponse.setStatus();
-        errorResponse.setTimestamp(new Date());
-        errorResponse.setPath(httpRequest.getRequestURI());
-
-        return new ResponseEntity(errorResponse, httpHeaders, HttpStatus.CREATED);
+        httpResponse.setStatus(errorResponse.getStatus());
+        return new ResponseEntity(errorResponse, httpHeaders, HttpStatus.valueOf(errorResponse.getStatus()));
     }
 
     protected void registerMapping(
@@ -120,13 +113,18 @@ public abstract class BaseExceptionHandler {
     }
 
 
-//    protected void registerMapping(
-//            final Class<?> clazz,
-//            final String code,
-//            final String message,
-//            final HttpStatus status) {
-//        errorResponseMappings.put(clazz, new ExceptionMapping(code, message, status));
-//    }
+    private ErrorResponse getDefaultErrorResponse(Throwable exception,
+                                                  HttpServletRequest httpRequest,
+                                                  HttpServletResponse httpResponse,
+                                                  String path,
+                                                  String timestamp) {
+        return new ErrorResponse(exception.getClass().getSimpleName(),
+                httpResponse.getStatus(),
+                exception.getClass().getSimpleName(),
+                exception.getMessage(),
+                path,
+                timestamp);
 
+    }
 
 }

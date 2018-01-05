@@ -1,18 +1,13 @@
 package com.kabasakalis.springifyapi.errors;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.internal.Nullable;
-import org.springframework.data.jpa.repository.Temporal;
 
-import javax.persistence.TemporalType;
-import javax.validation.constraints.Null;
-import java.util.Calendar;
 import java.util.Date;
 
 public class ErrorResponse {
 
     @Nullable
-    private String exception;
+    private String exceptionName;
     @Nullable
     private int status;
     @Nullable
@@ -22,10 +17,10 @@ public class ErrorResponse {
     @Nullable
     private String path;
     @Nullable
-    private Date timestamp;
+    private String timestamp;
 
-    public ErrorResponse(String exception, int status, String error, String message, String path, Date timestamp) {
-        this.exception = exception;
+    public ErrorResponse(String exceptionName, int status, String error, String message, String path, String timestamp) {
+        this.exceptionName = exceptionName;
         this.status = status;
         this.error = error;
         this.message = message;
@@ -33,12 +28,12 @@ public class ErrorResponse {
         this.timestamp = timestamp;
     }
 
-    public String getException() {
-        return exception;
+    public String getExceptionName() {
+        return exceptionName;
     }
 
-    public void setException(String exception) {
-        this.exception = exception;
+    public void setExceptionName(String exceptionName) {
+        this.exceptionName = exceptionName;
     }
 
     public int getStatus() {
@@ -73,11 +68,11 @@ public class ErrorResponse {
         this.path = path;
     }
 
-    public Date getTimestamp() {
+    public String getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Date timestamp) {
+    public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
 

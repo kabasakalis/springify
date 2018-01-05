@@ -8,18 +8,20 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 
 import java.util.Calendar;
 
+import static javax.ws.rs.core.Response.Status.BAD_REQUEST;
+import static javax.ws.rs.core.Response.Status.NOT_FOUND;
+
 @ControllerAdvice
 //@Slf4j
 public class ExceptionHandlers extends BaseExceptionHandler {
     public ExceptionHandlers() {
-//        super(log);
         registerMapping(
                 EntityNotFoundException.class,
                 new ErrorResponse(
                         EntityNotFoundException.class.getSimpleName(),
-                        HttpStatus.NOT_FOUND.value(),
-                        "ARTIST_NOT_FOuND",
-                        "Artist Not Found",
+                        NOT_FOUND.getStatusCode(),
+                        NOT_FOUND.getReasonPhrase(),
+                        "Entity Not Found",
                         null,
                         null
                 ));

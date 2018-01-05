@@ -13,7 +13,7 @@ public class EntityNotFoundException extends BaseException {
     private long entity_id;
 
     public EntityNotFoundException(
-            Class<? extends  BaseEntity> _class,
+            Class<? extends BaseEntity> _class,
             long entity_id,
             HttpStatus code,
             String message,
@@ -40,6 +40,11 @@ public class EntityNotFoundException extends BaseException {
 
     public void setEntity_id(long entity_id) {
         this.entity_id = entity_id;
+    }
+
+    @Override
+    public String getMessage() {
+        return customMessage;
     }
 
 }
