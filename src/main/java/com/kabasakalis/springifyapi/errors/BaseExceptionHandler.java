@@ -35,7 +35,7 @@ import static org.springframework.http.HttpStatus.*;
 public abstract class BaseExceptionHandler extends DefaultHandlerExceptionResolver {
 
 
-    private static final Map<Class<Exception>, HttpStatus> DEFAULT_SPRING_EXCEPTION_RESPONSE_CODES =
+    protected static final Map<Class<Exception>, HttpStatus> DEFAULT_SPRING_EXCEPTION_RESPONSE_CODES =
             Arrays.stream(new Object[][]{
                     {HttpRequestMethodNotSupportedException.class, METHOD_NOT_ALLOWED},
                     {HttpMediaTypeNotSupportedException.class, UNSUPPORTED_MEDIA_TYPE},
@@ -53,15 +53,6 @@ public abstract class BaseExceptionHandler extends DefaultHandlerExceptionResolv
                     {NoHandlerFoundException.class, NOT_FOUND},
                     {Exception.class, INTERNAL_SERVER_ERROR},
             }).collect(Collectors.toMap(entry -> (Class<Exception>) entry[0], entry -> (HttpStatus) entry[1]));
-
-
-
-    private static final Map<Class<Exception>, HttpStatus> DEFAULT_SPRINGIFY_EXCEPTION_RESPONSE_CODES =
-            Arrays.stream(new Object[][]{
-                    {EntityNotFoundException.class, NOT_FOUND},
-                    {AssociationNotFoundException.class, NOT_FOUND},
-            }).collect(Collectors.toMap(entry -> (Class<Exception>) entry[0], entry -> (HttpStatus) entry[1]));
-
 
     private static final ErrorResponse GENERIC_DEFAULT_ERROR_RESPONSE =
             new ErrorResponse(
@@ -156,11 +147,8 @@ public abstract class BaseExceptionHandler extends DefaultHandlerExceptionResolv
         return defautErrorResponse;
     }
 
-    private Map<Class<Exception>, HttpStatus> getAllExceptionToResponseMappings(){
-      Map<Class<Exception>, HttpStatus> all = new HashMap>();
-       all.putAll(DEFAULT_SPRING_EXCEPTION_RESPONSE_CODES);
-       all.putAll(DEFAULT_SPRINGIFY_EXCEPTION_RESPONSE_CODES);
-        return  all;
+    protected Map<Class<Exception>, HttpStatus> getAllExceptionToResponseMappings() {
+        return DEFAULT_SPRING_EXCEPTION_RESPONSE_CODES;
     }
 
 }
