@@ -1,29 +1,62 @@
 package com.kabasakalis.springifyapi.errors;
 
 import com.kabasakalis.springifyapi.models.BaseEntity;
+import org.springframework.beans.ConversionNotSupportedException;
+import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.http.converter.HttpMessageNotWritableException;
+import org.springframework.web.HttpMediaTypeNotAcceptableException;
+import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingPathVariableException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.async.AsyncRequestTimeoutException;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.multipart.support.MissingServletRequestPartException;
+import org.springframework.web.servlet.NoHandlerFoundException;
+import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMethodException;
 import org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.InternalServerErrorException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.net.BindException;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpStatus.*;
 
 
 public abstract class BaseExceptionHandler extends DefaultHandlerExceptionResolver {
+
+
+    private static final Map<Class<Exception>, HttpStatus> DEFAULT_EXCEPTION_RESPONSE_CODES =
+            Arrays.stream(new Object[][]{
+                    {HttpRequestMethodNotSupportedException.class, METHOD_NOT_ALLOWED},
+                    {HttpMediaTypeNotSupportedException.class, UNSUPPORTED_MEDIA_TYPE},
+                    {HttpMediaTypeNotAcceptableException.class, NOT_ACCEPTABLE},
+                    {MissingPathVariableException.class, INTERNAL_SERVER_ERROR},
+                    {MissingServletRequestParameterException.class, BAD_REQUEST},
+                    {ServletRequestBindingException.class, BAD_REQUEST},
+                    {ConversionNotSupportedException.class, INTERNAL_SERVER_ERROR},
+                    {TypeMismatchException.class, BAD_REQUEST},
+                    {HttpMessageNotReadableException.class, BAD_REQUEST},
+                    {HttpMessageNotWritableException.class, INTERNAL_SERVER_ERROR},
+                    {MethodArgumentNotValidException.class, BAD_REQUEST},
+                    {MissingServletRequestPartException.class, BAD_REQUEST},
+                    {BindException.class, BAD_REQUEST},
+                    {NoHandlerFoundException.class, NOT_FOUND},
+                    {Exception.class, INTERNAL_SERVER_ERROR},
+            }).collect(Collectors.toMap(entry -> (Class<Exception>) entry[0], entry -> (HttpStatus) entry[1]));
+
+
     private static final ErrorResponse GENERIC_DEFAULT_ERROR_RESPONSE =
             new ErrorResponse(
                     InternalServerErrorException.class.getSimpleName(),
@@ -34,7 +67,6 @@ public abstract class BaseExceptionHandler extends DefaultHandlerExceptionResolv
 
     private final Map<Class, ErrorResponse> errorResponseMappings = new HashMap<>();
 
-
     public BaseExceptionHandler() {
         super();
         registerMapping(
@@ -43,7 +75,7 @@ public abstract class BaseExceptionHandler extends DefaultHandlerExceptionResolv
                         MissingServletRequestParameterException.class.getSimpleName(),
                         BAD_REQUEST.value(),
                         BAD_REQUEST.getReasonPhrase(),
-                        "Missing request Parameter"
+                        "Custom Message"
                 ));
 
         registerMapping(
@@ -53,7 +85,7 @@ public abstract class BaseExceptionHandler extends DefaultHandlerExceptionResolv
                         MethodArgumentTypeMismatchException.class.getSimpleName(),
                         BAD_REQUEST.value(),
                         BAD_REQUEST.getReasonPhrase(),
-                        "Argument type mismatch"
+                        "Custom Message"
                 ));
 
         registerMapping(
@@ -62,15 +94,16 @@ public abstract class BaseExceptionHandler extends DefaultHandlerExceptionResolv
                         HttpRequestMethodNotSupportedException.class.getSimpleName(),
                         METHOD_NOT_ALLOWED.value(),
                         METHOD_NOT_ALLOWED.getReasonPhrase(),
-                        "Method Not Allowed"
+                        "Custom Message"
                 ));
+
         registerMapping(
                 ServletRequestBindingException.class,
                 new ErrorResponse(
                         ServletRequestBindingException.class.getSimpleName(),
                         BAD_REQUEST.value(),
                         BAD_REQUEST.getReasonPhrase(),
-                        "Missing header in request"
+                        "Custom Message"
                 ));
 
     }
@@ -88,7 +121,7 @@ public abstract class BaseExceptionHandler extends DefaultHandlerExceptionResolv
         ErrorResponse errorResponse = customErrorResponse.map(er -> {
             er.setTimestamp(timestamp);
             er.setPath(path);
-            er.setMessage(er.getMessage().concat(". ").concat(exception.getMessage()));
+//            er.setMessage(er.getMessage());
             return er;
         }).orElse(getDefaultExceptionResponse(exception, path, timestamp));
 
@@ -107,15 +140,15 @@ public abstract class BaseExceptionHandler extends DefaultHandlerExceptionResolv
                                                       String path,
                                                       String timestamp) {
 
+        HttpStatus defaultStatus = DEFAULT_EXCEPTION_RESPONSE_CODES.getOrDefault(exception.getClass(), INTERNAL_SERVER_ERROR);
+
         ErrorResponse defautErrorResponse = new ErrorResponse(exception.getClass().getSimpleName(),
-                INTERNAL_SERVER_ERROR.value(),
-                INTERNAL_SERVER_ERROR.getReasonPhrase(),
+                defaultStatus.value(),
+                defaultStatus.getReasonPhrase(),
                 exception.getMessage());
         defautErrorResponse.setPath(path);
         defautErrorResponse.setTimestamp(timestamp);
         return defautErrorResponse;
-
     }
-
 
 }
