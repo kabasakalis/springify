@@ -69,7 +69,7 @@ public class GenreController extends AbstractBaseRestController<Genre> {
     public ResponseEntity<? extends ResourceSupport> addArtistAssociations(
             @PathVariable long id,
             @RequestBody(required = false) Resources<? extends BaseEntity> artistLinks) {
-        return associateResources(Association.ONE_TO_MANY, artistRepository,id, artistLinks);
+        return associateResources(Association.ONE_TO_MANY, Artist.class, artistRepository,id, artistLinks);
     }
 
 
@@ -80,7 +80,7 @@ public class GenreController extends AbstractBaseRestController<Genre> {
             produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity deleteArtistAssociation(
             @PathVariable Long id, @PathVariable Long artistId) {
-        return deleteAssociation(Association.ONE_TO_MANY, artistRepository, id, artistId);
+        return deleteAssociation(Association.ONE_TO_MANY,  Artist.class,artistRepository, id, artistId);
     }
 
 }

@@ -76,7 +76,7 @@ public class AlbumController extends AbstractBaseRestController<Album> {
     public ResponseEntity<? extends ResourceSupport> addPlaylistAssociations(
             @PathVariable long id,
             @RequestBody(required = false) Resources<? extends BaseEntity> playlistLinks) {
-        return associateResources(Association.MANY_TO_MANY, playlistRepository, id, playlistLinks);
+        return associateResources(Association.MANY_TO_MANY,Playlist.class, playlistRepository, id, playlistLinks);
     }
 
 
@@ -86,7 +86,7 @@ public class AlbumController extends AbstractBaseRestController<Album> {
             produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity deletePlaylistAssociation(
             @PathVariable Long id, @PathVariable Long playlistId) {
-        return deleteAssociation(Association.MANY_TO_MANY, playlistRepository, id, playlistId);
+        return deleteAssociation(Association.MANY_TO_MANY,Playlist.class, playlistRepository, id, playlistId);
     }
 
 

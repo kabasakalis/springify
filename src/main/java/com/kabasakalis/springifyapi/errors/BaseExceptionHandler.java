@@ -17,11 +17,9 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.request.async.AsyncRequestTimeoutException;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.multipart.support.MissingServletRequestPartException;
 import org.springframework.web.servlet.NoHandlerFoundException;
-import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMethodException;
 import org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,7 +35,7 @@ import static org.springframework.http.HttpStatus.*;
 public abstract class BaseExceptionHandler extends DefaultHandlerExceptionResolver {
 
 
-    private static final Map<Class<Exception>, HttpStatus> DEFAULT_EXCEPTION_RESPONSE_CODES =
+    private static final Map<Class<Exception>, HttpStatus> DEFAULT_SPRING_EXCEPTION_RESPONSE_CODES =
             Arrays.stream(new Object[][]{
                     {HttpRequestMethodNotSupportedException.class, METHOD_NOT_ALLOWED},
                     {HttpMediaTypeNotSupportedException.class, UNSUPPORTED_MEDIA_TYPE},
@@ -54,6 +52,14 @@ public abstract class BaseExceptionHandler extends DefaultHandlerExceptionResolv
                     {BindException.class, BAD_REQUEST},
                     {NoHandlerFoundException.class, NOT_FOUND},
                     {Exception.class, INTERNAL_SERVER_ERROR},
+            }).collect(Collectors.toMap(entry -> (Class<Exception>) entry[0], entry -> (HttpStatus) entry[1]));
+
+
+
+    private static final Map<Class<Exception>, HttpStatus> DEFAULT_SPRINGIFY_EXCEPTION_RESPONSE_CODES =
+            Arrays.stream(new Object[][]{
+                    {EntityNotFoundException.class, NOT_FOUND},
+                    {AssociationNotFoundException.class, NOT_FOUND},
             }).collect(Collectors.toMap(entry -> (Class<Exception>) entry[0], entry -> (HttpStatus) entry[1]));
 
 
@@ -75,7 +81,7 @@ public abstract class BaseExceptionHandler extends DefaultHandlerExceptionResolv
                         MissingServletRequestParameterException.class.getSimpleName(),
                         BAD_REQUEST.value(),
                         BAD_REQUEST.getReasonPhrase(),
-                        "Custom Message"
+                        "Bad Request Custom Message"
                 ));
 
         registerMapping(
@@ -85,7 +91,7 @@ public abstract class BaseExceptionHandler extends DefaultHandlerExceptionResolv
                         MethodArgumentTypeMismatchException.class.getSimpleName(),
                         BAD_REQUEST.value(),
                         BAD_REQUEST.getReasonPhrase(),
-                        "Custom Message"
+                        "Bad Request Custom Message"
                 ));
 
         registerMapping(
@@ -94,7 +100,7 @@ public abstract class BaseExceptionHandler extends DefaultHandlerExceptionResolv
                         HttpRequestMethodNotSupportedException.class.getSimpleName(),
                         METHOD_NOT_ALLOWED.value(),
                         METHOD_NOT_ALLOWED.getReasonPhrase(),
-                        "Custom Message"
+                        "Method Not Allowed Custom Message"
                 ));
 
         registerMapping(
@@ -103,7 +109,7 @@ public abstract class BaseExceptionHandler extends DefaultHandlerExceptionResolv
                         ServletRequestBindingException.class.getSimpleName(),
                         BAD_REQUEST.value(),
                         BAD_REQUEST.getReasonPhrase(),
-                        "Custom Message"
+                        "Bad Request Custom Message"
                 ));
 
     }
@@ -121,7 +127,6 @@ public abstract class BaseExceptionHandler extends DefaultHandlerExceptionResolv
         ErrorResponse errorResponse = customErrorResponse.map(er -> {
             er.setTimestamp(timestamp);
             er.setPath(path);
-//            er.setMessage(er.getMessage());
             return er;
         }).orElse(getDefaultExceptionResponse(exception, path, timestamp));
 
@@ -140,7 +145,7 @@ public abstract class BaseExceptionHandler extends DefaultHandlerExceptionResolv
                                                       String path,
                                                       String timestamp) {
 
-        HttpStatus defaultStatus = DEFAULT_EXCEPTION_RESPONSE_CODES.getOrDefault(exception.getClass(), INTERNAL_SERVER_ERROR);
+        HttpStatus defaultStatus = getAllExceptionToResponseMappings().getOrDefault(exception.getClass(), INTERNAL_SERVER_ERROR);
 
         ErrorResponse defautErrorResponse = new ErrorResponse(exception.getClass().getSimpleName(),
                 defaultStatus.value(),
@@ -149,6 +154,13 @@ public abstract class BaseExceptionHandler extends DefaultHandlerExceptionResolv
         defautErrorResponse.setPath(path);
         defautErrorResponse.setTimestamp(timestamp);
         return defautErrorResponse;
+    }
+
+    private Map<Class<Exception>, HttpStatus> getAllExceptionToResponseMappings(){
+      Map<Class<Exception>, HttpStatus> all = new HashMap>();
+       all.putAll(DEFAULT_SPRING_EXCEPTION_RESPONSE_CODES);
+       all.putAll(DEFAULT_SPRINGIFY_EXCEPTION_RESPONSE_CODES);
+        return  all;
     }
 
 }

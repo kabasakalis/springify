@@ -27,6 +27,32 @@ public class EntityNotFoundException extends BaseException {
         this.customMessage = String.format("%s with id of %d could not be found.", _class.getSimpleName(), entity_id);
     }
 
+    public EntityNotFoundException(
+            Class<? extends BaseEntity> _class,
+            long entity_id
+
+            ) {
+        super(CODE);
+        this.entity_id = entity_id;
+        this.customMessage = String.format("%s with id of %d could not be found.", _class.getSimpleName(), entity_id);
+    }
+
+    public EntityNotFoundException(
+            Class<? extends BaseEntity> _class
+
+    ) {
+        super(CODE);
+        this.customMessage = String.format("%s could not be found.", _class.getSimpleName());
+    }
+
+
+        public EntityNotFoundException() {
+        super(CODE);
+        this.customMessage = String.format("Some resources could could not be found.");
+    }
+
+
+
     public Class<? extends BaseEntity> getEntityClass() {
         return entityClass;
     }

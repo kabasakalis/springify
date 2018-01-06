@@ -10,7 +10,7 @@ public class BaseException extends RuntimeException {
     protected HttpStatus code;
     protected String customMessage;
 
-    public  BaseException (
+    public BaseException(
             HttpStatus code,
             String message,
             Throwable cause,
@@ -18,12 +18,22 @@ public class BaseException extends RuntimeException {
             boolean writableStackTrace
     ) {
         super(message, cause, enableSuppression, writableStackTrace);
-        this.code = code == null ? CODE : code ;
+        this.code = code == null ? CODE : code;
     }
+
+
+    public BaseException(
+            HttpStatus code
+    ) {
+        super();
+        this.code = code == null ? CODE : code;
+    }
+
 
     public String getCustomMessage() {
         return customMessage;
     }
+
     public void setCustomMessage(String message) {
         this.customMessage = message;
     }

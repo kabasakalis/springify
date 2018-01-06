@@ -68,7 +68,7 @@ public class PlaylistController extends AbstractBaseRestController<Playlist> {
     public ResponseEntity<? extends ResourceSupport> addPlaylistAlbums(
             @PathVariable long id,
             @RequestBody(required = false) Resources<? extends BaseEntity> albumLinks) {
-        return associateResources(Association.MANY_TO_MANY, albumRepository, id, albumLinks);
+        return associateResources(Association.MANY_TO_MANY,Album.class, albumRepository, id, albumLinks);
     }
 
     @RequestMapping(
@@ -78,7 +78,7 @@ public class PlaylistController extends AbstractBaseRestController<Playlist> {
     public ResponseEntity deleteAlbum(
             @PathVariable Long id, @PathVariable Long albumId) {
         return deleteAssociation(
-                Association.MANY_TO_MANY, albumRepository, id, albumId);
+                Association.MANY_TO_MANY, Album.class, albumRepository, id, albumId);
     }
 
 

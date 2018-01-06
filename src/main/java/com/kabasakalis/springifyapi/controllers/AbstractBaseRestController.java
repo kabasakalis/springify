@@ -3,6 +3,8 @@
 package com.kabasakalis.springifyapi.controllers;
 
 
+import com.kabasakalis.springifyapi.errors.AssociationNotFoundException;
+import com.kabasakalis.springifyapi.errors.EntityNotFoundException;
 import com.kabasakalis.springifyapi.models.BaseEntity;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.PropertyAccessor;
@@ -93,10 +95,13 @@ public abstract class AbstractBaseRestController<T extends BaseEntity>
             method = RequestMethod.GET,
             path = "/{id}",
             produces = MediaTypes.HAL_JSON_VALUE)
-    ResponseEntity<Resource<T>> getOne(@PathVariable Long id) {
+    ResponseEntity<Resource<T>> getOne(@PathVariable Long id) throws EntityNotFoundException {
         return Optional.ofNullable(repository.findOne(id))
-                .map(o -> new ResponseEntity<>(assembler.toResource(o ), HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+                .map(o -> new ResponseEntity<>(assembler.toResource(o), HttpStatus.OK))
+                .orElseGet(() -> {
+                    throw new EntityNotFoundException(resourceClass, id);
+                });
+
     }
 
     @RequestMapping(
@@ -115,14 +120,17 @@ public abstract class AbstractBaseRestController<T extends BaseEntity>
             method = PATCH,
             path = "/{id}",
             produces = MediaTypes.HAL_JSON_VALUE)
-    ResponseEntity<Resource<T>> updateOne(@RequestBody T entityPatch, @PathVariable long id) {
+    ResponseEntity<Resource<T>> updateOne(@RequestBody T entityPatch, @PathVariable long id) throws EntityNotFoundException {
         return Optional.ofNullable(repository.findOne(id))
                 .map(entity -> {
                     entityPatch.setId(id);
                     repository.save(entityPatch);
                     return new ResponseEntity<>(assembler.toResource(entity), HttpStatus.OK);
                 })
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+                .orElseGet(() -> {
+                    throw new EntityNotFoundException(resourceClass, id);
+                });
+
     }
 
     @Transactional
@@ -130,13 +138,15 @@ public abstract class AbstractBaseRestController<T extends BaseEntity>
             method = RequestMethod.DELETE,
             path = "/{id}",
             produces = MediaTypes.HAL_JSON_VALUE)
-    ResponseEntity<Resource<T>> deleteOne(@PathVariable Long id) {
+    ResponseEntity<Resource<T>> deleteOne(@PathVariable Long id) throws EntityNotFoundException {
         return Optional.ofNullable(repository.findOne(id))
                 .map(entity -> {
                     repository.delete(entity);
                     return new ResponseEntity<>(assembler.toResource(entity), HttpStatus.OK);
                 })
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+                .orElseGet(() -> {
+                    throw new EntityNotFoundException(resourceClass, id);
+                });
     }
 
 
@@ -154,31 +164,36 @@ public abstract class AbstractBaseRestController<T extends BaseEntity>
     protected <R extends BaseEntity> ResponseEntity<Resource<R>> getAssociatedResource(
             Long resourceId,
             Class<R> associatedResourceClass,
-            SimpleIdentifiableResourceAssembler<R> associatedResourceAssembler) {
+            SimpleIdentifiableResourceAssembler<R> associatedResourceAssembler) throws EntityNotFoundException {
         return Optional.ofNullable(repository.findOne(resourceId))
                 .map(PropertyAccessorFactory::forBeanPropertyAccess)
                 .map(resourceAccessor -> {
-                    return (R) resourceAccessor.getPropertyValue(associatedResourceClass.getSimpleName().toLowerCase());
+                    return Optional.ofNullable(resourceAccessor.getPropertyValue(associatedResourceClass.getSimpleName().toLowerCase()));
                 })
-                .map(associatedResource -> new ResponseEntity<Resource<R>>(associatedResourceAssembler.toResource(
-                        (R) associatedResource),
-                        HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+                .map((associatedResource) -> {
+                    if (associatedResource.isPresent()) {
+                        return new ResponseEntity<>(associatedResourceAssembler.toResource((R) associatedResource.get()), HttpStatus.OK);
+                    } else {
+                        throw new EntityNotFoundException(associatedResourceClass);
+                    }
+                })
+                .orElseGet(() -> {
+                    throw new EntityNotFoundException(resourceClass, resourceId);
+                });
     }
 
 
-    protected ResponseEntity<? extends ResourceSupport> associateResources(
+    protected <R extends BaseEntity> ResponseEntity<? extends ResourceSupport> associateResources(
             final Association association,
+            Class<R> associatedResourceClass,
             JpaRepository<? extends BaseEntity, Long> relationshipOwnerClassrepository,
             Long id,
-            Resources<? extends BaseEntity> links) {
-        DefaultRepositoryMetadata drm = new DefaultRepositoryMetadata(
-                relationshipOwnerClassrepository.getClass().getInterfaces()[0]);
-        Class<?> subresourceClass = drm.getDomainType();
-        String subresourceClassName = subresourceClass.getSimpleName();
+            Resources<? extends BaseEntity> links) throws EntityNotFoundException, AssociationNotFoundException {
+        String associatedResourceClassName = associatedResourceClass.getSimpleName();
         return Optional.ofNullable(repository.findOne(id))
                 .map(resource -> {
                     for (Link link : links.getLinks()) {
+                        Long subresourceId = parseIdFromLink(link);
                         Optional<? extends BaseEntity> subresource = Optional.ofNullable(
                                 loadEntity(relationshipOwnerClassrepository, link));
                         if (subresource.isPresent()) {
@@ -187,59 +202,64 @@ public abstract class AbstractBaseRestController<T extends BaseEntity>
 
                             if (association == Association.ONE_TO_MANY) {
 
-                                List<BaseEntity> subresourceCollection = getResourceCollection(resourceAccessor, subresourceClassName);
+                                List<BaseEntity> subresourceCollection = getResourceCollection(resourceAccessor,
+                                        associatedResourceClassName);
                                 subresourceAccessor.setPropertyValue(resourceClassName.toLowerCase(), resource);
                                 subresourceCollection.add(subresource.get());
 
                             } else if (association == Association.MANY_TO_MANY) {
 
-                                List<BaseEntity> subresourceCollection = getResourceCollection(resourceAccessor, subresourceClassName);
+                                List<BaseEntity> subresourceCollection = getResourceCollection(resourceAccessor, associatedResourceClassName);
                                 List<BaseEntity> resourceCollection = getResourceCollection(subresourceAccessor, resourceClassName);
                                 subresourceCollection.add(subresource.get());
                                 resourceCollection.add(resource);
 
                             } else if (association == Association.ONE_TO_ONE) {
-                                resourceAccessor.setPropertyValue(subresourceClassName.toLowerCase(), subresource.get());
+                                resourceAccessor.setPropertyValue(associatedResourceClassName.toLowerCase(), subresource.get());
                                 subresourceAccessor.setPropertyValue(resourceClassName.toLowerCase(), resource);
 
                             } else {
-                                return ControllerUtils.toEmptyResponse(HttpStatus.NOT_FOUND);
+                                throw new AssociationNotFoundException(resourceClass, associatedResourceClass, id, subresource.get().getId());
                             }
 
                         } else {
-                            return ControllerUtils.toEmptyResponse(HttpStatus.NOT_FOUND);
+                            throw new EntityNotFoundException(associatedResourceClass, subresourceId);
                         }
                     }
                     repository.save(resource);
                     return ControllerUtils.toEmptyResponse(HttpStatus.NO_CONTENT);
                 })
-                .orElse(ControllerUtils.toEmptyResponse(HttpStatus.NOT_FOUND));
+                .orElseGet(() -> {
+                    throw new EntityNotFoundException(resourceClass, id);
+                });
     }
 
 
-    protected ResponseEntity<? extends ResourceSupport> deleteAssociation(
+    protected <R extends BaseEntity> ResponseEntity<? extends ResourceSupport> deleteAssociation(
             final Association association,
+            Class<R> associatedClass,
             JpaRepository<? extends BaseEntity, Long> relationshipOwnerClassrepository,
             Long resourceId,
-            Long subresourceId) {
+            Long associatedResourceId) throws EntityNotFoundException, AssociationNotFoundException {
 
         T resource = repository.findOne(resourceId);
-        BaseEntity subresource = loadEntity(relationshipOwnerClassrepository, new Link("/".concat(subresourceId.toString())));
-        if (!resourcesExistAndAreAssociated(association, relationshipOwnerClassrepository, resource, subresource))
-            return ControllerUtils.toEmptyResponse(HttpStatus.NOT_FOUND);
-        PropertyAccessor subresourceAccessor = PropertyAccessorFactory.forBeanPropertyAccess(subresource);
+        BaseEntity associatedResource = loadEntity(relationshipOwnerClassrepository, new Link("/".concat(associatedResourceId.toString())));
+        if (!resourcesExistAndAreAssociated(association, resource, associatedResource, associatedClass, resourceId,
+                associatedResourceId))
+            throw new AssociationNotFoundException(resourceClass, associatedClass, resourceId, associatedResourceId);
+        String associatedClassName = associatedClass.getSimpleName();
+        PropertyAccessor subresourceAccessor = PropertyAccessorFactory.forBeanPropertyAccess(associatedResource);
         PropertyAccessor resourceAccessor = PropertyAccessorFactory.forBeanPropertyAccess(resource);
-        String subresourceClassName = getAssociatedClassFromRepository(relationshipOwnerClassrepository).getSimpleName();
 
         if (association == Association.ONE_TO_MANY) {
             subresourceAccessor.setPropertyValue(resourceClassName.toLowerCase(), null);
         } else if (association == Association.MANY_TO_MANY) {
-            List<BaseEntity> subresourceCollection = getResourceCollection(resourceAccessor, subresourceClassName);
+            List<BaseEntity> associatedResourceCollection = getResourceCollection(resourceAccessor, associatedClassName);
             List<BaseEntity> resourceCollection = getResourceCollection(subresourceAccessor, resourceClassName);
-            subresourceCollection.remove(subresource);
+            associatedResourceCollection.remove(associatedResource);
             resourceCollection.remove(resource);
         } else if (association == Association.ONE_TO_ONE) {
-            resourceAccessor.setPropertyValue(subresourceClassName.toLowerCase(), null);
+            resourceAccessor.setPropertyValue(associatedClassName.toLowerCase(), null);
         }
         repository.save(resource);
         return ControllerUtils.toEmptyResponse(HttpStatus.NO_CONTENT);
@@ -257,17 +277,23 @@ public abstract class AbstractBaseRestController<T extends BaseEntity>
     }
 
     protected BaseEntity loadEntity(JpaRepository<? extends BaseEntity, Long> repository, Link link) {
-        String href = link.expand().getHref();
-        Long id = Long.parseLong(href.substring(href.lastIndexOf('/') + 1));
-        return repository.findOne(id);
+        return repository.findOne(parseIdFromLink(link));
     }
 
+    private Long parseIdFromLink(Link link) {
+        String href = link.expand().getHref();
+        return Long.parseLong(href.substring(href.lastIndexOf('/') + 1));
+    }
 
-    private boolean resourcesExistAndAreAssociated(Association association,
-                                                   JpaRepository<? extends BaseEntity, Long> relationshipOwnerClassrepository,
-                                                   BaseEntity resource,
-                                                   BaseEntity subresource) {
-        if ((resource == null) || (subresource == null)) return false;
+    private <R extends BaseEntity> boolean resourcesExistAndAreAssociated(Association association,
+                                                                          BaseEntity resource,
+                                                                          BaseEntity subresource,
+                                                                          Class<R> associationClass,
+                                                                          Long resourceId,
+                                                                          Long associatedResourceId
+    ) {
+        if (resource == null) throw new EntityNotFoundException(resourceClass, resourceId);
+        if (subresource == null) throw new EntityNotFoundException(associationClass, associatedResourceId);
         PropertyAccessor subresourceAccessor = PropertyAccessorFactory.forBeanPropertyAccess(subresource);
         PropertyAccessor resourceAccessor = PropertyAccessorFactory.forBeanPropertyAccess(resource);
         if (association == Association.ONE_TO_MANY) {
@@ -288,7 +314,6 @@ public abstract class AbstractBaseRestController<T extends BaseEntity>
         }
 
     }
-
 
     enum Association {
         ONE_TO_MANY,
