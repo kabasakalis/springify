@@ -1,10 +1,11 @@
+
 package com.kabasakalis.springifyapi.hateoas;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.kabasakalis.springifyapi.models.Genre;
-import org.springframework.hateoas.ResourceSupport;
+        import com.fasterxml.jackson.annotation.JsonProperty;
+        import com.kabasakalis.springifyapi.models.User;
+        import org.springframework.hateoas.ResourceSupport;
 
-public class GenreResource extends ResourceSupport {
+public class UserResource extends ResourceSupport {
 
     @JsonProperty
     public long id;
@@ -12,9 +13,9 @@ public class GenreResource extends ResourceSupport {
     public String created_date;
     public String updated_date;
 
-    public GenreResource(Genre model){
+    public UserResource(User model){
         id = model.getId();
-        name = model.getName();
+        name = model.getUsername();
         created_date = model.getFormattedCreatedDate();
         updated_date = model.getFormattedUpdatedDate();
     }

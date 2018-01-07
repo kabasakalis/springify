@@ -1,4 +1,4 @@
-package com.kabasakalis.springifyapi.errors;
+package com.kabasakalis.springifyapi.exceptions;
 
 public class ErrorResponse {
 

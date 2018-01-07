@@ -1,4 +1,4 @@
-package com.kabasakalis.springifyapi.errors;
+package com.kabasakalis.springifyapi.exceptions;
 
 import org.springframework.http.HttpStatus;
 
@@ -6,10 +6,6 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 
 import com.kabasakalis.springifyapi.models.BaseEntity;
-
-import org.springframework.http.HttpStatus;
-
-import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 public class AssociationNotFoundException extends BaseException {
 

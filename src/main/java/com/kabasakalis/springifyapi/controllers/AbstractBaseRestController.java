@@ -3,8 +3,8 @@
 package com.kabasakalis.springifyapi.controllers;
 
 
-import com.kabasakalis.springifyapi.errors.AssociationNotFoundException;
-import com.kabasakalis.springifyapi.errors.EntityNotFoundException;
+import com.kabasakalis.springifyapi.exceptions.AssociationNotFoundException;
+import com.kabasakalis.springifyapi.exceptions.EntityNotFoundException;
 import com.kabasakalis.springifyapi.models.BaseEntity;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.PropertyAccessor;

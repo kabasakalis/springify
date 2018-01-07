@@ -93,6 +93,26 @@ databaseChangeLog:
           - tag: 050
 
   - include:
+        file: migrations/055_create_roles.sql
+        relativeToChangelogFile: true
+  - changeSet:
+    - id: '055_tag'
+    - author: kabasakalis
+    - changes:
+      - tagDatabase:
+          - tag: 055
+
+  - include:
+        file: migrations/057_create_users_roles.sql
+        relativeToChangelogFile: true
+  - changeSet:
+    - id: '057_tag'
+    - author: kabasakalis
+    - changes:
+      - tagDatabase:
+          - tag: 057
+
+  - include:
         file: migrations/060_populate_tables.sql
         relativeToChangelogFile: true
   - changeSet:
@@ -102,15 +122,3 @@ databaseChangeLog:
       - tagDatabase:
           - tag: 060
 
-
-
-
-  # - include:
-  #       file: migrations/002_populate_artists.sql
-  #       relativeToChangelogFile: true
-  # - changeSet:
-  #   - id: '002_tag'
-  #   - author: kabasakalis
-  #   - changes:
-  #     - tagDatabase:
-  #         - tag: 002

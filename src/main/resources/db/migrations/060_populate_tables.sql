@@ -1,6 +1,27 @@
 --liquibase formatted sql
 --changeset kabasakalis:060
 
+-- Roles -------------------------------------------------------------------------------
+
+insert into roles (id, name) values (1, 'ROLE_ADMIN');
+insert into roles (id, name) values (2, 'ROLE_MODERATOR');
+insert into roles (id, name) values (3, 'ROLE_USER');
+
+-- Users -------------------------------------------------------------------------------
+
+insert into users (id, username, email, password) values (1, 'administrator', 'admin@springify.com', '11111111');
+insert into users (id, username, email, password) values (2, 'moderator', 'mod@springify.com', '22222222');
+insert into users (id, username, email, password) values (3, 'peter', 'zourdos@gmail.com', '33333333');
+
+
+-- Assign Users to Roles -------------------------------------------------------------------------------
+
+insert into users_roles (user_id, role_id) values (1, 1);
+insert into users_roles (user_id, role_id) values (1, 2);
+insert into users_roles (user_id, role_id) values (1, 3);
+insert into users_roles (user_id, role_id) values (2, 2);
+insert into users_roles (user_id, role_id) values (2, 3);
+insert into users_roles (user_id, role_id) values (3, 3);
 
 -- Genres -------------------------------------------------------------------------------
 
