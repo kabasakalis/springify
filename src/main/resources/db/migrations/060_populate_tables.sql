@@ -9,9 +9,9 @@ insert into roles (id, name) values (3, 'ROLE_USER');
 
 -- Users -------------------------------------------------------------------------------
 
-insert into users (id, username, email, password) values (1, 'administrator', 'admin@springify.com', '11111111');
-insert into users (id, username, email, password) values (2, 'moderator', 'mod@springify.com', '22222222');
-insert into users (id, username, email, password) values (3, 'peter', 'zourdos@gmail.com', '33333333');
+insert into users (id, username, email, password, password_confirm) values (1, 'administrator', 'admin@springify.com', '11111111','11111111');
+insert into users (id, username, email, password, password_confirm) values (2, 'moderator', 'mod@springify.com', '22222222', '22222222');
+insert into users (id, username, email, password, password_confirm) values (3, 'peter', 'zourdos@gmail.com', '33333333', '33333333');
 
 
 -- Assign Users to Roles -------------------------------------------------------------------------------

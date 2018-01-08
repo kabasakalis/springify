@@ -1,7 +1,7 @@
 package com.kabasakalis.springifyapi.hateoas;
 
 import com.kabasakalis.springifyapi.controllers.*;
-import com.kabasakalis.springifyapi.models.SpringifyUser;
+import com.kabasakalis.springifyapi.models.Role;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.hateoas.PagedResources;
 import org.springframework.hateoas.Resource;
@@ -14,19 +14,19 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 
 @Component
-public class UserResourceAssembler extends SimpleIdentifiableResourceAssembler<SpringifyUser> {
+public class RoleResourceAssembler extends SimpleIdentifiableResourceAssembler<Role> {
 
-    UserResourceAssembler() {
-        super(UserController.class);
+    RoleResourceAssembler() {
+        super(RoleController.class);
     }
 
     @Override
-    protected void addLinks(Resource<SpringifyUser> resource) {
+    protected void addLinks(Resource<Role> resource) {
         super.addLinks(resource);
         // optionally add more custom links here.
         PageRequest pageRequest = getPageRequest(0, 20, null);
         resource.add(
-//                linkTo(methodOn(UserController.class).getRoles(pageRequest, resource.getContent().getId())).withRel("roles"),
+//                linkTo(methodOn(RoleController.class).getRoles(pageRequest, resource.getContent().getId())).withRel("roles"),
                 linkTo(methodOn(CoreController.class).root(pageRequest)).withRel("home"));
     }
 
@@ -36,7 +36,7 @@ public class UserResourceAssembler extends SimpleIdentifiableResourceAssembler<S
      * @param resources
      */
     @Override
-    protected void addLinks(Resources<Resource<SpringifyUser>> resources) {
+    protected void addLinks(Resources<Resource<Role>> resources) {
         super.addLinks(resources);
     }
 
@@ -48,7 +48,7 @@ public class UserResourceAssembler extends SimpleIdentifiableResourceAssembler<S
      */
 
     @Override
-    public void addLinks(PagedResources<Resource<SpringifyUser>> pagedResources) {
+    public void addLinks(PagedResources<Resource<Role>> pagedResources) {
         super.addLinks(pagedResources);
         PageRequest pageRequest = getPageRequest(0, 20, null);
         pagedResources.add(

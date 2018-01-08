@@ -63,7 +63,7 @@ public class SimpleIdentifiableResourceAssembler<T extends Identifiable<?>> exte
         this.controllerClass = controllerClass;
         this.relProvider = relProvider;
 
-        // Find the "T" type contained in "T extends Identifiable<?>", e.g. SimpleIdentifiableResourceAssembler<User> -> User
+        // Find the "T" type contained in "T extends Identifiable<?>", e.g. SimpleIdentifiableResourceAssembler<SpringifyUser> -> SpringifyUser
         this.resourceType = GenericTypeResolver.resolveTypeArgument(this.getClass(), SimpleIdentifiableResourceAssembler.class);
     }
 

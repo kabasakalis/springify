@@ -13,7 +13,10 @@ import java.util.Set;
 
 public class Role extends BaseEntity {
     private String name;
-    private Set<User> users;
+
+    @ManyToMany(mappedBy = "roles")
+    @JsonIgnore
+    private Set<SpringifyUser> springifyUsers;
 
 
     public String getName() {
@@ -24,13 +27,12 @@ public class Role extends BaseEntity {
         this.name = name;
     }
 
-    @ManyToMany(mappedBy = "roles")
-    @JsonIgnore
-    public Set<User> getUsers() {
-        return users;
+
+    public Set<SpringifyUser> getSpringifyUsers() {
+        return springifyUsers;
     }
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
+    public void setSpringifyUsers(Set<SpringifyUser> springifyUsers) {
+        this.springifyUsers = springifyUsers;
     }
 }

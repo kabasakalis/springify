@@ -16,6 +16,7 @@ package com.kabasakalis.springifyapi.security;
         import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
         import org.springframework.context.annotation.Bean;
 
+        import static com.kabasakalis.springifyapi.security.SecurityConstants.LOGIN_URL;
         import static com.kabasakalis.springifyapi.security.SecurityConstants.SIGN_UP_URL;
 
 @EnableWebSecurity
@@ -32,6 +33,13 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
+                .antMatchers(HttpMethod.GET, LOGIN_URL).permitAll()
+                .antMatchers(HttpMethod.GET, "/").permitAll()
+                .antMatchers(HttpMethod.GET, "/login").permitAll()
+                .antMatchers(HttpMethod.GET, "/mappings").permitAll()
+                .antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/users/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/users").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))

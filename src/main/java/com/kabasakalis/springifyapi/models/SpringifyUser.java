@@ -13,13 +13,27 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User extends BaseEntity {
+public class SpringifyUser extends BaseEntity {
 
     private String username;
     private String email;
     private String password;
     private String passwordConfirm;
+    private String jwtToken;
+    @ManyToMany
+    @JsonIgnore
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles;
+
+    public String getJwtToken() {
+        return jwtToken;
+    }
+
+    public void setJwtToken(String jwtToken) {
+       this.jwtToken = jwtToken;
+    }
 
     public String getUsername() {
         return username;
@@ -57,11 +71,7 @@ public class User extends BaseEntity {
     }
 
 
-    @ManyToMany
-    @JsonIgnore
-    @JoinTable(name = "users_roles",
-            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+
     public Set<Role> getRoles() {
         return roles;
     }

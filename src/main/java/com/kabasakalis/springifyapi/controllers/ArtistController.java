@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RepositoryRestController
 @RequestMapping("/artists")
-public class ArtistController extends AbstractBaseRestController<Artist> {
+public class ArtistController extends AbstractBaseRestController<Artist>{
 
 
     @Autowired
