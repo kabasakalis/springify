@@ -12,7 +12,6 @@ import static ch.qos.logback.core.encoder.ByteArrayUtil.hexStringToByteArray;
 @Component
 public class SecretKeyProvider {
     public byte[] getKey() throws URISyntaxException, IOException {
-//        return Files.readAllBytes(Paths.get(this.getClass().getResource("/jwt.key").toURI()));
-     return     hexStringToByteArray("thekey");
+        return Files.readAllBytes(Paths.get(this.getClass().getResource("/jwt.key").toURI()));
     }
 }

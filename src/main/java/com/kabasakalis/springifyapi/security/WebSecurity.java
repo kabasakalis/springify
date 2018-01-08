@@ -1,8 +1,6 @@
 
 package com.kabasakalis.springifyapi.security;
 
-        import com.kabasakalis.springifyapi.security.JWTAuthenticationFilter;
-        import com.kabasakalis.springifyapi.security.JWTAuthorizationFilter;
         import org.springframework.http.HttpMethod;
         import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
         import org.springframework.security.config.annotation.web.builders.HttpSecurity;
