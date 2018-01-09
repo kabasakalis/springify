@@ -1,6 +1,6 @@
 package com.kabasakalis.springifyapi.controllers;
 
-import com.kabasakalis.springifyapi.exceptions.FailedToLoginException;
+import com.kabasakalis.springifyapi.exceptions.FailedLoginException;
 import com.kabasakalis.springifyapi.hateoas.UserResourceAssembler;
 import com.kabasakalis.springifyapi.models.SpringifyUser;
 import com.kabasakalis.springifyapi.security.LoginCredentials;
@@ -43,7 +43,7 @@ public class LoginController {
                     try {
                         String  jwtToken  = jwtService.tokenFor(springifyUser);
                         HttpHeaders httpHeaders = new HttpHeaders();
-                        httpHeaders.add("Token",jwtToken );
+                        httpHeaders.add("Token", jwtToken );
                         springifyUser.setJwtToken(jwtToken);
                         return new ResponseEntity(userResourceAssembler.toResource(springifyUser),
                                 httpHeaders,
@@ -52,7 +52,7 @@ public class LoginController {
                         throw new RuntimeException(e);
                     }
                 })
-                .orElseThrow(() -> new FailedToLoginException(credentials.getUsername()));
+                .orElseThrow(() -> new FailedLoginException(credentials));
     }
 }
 

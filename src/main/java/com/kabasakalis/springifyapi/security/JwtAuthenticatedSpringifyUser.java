@@ -1,6 +1,7 @@
 
 package com.kabasakalis.springifyapi.security;
 
+import com.kabasakalis.springifyapi.models.Role;
 import com.kabasakalis.springifyapi.models.SpringifyUser;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -8,6 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.stream.Collectors;
 
 public class JwtAuthenticatedSpringifyUser implements Authentication {
 
@@ -19,12 +21,15 @@ public class JwtAuthenticatedSpringifyUser implements Authentication {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
+                return springifyUser.getRoles().stream().
+                map(Role::getName).
+                map(SimpleGrantedAuthority::new).
+                collect(Collectors.toSet());
     }
 
     @Override
     public Object getCredentials() {
-        return null;
+        return new LoginCredentials(springifyUser.getUsername(), springifyUser.getPassword());
     }
 
     @Override
@@ -34,7 +39,7 @@ public class JwtAuthenticatedSpringifyUser implements Authentication {
 
     @Override
     public Object getPrincipal() {
-        return null;
+        return springifyUser.getUsername();
     }
 
     @Override

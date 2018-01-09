@@ -8,25 +8,26 @@ public class BaseException extends RuntimeException {
 
     protected static final HttpStatus CODE = INTERNAL_SERVER_ERROR;
     protected HttpStatus code;
-    protected String customMessage;
+    protected String customMessage = "";
 
     public BaseException(
             HttpStatus code,
             String message,
-            Throwable cause,
-            boolean enableSuppression,
-            boolean writableStackTrace
+            Throwable cause
     ) {
-        super(message, cause, enableSuppression, writableStackTrace);
-        this.code = code == null ? CODE : code;
+        super(message, cause);
+        this.setCode(code);
     }
 
 
-    public BaseException(
-            HttpStatus code
-    ) {
+    public BaseException(HttpStatus code) {
         super();
-        this.code = code == null ? CODE : code;
+        this.setCode(code);
+    }
+
+    public BaseException() {
+        super();
+        this.setCode(code);
     }
 
 
@@ -43,7 +44,16 @@ public class BaseException extends RuntimeException {
     }
 
     public void setCode(HttpStatus code) {
-        this.code = code;
+        this.code = code == null ? CODE : code;
+    }
+
+    protected String getExceptionMessage() {
+        return getCause() != null ? getCause().getMessage() : getMessage();
+    }
+
+    @Override
+    public String getMessage() {
+        return getExceptionMessage() + customMessage;
     }
 
 }

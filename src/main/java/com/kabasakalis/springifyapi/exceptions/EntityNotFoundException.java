@@ -18,20 +18,14 @@ public class EntityNotFoundException extends BaseException {
             long entity_id,
             HttpStatus code,
             String message,
-            Throwable cause,
-            boolean enableSuppression,
-            boolean writableStackTrace
+            Throwable cause
     ) {
-        super(code, message, cause, enableSuppression, writableStackTrace);
+        super(code, message, cause);
         this.entity_id = entity_id;
         this.customMessage = String.format("%s with id of %d could not be found.", _class.getSimpleName(), entity_id);
     }
 
-    public EntityNotFoundException(
-            Class<? extends BaseEntity> _class,
-            long entity_id
-
-            ) {
+    public EntityNotFoundException(Class<? extends BaseEntity> _class, long entity_id) {
         super(CODE);
         this.entity_id = entity_id;
         this.customMessage = String.format("%s with id of %d could not be found.", _class.getSimpleName(), entity_id);
@@ -46,11 +40,10 @@ public class EntityNotFoundException extends BaseException {
     }
 
 
-        public EntityNotFoundException() {
+    public EntityNotFoundException() {
         super(CODE);
         this.customMessage = String.format("Some resources could could not be found.");
     }
-
 
 
     public Class<? extends BaseEntity> getEntityClass() {
@@ -67,11 +60,6 @@ public class EntityNotFoundException extends BaseException {
 
     public void setEntity_id(long entity_id) {
         this.entity_id = entity_id;
-    }
-
-    @Override
-    public String getMessage() {
-        return customMessage;
     }
 
 }

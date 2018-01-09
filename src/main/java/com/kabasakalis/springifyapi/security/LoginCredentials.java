@@ -25,4 +25,8 @@ public class LoginCredentials {
         this.password = password;
     }
 
+    @Override
+    public String toString() {
+        return String.format(" Username: %s, Password: %s .", getUsername(), getPassword());
+    }
 }

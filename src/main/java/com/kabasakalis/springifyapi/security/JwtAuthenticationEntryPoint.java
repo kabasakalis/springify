@@ -1,8 +1,6 @@
 package com.kabasakalis.springifyapi.security;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.hateoas.MediaTypes;
-import org.springframework.http.MediaType;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
@@ -11,26 +9,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Collections;
 
-import static javax.servlet.http.HttpServletResponse.SC_FORBIDDEN;
 
 @Component
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e)
             throws IOException, ServletException {
-        httpServletResponse.setStatus(SC_FORBIDDEN);
+        String message= e.getCause() != null ? e.getCause().getMessage() : e.getMessage();
         httpServletResponse.setContentType(MediaTypes.HAL_JSON_VALUE);
-
-        String message;
-        if(e.getCause() != null) {
-            message = e.getCause().getMessage();
-        } else {
-            message = e.getMessage();
-        }
-        byte[] body = new ObjectMapper()
-                .writeValueAsBytes(Collections.singletonMap("error", message));
-        httpServletResponse.getOutputStream().write(body);
+        httpServletResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, message);
     }
 }

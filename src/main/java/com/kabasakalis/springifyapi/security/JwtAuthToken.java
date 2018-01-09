@@ -13,25 +13,20 @@ import java.util.stream.Collectors;
 
 public class JwtAuthToken implements Authentication {
     private final String token;
-    private final SpringifyUser springifyUser;
 
     public JwtAuthToken(String token) {
         this.token = token;
-        this.springifyUser = springifyUser;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return springifyUser.getRoles().stream().
-                map(Role::getName).
-                map(SimpleGrantedAuthority::new).
-                collect(Collectors.toSet());
+        return null;
     }
 
 
     @Override
     public Object getCredentials() {
-        return new LoginCredentials(springifyUser.getUsername(), springifyUser.getPassword());
+        return token;
     }
 
     @Override
@@ -42,7 +37,7 @@ public class JwtAuthToken implements Authentication {
 
     @Override
     public Object getPrincipal() {
-        return  springifyUser.getUsername();
+        return null;
     }
 
     @Override
@@ -57,6 +52,6 @@ public class JwtAuthToken implements Authentication {
 
     @Override
     public String getName() {
-        return springifyUser.getUsername();
+        return null;
     }
 }

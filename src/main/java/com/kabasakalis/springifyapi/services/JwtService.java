@@ -21,7 +21,7 @@ import static java.time.ZoneOffset.UTC;
 @Component
 public class JwtService {
     private static final String ISSUER = "com.srpingify.kabasakalis";
-    public static final String USERNAME = "username";
+    private static final int EXPIRATION_HOURS = 24;
     private SecretKeyProvider secretKeyProvider;
     private UserRepository userRepository;
 
@@ -35,14 +35,15 @@ public class JwtService {
                       UserRepository userRepository
     ) { this.secretKeyProvider = secretKeyProvider;
         this.userRepository = userRepository;
-//        this.profileService = profileService;
     }
 
 
     public String tokenFor(SpringifyUser user) throws IOException, URISyntaxException {
         byte[] secretKey = secretKeyProvider.getKey();
-        Date expiration = Date.from(LocalDateTime.now().plusHours(2).toInstant(UTC));
+        Date expiration = Date.from(LocalDateTime.now().plusHours(EXPIRATION_HOURS).toInstant(UTC));
         return Jwts.builder()
+                .setAudience("Springify Users")
+                .setId(user.getEmail())
                 .setSubject(user.getUsername())
                 .setExpiration(expiration)
                 .setIssuer(ISSUER)

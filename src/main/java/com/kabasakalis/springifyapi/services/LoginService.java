@@ -15,8 +15,6 @@ import java.util.Optional;
 @Component
 public class LoginService {
 
-//    private UserDetailsServiceImpl userDetailsService;
-
     private UserRepository userRepository;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 

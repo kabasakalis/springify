@@ -27,11 +27,12 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+        String token = (String) authentication.getCredentials();
         try {
-            Optional<SpringifyUser> possibleSpringifyUser = jwtService.verify((String) authentication.getCredentials());
+            Optional<SpringifyUser> possibleSpringifyUser = jwtService.verify(token);
             return new JwtAuthenticatedSpringifyUser(possibleSpringifyUser.get());
-        } catch (Exception e) {
-            throw new JwtAuthenticationException("Failed to verify token", e);
+        } catch (Throwable e) {
+            throw new JwtAuthenticationException(token, null, e.getMessage(), e);
         }
     }
 
