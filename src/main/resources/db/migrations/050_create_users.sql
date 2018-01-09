@@ -1,11 +1,10 @@
 --liquibase formatted sql
 --changeset kabasakalis:050
-create table springifyUsers (
+create table users (
     id serial primary key,
     username varchar(255),
     email varchar(255) UNIQUE NOT NULL,
     password varchar(255) NOT NULL,
-    password_confirm varchar(255) NOT NULL,
     created_date timestamp without time zone NOT NULL DEFAULT (current_timestamp AT TIME ZONE 'UTC'),
     updated_date timestamp without time zone NOT NULL DEFAULT (current_timestamp AT TIME ZONE 'UTC')
 );

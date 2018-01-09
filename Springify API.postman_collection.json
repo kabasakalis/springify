@@ -309,6 +309,28 @@
 					},
 					"response": []
 				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "28c79f17-823f-494e-adb0-bd448abada0d",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "b3479bff-6feb-4809-9698-44d8e8c52401",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
 			]
 		},
 		{
@@ -318,12 +340,7 @@
 					"name": "Get All Genres",
 					"request": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
 							"raw": "{\"title\": \"Rockstar3213213\",\n\"year\": \"2020\"\n}"
@@ -347,12 +364,7 @@
 					"name": "Get One Genre",
 					"request": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
 							"raw": "{\"title\": \"Rockstar3213213\",\n\"year\": \"2020\"\n}"
@@ -469,7 +481,8 @@
 						"header": [
 							{
 								"key": "Accept",
-								"value": "application/hal+json;charset=UTF-8"
+								"value": "application/hal+json;charset=UTF-8",
+								"disabled": true
 							},
 							{
 								"key": "Content-Type",
@@ -478,7 +491,7 @@
 						],
 						"body": {},
 						"url": {
-							"raw": "http://localhost:8080/api/genres/1/artists/10",
+							"raw": "http://localhost:8080/api/genres/1/artists/38",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -489,7 +502,7 @@
 								"genres",
 								"1",
 								"artists",
-								"10"
+								"38"
 							]
 						},
 						"description": ""
@@ -579,24 +592,21 @@
 				{
 					"name": "Get Artist",
 					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/hal+json;charset=UTF-8"
-							},
-							{
-								"key": "Authorization",
-								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
-								"disabled": true
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJzcGlyb3NAZ21haWwuY29tIiwic3ViIjoic3Bpcm9zIiwiZXhwIjoxNTE1NjI0NjQwLCJpc3MiOiJjb20uc3JwaW5naWZ5LmthYmFzYWthbGlzIn0.YSkKBDeubYLwt66WPrdlJj4PC1_L9scPNNDegn47odhK5xLKXobw8W61p8y3VdtI9qSfOBzUhYQ6ejXmF3iyZw",
+									"type": "string"
+								}
+							]
 						},
+						"method": "GET",
+						"header": [],
+						"body": {},
 						"url": {
-							"raw": "http://localhost:8080/api/artists/1003",
+							"raw": "http://localhost:8080/api/artists/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -605,7 +615,7 @@
 							"path": [
 								"api",
 								"artists",
-								"1003"
+								"1"
 							]
 						},
 						"description": "\n"
@@ -615,22 +625,12 @@
 				{
 					"name": "Get Artists",
 					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/hal+json;charset=UTF-8"
-							},
-							{
-								"key": "Authorization",
-								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
-								"disabled": true
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
+						"auth": {
+							"type": "noauth"
 						},
+						"method": "GET",
+						"header": [],
+						"body": {},
 						"url": {
 							"raw": "http://localhost:8080/api/artists",
 							"protocol": "http",
@@ -651,15 +651,6 @@
 					"request": {
 						"method": "POST",
 						"header": [
-							{
-								"key": "Accept",
-								"value": "application/hal+json;charset=UTF-8"
-							},
-							{
-								"key": "Authorization",
-								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
-								"disabled": true
-							},
 							{
 								"key": "Content-Type",
 								"value": "application/json"
@@ -691,15 +682,6 @@
 						"method": "PATCH",
 						"header": [
 							{
-								"key": "Accept",
-								"value": "application/hal+json;charset=UTF-8"
-							},
-							{
-								"key": "Authorization",
-								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
-								"disabled": true
-							},
-							{
 								"key": "Content-Type",
 								"value": "application/json"
 							}
@@ -709,7 +691,7 @@
 							"raw": "{\n\"name\": \"Vio-lence _____\",\n\"country\": \"USA _____\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/artists/1010",
+							"raw": "http://localhost:8080/api/artists/38",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -718,7 +700,7 @@
 							"path": [
 								"api",
 								"artists",
-								"1010"
+								"38"
 							]
 						},
 						"description": "Perform a filtered search for message event data. The response is sorted by descending timestamp."
@@ -731,15 +713,6 @@
 						"method": "DELETE",
 						"header": [
 							{
-								"key": "Accept",
-								"value": "application/hal+json;charset=UTF-8"
-							},
-							{
-								"key": "Authorization",
-								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
-								"disabled": true
-							},
-							{
 								"key": "Content-Type",
 								"value": "application/json"
 							}
@@ -749,7 +722,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/artists/1010",
+							"raw": "http://localhost:8080/api/artists/38",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -758,7 +731,7 @@
 							"path": [
 								"api",
 								"artists",
-								"1010"
+								"38"
 							]
 						},
 						"description": "Perform a filtered search for message event data. The response is sorted by descending timestamp."
@@ -769,21 +742,8 @@
 					"name": "Get Artists By Country",
 					"request": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/hal+json;charset=UTF-8"
-							},
-							{
-								"key": "Authorization",
-								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
-								"disabled": true
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"header": [],
+						"body": {},
 						"url": {
 							"raw": "http://localhost:8080/api/artists/findByCountry?country=Aus",
 							"protocol": "http",
@@ -812,21 +772,8 @@
 					"name": "Get Artists By Name",
 					"request": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/hal+json;charset=UTF-8"
-							},
-							{
-								"key": "Authorization",
-								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
-								"disabled": true
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"header": [],
+						"body": {},
 						"url": {
 							"raw": "http://localhost:8080/api/artists/findByName?name=KI",
 							"protocol": "http",
@@ -890,20 +837,8 @@
 					"name": "Get Artist Albums",
 					"request": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/hal+json;charset=UTF-8"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"header": [],
+						"body": {},
 						"url": {
 							"raw": "http://localhost:8080/api/artists/30/albums",
 							"protocol": "http",
@@ -925,20 +860,8 @@
 					"name": "Get Artist Genre",
 					"request": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/hal+json;charset=UTF-8"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"header": [],
+						"body": {},
 						"url": {
 							"raw": "http://localhost:8080/api/artists/1/genre",
 							"protocol": "http",
@@ -962,18 +885,11 @@
 						"method": "DELETE",
 						"header": [
 							{
-								"key": "Accept",
-								"value": "application/hal+json;charset=UTF-8"
-							},
-							{
 								"key": "Content-Type",
 								"value": "application/json"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
 							"raw": "http://localhost:8080/api/artists/18/albums/10001",
 							"protocol": "http",
@@ -1001,21 +917,8 @@
 					"name": "Get Playlists",
 					"request": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/hal+json;charset=UTF-8"
-							},
-							{
-								"key": "Authorization",
-								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
-								"disabled": true
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"header": [],
+						"body": {},
 						"url": {
 							"raw": "http://localhost:8080/api/playlists",
 							"protocol": "http",
@@ -1036,21 +939,8 @@
 					"name": "Get  One Playlist",
 					"request": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/hal+json;charset=UTF-8"
-							},
-							{
-								"key": "Authorization",
-								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
-								"disabled": true
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"header": [],
+						"body": {},
 						"url": {
 							"raw": "http://localhost:8080/api/playlists/4",
 							"protocol": "http",
@@ -1073,15 +963,6 @@
 					"request": {
 						"method": "POST",
 						"header": [
-							{
-								"key": "Accept",
-								"value": "application/hal+json;charset=UTF-8"
-							},
-							{
-								"key": "Authorization",
-								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
-								"disabled": true
-							},
 							{
 								"key": "Content-Type",
 								"value": "application/json"
@@ -1112,15 +993,6 @@
 					"request": {
 						"method": "PATCH",
 						"header": [
-							{
-								"key": "Accept",
-								"value": "application/hal+json;charset=UTF-8"
-							},
-							{
-								"key": "Authorization",
-								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
-								"disabled": true
-							},
 							{
 								"key": "Content-Type",
 								"value": "application/json"
@@ -1153,15 +1025,6 @@
 						"method": "DELETE",
 						"header": [
 							{
-								"key": "Accept",
-								"value": "application/hal+json;charset=UTF-8"
-							},
-							{
-								"key": "Authorization",
-								"value": "Basic MTdkNTQxNTJkMDUyNWI1Yjg4MDdmOTg0ODk0NWI0OWRjNjFmZjNjZjo=",
-								"disabled": true
-							},
-							{
 								"key": "Content-Type",
 								"value": "application/json"
 							}
@@ -1191,16 +1054,7 @@
 					"name": "Get Albums By Playlist",
 					"request": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/hal+json;charset=UTF-8"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
 							"raw": "/api/albums/10001\n/api/albums/10002"
@@ -1283,10 +1137,7 @@
 								"value": "application/json"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
 							"raw": "http://localhost:8080/api/playlists/4/albums/33",
 							"protocol": "http",
@@ -1306,6 +1157,438 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Users",
+			"description": "",
+			"item": [
+				{
+					"name": "Get Users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f8668fc0-a3f2-4891-9e60-514e37ac5130",
+								"type": "text/javascript",
+								"exec": [
+									"pm.sendRequest(\"https://postman-echo.com/get\", function (err, response) {",
+									"    console.log(response.json());",
+									"});"
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f29fa242-1e19-4950-a220-22cefc15e7ae",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Authorization:Bearer eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJzcGlyb3NAZ21haWwuY29tIiwic3ViIjoic3Bpcm9zIiwiZXhwIjoxNTE1NjI0NjQwLCJpc3MiOiJjb20uc3JwaW5naWZ5LmthYmFzYWthbGlzIn0.YSkKBDeubYLwt66WPrdlJj4PC1_L9scPNNDegn47odhK5xLKXobw8W61p8y3VdtI9qSfOBzUhYQ6ejXmF3iyZw",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"usernmame\": \"admin\",\n\"password\": \"11111111\"}\n"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get One User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f8668fc0-a3f2-4891-9e60-514e37ac5130",
+								"type": "text/javascript",
+								"exec": [
+									"pm.sendRequest(\"https://postman-echo.com/get\", function (err, response) {",
+									"    console.log(response.json());",
+									"});"
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f29fa242-1e19-4950-a220-22cefc15e7ae",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"usernmame\": \"admin\",\n\"password\": \"11111111\"}\n"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/users/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "d7516fd6-4915-491c-b922-f5796f49a305",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "4837f3e9-13ca-4cab-a6c6-dfd0be4b3d77",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Roles",
+			"description": "",
+			"item": [
+				{
+					"name": "Get Roles",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f8668fc0-a3f2-4891-9e60-514e37ac5130",
+								"type": "text/javascript",
+								"exec": [
+									"pm.sendRequest(\"https://postman-echo.com/get\", function (err, response) {",
+									"    console.log(response.json());",
+									"});"
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f29fa242-1e19-4950-a220-22cefc15e7ae",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJzcGlyb3NAZ21haWwuY29tIiwic3ViIjoic3Bpcm9zIiwiZXhwIjoxNTE1NjI0NjQwLCJpc3MiOiJjb20uc3JwaW5naWZ5LmthYmFzYWthbGlzIn0.YSkKBDeubYLwt66WPrdlJj4PC1_L9scPNNDegn47odhK5xLKXobw8W61p8y3VdtI9qSfOBzUhYQ6ejXmF3iyZw"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"usernmame\": \"admin\",\n\"password\": \"11111111\"}\n"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/roles",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"roles"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get One Role",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f8668fc0-a3f2-4891-9e60-514e37ac5130",
+								"type": "text/javascript",
+								"exec": [
+									"pm.sendRequest(\"https://postman-echo.com/get\", function (err, response) {",
+									"    console.log(response.json());",
+									"});"
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f29fa242-1e19-4950-a220-22cefc15e7ae",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJzcGlyb3NAZ21haWwuY29tIiwic3ViIjoic3Bpcm9zIiwiZXhwIjoxNTE1NjI0NjQwLCJpc3MiOiJjb20uc3JwaW5naWZ5LmthYmFzYWthbGlzIn0.YSkKBDeubYLwt66WPrdlJj4PC1_L9scPNNDegn47odhK5xLKXobw8W61p8y3VdtI9qSfOBzUhYQ6ejXmF3iyZw"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"usernmame\": \"admin\",\n\"password\": \"11111111\"}\n"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/roles/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"roles",
+								"1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f8668fc0-a3f2-4891-9e60-514e37ac5130",
+						"type": "text/javascript",
+						"exec": [
+							"pm.sendRequest(\"https://postman-echo.com/get\", function (err, response) {",
+							"    console.log(response.json());",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"username\" : \"admin\",\n\"password\" : \"11111111\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"login"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Sign Up",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f8668fc0-a3f2-4891-9e60-514e37ac5130",
+						"type": "text/javascript",
+						"exec": [
+							"pm.sendRequest(\"https://postman-echo.com/get\", function (err, response) {",
+							"    console.log(response.json());",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"username\" : \"drumaddict\",\n\"password\" : \"44444444\",\n\"passwordConfirm\" : \"44444444\",\n\"email\":\"drumaddict@gmail.com\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/users/sign-up",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users",
+						"sign-up"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Root",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f8668fc0-a3f2-4891-9e60-514e37ac5130",
+						"type": "text/javascript",
+						"exec": [
+							"pm.sendRequest(\"https://postman-echo.com/get\", function (err, response) {",
+							"    console.log(response.json());",
+							"});"
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "f29fa242-1e19-4950-a220-22cefc15e7ae",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"usernmame\": \"admin\",\n\"password\": \"11111111\"}\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api"
+					]
+				},
+				"description": "Home"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTU2MzQyNjQsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.E4dwSLpVnSkN-7gWnYS7GQZi1s6Y-5LEnt0X1qjWy3JveND-aQozbYAHSMx3GFb7gWv3UmUeSN4fA-XJZVMFLw",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "1fb584fd-9eaa-4f38-857a-03b7ad4b633e",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "af97420d-7a96-4bb8-b990-06dc93a7b350",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }

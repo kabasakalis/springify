@@ -2,15 +2,12 @@
 package com.kabasakalis.springifyapi.models;
 
 
-import com.kabasakalis.springifyapi.models.BaseEntity;
-import com.kabasakalis.springifyapi.models.Artist;
-import com.kabasakalis.springifyapi.models.Playlist;
-
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "albums")
@@ -22,7 +19,7 @@ public class Album extends BaseEntity {
 public Album(){};
   @ManyToMany(mappedBy = "albums")
   @JsonIgnore
-  private List<Playlist> playlists = new ArrayList<Playlist>();
+  private Set<Playlist> playlists = new HashSet<>();
 
   @ManyToOne
   @JoinColumn(name = "artist_id")
@@ -54,11 +51,11 @@ public Album(){};
     this.artist = artist;
   }
 
-  public List<Playlist> getPlaylists() {
+  public Set<Playlist> getPlaylists() {
     return playlists;
   }
 
-  public void setPlaylists(List<Playlist> playlists) {
+  public void setPlaylists(Set<Playlist> playlists) {
     this.playlists = playlists;
   }
 

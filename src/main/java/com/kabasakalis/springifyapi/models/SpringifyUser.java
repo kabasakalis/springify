@@ -5,8 +5,12 @@ package com.kabasakalis.springifyapi.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 import java.util.Calendar;
 import java.util.Set;
@@ -15,11 +19,20 @@ import java.util.Set;
 @Table(name = "users")
 public class SpringifyUser extends BaseEntity {
 
+    @NotBlank
+    @Size(min=4, max = 20)
     private String username;
+    @Email
+    @NotBlank
     private String email;
+    @NotBlank
     private String password;
+    @NotBlank
+    @Transient
     private String passwordConfirm;
+    @Transient
     private String jwtToken;
+
     @ManyToMany
     @JsonIgnore
     @JoinTable(name = "users_roles",

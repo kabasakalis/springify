@@ -110,7 +110,7 @@ public abstract class AbstractBaseRestController<T extends BaseEntity>
     ResponseEntity<Void> addOne(@RequestBody T entityBody) {
         T entity = repository.save(entityBody);
         HttpHeaders httpHeaders = new HttpHeaders();
-        URI location_link = linkTo(methodOn(ArtistController.class).getOne(entity.getId())).toUri();
+        URI location_link = linkTo(methodOn(this.getClass()).getOne(entity.getId())).toUri();
         httpHeaders.setLocation(location_link);
         return new ResponseEntity(assembler.toResource(entity), httpHeaders, HttpStatus.CREATED);
     }

@@ -1,6 +1,8 @@
 package com.kabasakalis.springifyapi.security;
 
-public class LoginCredentials {
+import java.io.Serializable;
+
+public class LoginCredentials implements Serializable {
     private String username;
     private String password;
 
@@ -8,6 +10,8 @@ public class LoginCredentials {
         this.username = username;
         this.password = password;
     }
+
+    public  LoginCredentials(){ super();}
 
     public String getUsername() {
         return username;

@@ -24,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolv
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.ConstraintViolationException;
 import javax.ws.rs.InternalServerErrorException;
 import java.net.BindException;
 import java.util.*;
@@ -38,6 +39,7 @@ public abstract class BaseExceptionHandler extends DefaultHandlerExceptionResolv
     protected static final Map<Class<Exception>, HttpStatus> DEFAULT_SPRING_EXCEPTION_RESPONSE_CODES =
             Arrays.stream(new Object[][]{
                     {HttpRequestMethodNotSupportedException.class, METHOD_NOT_ALLOWED},
+                    {ConstraintViolationException.class, BAD_REQUEST},
                     {HttpMediaTypeNotSupportedException.class, UNSUPPORTED_MEDIA_TYPE},
                     {HttpMediaTypeNotAcceptableException.class, NOT_ACCEPTABLE},
                     {MissingPathVariableException.class, INTERNAL_SERVER_ERROR},

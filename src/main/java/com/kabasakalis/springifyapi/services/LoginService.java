@@ -33,7 +33,7 @@ public class LoginService {
     public Optional<SpringifyUser> login(LoginCredentials credentials) {
         return Optional.ofNullable(userRepository.findByUsername(credentials.getUsername())).
                 filter((springifyUser) ->
-                        springifyUser.getPassword().equals(bCryptPasswordEncoder.encode(credentials.getPassword())));
+                        bCryptPasswordEncoder.matches(credentials.getPassword(), springifyUser.getPassword()));
     }
 }
 

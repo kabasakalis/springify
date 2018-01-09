@@ -2,6 +2,8 @@ package com.kabasakalis.springifyapi.exceptions;
 
 import org.springframework.http.HttpStatus;
 
+import java.util.Objects;
+
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 public class BaseException extends RuntimeException {
@@ -48,8 +50,8 @@ public class BaseException extends RuntimeException {
     }
 
     protected String getExceptionMessage() {
-        return getCause() != null ? getCause().getMessage() : getMessage();
-    }
+        return getCause() != null ? getCause().getMessage() : Objects.toString(super.getMessage(), "");
+   }
 
     @Override
     public String getMessage() {

@@ -1,5 +1,6 @@
 package com.kabasakalis.springifyapi.services;
 
+import com.kabasakalis.springifyapi.configuration.SecurityConstants;
 import com.kabasakalis.springifyapi.models.SpringifyUser;
 import com.kabasakalis.springifyapi.repositories.UserRepository;
 import com.kabasakalis.springifyapi.security.SecretKeyProvider;
@@ -16,12 +17,13 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Optional;
 
+import static com.kabasakalis.springifyapi.configuration.SecurityConstants.AUDIENCE;
+import static com.kabasakalis.springifyapi.configuration.SecurityConstants.EXPIRATION_TIME_FROM_NOW_HOURS;
+import static com.kabasakalis.springifyapi.configuration.SecurityConstants.ISSUER;
 import static java.time.ZoneOffset.UTC;
 
 @Component
 public class JwtService {
-    private static final String ISSUER = "com.srpingify.kabasakalis";
-    private static final int EXPIRATION_HOURS = 24;
     private SecretKeyProvider secretKeyProvider;
     private UserRepository userRepository;
 
@@ -40,9 +42,10 @@ public class JwtService {
 
     public String tokenFor(SpringifyUser user) throws IOException, URISyntaxException {
         byte[] secretKey = secretKeyProvider.getKey();
-        Date expiration = Date.from(LocalDateTime.now().plusHours(EXPIRATION_HOURS).toInstant(UTC));
+        Date expiration = Date.from(LocalDateTime.now().
+                plusHours(EXPIRATION_TIME_FROM_NOW_HOURS).toInstant(UTC));
         return Jwts.builder()
-                .setAudience("Springify Users")
+                .setAudience(AUDIENCE)
                 .setId(user.getEmail())
                 .setSubject(user.getUsername())
                 .setExpiration(expiration)

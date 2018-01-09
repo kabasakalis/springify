@@ -18,7 +18,8 @@ public class ExceptionHandlers extends BaseExceptionHandler {
             Arrays.stream(new Object[][]{
                     {EntityNotFoundException.class, NOT_FOUND},
                     {AssociationNotFoundException.class, NOT_FOUND},
-                    {JwtAuthenticationException.class, UNAUTHORIZED}
+                    {JwtAuthenticationException.class, UNAUTHORIZED},
+                    {FailedLoginException.class, UNAUTHORIZED}
             }).collect(Collectors.toMap(entry -> (Class<Exception>) entry[0], entry -> (HttpStatus) entry[1]));
 
     public ExceptionHandlers() { super(); }
