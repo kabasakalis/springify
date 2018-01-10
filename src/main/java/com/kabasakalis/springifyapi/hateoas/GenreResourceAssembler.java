@@ -23,7 +23,7 @@ public class GenreResourceAssembler extends SimpleIdentifiableResourceAssembler<
         super(GenreController.class);
     }
 
-    @Override
+//    @Override
     protected void addLinks(Resource<Genre> resource) {
         super.addLinks(resource);
         // optionally add more custom links here.

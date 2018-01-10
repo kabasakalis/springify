@@ -18,6 +18,7 @@ package org.springframework.hateoas;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.kabasakalis.springifyapi.hateoas.BaseResourceSupport;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.Resource;
@@ -45,7 +46,7 @@ public class SimpleResourceAssembler<T> implements ResourceAssembler<T, Resource
 
         Resource<T> resource = new Resource<T>(entity);
 
-        addLinks(resource);
+//        addLinks(resource);
 
         return resource;
     }
@@ -79,9 +80,16 @@ public class SimpleResourceAssembler<T> implements ResourceAssembler<T, Resource
      *
      * @param resource
      */
-    protected void addLinks(Resource<T> resource) {
+//    protected void addLinks(Resource<T> resource) {
+        protected void addLinks(BaseResourceSupport resource) {
         // Default adds no links
     }
+
+
+        protected void addLinks(Resource<T> resource) {
+        // Default adds no links
+    }
+
 
     /**
      * Define links to add to the {@link Resources} collection.

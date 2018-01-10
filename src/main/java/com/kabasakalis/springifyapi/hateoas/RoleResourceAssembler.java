@@ -20,7 +20,7 @@ public class RoleResourceAssembler extends SimpleIdentifiableResourceAssembler<R
         super(RoleController.class);
     }
 
-    @Override
+//    @Override
     protected void addLinks(Resource<Role> resource) {
         super.addLinks(resource);
         // optionally add more custom links here.

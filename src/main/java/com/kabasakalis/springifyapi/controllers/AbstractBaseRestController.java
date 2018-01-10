@@ -95,9 +95,9 @@ public abstract class AbstractBaseRestController<T extends BaseEntity>
             method = RequestMethod.GET,
             path = "/{id}",
             produces = MediaTypes.HAL_JSON_VALUE)
-    ResponseEntity<Resource<T>> getOne(@PathVariable Long id) throws EntityNotFoundException {
+    ResponseEntity<ResourceSupport> getOne(@PathVariable Long id) throws EntityNotFoundException {
         return Optional.ofNullable(repository.findOne(id))
-                .map(o -> new ResponseEntity<>(assembler.toResource(o), HttpStatus.OK))
+                .map(o -> new ResponseEntity<>(assembler.toCustomResource(o), HttpStatus.OK))
                 .orElseThrow(() ->  new EntityNotFoundException(resourceClass, id) );
 
     }

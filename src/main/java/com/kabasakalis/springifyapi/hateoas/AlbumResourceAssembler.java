@@ -27,7 +27,7 @@ public class AlbumResourceAssembler extends SimpleIdentifiableResourceAssembler<
      *
      * @param resource
      */
-    @Override
+//    @Override
     protected void addLinks(Resource<Album> resource) {
         super.addLinks(resource);
         // optionally add more custom links here.

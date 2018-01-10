@@ -20,7 +20,7 @@ public class PlaylistResourceAssembler extends SimpleIdentifiableResourceAssembl
         super(PlaylistController.class);
     }
 
-    @Override
+//    @Override
     protected void addLinks(Resource<Playlist> resource) {
         super.addLinks(resource);
         // optionally add more custom links here.

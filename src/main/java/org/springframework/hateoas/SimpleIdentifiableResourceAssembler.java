@@ -17,13 +17,21 @@ package org.springframework.hateoas;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
 
+import com.fasterxml.jackson.databind.ser.Serializers;
+import com.kabasakalis.springifyapi.hateoas.BaseResourceSupport;
+import com.kabasakalis.springifyapi.models.BaseEntity;
 import org.springframework.core.GenericTypeResolver;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.hateoas.*;
 import org.springframework.hateoas.core.EvoInflectorRelProvider;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
+import org.springframework.util.Assert;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import java.lang.reflect.Constructor;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Greg Turnquist
@@ -43,7 +51,11 @@ public class SimpleIdentifiableResourceAssembler<T extends Identifiable<?>> exte
     /**
      * A {@link Class} depicting the {@link Identifiable}'s type.
      */
-    private final Class<?> resourceType;
+    private Class<?> resourceType;
+
+
+    private Class<? extends ResourceSupport> resourceSupportClass;
+
 
     /**
      * Default base path as empty.
@@ -58,10 +70,11 @@ public class SimpleIdentifiableResourceAssembler<T extends Identifiable<?>> exte
      * @param relProvider
      * @see #setBasePath(String) to adjust base path to something like "/api"/
      */
-    public SimpleIdentifiableResourceAssembler(Class<?> controllerClass, RelProvider relProvider) {
+    public SimpleIdentifiableResourceAssembler(Class<?> controllerClass, RelProvider relProvider, Class<? extends ResourceSupport> resourceSupportClass) {
 
         this.controllerClass = controllerClass;
         this.relProvider = relProvider;
+        this.resourceSupportClass = resourceSupportClass;
 
         // Find the "T" type contained in "T extends Identifiable<?>", e.g. SimpleIdentifiableResourceAssembler<SpringifyUser> -> SpringifyUser
         this.resourceType = GenericTypeResolver.resolveTypeArgument(this.getClass(), SimpleIdentifiableResourceAssembler.class);
@@ -72,9 +85,14 @@ public class SimpleIdentifiableResourceAssembler<T extends Identifiable<?>> exte
      *
      * @param controllerClass
      */
-    public SimpleIdentifiableResourceAssembler(Class<?> controllerClass) {
-        this(controllerClass, new EvoInflectorRelProvider());
+    public SimpleIdentifiableResourceAssembler(Class<?> controllerClass, Class<? extends ResourceSupport> resourceSupportClass) {
+        this(controllerClass, new EvoInflectorRelProvider(), resourceSupportClass);
     }
+
+    public SimpleIdentifiableResourceAssembler(Class<?> controllerClass) {
+        this(controllerClass, new EvoInflectorRelProvider(), null);
+    }
+
 
     /**
      * Define links to add to every {@link Resource}.
@@ -82,9 +100,9 @@ public class SimpleIdentifiableResourceAssembler<T extends Identifiable<?>> exte
      * @param resource
      */
     @Override
-    protected void addLinks(Resource<T> resource) {
+    protected void addLinks(BaseResourceSupport resource) {
 
-        resource.add(getCollectionLinkBuilder().slash(resource.getContent()).withSelfRel());
+        resource.add(getCollectionLinkBuilder().slash(resource.getEntity()).withSelfRel());
         resource.add(getCollectionLinkBuilder().withRel(this.relProvider.getCollectionResourceRelFor(this.resourceType)));
     }
 
@@ -102,7 +120,7 @@ public class SimpleIdentifiableResourceAssembler<T extends Identifiable<?>> exte
      * Build up a URI for the collection using the Spring MVC controller followed by the resource type transformed
      * by the {@link RelProvider}.
      * <p>
-     * Assumption is that an {@link org.springframework.hateoas.examples.EmployeeController} serving up {@link org.springframework.hateoas.examples.Employee}
+     * Assumption is that an {@link org.springframework.hateoas.examples.ArtistController} serving up {@link org.springframework.hateoas.examples.Employee}
      * objects will be serving resources at {@code /employees} and {@code /employees/1}.
      * <p>
      * If this is not the case, simply override this method in your concrete instance, or simply resort to
@@ -124,6 +142,68 @@ public class SimpleIdentifiableResourceAssembler<T extends Identifiable<?>> exte
         return linkBuilder;
     }
 
+
+    //    public ResourceSupport toCustomResource(T entity) {
+    public ResourceSupport toCustomResource(T entity) {
+
+//        Class<?> claz = Class.forName(className
+        try {
+//            Constructor<?> ctor = Class.forName(resourceSupportClass.getSimpleName()).getConstructor(resourceType.getClass());
+            Constructor<?> ctor = Class.forName(resourceSupportClass.getName()).getConstructor(resourceType);
+            BaseResourceSupport resource = (BaseResourceSupport) ctor.newInstance(new Object[]{entity});
+            addLinks( resource);
+            return resource;
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+
+
+//        return new ResourceSupport();
+
+    }
+
+
+
+     public ResourceSupport toCustomResources(Iterable<? extends T> entities) {
+
+        Assert.notNull(entities, "Entities must not be null!");
+        List<Resource<T>> result = new ArrayList<Resource<T>>();
+
+        for (T entity : entities) {
+            result.add(toResource(entity));
+        }
+
+        Resources<Resource<T>> resources = new Resources<>(result);
+
+        addLinks(resources);
+
+        return resources;
+    }
+
+
+
+//    	private <S, R extends ResourceSupport> PagedResources<R> createResource(Page<S> page,
+//			ResourceAssembler<S, R> assembler, Link link) {
+//
+//		Assert.notNull(page, "Page must not be null!");
+//		Assert.notNull(assembler, "ResourceAssembler must not be null!");
+//
+//		List<R> resources = new ArrayList<R>(page.getNumberOfElements());
+//
+//		for (S element : page) {
+//			resources.add(assembler.toResource(element));
+//		}
+//
+//		PagedResources<R> resource = createPagedResource(resources, asPageMetadata(page), page);
+//
+//		return addPaginationLinks(resource, page, link);
+//	}
+
+
+
+
     private String getPrefix() {
         return getBasePath().isEmpty() ? "" : getBasePath() + "/";
     }
@@ -137,6 +217,6 @@ public class SimpleIdentifiableResourceAssembler<T extends Identifiable<?>> exte
     }
 
     public PageRequest getPageRequest(int page, int size, Sort sort) {
-       return new PageRequest(page, size, sort);
+        return new PageRequest(page, size, sort);
     }
 }
