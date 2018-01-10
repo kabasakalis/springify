@@ -98,9 +98,7 @@ public abstract class AbstractBaseRestController<T extends BaseEntity>
     ResponseEntity<Resource<T>> getOne(@PathVariable Long id) throws EntityNotFoundException {
         return Optional.ofNullable(repository.findOne(id))
                 .map(o -> new ResponseEntity<>(assembler.toResource(o), HttpStatus.OK))
-                .orElseGet(() -> {
-                    throw new EntityNotFoundException(resourceClass, id);
-                });
+                .orElseThrow(() ->  new EntityNotFoundException(resourceClass, id) );
 
     }
 
@@ -127,9 +125,7 @@ public abstract class AbstractBaseRestController<T extends BaseEntity>
                     repository.save(entityPatch);
                     return new ResponseEntity<>(assembler.toResource(entity), HttpStatus.OK);
                 })
-                .orElseGet(() -> {
-                    throw new EntityNotFoundException(resourceClass, id);
-                });
+                .orElseThrow(() -> new EntityNotFoundException(resourceClass, id));
 
     }
 
@@ -144,9 +140,7 @@ public abstract class AbstractBaseRestController<T extends BaseEntity>
                     repository.delete(entity);
                     return new ResponseEntity<>(assembler.toResource(entity), HttpStatus.OK);
                 })
-                .orElseGet(() -> {
-                    throw new EntityNotFoundException(resourceClass, id);
-                });
+                .orElseThrow(() ->  new EntityNotFoundException(resourceClass, id));
     }
 
 
@@ -177,9 +171,7 @@ public abstract class AbstractBaseRestController<T extends BaseEntity>
                         throw new EntityNotFoundException(associatedResourceClass);
                     }
                 })
-                .orElseGet(() -> {
-                    throw new EntityNotFoundException(resourceClass, resourceId);
-                });
+                .orElseThrow(() -> new EntityNotFoundException(resourceClass, resourceId));
     }
 
 
@@ -229,9 +221,7 @@ public abstract class AbstractBaseRestController<T extends BaseEntity>
                     repository.save(resource);
                     return ControllerUtils.toEmptyResponse(HttpStatus.NO_CONTENT);
                 })
-                .orElseGet(() -> {
-                    throw new EntityNotFoundException(resourceClass, id);
-                });
+                .orElseThrow( ()-> new EntityNotFoundException(resourceClass, id));
     }
 
 

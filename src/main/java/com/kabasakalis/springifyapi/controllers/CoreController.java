@@ -25,6 +25,7 @@ public class CoreController {
             produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<ResourceSupport> root(Pageable pageRequest) {
         ResourceSupport rootResource = new ResourceSupport();
+
         rootResource.add(
                 linkTo(methodOn(this.getClass()).root(pageRequest)).withSelfRel(),
                 linkTo(methodOn(GenreController.class).getAll(pageRequest)).withRel("genres"),
