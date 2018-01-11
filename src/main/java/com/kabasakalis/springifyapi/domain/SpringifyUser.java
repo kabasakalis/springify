@@ -27,7 +27,7 @@ public class SpringifyUser extends BaseEntity {
     @Transient
     private String jwtToken;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JsonIgnore
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),

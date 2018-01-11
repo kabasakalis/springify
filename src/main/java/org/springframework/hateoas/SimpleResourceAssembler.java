@@ -45,6 +45,7 @@ public class SimpleResourceAssembler<T> implements ResourceAssembler<T, Resource
 
     protected void addLinks(Resource<T> resource) {
         // Default adds no links
+
     }
 
     protected void addLinks(Resources<Resource<T>> resources) {

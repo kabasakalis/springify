@@ -592,16 +592,6 @@
 				{
 					"name": "Get Artist",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJzcGlyb3NAZ21haWwuY29tIiwic3ViIjoic3Bpcm9zIiwiZXhwIjoxNTE1NjI0NjQwLCJpc3MiOiJjb20uc3JwaW5naWZ5LmthYmFzYWthbGlzIn0.YSkKBDeubYLwt66WPrdlJj4PC1_L9scPNNDegn47odhK5xLKXobw8W61p8y3VdtI9qSfOBzUhYQ6ejXmF3iyZw",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [],
 						"body": {},
@@ -625,9 +615,6 @@
 				{
 					"name": "Get Artists",
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "GET",
 						"header": [],
 						"body": {},
@@ -745,7 +732,7 @@
 						"header": [],
 						"body": {},
 						"url": {
-							"raw": "http://localhost:8080/api/artists/findByCountry?country=Aus",
+							"raw": "http://localhost:8080/api/artists/findByCountry?country=USA",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -759,7 +746,7 @@
 							"query": [
 								{
 									"key": "country",
-									"value": "Aus",
+									"value": "USA",
 									"equals": true
 								}
 							]
@@ -1466,51 +1453,6 @@
 			"response": []
 		},
 		{
-			"name": "Sign Up",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "f8668fc0-a3f2-4891-9e60-514e37ac5130",
-						"type": "text/javascript",
-						"exec": [
-							"pm.sendRequest(\"https://postman-echo.com/get\", function (err, response) {",
-							"    console.log(response.json());",
-							"});"
-						]
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{ \"username\" : \"drumaddict\",\n\"password\" : \"44444444\",\n\"passwordConfirm\" : \"44444444\",\n\"email\":\"drumaddict@gmail.com\"\n}"
-				},
-				"url": {
-					"raw": "http://localhost:8080/api/users/sign-up",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"users",
-						"sign-up"
-					]
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
 			"name": "Root",
 			"event": [
 				{
@@ -1557,6 +1499,67 @@
 				"description": "Home"
 			},
 			"response": []
+		},
+		{
+			"name": "Sign Up",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f8668fc0-a3f2-4891-9e60-514e37ac5130",
+						"type": "text/javascript",
+						"exec": [
+							"pm.sendRequest(\"https://postman-echo.com/get\", function (err, response) {",
+							"    console.log(response.json());",
+							"});"
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "f29fa242-1e19-4950-a220-22cefc15e7ae",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJ6b3VyZG9zQGdtYWlsLmNvbSIsInN1YiI6InBldGVyIiwiZXhwIjoxNTE2Mzg1MTc5LCJpc3MiOiJjb20uc3JwaW5naWZ5LmthYmFzYWthbGlzIn0.-AA31gQ_ehgzdzT67v-AEh6ewXHnZBN3CmkGNMUK9lXnkgTOquxIpHlwlf93TYbtUIFR40cz0na1sikyNULvxA"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\": \"admin2\",\n\"password\": \"11111111\",\n\"passwordConfirm\": \"11111111\",\n\"email\" : \"admin2@gmail.com\"\n}\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/sign-up",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"sign-up"
+					]
+				},
+				"description": ""
+			},
+			"response": []
 		}
 	],
 	"auth": {
@@ -1564,7 +1567,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTU2MzQyNjQsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.E4dwSLpVnSkN-7gWnYS7GQZi1s6Y-5LEnt0X1qjWy3JveND-aQozbYAHSMx3GFb7gWv3UmUeSN4fA-XJZVMFLw",
+				"value": "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTYzOTA4NjksImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.Q9Y_gipfDZsvDSKANPW07yFV7e3_I9JYugT0_gqX0OvB4qEA1laqM5usrEuj1cJ8yP-UoJfARgY1Ug-lpaS54Q",
 				"type": "string"
 			}
 		]

@@ -7,10 +7,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.orm.jpa.vendor.HibernateJpaSessionFactoryBean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.net.URL;
-import java.net.URLClassLoader;
-import java.util.Properties;
-
 @EnableEncryptableProperties
 @SpringBootApplication
 public class SpringifyApiApplication {

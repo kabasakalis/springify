@@ -14,6 +14,9 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import static com.kabasakalis.springifyapi.configuration.SecurityConstants.ADMIN_PATHS;
+import static com.kabasakalis.springifyapi.configuration.SecurityConstants.PERMIT_ALL_PATHS;
+
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -35,9 +38,9 @@ public void configure(AuthenticationManagerBuilder auth)  throws Exception {
 @Override
 protected void configure(HttpSecurity http) throws Exception {
     http.cors().and().csrf().disable().authorizeRequests()
-            .antMatchers(SecurityConstants.PERMIT_ALL_PATHS).permitAll()
+            .antMatchers(PERMIT_ALL_PATHS).permitAll()
+            .antMatchers(ADMIN_PATHS).hasAuthority("ADMIN")
             .anyRequest().authenticated()
-//                .hasAuthority("ROLE_USER")
             .and()
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
             .exceptionHandling()
