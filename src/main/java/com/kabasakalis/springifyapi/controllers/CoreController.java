@@ -2,7 +2,6 @@ package com.kabasakalis.springifyapi.controllers;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.rest.webmvc.ControllerUtils;
-import org.springframework.hateoas.Link;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.http.HttpHeaders;

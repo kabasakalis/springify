@@ -1,8 +1,8 @@
 package com.kabasakalis.springifyapi.controllers;
 
+import com.kabasakalis.springifyapi.assemblers.UserResourceAssembler;
+import com.kabasakalis.springifyapi.domain.SpringifyUser;
 import com.kabasakalis.springifyapi.exceptions.FailedLoginException;
-import com.kabasakalis.springifyapi.hateoas.UserResourceAssembler;
-import com.kabasakalis.springifyapi.models.SpringifyUser;
 import com.kabasakalis.springifyapi.security.LoginCredentials;
 import com.kabasakalis.springifyapi.services.JwtService;
 import com.kabasakalis.springifyapi.services.LoginService;

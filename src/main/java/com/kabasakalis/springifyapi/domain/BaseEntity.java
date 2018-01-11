@@ -1,5 +1,5 @@
 
-package com.kabasakalis.springifyapi.models;
+package com.kabasakalis.springifyapi.domain;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -9,18 +9,9 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.hateoas.Identifiable;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
+import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 
 @MappedSuperclass

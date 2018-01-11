@@ -1,6 +1,6 @@
 package com.kabasakalis.springifyapi.security;
 
-import com.kabasakalis.springifyapi.models.SpringifyUser;
+import com.kabasakalis.springifyapi.domain.SpringifyUser;
 import com.kabasakalis.springifyapi.exceptions.JwtAuthenticationException;
 import com.kabasakalis.springifyapi.services.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;

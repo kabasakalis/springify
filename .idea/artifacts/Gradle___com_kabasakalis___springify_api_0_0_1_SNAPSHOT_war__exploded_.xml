@@ -120,7 +120,7 @@
           <element id="library" level="project" name="Gradle: com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2.8.10" />
           <element id="library" level="project" name="Gradle: ch.qos.logback:logback-core:1.1.11" />
           <element id="library" level="project" name="Gradle: org.glassfish.hk2.external:asm-all-repackaged:2.5.0-b32" />
-          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.jsonwebtoken/jjwt/0.7.0/f042fe2676bfdc2091545152e47d77e11999946d/jjwt-0.7.0.jar" />
+          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.jsonwebtoken/jjwt/0.9.0/64e3ed8a5f0bc93ecea592a0b3280f995efbdfe9/jjwt-0.9.0.jar" />
         </element>
       </element>
     </root>

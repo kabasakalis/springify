@@ -1,11 +1,9 @@
 package com.kabasakalis.springifyapi.exceptions;
 
+import com.kabasakalis.springifyapi.domain.BaseEntity;
 import org.springframework.http.HttpStatus;
 
 import static org.springframework.http.HttpStatus.NOT_FOUND;
-
-
-import com.kabasakalis.springifyapi.models.BaseEntity;
 
 public class AssociationNotFoundException extends BaseException {
 
@@ -14,21 +12,7 @@ public class AssociationNotFoundException extends BaseException {
     private long Id;
     private long associatedId;
 
-//    public AssociationNotFoundException(
-//            Class<? extends BaseEntity> _class,
-//            long Id,
-//            HttpStatus code,
-//            String message,
-//            Throwable cause,
-//            boolean enableSuppression,
-//            boolean writableStackTrace
-//    ) {
-//        super(code, message, cause, enableSuppression, writableStackTrace);
-//            this.Id = Id;
-//        this.customMessage = String.format("%s with id of %d could not be found.", _class.getSimpleName(), Id);
-//    }
-
-        public AssociationNotFoundException(
+    public AssociationNotFoundException(
             Class<? extends BaseEntity> _class,
             Class<? extends BaseEntity> associatedClass,
             long Id,
@@ -38,7 +22,7 @@ public class AssociationNotFoundException extends BaseException {
         this.Id = Id;
         this.associatedId = associatedId;
         this.customMessage = String.format("%2$s with id of %4$d is not associated to %1$s of id %3$d",
-                _class.getSimpleName(),associatedClass.getSimpleName(), Id, associatedId);
+                _class.getSimpleName(), associatedClass.getSimpleName(), Id, associatedId);
     }
 
     public Class<? extends BaseEntity> getEntityClass() {
@@ -48,6 +32,7 @@ public class AssociationNotFoundException extends BaseException {
     public void setEntityClass(Class<? extends BaseEntity> entityClass) {
         this.entityClass = entityClass;
     }
+
     public long getAssociatedId() {
         return associatedId;
     }

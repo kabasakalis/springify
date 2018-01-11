@@ -1,11 +1,12 @@
-package com.kabasakalis.springifyapi.hateoas;
+package com.kabasakalis.springifyapi.assemblers;
 
 import com.kabasakalis.springifyapi.controllers.*;
-import com.kabasakalis.springifyapi.models.Playlist;
+import com.kabasakalis.springifyapi.domain.Playlist;
+import com.kabasakalis.springifyapi.serializers.BaseResourceSupport;
+import com.kabasakalis.springifyapi.serializers.PlaylistResource;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.hateoas.PagedResources;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.Resources;
+import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.SimpleIdentifiableResourceAssembler;
 import org.springframework.stereotype.Component;
 
@@ -16,40 +17,19 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 @Component
 public class PlaylistResourceAssembler extends SimpleIdentifiableResourceAssembler<Playlist> {
 
-    PlaylistResourceAssembler() {
-        super(PlaylistController.class);
-    }
+    PlaylistResourceAssembler() { super(PlaylistController.class, PlaylistResource.class); }
 
-//    @Override
-    protected void addLinks(Resource<Playlist> resource) {
+    @Override
+    public void addLinks(BaseResourceSupport resource) {
         super.addLinks(resource);
-        // optionally add more custom links here.
+        // optionally add more custom links here, usually associatiated resources
         PageRequest pageRequest = getPageRequest(0, 20, null);
         resource.add(
-                linkTo(methodOn(PlaylistController.class).getAlbums(pageRequest, resource.getContent().getId())).withRel("albums"),
-                linkTo(methodOn(CoreController.class).root(pageRequest)).withRel("home"));
+                linkTo(methodOn(PlaylistController.class).getAlbums(pageRequest, resource.getEntity().getId())).withRel("albums"));
     }
 
-
-    /**
-     * Define links to add to {@link Resources} collection.
-     *
-     * @param resources
-     */
     @Override
-    protected void addLinks(Resources<Resource<Playlist>> resources) {
-        super.addLinks(resources);
-    }
-
-
-    /**
-     * Add links to {@link PagedResources} collection.
-     *
-     * @param pagedResources
-     */
-
-    @Override
-    public void addLinks(PagedResources<Resource<Playlist>> pagedResources) {
+    public void addLinks(PagedResources<ResourceSupport> pagedResources) {
         super.addLinks(pagedResources);
         PageRequest pageRequest = getPageRequest(0, 20, null);
         pagedResources.add(
@@ -58,6 +38,5 @@ public class PlaylistResourceAssembler extends SimpleIdentifiableResourceAssembl
                 linkTo(methodOn(AlbumController.class).getAll(pageRequest)).withRel("albums"),
                 linkTo(methodOn(CoreController.class).root(pageRequest)).withRel("home"));
     }
-
 
 }

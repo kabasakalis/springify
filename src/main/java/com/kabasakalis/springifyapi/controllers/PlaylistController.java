@@ -2,11 +2,12 @@
 package com.kabasakalis.springifyapi.controllers;
 
 
-import com.kabasakalis.springifyapi.hateoas.AlbumResourceAssembler;
-import com.kabasakalis.springifyapi.hateoas.PlaylistResourceAssembler;
-import com.kabasakalis.springifyapi.models.Album;
-import com.kabasakalis.springifyapi.models.BaseEntity;
-import com.kabasakalis.springifyapi.models.Playlist;
+import com.kabasakalis.springifyapi.assemblers.AlbumResourceAssembler;
+import com.kabasakalis.springifyapi.assemblers.PagedCustomResourcesAssembler;
+import com.kabasakalis.springifyapi.assemblers.PlaylistResourceAssembler;
+import com.kabasakalis.springifyapi.domain.Album;
+import com.kabasakalis.springifyapi.domain.BaseEntity;
+import com.kabasakalis.springifyapi.domain.Playlist;
 import com.kabasakalis.springifyapi.repositories.AlbumRepository;
 import com.kabasakalis.springifyapi.repositories.PlaylistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.data.web.HateoasPageableHandlerMethodArgumentResolver;
-import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.Resources;
@@ -31,7 +31,7 @@ public class PlaylistController extends AbstractBaseRestController<Playlist> {
 
     private PlaylistResourceAssembler assembler;
     private AlbumRepository albumRepository;
-    private PagedResourcesAssembler<Album> pagedAlbumAssembler;
+    private PagedCustomResourcesAssembler<Album> pagedAlbumAssembler;
     private AlbumResourceAssembler albumResourceAssembler;
 
     @Autowired
@@ -44,7 +44,7 @@ public class PlaylistController extends AbstractBaseRestController<Playlist> {
         this.albumRepository = albumRepository;
         this.albumResourceAssembler = albumResourceAssembler;
         HateoasPageableHandlerMethodArgumentResolver resolver = new HateoasPageableHandlerMethodArgumentResolver();
-        this.pagedAlbumAssembler = new PagedResourcesAssembler<Album>(resolver, null);
+        this.pagedAlbumAssembler = new PagedCustomResourcesAssembler<Album>(resolver, null);
     }
 
 

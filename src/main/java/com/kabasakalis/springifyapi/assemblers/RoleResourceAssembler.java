@@ -1,11 +1,13 @@
-package com.kabasakalis.springifyapi.hateoas;
+package com.kabasakalis.springifyapi.assemblers;
 
-import com.kabasakalis.springifyapi.controllers.*;
-import com.kabasakalis.springifyapi.models.Role;
+import com.kabasakalis.springifyapi.controllers.CoreController;
+import com.kabasakalis.springifyapi.controllers.RoleController;
+import com.kabasakalis.springifyapi.domain.Role;
+import com.kabasakalis.springifyapi.serializers.BaseResourceSupport;
+import com.kabasakalis.springifyapi.serializers.RoleResource;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.hateoas.PagedResources;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.Resources;
+import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.SimpleIdentifiableResourceAssembler;
 import org.springframework.stereotype.Component;
 
@@ -17,38 +19,21 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 public class RoleResourceAssembler extends SimpleIdentifiableResourceAssembler<Role> {
 
     RoleResourceAssembler() {
-        super(RoleController.class);
+        super(RoleController.class, RoleResource.class);
     }
 
-//    @Override
-    protected void addLinks(Resource<Role> resource) {
+    @Override
+    public void addLinks(BaseResourceSupport resource) {
         super.addLinks(resource);
-        // optionally add more custom links here.
+        // optionally add more custom links here, usually associatiated resources
         PageRequest pageRequest = getPageRequest(0, 20, null);
         resource.add(
-//                linkTo(methodOn(RoleController.class).getRoles(pageRequest, resource.getContent().getId())).withRel("roles"),
+                linkTo(methodOn(RoleController.class).getRoleUsers(pageRequest, resource.getEntity().getId())).withRel("users"),
                 linkTo(methodOn(CoreController.class).root(pageRequest)).withRel("home"));
     }
 
-    /**
-     * Define links to add to {@link Resources} collection.
-     *
-     * @param resources
-     */
     @Override
-    protected void addLinks(Resources<Resource<Role>> resources) {
-        super.addLinks(resources);
-    }
-
-
-    /**
-     * Add links to {@link PagedResources} collection.
-     *
-     * @param pagedResources
-     */
-
-    @Override
-    public void addLinks(PagedResources<Resource<Role>> pagedResources) {
+    public void addLinks(PagedResources<ResourceSupport> pagedResources) {
         super.addLinks(pagedResources);
         PageRequest pageRequest = getPageRequest(0, 20, null);
         pagedResources.add(

@@ -1,5 +1,5 @@
 
-package com.kabasakalis.springifyapi.models;
+package com.kabasakalis.springifyapi.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -18,7 +18,6 @@ public class Role extends BaseEntity {
     @JsonIgnore
     private Set<SpringifyUser> springifyUsers;
 
-
     public String getName() {
         return name;
     }
@@ -26,7 +25,6 @@ public class Role extends BaseEntity {
     public void setName(String name) {
         this.name = name;
     }
-
 
     public Set<SpringifyUser> getSpringifyUsers() {
         return springifyUsers;

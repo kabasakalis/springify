@@ -1,7 +1,6 @@
 package com.kabasakalis.springifyapi.services;
 
-import com.kabasakalis.springifyapi.configuration.SecurityConstants;
-import com.kabasakalis.springifyapi.models.SpringifyUser;
+import com.kabasakalis.springifyapi.domain.SpringifyUser;
 import com.kabasakalis.springifyapi.repositories.UserRepository;
 import com.kabasakalis.springifyapi.security.SecretKeyProvider;
 import io.jsonwebtoken.Claims;
@@ -17,9 +16,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Optional;
 
-import static com.kabasakalis.springifyapi.configuration.SecurityConstants.AUDIENCE;
-import static com.kabasakalis.springifyapi.configuration.SecurityConstants.EXPIRATION_TIME_FROM_NOW_HOURS;
-import static com.kabasakalis.springifyapi.configuration.SecurityConstants.ISSUER;
+import static com.kabasakalis.springifyapi.configuration.SecurityConstants.*;
 import static java.time.ZoneOffset.UTC;
 
 @Component

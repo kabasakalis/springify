@@ -2,6 +2,7 @@ package com.kabasakalis.springifyapi.exceptions;
 
 import com.kabasakalis.springifyapi.security.LoginCredentials;
 import org.springframework.http.HttpStatus;
+
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 
 public class FailedLoginException extends BaseException {
@@ -14,10 +15,7 @@ public class FailedLoginException extends BaseException {
             HttpStatus code,
             String message,
             Throwable cause
-    ) {
-        super(code, message, cause);
-        this.setCustomMessage( credentials.toString());
-    }
+    ) { super(code, message, cause);this.setCustomMessage( credentials.toString()); }
 
 
     public FailedLoginException(LoginCredentials credentials) {

@@ -1,6 +1,7 @@
 package com.kabasakalis.springifyapi.exceptions;
 
 import org.springframework.http.HttpStatus;
+
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 
 public class JwtAuthenticationException extends BaseException {
@@ -14,11 +15,7 @@ public class JwtAuthenticationException extends BaseException {
             HttpStatus code,
             String message,
             Throwable cause
-    ) {
-        super(code, message, cause);
-        this.setCustomMessage(token);
-    }
-
+    ) { super(code, message, cause);this.setCustomMessage(token); }
 
     public JwtAuthenticationException(String token) {
         super();

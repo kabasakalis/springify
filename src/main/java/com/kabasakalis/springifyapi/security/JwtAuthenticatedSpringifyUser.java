@@ -1,14 +1,13 @@
 
 package com.kabasakalis.springifyapi.security;
 
-import com.kabasakalis.springifyapi.models.Role;
-import com.kabasakalis.springifyapi.models.SpringifyUser;
+import com.kabasakalis.springifyapi.domain.Role;
+import com.kabasakalis.springifyapi.domain.SpringifyUser;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.stream.Collectors;
 
 public class JwtAuthenticatedSpringifyUser implements Authentication {

@@ -1,5 +1,5 @@
 
-package com.kabasakalis.springifyapi.models;
+package com.kabasakalis.springifyapi.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

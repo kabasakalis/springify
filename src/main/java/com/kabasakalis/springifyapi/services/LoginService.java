@@ -1,12 +1,10 @@
 package com.kabasakalis.springifyapi.services;
 
 
-import com.kabasakalis.springifyapi.models.SpringifyUser;
+import com.kabasakalis.springifyapi.domain.SpringifyUser;
 import com.kabasakalis.springifyapi.repositories.UserRepository;
 import com.kabasakalis.springifyapi.security.LoginCredentials;
-import org.aspectj.weaver.bcel.BcelAccessForInlineMunger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 

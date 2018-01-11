@@ -11,7 +11,7 @@ task migrate {
               username       project.getProperty("spring.datasource.username")
               password       project.getProperty("spring.datasource.password")
 
-              referenceUrl    'hibernate:spring:com.kabasakalis.springifyapi.models?dialect=org.hibernate.dialect.PostgreSQLDialect'
+              referenceUrl    'hibernate:spring:com.kabasakalis.springifyapi.domain?dialect=org.hibernate.dialect.PostgreSQLDialect'
               driver        'org.postgresql.Driver'
               // defaultSchemaName 'public'
               referenceDriver  'org.postgresql.Driver'

@@ -1,13 +1,14 @@
 
 package com.kabasakalis.springifyapi.controllers;
 
-import com.kabasakalis.springifyapi.hateoas.AlbumResourceAssembler;
-import com.kabasakalis.springifyapi.hateoas.ArtistResourceAssembler;
-import com.kabasakalis.springifyapi.hateoas.GenreResourceAssembler;
-import com.kabasakalis.springifyapi.models.Album;
-import com.kabasakalis.springifyapi.models.Artist;
-import com.kabasakalis.springifyapi.models.BaseEntity;
-import com.kabasakalis.springifyapi.models.Genre;
+import com.kabasakalis.springifyapi.assemblers.AlbumResourceAssembler;
+import com.kabasakalis.springifyapi.assemblers.ArtistResourceAssembler;
+import com.kabasakalis.springifyapi.assemblers.GenreResourceAssembler;
+import com.kabasakalis.springifyapi.assemblers.PagedCustomResourcesAssembler;
+import com.kabasakalis.springifyapi.domain.Album;
+import com.kabasakalis.springifyapi.domain.Artist;
+import com.kabasakalis.springifyapi.domain.BaseEntity;
+import com.kabasakalis.springifyapi.domain.Genre;
 import com.kabasakalis.springifyapi.repositories.AlbumRepository;
 import com.kabasakalis.springifyapi.repositories.ArtistRepository;
 import com.kabasakalis.springifyapi.repositories.GenreRepository;
@@ -18,8 +19,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.data.web.HateoasPageableHandlerMethodArgumentResolver;
-import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.*;
+import org.springframework.hateoas.MediaTypes;
+import org.springframework.hateoas.PagedResources;
+import org.springframework.hateoas.ResourceSupport;
+import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +37,7 @@ public class ArtistController extends AbstractBaseRestController<Artist>{
     @Qualifier("artistRepository")
 
     private ArtistRepository repository;
-    private PagedResourcesAssembler<Album> pagedAlbumAssembler;
+    private PagedCustomResourcesAssembler<Album> pagedAlbumAssembler;
     private AlbumResourceAssembler albumResourceAssembler;
     private GenreResourceAssembler genreResourceAssembler;
     private AlbumRepository albumRepository;
@@ -55,7 +58,7 @@ public class ArtistController extends AbstractBaseRestController<Artist>{
         this.albumResourceAssembler = albumResourceAssembler;
         this.genreRepository = genreRepository;
         HateoasPageableHandlerMethodArgumentResolver resolver = new HateoasPageableHandlerMethodArgumentResolver();
-        this.pagedAlbumAssembler = new PagedResourcesAssembler<Album>(resolver, null);
+        this.pagedAlbumAssembler = new PagedCustomResourcesAssembler<Album>(resolver, null);
     }
 
 
@@ -106,10 +109,12 @@ public class ArtistController extends AbstractBaseRestController<Artist>{
             method = RequestMethod.GET,
             path = "/findByName",
             produces = MediaTypes.HAL_JSON_VALUE)
-    ResponseEntity<Resource<Artist>> getArtistsByNameLike(@RequestParam("name") String name, Pageable pageRequest) {
-        PagedResources<Resource<Artist>> pagedResources = pagedAssembler.toResource(
+    ResponseEntity<ResourceSupport> getArtistsByNameLike(@RequestParam("name") String name, Pageable pageRequest) {
+                PagedResources<ResourceSupport> pagedResources = pagedAssembler.toResource(
                 repository.findByNameIgnoreCaseContaining(name, pageRequest),
                 assembler);
+
+        assembler.addLinks(pagedResources);
         return new ResponseEntity(pagedResources, HttpStatus.OK);
     }
 
@@ -118,11 +123,13 @@ public class ArtistController extends AbstractBaseRestController<Artist>{
             method = RequestMethod.GET,
             path = "/findByCountry",
             produces = MediaTypes.HAL_JSON_VALUE)
-    ResponseEntity<Resource<Artist>> getArtistsByCountryLike(@RequestParam("country") String country, Pageable pageRequest) {
-        PagedResources<Resource<Artist>> pagedResources = pagedAssembler.toResource(
+    ResponseEntity<ResourceSupport> getArtistsByCountryLike(@RequestParam("country") String country, Pageable pageRequest) {
+        PagedResources<ResourceSupport> pagedResources = pagedAssembler.toResource(
                 repository.findByCountryIgnoreCaseContaining(country, pageRequest),
                 assembler);
+        assembler.addLinks(pagedResources);
         return new ResponseEntity(pagedResources, HttpStatus.OK);
+
     }
 
 }

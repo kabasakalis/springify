@@ -1,6 +1,6 @@
 package com.kabasakalis.springifyapi.exceptions;
 
-import com.kabasakalis.springifyapi.models.BaseEntity;
+import com.kabasakalis.springifyapi.domain.BaseEntity;
 import org.springframework.beans.ConversionNotSupportedException;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpHeaders;

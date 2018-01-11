@@ -1,7 +1,7 @@
-package com.kabasakalis.springifyapi.hateoas;
+package com.kabasakalis.springifyapi.serializers;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.kabasakalis.springifyapi.models.BaseEntity;
+import com.kabasakalis.springifyapi.domain.BaseEntity;
 import org.springframework.hateoas.ResourceSupport;
 
 public class BaseResourceSupport extends ResourceSupport {
@@ -17,7 +17,6 @@ public class BaseResourceSupport extends ResourceSupport {
     public BaseEntity getEntity() {
         return entity;
     }
-
     public void setEntity(BaseEntity entity) {
         this.entity = entity;
     }

@@ -2,12 +2,12 @@
 
 package com.kabasakalis.springifyapi.controllers;
 
-import com.kabasakalis.springifyapi.hateoas.ArtistResourceAssembler;
-import com.kabasakalis.springifyapi.hateoas.GenreResourceAssembler;
-import com.kabasakalis.springifyapi.models.Album;
-import com.kabasakalis.springifyapi.models.Artist;
-import com.kabasakalis.springifyapi.models.BaseEntity;
-import com.kabasakalis.springifyapi.models.Genre;
+import com.kabasakalis.springifyapi.assemblers.ArtistResourceAssembler;
+import com.kabasakalis.springifyapi.assemblers.GenreResourceAssembler;
+import com.kabasakalis.springifyapi.assemblers.PagedCustomResourcesAssembler;
+import com.kabasakalis.springifyapi.domain.Artist;
+import com.kabasakalis.springifyapi.domain.BaseEntity;
+import com.kabasakalis.springifyapi.domain.Genre;
 import com.kabasakalis.springifyapi.repositories.ArtistRepository;
 import com.kabasakalis.springifyapi.repositories.GenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +16,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.data.web.HateoasPageableHandlerMethodArgumentResolver;
-import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.*;
+import org.springframework.hateoas.MediaTypes;
+import org.springframework.hateoas.ResourceSupport;
+import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 
 @RepositoryRestController
@@ -28,7 +32,7 @@ public class GenreController extends AbstractBaseRestController<Genre> {
 
 
     private GenreResourceAssembler assembler;
-    private PagedResourcesAssembler<Artist> pagedArtistAssembler;
+    private PagedCustomResourcesAssembler<Artist> pagedArtistAssembler;
     private ArtistResourceAssembler artistResourceAssembler;
     private ArtistRepository artistRepository;
 
@@ -42,7 +46,7 @@ public class GenreController extends AbstractBaseRestController<Genre> {
         super(repository,appContext, assembler);
         this.pagedArtistAssembler = pagedArtistAssembler;
         HateoasPageableHandlerMethodArgumentResolver resolver = new HateoasPageableHandlerMethodArgumentResolver();
-        this.pagedArtistAssembler = new PagedResourcesAssembler<>(resolver, null);
+        this.pagedArtistAssembler = new PagedCustomResourcesAssembler<Artist>(resolver, null);
         this.artistRepository = artistRepository;
         this.assembler = assembler;
         this.artistResourceAssembler = artistResourceAssembler;

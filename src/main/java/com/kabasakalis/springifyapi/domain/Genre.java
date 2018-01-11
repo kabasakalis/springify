@@ -1,12 +1,11 @@
 
-package com.kabasakalis.springifyapi.models;
+package com.kabasakalis.springifyapi.domain;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import com.kabasakalis.springifyapi.models.Artist;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "genres")
@@ -16,10 +15,8 @@ public class Genre  extends BaseEntity {
 
 public Genre(){};
     @OneToMany(mappedBy = "genre", orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-    // @JsonManagedReference
     @JsonIgnore
     private List<Artist> artists = new ArrayList<Artist>();
-
 
   public String getName() {
     return name;

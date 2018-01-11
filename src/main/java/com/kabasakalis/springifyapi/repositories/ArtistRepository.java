@@ -1,6 +1,6 @@
 package com.kabasakalis.springifyapi.repositories;
 
-import com.kabasakalis.springifyapi.models.Artist;
+import com.kabasakalis.springifyapi.domain.Artist;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

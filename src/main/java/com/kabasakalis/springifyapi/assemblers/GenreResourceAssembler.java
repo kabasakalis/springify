@@ -1,14 +1,15 @@
-package com.kabasakalis.springifyapi.hateoas;
+package com.kabasakalis.springifyapi.assemblers;
 
 import com.kabasakalis.springifyapi.controllers.ArtistController;
 import com.kabasakalis.springifyapi.controllers.CoreController;
 import com.kabasakalis.springifyapi.controllers.GenreController;
 import com.kabasakalis.springifyapi.controllers.PlaylistController;
-import com.kabasakalis.springifyapi.models.Genre;
+import com.kabasakalis.springifyapi.domain.Genre;
+import com.kabasakalis.springifyapi.serializers.BaseResourceSupport;
+import com.kabasakalis.springifyapi.serializers.GenreResource;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.hateoas.PagedResources;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.Resources;
+import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.SimpleIdentifiableResourceAssembler;
 import org.springframework.stereotype.Component;
 
@@ -19,39 +20,20 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 @Component
 public class GenreResourceAssembler extends SimpleIdentifiableResourceAssembler<Genre> {
 
-    GenreResourceAssembler() {
-        super(GenreController.class);
-    }
+    GenreResourceAssembler() { super(GenreController.class, GenreResource.class);}
 
-//    @Override
-    protected void addLinks(Resource<Genre> resource) {
+    @Override
+    public void addLinks(BaseResourceSupport resource) {
         super.addLinks(resource);
-        // optionally add more custom links here.
+        // optionally add more custom links here, usually associatiated resources
         PageRequest pageRequest = getPageRequest(0, 20, null);
         resource.add(
-                linkTo(methodOn(GenreController.class).getArtists(pageRequest, resource.getContent().getId())).withRel("artists"),
-                linkTo(methodOn(CoreController.class).root(pageRequest)).withRel("home"));
-    }
-
-    /**
-     * Define links to add to {@link Resources} collection.
-     *
-     * @param resources
-     */
-    @Override
-    protected void addLinks(Resources<Resource<Genre>> resources) {
-        super.addLinks(resources);
+                linkTo(methodOn(GenreController.class).getArtists(pageRequest, resource.getEntity().getId())).withRel("artists"));
     }
 
 
-    /**
-     * Add links to {@link PagedResources} collection.
-     *
-     * @param pagedResources
-     */
-
     @Override
-    public void addLinks(PagedResources<Resource<Genre>> pagedResources) {
+    public void addLinks(PagedResources<ResourceSupport> pagedResources) {
         super.addLinks(pagedResources);
         PageRequest pageRequest = getPageRequest(0, 20, null);
         pagedResources.add(

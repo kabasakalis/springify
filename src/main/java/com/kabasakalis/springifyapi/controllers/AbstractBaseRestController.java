@@ -3,9 +3,10 @@
 package com.kabasakalis.springifyapi.controllers;
 
 
+import com.kabasakalis.springifyapi.assemblers.PagedCustomResourcesAssembler;
+import com.kabasakalis.springifyapi.domain.BaseEntity;
 import com.kabasakalis.springifyapi.exceptions.AssociationNotFoundException;
 import com.kabasakalis.springifyapi.exceptions.EntityNotFoundException;
-import com.kabasakalis.springifyapi.models.BaseEntity;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.PropertyAccessor;
 import org.springframework.beans.PropertyAccessorFactory;
@@ -23,14 +24,15 @@ import org.springframework.data.repository.support.Repositories;
 import org.springframework.data.repository.support.RepositoryInvokerFactory;
 import org.springframework.data.rest.webmvc.ControllerUtils;
 import org.springframework.data.web.HateoasPageableHandlerMethodArgumentResolver;
-import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.*;
-import org.springframework.hateoas.SimpleIdentifiableResourceAssembler;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.net.URI;
 import java.util.List;
@@ -49,7 +51,7 @@ public abstract class AbstractBaseRestController<T extends BaseEntity>
 
     protected JpaRepository<T, Long> repository;
     protected SimpleIdentifiableResourceAssembler<T> assembler;
-    protected PagedResourcesAssembler<T> pagedAssembler;
+    protected PagedCustomResourcesAssembler<T> pagedAssembler;
     protected Class<T> resourceClass;
     protected String resourceClassName;
     protected Repositories repositories;
@@ -63,7 +65,7 @@ public abstract class AbstractBaseRestController<T extends BaseEntity>
                                       SimpleIdentifiableResourceAssembler<T> assembler) {
         this.repository = repository;
         HateoasPageableHandlerMethodArgumentResolver resolver = new HateoasPageableHandlerMethodArgumentResolver();
-        this.pagedAssembler = new PagedResourcesAssembler<T>(resolver, null);
+        this.pagedAssembler = new PagedCustomResourcesAssembler<T>(resolver, null);
         this.assembler = assembler;
         this.resourceClass = (Class<T>) GenericTypeResolver.resolveTypeArgument(getClass(), AbstractBaseRestController.class);
         this.resourceClassName = resourceClass.getSimpleName();
@@ -85,7 +87,7 @@ public abstract class AbstractBaseRestController<T extends BaseEntity>
             method = RequestMethod.GET,
             produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<Page<T>> getAll(Pageable pageRequest) {
-        PagedResources<Resource<T>> pagedResources = pagedAssembler.toResource(repository.findAll(pageRequest), assembler);
+        PagedResources<ResourceSupport> pagedResources = pagedAssembler.toResource(repository.findAll(pageRequest), assembler);
         assembler.addLinks(pagedResources);
         return new ResponseEntity(pagedResources, HttpStatus.OK);
     }
@@ -146,16 +148,17 @@ public abstract class AbstractBaseRestController<T extends BaseEntity>
 
     protected <R extends BaseEntity> ResponseEntity<Page<R>> getAssociatedResources(
             SimpleIdentifiableResourceAssembler<R> associatedResourceAssembler,
-            PagedResourcesAssembler<R> associatedResourcePagedAssembler,
+            PagedCustomResourcesAssembler<R> associatedResourcePagedAssembler,
             Page<R> pagedAssociatedResources,
             Pageable pageRequest) {
-        PagedResources<Resource<R>> pagedResponseBody = associatedResourcePagedAssembler
+          PagedResources<ResourceSupport> pagedResponseBody = associatedResourcePagedAssembler
                 .toResource(pagedAssociatedResources, associatedResourceAssembler);
+        assembler.addLinks(pagedResponseBody);
         return new ResponseEntity(pagedResponseBody, HttpStatus.OK);
     }
 
 
-    protected <R extends BaseEntity> ResponseEntity<Resource<R>> getAssociatedResource(
+    protected <R extends BaseEntity> ResponseEntity<ResourceSupport> getAssociatedResource(
             Long resourceId,
             Class<R> associatedResourceClass,
             SimpleIdentifiableResourceAssembler<R> associatedResourceAssembler) throws EntityNotFoundException {
@@ -166,7 +169,7 @@ public abstract class AbstractBaseRestController<T extends BaseEntity>
                 })
                 .map((associatedResource) -> {
                     if (associatedResource.isPresent()) {
-                        return new ResponseEntity<>(associatedResourceAssembler.toResource((R) associatedResource.get()), HttpStatus.OK);
+                        return new ResponseEntity<>(associatedResourceAssembler.toCustomResource((R) associatedResource.get()), HttpStatus.OK);
                     } else {
                         throw new EntityNotFoundException(associatedResourceClass);
                     }

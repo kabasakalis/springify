@@ -1,22 +1,11 @@
-package com.kabasakalis.springifyapi.models;
+package com.kabasakalis.springifyapi.domain;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import com.kabasakalis.springifyapi.models.Album;
-import com.kabasakalis.springifyapi.models.BaseEntity;
-import com.kabasakalis.springifyapi.models.Genre;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import java.util.Calendar;
-import org.springframework.hateoas.Identifiable;
 
 @Entity
 @Table(name = "artists")
