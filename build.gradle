@@ -1,26 +1,36 @@
 buildscript {
-	ext {
-		springBootVersion = '1.5.9.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-		classpath "org.liquibase:liquibase-gradle-plugin:1.2.4"
-    // classpath('org.postgresql:postgresql:9.4.1212')
-    classpath('org.yaml:snakeyaml:1.15')
-    // classpath 'org.liquibase.ext:liquibase-hibernate4'
-    // classpath "org.liquibase.ext:liquibase-hibernate4:3.5"
-    classpath "org.liquibase.ext:liquibase-hibernate5:3.6"
-	}
+  ext {
+    springBootVersion = '1.5.9.RELEASE'
+      // gradleVersionProperty = '4.1'
+      // karateVersion = '0.5.0'
+      // masterThought = '3.8.0'
+      karateVersion = '0.6.2'
+      masterThought = '3.13.0'
+  }
+  repositories {
+    mavenCentral()
+      maven { url 'https://plugins.gradle.org/m2/' }
+    maven { url "http://repo.spring.io/release" }
+    maven { url "http://repo.spring.io/milestone" }
+    maven { url "http://repo.spring.io/snapshot" }
+  }
+  dependencies {
+    classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+      classpath "org.liquibase:liquibase-gradle-plugin:1.2.4"
+      // classpath('org.postgresql:postgresql:9.4.1212')
+      classpath('org.yaml:snakeyaml:1.15')
+      classpath "org.liquibase.ext:liquibase-hibernate5:3.6"
+  }
 }
 
 plugins {
-	id 'org.liquibase.gradle' version '1.2.4'
+  id 'org.liquibase.gradle' version '1.2.4'
+
 }
 
+
 apply plugin: 'java'
+apply plugin: 'idea'
 apply plugin: 'eclipse-wtp'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'org.liquibase.gradle'
@@ -33,46 +43,91 @@ apply from: './gradle/profiles.gradle'
 apply from: './gradle/db.gradle'
 
 
+bootRun {
+  systemProperties = System.properties
+}
+
+
+
 group = 'com.kabasakalis'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 description = 'Hypermedia Driven Music API.'
 
 repositories {
-	mavenCentral()
+  mavenLocal()
+  mavenCentral()
+  maven { url "http://repo.spring.io/release" }
+  maven { url "http://repo.spring.io/milestone" }
+  maven { url "http://repo.spring.io/snapshot" }
 }
 
+
+
+sourceSets {
+    test {
+        java
+            {
+                // Excluding UIRunner files as these require the javafx libraries
+                // which are not shipped with OpenJDK. These UIRunner classes are
+                // classes that allow developers to run/debug karate tests via a UI
+                // and as such are not required for headless runs on jenkins server
+                // but can run happily via IDE of the developer without needed to be
+                // compiled by gradle.
+                srcDir file('src/test/java')
+                exclude '**/*UiRunner*.java'
+            }
+        resources
+            {
+                // Using recommended karate project layout where karate feature files
+                // and associated javascript resources sit in same /test/java folders
+                // as their java counterparts.
+                srcDir file('src/test/java')
+                exclude '**/*.java'
+            }
+    }
+}
+
+
+
+
+
 configurations {
-	providedRuntime
+  providedRuntime
 }
 
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter-actuator')
-	compile('org.springframework.boot:spring-boot-starter-aop')
-	compile('org.springframework.boot:spring-boot-starter-cache')
-	compile('org.springframework.boot:spring-boot-starter-data-jpa')
-	 compile('org.springframework.boot:spring-boot-starter-data-rest')
-	compile('org.springframework.data:spring-data-rest-hal-browser')
-	compile('org.springframework.boot:spring-boot-starter-hateoas')
-	compile('org.springframework.boot:spring-boot-starter-jersey')
-	compile('org.springframework.boot:spring-boot-starter-jooq')
-	compile('org.liquibase:liquibase-core')
-	 compile('org.springframework.boot:spring-boot-starter-security')
-	compile("io.jsonwebtoken:jjwt:0.9.0")
+  compile('org.springframework.boot:spring-boot-starter-actuator')
+    compile('org.springframework.boot:spring-boot-starter-aop')
+    compile('org.springframework.boot:spring-boot-starter-cache')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('org.springframework.boot:spring-boot-starter-data-rest')
+    compile('org.springframework.data:spring-data-rest-hal-browser')
+    compile('org.springframework.boot:spring-boot-starter-hateoas')
+    compile('org.springframework.boot:spring-boot-starter-jersey')
+    compile('org.springframework.boot:spring-boot-starter-jooq')
+    compile('org.liquibase:liquibase-core')
+    compile('org.springframework.boot:spring-boot-starter-security')
+    compile("io.jsonwebtoken:jjwt:0.9.0")
+    compile( 'com.github.ulisesbocchio:jasypt-spring-boot-starter:1.16')
+    compile group: 'org.postgresql', name: 'postgresql', version: '42.1.4'
+    compile 'commons-io:commons-io:2.6'
+    compile 'com.github.java-json-tools:json-schema-validator:2.2.8'
 
-	// compile('org.springframework.boot:spring-boot-starter-web')
+    runtime('org.springframework.boot:spring-boot-devtools')
+    compileOnly('org.springframework.boot:spring-boot-configuration-processor')
+    providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
+    // testCompile('org.springframework.boot:spring-boot-starter-test')
 
-  compile( 'com.github.ulisesbocchio:jasypt-spring-boot-starter:1.16')
 
-	runtime('org.springframework.boot:spring-boot-devtools')
+    // compile 'org.springframework.boot:spring-boot-starter-web'
+    testCompile 'junit:junit'
+    testCompile 'com.intuit.karate:karate-junit4:' + karateVersion
+    testCompile 'com.intuit.karate:karate-apache:' + karateVersion
+    testCompile 'net.masterthought:cucumber-reporting:' + masterThought
 
-	// runtime('org.postgresql:postgresql')
-  compile group: 'org.postgresql', name: 'postgresql', version: '42.1.4'
+    testCompile 'ch.qos.logback:logback-classic:1.2.3'
+    testCompile 'ch.qos.logback:logback-core:1.2.3'
 
-	compileOnly('org.springframework.boot:spring-boot-configuration-processor')
-	compileOnly('org.projectlombok:lombok')
-	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
-	testCompile('org.springframework.restdocs:spring-restdocs-mockmvc')
-	testCompile('org.springframework.security:spring-security-test')
+
 }

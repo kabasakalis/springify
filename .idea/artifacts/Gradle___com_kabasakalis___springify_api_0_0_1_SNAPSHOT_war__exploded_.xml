@@ -28,8 +28,11 @@
           <element id="library" level="project" name="Gradle: org.springframework.boot:spring-boot-starter-jooq:1.5.9.RELEASE" />
           <element id="library" level="project" name="Gradle: org.liquibase:liquibase-core:3.5.3" />
           <element id="library" level="project" name="Gradle: org.springframework.boot:spring-boot-starter-security:1.5.9.RELEASE" />
+          <element id="library" level="project" name="Gradle: io.jsonwebtoken:jjwt:0.9.0" />
           <element id="library" level="project" name="Gradle: com.github.ulisesbocchio:jasypt-spring-boot-starter:1.16" />
           <element id="library" level="project" name="Gradle: org.postgresql:postgresql:42.1.4" />
+          <element id="library" level="project" name="Gradle: commons-io:commons-io:2.6" />
+          <element id="library" level="project" name="Gradle: com.github.java-json-tools:json-schema-validator:2.2.8" />
           <element id="library" level="project" name="Gradle: org.springframework.boot:spring-boot-starter:1.5.9.RELEASE" />
           <element id="library" level="project" name="Gradle: org.springframework.boot:spring-boot-actuator:1.5.9.RELEASE" />
           <element id="library" level="project" name="Gradle: org.springframework.boot:spring-boot-devtools:1.5.9.RELEASE" />
@@ -65,6 +68,12 @@
           <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-config:4.2.3.RELEASE" />
           <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-web:4.2.3.RELEASE" />
           <element id="library" level="project" name="Gradle: com.github.ulisesbocchio:jasypt-spring-boot:1.16" />
+          <element id="library" level="project" name="Gradle: com.github.java-json-tools:json-schema-core:1.2.8" />
+          <element id="library" level="project" name="Gradle: javax.mail:mailapi:1.4.3" />
+          <element id="library" level="project" name="Gradle: joda-time:joda-time:2.9.9" />
+          <element id="library" level="project" name="Gradle: com.googlecode.libphonenumber:libphonenumber:8.0.0" />
+          <element id="library" level="project" name="Gradle: com.google.code.findbugs:jsr305:3.0.1" />
+          <element id="library" level="project" name="Gradle: net.sf.jopt-simple:jopt-simple:5.0.3" />
           <element id="library" level="project" name="Gradle: org.springframework.boot:spring-boot:1.5.9.RELEASE" />
           <element id="library" level="project" name="Gradle: org.springframework.boot:spring-boot-autoconfigure:1.5.9.RELEASE" />
           <element id="library" level="project" name="Gradle: org.springframework.boot:spring-boot-starter-logging:1.5.9.RELEASE" />
@@ -102,6 +111,10 @@
           <element id="library" level="project" name="Gradle: com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.8.10" />
           <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-core:4.2.3.RELEASE" />
           <element id="library" level="project" name="Gradle: org.jasypt:jasypt:1.9.2" />
+          <element id="library" level="project" name="Gradle: org.mozilla:rhino:1.7R4" />
+          <element id="library" level="project" name="Gradle: com.github.fge:jackson-coreutils:1.8" />
+          <element id="library" level="project" name="Gradle: com.github.fge:uri-template:0.9" />
+          <element id="library" level="project" name="Gradle: javax.activation:activation:1.1" />
           <element id="library" level="project" name="Gradle: ch.qos.logback:logback-classic:1.1.11" />
           <element id="library" level="project" name="Gradle: org.slf4j:jul-to-slf4j:1.7.25" />
           <element id="library" level="project" name="Gradle: org.slf4j:log4j-over-slf4j:1.7.25" />
@@ -118,9 +131,11 @@
           <element id="library" level="project" name="Gradle: org.glassfish.hk2:hk2-runlevel:2.5.0-b32" />
           <element id="library" level="project" name="Gradle: org.glassfish.hk2:class-model:2.5.0-b32" />
           <element id="library" level="project" name="Gradle: com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2.8.10" />
+          <element id="library" level="project" name="Gradle: com.github.fge:msg-simple:1.1" />
+          <element id="library" level="project" name="Gradle: com.google.guava:guava:16.0.1" />
           <element id="library" level="project" name="Gradle: ch.qos.logback:logback-core:1.1.11" />
           <element id="library" level="project" name="Gradle: org.glassfish.hk2.external:asm-all-repackaged:2.5.0-b32" />
-          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.jsonwebtoken/jjwt/0.9.0/64e3ed8a5f0bc93ecea592a0b3280f995efbdfe9/jjwt-0.9.0.jar" />
+          <element id="library" level="project" name="Gradle: com.github.fge:btf:1.2" />
         </element>
       </element>
     </root>

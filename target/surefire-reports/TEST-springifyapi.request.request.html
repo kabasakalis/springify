@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>springifyapi/request/request.feature</title>
+<style>body { font-family: monospace, monospace; font-size: small; } table { border-collapse: collapse; } table td { border: 1px solid gray; padding: 0.1em 0.2em; } .scenario-heading { background-color: #F5F28F; padding: 0.2em 0.5em; border-bottom: 1px solid gray; } .scenario-name { font-weight: bold; } .scenario { border: 1px solid gray; margin-bottom: 1em; } .scenario-steps { padding-left: 0.2em; } .scenario-steps-nested { padding-left: 2em; } .step-row { margin: 0.2em 0; } .step-cell { background-color: #92DD96; display: inline-block; width: 85%; padding: 0.2em 0.5em; } .time-cell { background-color: #92DD96; display: inline-block; width: 10%; padding: 0.2em 0.5em; } .failed { background-color: #F2928C; } .skipped { background-color: #8AF; }</style>
+</head>
+<body>
+<div>
+<div class="scenario">
+<div class="scenario-heading">
+<span class="scenario-keyword">Scenario: </span><span class="scenario-name">create genre</span>
+</div>
+<div class="scenario-steps">
+<div class="step-row">
+<div class="step-cell">* url springifyBaseUrl</div>
+<div class="time-cell">1.523956</div>
+</div>
+<div class="step-row">
+<div class="step-cell">* header Authorization = 'Bearer ' + authInfo.authToken</div>
+<div class="time-cell">0.021392</div>
+</div>
+<div class="step-row">
+<div class="step-cell">Given path 'genres'</div>
+<div class="time-cell">0.015546</div>
+</div>
+<div class="step-row">
+<div class="step-cell">And request { name: 'EDM' }</div>
+<div class="time-cell">0.036387</div>
+</div>
+<div class="step-row">
+<div class="step-cell">When method post</div>
+<div class="time-cell">0.714735</div>
+</div>
+<pre>15:52:53.416 DEBUG - 
+1 &gt; POST http://127.0.0.1:8080/api/genres
+1 &gt; Accept-Encoding: gzip,deflate
+1 &gt; Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY0NjE5OTIsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.BCGnYl6-lpOPzdLHFtRkOy8hVzcmm95GyEggguby46PEYFQoQojLm57ikBQWx5nAu4Rbsd9C2WsUlwuXW89Mzg
+1 &gt; Connection: Keep-Alive
+1 &gt; Content-Length: 14
+1 &gt; Content-Type: application/json
+1 &gt; Host: 127.0.0.1:8080
+1 &gt; User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_151)
+{"name":"EDM"}
+
+15:52:53.541 DEBUG - 
+1 &lt; 201
+1 &lt; Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+1 &lt; Content-Type: application/hal+json;charset=UTF-8
+1 &lt; Date: Fri, 12 Jan 2018 13:52:53 GMT
+1 &lt; Expires: 0
+1 &lt; Location: http://127.0.0.1:8080/api/genres/101
+1 &lt; Pragma: no-cache
+1 &lt; Set-Cookie: JSESSIONID=2DCAF7140860C375287536A7E6DE1827; Path=/api; HttpOnly
+1 &lt; Transfer-Encoding: chunked
+1 &lt; X-Application-Context: application:dev
+1 &lt; X-Content-Type-Options: nosniff
+1 &lt; X-Frame-Options: DENY
+1 &lt; X-XSS-Protection: 1; mode=block
+{
+  "name" : "EDM",
+  "updated_date" : "Fri, 12 Jan 2018 15:52:53 +0200",
+  "created_date" : "Fri, 12 Jan 2018 15:52:53 +0200"
+}
+
+15:52:53.543 DEBUG - response time in milliseconds: 678
+</pre>
+<div class="step-row">
+<div class="step-cell">Then status 201</div>
+<div class="time-cell">0.001347</div>
+</div>
+<div class="step-row">
+<div class="step-cell failed">And match response == { id: '#number', name: 'EDM' }</div>
+<div class="time-cell failed">0.002673</div>
+</div>
+<pre>15:52:53.549 ERROR - assertion failed: path: $, actual: {name=EDM, updated_date=Fri, 12 Jan 2018 15:52:53 +0200, created_date=Fri, 12 Jan 2018 15:52:53 +0200}, expected: {id=#number, name=EDM}, reason: actual value has 1 more key(s) than expected: {updated_date=Fri, 12 Jan 2018 15:52:53 +0200, created_date=Fri, 12 Jan 2018 15:52:53 +0200}
+</pre>
+<div class="step-row">
+<div class="step-cell skipped">* def temp = karate.prevRequest</div>
+<div class="time-cell skipped">-</div>
+</div>
+<div class="step-row">
+<div class="step-cell skipped">* def requestMethod = temp.method</div>
+<div class="time-cell skipped">-</div>
+</div>
+<div class="step-row">
+<div class="step-cell skipped">* match requestMethod == 'POST'</div>
+<div class="time-cell skipped">-</div>
+</div>
+<div class="step-row">
+<div class="step-cell skipped">* def requestHeaders = temp.headers</div>
+<div class="time-cell skipped">-</div>
+</div>
+<div class="step-row">
+<div class="step-cell skipped">* match requestHeaders contains { 'Content-Type': ['application/hal+json'] }</div>
+<div class="time-cell skipped">-</div>
+</div>
+<div class="step-row">
+<div class="step-cell skipped">* def requestUri = temp.uri</div>
+<div class="time-cell skipped">-</div>
+</div>
+<div class="step-row">
+<div class="step-cell skipped">* match requestUri == demoBaseUrl + '/genres'</div>
+<div class="time-cell skipped">-</div>
+</div>
+<div class="step-row">
+<div class="step-cell skipped">* def requestBody = temp.body</div>
+<div class="time-cell skipped">-</div>
+</div>
+<div class="step-row">
+<div class="step-cell skipped">* def requestString = new java.lang.String(requestBody, 'utf-8')</div>
+<div class="time-cell skipped">-</div>
+</div>
+<div class="step-row">
+<div class="step-cell skipped">* match requestString == '{"name":"EDM"}'</div>
+<div class="time-cell skipped">-</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
