@@ -1,15 +1,14 @@
 Feature: test accessing the 'actual' request made
 
   Background:
-    * url springifyBaseUrl
+    * url baseUrl
 
   Scenario: create genre
-    * header Authorization = 'Bearer ' + authInfo.authToken
     Given path 'genres'
-    And request { name: 'EDM' }
+    And request { name: 'EDM2' }
     When method post
     Then status 201
-    And match response == { id: '#number', name: 'EDM' }
+    And match response == { id: '#number', name: 'EDM2' }
 
     * def temp = karate.prevRequest
     * def requestMethod = temp.method
@@ -17,9 +16,8 @@ Feature: test accessing the 'actual' request made
     * def requestHeaders = temp.headers
     * match requestHeaders contains { 'Content-Type': ['application/hal+json'] }
     * def requestUri = temp.uri
-    * match requestUri == demoBaseUrl + '/genres'
+    * match requestUri == baseUrl + '/genres'
     # this will be of java type byte[]
     * def requestBody = temp.body
     # convert byte array to  string
     * def requestString = new java.lang.String(requestBody, 'utf-8')
-    * match requestString == '{"name":"EDM"}'
