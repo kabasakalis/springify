@@ -4,9 +4,10 @@ function() {
   karate.configure('logPrettyResponse', true);
   karate.configure('connectTimeout', 5000);
   karate.configure('readTimeout', 5000);
-  var port = karate.properties['springifyapi.server.port'];
+  var port = karate.properties['springify.server.port'];
+  karate.log('PORT FROM SERVER', karate.pretty(port));
   if (!port) {
-    port = 8080;
+    port = 8081;
   }
   var config = {};
   config.user = 'admin' ;

@@ -3,10 +3,6 @@ package springifyapi;
 import cucumber.api.CucumberOptions;
 import springifyapi.TestBase;
 
-/**
- *
- * @author pthomas3
- */
 @CucumberOptions(tags = {"~@ignore"})
 public class SpringifyTest extends TestBase {
     // this class will automatically pick up all *.feature files

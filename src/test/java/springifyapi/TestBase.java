@@ -6,13 +6,10 @@ import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import test.ServerStart;
 
-/**
- *
- * @author pthomas3
- */
+
 @RunWith(Karate.class)
 public abstract class TestBase {
-    
+    private final static  int DEFAULT_SERVER_PORT= 8087;
     private static ServerStart server;
     
     public static int startServer() throws Exception {
@@ -20,7 +17,7 @@ public abstract class TestBase {
             server = new ServerStart();
             server.start(new String[]{"--server.port=0"}, false);
         }
-        System.setProperty("demo.server.port", server.getPort() + "");
+        System.setProperty("springify.server.port", server.getPort() + "");
         return server.getPort();        
     }
     
