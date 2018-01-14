@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>springifyapi/crud/createAndDeleteArtist.feature</title>
+<style>body { font-family: monospace, monospace; font-size: small; } table { border-collapse: collapse; } table td { border: 1px solid gray; padding: 0.1em 0.2em; } .scenario-heading { background-color: #F5F28F; padding: 0.2em 0.5em; border-bottom: 1px solid gray; } .scenario-name { font-weight: bold; } .scenario { border: 1px solid gray; margin-bottom: 1em; } .scenario-steps { padding-left: 0.2em; } .scenario-steps-nested { padding-left: 2em; } .step-row { margin: 0.2em 0; } .step-cell { background-color: #92DD96; display: inline-block; width: 85%; padding: 0.2em 0.5em; } .time-cell { background-color: #92DD96; display: inline-block; width: 10%; padding: 0.2em 0.5em; } .failed { background-color: #F2928C; } .skipped { background-color: #8AF; }</style>
+</head>
+<body>
+<div>
+<div class="scenario">
+<div class="scenario-heading">
+<span class="scenario-keyword">Scenario: </span><span class="scenario-name">Verify an artist was created</span>
+</div>
+<div class="scenario-steps">
+<div class="step-row">
+<div class="step-cell">* def postData = {}</div>
+<div class="time-cell">3.875878</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* call classpath:springifyapi/common/setHeaders.feature</div>
+<div class="time-cell">0</div>
+</div>
+<pre>{
+  "config": {
+    "user": "admin",
+    "baseUrl": "http:\/\/127.0.0.1:36403\/api\/"
+  }
+}
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* print 'Config passed: ', karate.pretty(config)</div>
+<div class="time-cell">0</div>
+</div>
+<pre>16:00:46.269 INFO  - [print] Config passed:  {
+  "user": "admin",
+  "baseUrl": "http:\/\/127.0.0.1:36403\/api\/"
+}
+
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* def creds = read('classpath:springifyapi/data/'+ config.user + '.json')</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* url baseUrl</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">Given url baseUrl</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">And path 'login'</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">And request creds</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">When method post</div>
+<div class="time-cell">0</div>
+</div>
+<pre>16:00:46.360 INFO  - request:
+{
+  "password": "11111111",
+  "username": "admin"
+}
+
+16:00:46.988 DEBUG - 
+1 &gt; POST http://127.0.0.1:36403/api/login
+1 &gt; Accept-Encoding: gzip,deflate
+1 &gt; Connection: Keep-Alive
+1 &gt; Content-Length: 42
+1 &gt; Content-Type: application/json
+1 &gt; Host: 127.0.0.1:36403
+1 &gt; User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_151)
+{"password":"11111111","username":"admin"}
+
+16:00:48.476 DEBUG - 
+1 &lt; 200
+1 &lt; Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+1 &lt; Content-Type: application/hal+json;charset=UTF-8
+1 &lt; Date: Sun, 14 Jan 2018 14:00:48 GMT
+1 &lt; Expires: 0
+1 &lt; Pragma: no-cache
+1 &lt; Token: eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2MzY4NDgsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.tFLg_lb49p5k-NKH-GeH2wDrC7j6baq0uN3h1qgO8r6xdu53_gOwxpyjq3wyFjHrqQr6VPNYreCR69CiFvHYlA
+1 &lt; Transfer-Encoding: chunked
+1 &lt; X-Application-Context: application:0
+1 &lt; X-Content-Type-Options: nosniff
+1 &lt; X-Frame-Options: DENY
+1 &lt; X-XSS-Protection: 1; mode=block
+{
+  "username" : "admin",
+  "email" : "admin@springify.com",
+  "password" : "$2a$10$UClj/ChiXzRXcT6HvSdOpePZFzTIJs9CYDagygovYbM0TDzMRe7Di",
+  "jwtToken" : "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2MzY4NDgsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.tFLg_lb49p5k-NKH-GeH2wDrC7j6baq0uN3h1qgO8r6xdu53_gOwxpyjq3wyFjHrqQr6VPNYreCR69CiFvHYlA",
+  "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+  "created_date" : "Sat, 13 Jan 2018 23:47:57 +0200"
+}
+
+16:00:48.480 DEBUG - response time in milliseconds: 2104
+16:00:48.481 INFO  - response:
+{
+  "username": "admin",
+  "email": "admin@springify.com",
+  "password": "$2a$10$UClj\/ChiXzRXcT6HvSdOpePZFzTIJs9CYDagygovYbM0TDzMRe7Di",
+  "jwtToken": "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2MzY4NDgsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.tFLg_lb49p5k-NKH-GeH2wDrC7j6baq0uN3h1qgO8r6xdu53_gOwxpyjq3wyFjHrqQr6VPNYreCR69CiFvHYlA",
+  "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+  "created_date": "Sat, 13 Jan 2018 23:47:57 +0200"
+}
+
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">Then status 200</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* def jwtToken = response.jwtToken</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* print 'jwtToken OK: ', karate.pretty(jwtToken)</div>
+<div class="time-cell">0</div>
+</div>
+<pre>16:00:48.516 INFO  - [print] jwtToken OK:  eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2MzY4NDgsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.tFLg_lb49p5k-NKH-GeH2wDrC7j6baq0uN3h1qgO8r6xdu53_gOwxpyjq3wyFjHrqQr6VPNYreCR69CiFvHYlA
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* def defaultHeaders =  call read('classpath:springifyapi/common/HeadersFun.js')  { jwtToken:  '#(jwtToken)' }</div>
+<div class="time-cell">0</div>
+</div>
+<pre>16:00:48.594 INFO  - AUTH {jwtToken=eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2MzY4NDgsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.tFLg_lb49p5k-NKH-GeH2wDrC7j6baq0uN3h1qgO8r6xdu53_gOwxpyjq3wyFjHrqQr6VPNYreCR69CiFvHYlA} 
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* configure headers = defaultHeaders</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="step-row">
+<div class="step-cell">* def artist_payload = {name: 'Motley Crue', country: 'USA'}</div>
+<div class="time-cell">0.000359</div>
+</div>
+<div class="step-row">
+<div class="step-cell">* set postData.path = 'artists'</div>
+<div class="time-cell">0.013279</div>
+</div>
+<div class="step-row">
+<div class="step-cell">* set postData.payload =  artist_payload</div>
+<div class="time-cell">0.000333</div>
+</div>
+<div class="step-row">
+<div class="step-cell">* def post = call read('classpath:springifyapi/common/genericPost.feature') { postData: '#(postData)' }</div>
+<div class="time-cell">0.564624</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* call classpath:springifyapi/common/genericPost.feature</div>
+<div class="time-cell">0</div>
+</div>
+<pre>{
+  "postData": {
+    "path": "artists",
+    "payload": {
+      "name": "Motley Crue",
+      "country": "USA"
+    }
+  }
+}
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* print 'Starting generic post with postData', karate.pretty(postData)</div>
+<div class="time-cell">0</div>
+</div>
+<pre>16:00:48.763 INFO  - [print] Starting generic post with postData {
+  "path": "artists",
+  "payload": {
+    "name": "Motley Crue",
+    "country": "USA"
+  }
+}
+
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* url baseUrl</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* def genericPostResult = {}</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">Given path postData.path</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">And request postData.payload</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">When method post</div>
+<div class="time-cell">0</div>
+</div>
+<pre>16:00:48.773 INFO  - request:
+{
+  "name": "Motley Crue",
+  "country": "USA"
+}
+
+16:00:48.777 DEBUG - 
+1 &gt; POST http://127.0.0.1:36403/api/artists
+1 &gt; Accept-Encoding: gzip,deflate
+1 &gt; Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2MzY4NDgsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.tFLg_lb49p5k-NKH-GeH2wDrC7j6baq0uN3h1qgO8r6xdu53_gOwxpyjq3wyFjHrqQr6VPNYreCR69CiFvHYlA
+1 &gt; Connection: Keep-Alive
+1 &gt; Content-Length: 38
+1 &gt; Content-Type: application/json
+1 &gt; Host: 127.0.0.1:36403
+1 &gt; User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_151)
+{"name":"Motley Crue","country":"USA"}
+
+16:00:49.132 DEBUG - 
+1 &lt; 201
+1 &lt; Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+1 &lt; Content-Type: application/hal+json;charset=UTF-8
+1 &lt; Date: Sun, 14 Jan 2018 14:00:48 GMT
+1 &lt; Expires: 0
+1 &lt; Location: http://127.0.0.1:36403/api/artists/1004
+1 &lt; Pragma: no-cache
+1 &lt; Set-Cookie: JSESSIONID=103AB16EAB7CD0529E357B30DF65455D; Path=/api; HttpOnly
+1 &lt; Transfer-Encoding: chunked
+1 &lt; X-Application-Context: application:0
+1 &lt; X-Content-Type-Options: nosniff
+1 &lt; X-Frame-Options: DENY
+1 &lt; X-XSS-Protection: 1; mode=block
+{
+  "name" : "Motley Crue",
+  "country" : "USA",
+  "updated_date" : "Sun, 14 Jan 2018 16:00:48 +0200",
+  "created_date" : "Sun, 14 Jan 2018 16:00:48 +0200"
+}
+
+16:00:49.133 DEBUG - response time in milliseconds: 360
+16:00:49.134 INFO  - response:
+{
+  "name": "Motley Crue",
+  "country": "USA",
+  "updated_date": "Sun, 14 Jan 2018 16:00:48 +0200",
+  "created_date": "Sun, 14 Jan 2018 16:00:48 +0200"
+}
+
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">Then status 201</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">And set genericPostResult.location = responseHeaders['Location'][0]</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">And set genericPostResult.response = response</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* print 'Setting GenericPostResult', karate.pretty(genericPostResult)</div>
+<div class="time-cell">0</div>
+</div>
+<pre>16:00:49.202 INFO  - [print] Setting GenericPostResult {
+  "location": "http:\/\/127.0.0.1:36403\/api\/artists\/1004",
+  "response": {
+    "name": "Motley Crue",
+    "country": "USA",
+    "updated_date": "Sun, 14 Jan 2018 16:00:48 +0200",
+    "created_date": "Sun, 14 Jan 2018 16:00:48 +0200"
+  }
+}
+
+</pre>
+</div>
+<div class="step-row">
+<div class="step-cell">* def postResponse = post.genericPostResult.response</div>
+<div class="time-cell">0.000346</div>
+</div>
+<div class="step-row">
+<div class="step-cell">* def location = post.genericPostResult.location</div>
+<div class="time-cell">0.000254</div>
+</div>
+<div class="step-row">
+<div class="step-cell">* print 'genericPostResult', karate.pretty(genericPostResult)</div>
+<div class="time-cell">0.038157</div>
+</div>
+<pre>16:00:49.242 INFO  - [print] genericPostResult
+</pre>
+<div class="step-row">
+<div class="step-cell">Given url location</div>
+<div class="time-cell">0.000094</div>
+</div>
+<div class="step-row">
+<div class="step-cell">When method get</div>
+<div class="time-cell">0.130738</div>
+</div>
+<pre>16:00:49.245 DEBUG - 
+1 &gt; GET http://127.0.0.1:36403/api/artists/1004
+1 &gt; Accept-Encoding: gzip,deflate
+1 &gt; Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2MzY4NDgsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.tFLg_lb49p5k-NKH-GeH2wDrC7j6baq0uN3h1qgO8r6xdu53_gOwxpyjq3wyFjHrqQr6VPNYreCR69CiFvHYlA
+1 &gt; Connection: Keep-Alive
+1 &gt; Content-Type: application/json
+1 &gt; Host: 127.0.0.1:36403
+1 &gt; User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_151)
+
+16:00:49.372 DEBUG - 
+1 &lt; 200
+1 &lt; Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+1 &lt; Content-Type: application/hal+json;charset=UTF-8
+1 &lt; Date: Sun, 14 Jan 2018 14:00:48 GMT
+1 &lt; Expires: 0
+1 &lt; Pragma: no-cache
+1 &lt; Set-Cookie: JSESSIONID=6FC01192D90CF5A7D4ABB7A7A62C7A7B; Path=/api; HttpOnly
+1 &lt; Transfer-Encoding: chunked
+1 &lt; X-Application-Context: application:0
+1 &lt; X-Content-Type-Options: nosniff
+1 &lt; X-Frame-Options: DENY
+1 &lt; X-XSS-Protection: 1; mode=block
+{
+  "name" : "Motley Crue",
+  "country" : "USA",
+  "albums_count" : 0,
+  "created_date" : "Sun, 14 Jan 2018 16:00:48 +0200",
+  "updated_date" : "Sun, 14 Jan 2018 16:00:48 +0200",
+  "_links" : {
+    "self" : {
+      "href" : "http://127.0.0.1:36403/api/artists/1004"
+    },
+    "artists" : {
+      "href" : "http://127.0.0.1:36403/api/artists"
+    },
+    "albums" : {
+      "href" : "http://127.0.0.1:36403/api/artists/1004/albums"
+    },
+    "genre" : {
+      "href" : "http://127.0.0.1:36403/api/artists/1004/genre"
+    }
+  }
+}
+
+16:00:49.373 DEBUG - response time in milliseconds: 129
+16:00:49.373 INFO  - response:
+{
+  "name": "Motley Crue",
+  "country": "USA",
+  "albums_count": 0,
+  "created_date": "Sun, 14 Jan 2018 16:00:48 +0200",
+  "updated_date": "Sun, 14 Jan 2018 16:00:48 +0200",
+  "_links": {
+    "self": {
+      "href": "http:\/\/127.0.0.1:36403\/api\/artists\/1004"
+    },
+    "artists": {
+      "href": "http:\/\/127.0.0.1:36403\/api\/artists"
+    },
+    "albums": {
+      "href": "http:\/\/127.0.0.1:36403\/api\/artists\/1004\/albums"
+    },
+    "genre": {
+      "href": "http:\/\/127.0.0.1:36403\/api\/artists\/1004\/genre"
+    }
+  }
+}
+
+</pre>
+<div class="step-row">
+<div class="step-cell">Then status 200</div>
+<div class="time-cell">0.000161</div>
+</div>
+<div class="step-row">
+<div class="step-cell">And match response contains { name: 'Motley Crue' }</div>
+<div class="time-cell">0.002086</div>
+</div>
+</div>
+</div>
+<div class="scenario">
+<div class="scenario-heading">
+<span class="scenario-keyword">Scenario: </span><span class="scenario-name">Associate the newly created Artist with genre 'Rock'</span>
+</div>
+<div class="scenario-steps">
+<div class="step-row">
+<div class="step-cell">* def postData = {}</div>
+<div class="time-cell">0.57055</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* call classpath:springifyapi/common/setHeaders.feature</div>
+<div class="time-cell">0</div>
+</div>
+<pre>{
+  "config": {
+    "user": "admin",
+    "baseUrl": "http:\/\/127.0.0.1:36403\/api\/"
+  }
+}
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* print 'Config passed: ', karate.pretty(config)</div>
+<div class="time-cell">0</div>
+</div>
+<pre>16:00:49.577 INFO  - [print] Config passed:  {
+  "user": "admin",
+  "baseUrl": "http:\/\/127.0.0.1:36403\/api\/"
+}
+
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* def creds = read('classpath:springifyapi/data/'+ config.user + '.json')</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* url baseUrl</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">Given url baseUrl</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">And path 'login'</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">And request creds</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">When method post</div>
+<div class="time-cell">0</div>
+</div>
+<pre>16:00:49.627 INFO  - request:
+{
+  "password": "11111111",
+  "username": "admin"
+}
+
+16:00:49.629 DEBUG - 
+1 &gt; POST http://127.0.0.1:36403/api/login
+1 &gt; Accept-Encoding: gzip,deflate
+1 &gt; Connection: Keep-Alive
+1 &gt; Content-Length: 42
+1 &gt; Content-Type: application/json
+1 &gt; Host: 127.0.0.1:36403
+1 &gt; User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_151)
+{"password":"11111111","username":"admin"}
+
+16:00:49.867 DEBUG - 
+1 &lt; 200
+1 &lt; Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+1 &lt; Content-Type: application/hal+json;charset=UTF-8
+1 &lt; Date: Sun, 14 Jan 2018 14:00:49 GMT
+1 &lt; Expires: 0
+1 &lt; Pragma: no-cache
+1 &lt; Token: eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2MzY4NDksImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.4SDhFdpUyPn4HgCFoQ0Iqy6KDqYVMFCeigaLdUijhjd8IxI3-9a91n3V00IvB_uBp0KWSKhaJuz52fJ4BjAJqw
+1 &lt; Transfer-Encoding: chunked
+1 &lt; X-Application-Context: application:0
+1 &lt; X-Content-Type-Options: nosniff
+1 &lt; X-Frame-Options: DENY
+1 &lt; X-XSS-Protection: 1; mode=block
+{
+  "username" : "admin",
+  "email" : "admin@springify.com",
+  "password" : "$2a$10$UClj/ChiXzRXcT6HvSdOpePZFzTIJs9CYDagygovYbM0TDzMRe7Di",
+  "jwtToken" : "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2MzY4NDksImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.4SDhFdpUyPn4HgCFoQ0Iqy6KDqYVMFCeigaLdUijhjd8IxI3-9a91n3V00IvB_uBp0KWSKhaJuz52fJ4BjAJqw",
+  "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+  "created_date" : "Sat, 13 Jan 2018 23:47:57 +0200"
+}
+
+16:00:49.868 DEBUG - response time in milliseconds: 241
+16:00:49.869 INFO  - response:
+{
+  "username": "admin",
+  "email": "admin@springify.com",
+  "password": "$2a$10$UClj\/ChiXzRXcT6HvSdOpePZFzTIJs9CYDagygovYbM0TDzMRe7Di",
+  "jwtToken": "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2MzY4NDksImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.4SDhFdpUyPn4HgCFoQ0Iqy6KDqYVMFCeigaLdUijhjd8IxI3-9a91n3V00IvB_uBp0KWSKhaJuz52fJ4BjAJqw",
+  "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+  "created_date": "Sat, 13 Jan 2018 23:47:57 +0200"
+}
+
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">Then status 200</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* def jwtToken = response.jwtToken</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* print 'jwtToken OK: ', karate.pretty(jwtToken)</div>
+<div class="time-cell">0</div>
+</div>
+<pre>16:00:49.905 INFO  - [print] jwtToken OK:  eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2MzY4NDksImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.4SDhFdpUyPn4HgCFoQ0Iqy6KDqYVMFCeigaLdUijhjd8IxI3-9a91n3V00IvB_uBp0KWSKhaJuz52fJ4BjAJqw
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* def defaultHeaders =  call read('classpath:springifyapi/common/HeadersFun.js')  { jwtToken:  '#(jwtToken)' }</div>
+<div class="time-cell">0</div>
+</div>
+<pre>16:00:49.959 INFO  - AUTH {jwtToken=eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2MzY4NDksImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.4SDhFdpUyPn4HgCFoQ0Iqy6KDqYVMFCeigaLdUijhjd8IxI3-9a91n3V00IvB_uBp0KWSKhaJuz52fJ4BjAJqw} 
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* configure headers = defaultHeaders</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="step-row">
+<div class="step-cell">* def artist_payload = {name: 'Motley Crue', country: 'USA'}</div>
+<div class="time-cell">0.000361</div>
+</div>
+<div class="step-row">
+<div class="step-cell">* set postData.path = 'artists'</div>
+<div class="time-cell">0.009929</div>
+</div>
+<div class="step-row">
+<div class="step-cell">* set postData.payload =  artist_payload</div>
+<div class="time-cell">0.000458</div>
+</div>
+<div class="step-row">
+<div class="step-cell">* def post = call read('classpath:springifyapi/common/genericPost.feature') { postData: '#(postData)' }</div>
+<div class="time-cell">0.167971</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* call classpath:springifyapi/common/genericPost.feature</div>
+<div class="time-cell">0</div>
+</div>
+<pre>{
+  "postData": {
+    "path": "artists",
+    "payload": {
+      "name": "Motley Crue",
+      "country": "USA"
+    }
+  }
+}
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* print 'Starting generic post with postData', karate.pretty(postData)</div>
+<div class="time-cell">0</div>
+</div>
+<pre>16:00:50.047 INFO  - [print] Starting generic post with postData {
+  "path": "artists",
+  "payload": {
+    "name": "Motley Crue",
+    "country": "USA"
+  }
+}
+
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* url baseUrl</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* def genericPostResult = {}</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">Given path postData.path</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">And request postData.payload</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">When method post</div>
+<div class="time-cell">0</div>
+</div>
+<pre>16:00:50.051 INFO  - request:
+{
+  "name": "Motley Crue",
+  "country": "USA"
+}
+
+16:00:50.052 DEBUG - 
+1 &gt; POST http://127.0.0.1:36403/api/artists
+1 &gt; Accept-Encoding: gzip,deflate
+1 &gt; Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2MzY4NDksImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.4SDhFdpUyPn4HgCFoQ0Iqy6KDqYVMFCeigaLdUijhjd8IxI3-9a91n3V00IvB_uBp0KWSKhaJuz52fJ4BjAJqw
+1 &gt; Connection: Keep-Alive
+1 &gt; Content-Length: 38
+1 &gt; Content-Type: application/json
+1 &gt; Host: 127.0.0.1:36403
+1 &gt; User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_151)
+{"name":"Motley Crue","country":"USA"}
+
+16:00:50.108 DEBUG - 
+1 &lt; 201
+1 &lt; Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+1 &lt; Content-Type: application/hal+json;charset=UTF-8
+1 &lt; Date: Sun, 14 Jan 2018 14:00:49 GMT
+1 &lt; Expires: 0
+1 &lt; Location: http://127.0.0.1:36403/api/artists/1005
+1 &lt; Pragma: no-cache
+1 &lt; Set-Cookie: JSESSIONID=4CFD970E6AD39BA43518A1FFD6D7DD50; Path=/api; HttpOnly
+1 &lt; Transfer-Encoding: chunked
+1 &lt; X-Application-Context: application:0
+1 &lt; X-Content-Type-Options: nosniff
+1 &lt; X-Frame-Options: DENY
+1 &lt; X-XSS-Protection: 1; mode=block
+{
+  "name" : "Motley Crue",
+  "country" : "USA",
+  "updated_date" : "Sun, 14 Jan 2018 16:00:50 +0200",
+  "created_date" : "Sun, 14 Jan 2018 16:00:50 +0200"
+}
+
+16:00:50.108 DEBUG - response time in milliseconds: 57
+16:00:50.109 INFO  - response:
+{
+  "name": "Motley Crue",
+  "country": "USA",
+  "updated_date": "Sun, 14 Jan 2018 16:00:50 +0200",
+  "created_date": "Sun, 14 Jan 2018 16:00:50 +0200"
+}
+
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">Then status 201</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">And set genericPostResult.location = responseHeaders['Location'][0]</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">And set genericPostResult.response = response</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* print 'Setting GenericPostResult', karate.pretty(genericPostResult)</div>
+<div class="time-cell">0</div>
+</div>
+<pre>16:00:50.148 INFO  - [print] Setting GenericPostResult {
+  "location": "http:\/\/127.0.0.1:36403\/api\/artists\/1005",
+  "response": {
+    "name": "Motley Crue",
+    "country": "USA",
+    "updated_date": "Sun, 14 Jan 2018 16:00:50 +0200",
+    "created_date": "Sun, 14 Jan 2018 16:00:50 +0200"
+  }
+}
+
+</pre>
+</div>
+<div class="step-row">
+<div class="step-cell">* def postResponse = post.genericPostResult.response</div>
+<div class="time-cell">0.000265</div>
+</div>
+<div class="step-row">
+<div class="step-cell">* def location = post.genericPostResult.location</div>
+<div class="time-cell">0.000153</div>
+</div>
+<div class="step-row">
+<div class="step-cell">* print 'genericPostResult', karate.pretty(genericPostResult)</div>
+<div class="time-cell">0.022214</div>
+</div>
+<pre>16:00:50.171 INFO  - [print] genericPostResult
+</pre>
+<div class="step-row">
+<div class="step-cell">Given url baseUrl</div>
+<div class="time-cell">0.000093</div>
+</div>
+<div class="step-row">
+<div class="step-cell">And path '/genres/1/artists'</div>
+<div class="time-cell">0.010183</div>
+</div>
+<div class="step-row">
+<div class="step-cell">And header Content-Type = 'text/uri-list'</div>
+<div class="time-cell">0.008665</div>
+</div>
+<div class="step-row">
+<div class="step-cell">And request  location</div>
+<div class="time-cell">0.000081</div>
+</div>
+<div class="step-row">
+<div class="step-cell">When method put</div>
+<div class="time-cell">0.156728</div>
+</div>
+<pre>16:00:50.193 INFO  - request:
+http://127.0.0.1:36403/api/artists/1005
+16:00:50.194 DEBUG - 
+1 &gt; PUT http://127.0.0.1:36403/api/genres/1/artists
+1 &gt; Accept-Encoding: gzip,deflate
+1 &gt; Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2MzY4NDksImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.4SDhFdpUyPn4HgCFoQ0Iqy6KDqYVMFCeigaLdUijhjd8IxI3-9a91n3V00IvB_uBp0KWSKhaJuz52fJ4BjAJqw
+1 &gt; Connection: Keep-Alive
+1 &gt; Content-Length: 39
+1 &gt; Content-Type: text/uri-list
+1 &gt; Host: 127.0.0.1:36403
+1 &gt; User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_151)
+http://127.0.0.1:36403/api/artists/1005
+
+16:00:50.348 DEBUG - 
+1 &lt; 204
+1 &lt; Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+1 &lt; Date: Sun, 14 Jan 2018 14:00:49 GMT
+1 &lt; Expires: 0
+1 &lt; Pragma: no-cache
+1 &lt; Set-Cookie: JSESSIONID=C8AC0AB07CCA3B539E1EE8711AC79988; Path=/api; HttpOnly
+1 &lt; X-Application-Context: application:0
+1 &lt; X-Content-Type-Options: nosniff
+1 &lt; X-Frame-Options: DENY
+1 &lt; X-XSS-Protection: 1; mode=block
+
+16:00:50.349 DEBUG - response time in milliseconds: 156
+</pre>
+<div class="step-row">
+<div class="step-cell">Then status 204</div>
+<div class="time-cell">0.000124</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

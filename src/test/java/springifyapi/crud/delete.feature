@@ -1,3 +1,4 @@
+@ignore
 Feature: delete a  genre
 
   Background:

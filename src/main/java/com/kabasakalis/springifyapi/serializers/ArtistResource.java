@@ -1,6 +1,11 @@
 package com.kabasakalis.springifyapi.serializers;
 
 import com.kabasakalis.springifyapi.domain.Artist;
+import com.kabasakalis.springifyapi.domain.Genre;
+
+import java.util.Optional;
+
+import static java.util.Optional.ofNullable;
 
 public class ArtistResource extends BaseResourceSupport {
 
@@ -16,11 +21,12 @@ public class ArtistResource extends BaseResourceSupport {
         super(artist);
         id = artist.getId();
         name = artist.getName();
-        genre = artist.getGenre().getName();
+        if (artist.getGenre() != null) {genre =   artist.getGenre().getName();};
         country = artist.getCountry();
         albums_count = artist.getAlbums().size();
         created_date = artist.getFormattedCreatedDate();
         updated_date = artist.getFormattedUpdatedDate();
     }
+
 
 }
