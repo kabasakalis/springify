@@ -1,9 +1,11 @@
 package com.kabasakalis.springifyapi.serializers;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.kabasakalis.springifyapi.domain.Album;
 
 public class AlbumResource extends BaseResourceSupport {
 
+    @JsonProperty
     public long id;
     public String title;
     public String year;

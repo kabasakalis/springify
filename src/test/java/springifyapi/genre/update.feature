@@ -1,5 +1,5 @@
-@ignore
-Feature: Can update a genre
+# @ignore
+Feature: Update
 
 Background:
   * url baseUrl
@@ -10,4 +10,3 @@ Scenario: update a genre
   When method patch
   Then status 200
   And match response contains { name: 'Thrash Metal' }
-

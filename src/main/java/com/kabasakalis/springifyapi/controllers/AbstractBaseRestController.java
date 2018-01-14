@@ -114,7 +114,7 @@ public abstract class AbstractBaseRestController<T extends BaseEntity>
         HttpHeaders httpHeaders = new HttpHeaders();
         URI location_link = linkTo(methodOn(this.getClass()).getOne(entity.getId())).toUri();
         httpHeaders.setLocation(location_link);
-        return new ResponseEntity(assembler.toResource(entity), httpHeaders, HttpStatus.CREATED);
+        return new ResponseEntity(assembler.toCustomResource(entity), httpHeaders, HttpStatus.CREATED);
     }
 
 
@@ -122,12 +122,12 @@ public abstract class AbstractBaseRestController<T extends BaseEntity>
             method = PATCH,
             path = "/{id}",
             produces = MediaTypes.HAL_JSON_VALUE)
-    ResponseEntity<Resource<T>> updateOne(@RequestBody T entityPatch, @PathVariable long id) throws EntityNotFoundException {
+    ResponseEntity updateOne(@RequestBody T entityPatch, @PathVariable long id) throws EntityNotFoundException {
         return Optional.ofNullable(repository.findOne(id))
                 .map(entity -> {
                     entityPatch.setId(id);
                     repository.save(entityPatch);
-                    return new ResponseEntity<>(assembler.toResource(entity), HttpStatus.OK);
+                    return new ResponseEntity<>(assembler.toCustomResource(entity), HttpStatus.OK);
                 })
                 .orElseThrow(() -> new EntityNotFoundException(resourceClass, id));
 

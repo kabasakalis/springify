@@ -2,19 +2,19 @@
 <html>
 <head>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>springifyapi/crud/createAndDeleteArtist.feature</title>
+<title>springifyapi/genre/associations.feature</title>
 <style>body { font-family: monospace, monospace; font-size: small; } table { border-collapse: collapse; } table td { border: 1px solid gray; padding: 0.1em 0.2em; } .scenario-heading { background-color: #F5F28F; padding: 0.2em 0.5em; border-bottom: 1px solid gray; } .scenario-name { font-weight: bold; } .scenario { border: 1px solid gray; margin-bottom: 1em; } .scenario-steps { padding-left: 0.2em; } .scenario-steps-nested { padding-left: 2em; } .step-row { margin: 0.2em 0; } .step-cell { background-color: #92DD96; display: inline-block; width: 85%; padding: 0.2em 0.5em; } .time-cell { background-color: #92DD96; display: inline-block; width: 10%; padding: 0.2em 0.5em; } .failed { background-color: #F2928C; } .skipped { background-color: #8AF; }</style>
 </head>
 <body>
 <div>
 <div class="scenario">
 <div class="scenario-heading">
-<span class="scenario-keyword">Scenario: </span><span class="scenario-name">Verify an artist was created</span>
+<span class="scenario-keyword">Scenario: </span><span class="scenario-name">Verify newly created genre</span>
 </div>
 <div class="scenario-steps">
 <div class="step-row">
 <div class="step-cell">* def postData = {}</div>
-<div class="time-cell">3.899239</div>
+<div class="time-cell">3.761735</div>
 </div>
 <div class="scenario-steps-nested">
 <div class="step-row">
@@ -24,7 +24,7 @@
 <pre>{
   "config": {
     "user": "admin",
-    "baseUrl": "http:\/\/127.0.0.1:41167\/api\/"
+    "baseUrl": "http:\/\/127.0.0.1:35051\/api\/"
   }
 }
 </pre>
@@ -34,9 +34,9 @@
 <div class="step-cell">* print 'Config passed: ', karate.pretty(config)</div>
 <div class="time-cell">0</div>
 </div>
-<pre>00:24:25.273 INFO  - [print] Config passed:  {
+<pre>01:21:08.571 INFO  - [print] Config passed:  {
   "user": "admin",
-  "baseUrl": "http:\/\/127.0.0.1:41167\/api\/"
+  "baseUrl": "http:\/\/127.0.0.1:35051\/api\/"
 }
 
 </pre>
@@ -76,30 +76,30 @@
 <div class="step-cell">When method post</div>
 <div class="time-cell">0</div>
 </div>
-<pre>00:24:25.359 INFO  - request:
+<pre>01:21:08.632 INFO  - request:
 {
   "password": "11111111",
   "username": "admin"
 }
 
-00:24:25.891 DEBUG - 
-1 &gt; POST http://127.0.0.1:41167/api/login
+01:21:09.200 DEBUG - 
+1 &gt; POST http://127.0.0.1:35051/api/login
 1 &gt; Accept-Encoding: gzip,deflate
 1 &gt; Connection: Keep-Alive
 1 &gt; Content-Length: 42
 1 &gt; Content-Type: application/json
-1 &gt; Host: 127.0.0.1:41167
+1 &gt; Host: 127.0.0.1:35051
 1 &gt; User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_151)
 {"password":"11111111","username":"admin"}
 
-00:24:27.403 DEBUG - 
+01:21:10.753 DEBUG - 
 1 &lt; 200
 1 &lt; Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 1 &lt; Content-Type: application/hal+json;charset=UTF-8
-1 &lt; Date: Sun, 14 Jan 2018 22:24:27 GMT
+1 &lt; Date: Sun, 14 Jan 2018 23:21:10 GMT
 1 &lt; Expires: 0
 1 &lt; Pragma: no-cache
-1 &lt; Token: eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NjcwNjcsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.vY2xW05S9NaghMdw2bcccVZoUtBxdXhokUUU-MVJHgo_aA8s5LdKnCpOar4wiKDcbJAhFQqoQZSj929oUmHbXg
+1 &lt; Token: eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NzA0NzAsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.IgEZ6OPP2n9ir3PzE8eWQF8yojLt-HoBrwdbIf5VnPLqr3oxCnBI7RJrx26YCuY78Mg6mrQt24hOGjNMd4SykQ
 1 &lt; Transfer-Encoding: chunked
 1 &lt; X-Application-Context: application:0
 1 &lt; X-Content-Type-Options: nosniff
@@ -109,20 +109,20 @@
   "username" : "admin",
   "email" : "admin@springify.com",
   "password" : "$2a$10$UClj/ChiXzRXcT6HvSdOpePZFzTIJs9CYDagygovYbM0TDzMRe7Di",
-  "jwtToken" : "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NjcwNjcsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.vY2xW05S9NaghMdw2bcccVZoUtBxdXhokUUU-MVJHgo_aA8s5LdKnCpOar4wiKDcbJAhFQqoQZSj929oUmHbXg",
-  "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
-  "created_date" : "Sat, 13 Jan 2018 23:47:57 +0200"
+  "jwtToken" : "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NzA0NzAsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.IgEZ6OPP2n9ir3PzE8eWQF8yojLt-HoBrwdbIf5VnPLqr3oxCnBI7RJrx26YCuY78Mg6mrQt24hOGjNMd4SykQ",
+  "created_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+  "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200"
 }
 
-00:24:27.405 DEBUG - response time in milliseconds: 2029
-00:24:27.406 INFO  - response:
+01:21:10.755 DEBUG - response time in milliseconds: 2112
+01:21:10.756 INFO  - response:
 {
   "username": "admin",
   "email": "admin@springify.com",
   "password": "$2a$10$UClj\/ChiXzRXcT6HvSdOpePZFzTIJs9CYDagygovYbM0TDzMRe7Di",
-  "jwtToken": "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NjcwNjcsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.vY2xW05S9NaghMdw2bcccVZoUtBxdXhokUUU-MVJHgo_aA8s5LdKnCpOar4wiKDcbJAhFQqoQZSj929oUmHbXg",
-  "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
-  "created_date": "Sat, 13 Jan 2018 23:47:57 +0200"
+  "jwtToken": "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NzA0NzAsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.IgEZ6OPP2n9ir3PzE8eWQF8yojLt-HoBrwdbIf5VnPLqr3oxCnBI7RJrx26YCuY78Mg6mrQt24hOGjNMd4SykQ",
+  "created_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+  "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200"
 }
 
 </pre>
@@ -144,7 +144,7 @@
 <div class="step-cell">* print 'jwtToken OK: ', karate.pretty(jwtToken)</div>
 <div class="time-cell">0</div>
 </div>
-<pre>00:24:27.442 INFO  - [print] jwtToken OK:  eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NjcwNjcsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.vY2xW05S9NaghMdw2bcccVZoUtBxdXhokUUU-MVJHgo_aA8s5LdKnCpOar4wiKDcbJAhFQqoQZSj929oUmHbXg
+<pre>01:21:10.789 INFO  - [print] jwtToken OK:  eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NzA0NzAsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.IgEZ6OPP2n9ir3PzE8eWQF8yojLt-HoBrwdbIf5VnPLqr3oxCnBI7RJrx26YCuY78Mg6mrQt24hOGjNMd4SykQ
 </pre>
 </div>
 <div class="scenario-steps-nested">
@@ -152,8 +152,8 @@
 <div class="step-cell">* def defaultHeaders =  callonce read('classpath:springifyapi/common/HeadersFun.js')  { jwtToken:  '#(jwtToken)' }</div>
 <div class="time-cell">0</div>
 </div>
-<pre>00:24:27.498 INFO  - AUTH {jwtToken=eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NjcwNjcsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.vY2xW05S9NaghMdw2bcccVZoUtBxdXhokUUU-MVJHgo_aA8s5LdKnCpOar4wiKDcbJAhFQqoQZSj929oUmHbXg} 
-00:24:27.509 DEBUG - cached callonce: read('classpath:springifyapi/common/HeadersFun.js')
+<pre>01:21:10.849 INFO  - AUTH {jwtToken=eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NzA0NzAsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.IgEZ6OPP2n9ir3PzE8eWQF8yojLt-HoBrwdbIf5VnPLqr3oxCnBI7RJrx26YCuY78Mg6mrQt24hOGjNMd4SykQ} 
+01:21:10.861 DEBUG - cached callonce: read('classpath:springifyapi/common/HeadersFun.js')
 </pre>
 </div>
 <div class="scenario-steps-nested">
@@ -164,19 +164,19 @@
 </div>
 <div class="step-row">
 <div class="step-cell">* def artist_payload = {name: 'Motley Crue', country: 'USA'}</div>
-<div class="time-cell">0.000385</div>
+<div class="time-cell">0.000318</div>
 </div>
 <div class="step-row">
 <div class="step-cell">* set postData.path = 'artists'</div>
-<div class="time-cell">0.011451</div>
+<div class="time-cell">0.01208</div>
 </div>
 <div class="step-row">
 <div class="step-cell">* set postData.payload =  artist_payload</div>
-<div class="time-cell">0.000359</div>
+<div class="time-cell">0.000207</div>
 </div>
 <div class="step-row">
 <div class="step-cell">* def post = callonce read('classpath:springifyapi/common/genericPost.feature') { postData: '#(postData)' }</div>
-<div class="time-cell">0.564665</div>
+<div class="time-cell">0.647101</div>
 </div>
 <div class="scenario-steps-nested">
 <div class="step-row">
@@ -199,7 +199,7 @@
 <div class="step-cell">* print 'Starting generic post with postData', karate.pretty(postData)</div>
 <div class="time-cell">0</div>
 </div>
-<pre>00:24:27.624 INFO  - [print] Starting generic post with postData {
+<pre>01:21:10.987 INFO  - [print] Starting generic post with postData {
   "path": "artists",
   "payload": {
     "name": "Motley Crue",
@@ -238,81 +238,81 @@
 <div class="step-cell">When method post</div>
 <div class="time-cell">0</div>
 </div>
-<pre>00:24:27.635 INFO  - request:
+<pre>01:21:10.990 INFO  - request:
 {
   "name": "Motley Crue",
   "country": "USA"
 }
 
-00:24:27.637 DEBUG - 
-1 &gt; POST http://127.0.0.1:41167/api/artists
+01:21:10.992 DEBUG - 
+1 &gt; POST http://127.0.0.1:35051/api/artists
 1 &gt; Accept-Encoding: gzip,deflate
-1 &gt; Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NjcwNjcsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.vY2xW05S9NaghMdw2bcccVZoUtBxdXhokUUU-MVJHgo_aA8s5LdKnCpOar4wiKDcbJAhFQqoQZSj929oUmHbXg
+1 &gt; Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NzA0NzAsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.IgEZ6OPP2n9ir3PzE8eWQF8yojLt-HoBrwdbIf5VnPLqr3oxCnBI7RJrx26YCuY78Mg6mrQt24hOGjNMd4SykQ
 1 &gt; Connection: Keep-Alive
 1 &gt; Content-Length: 38
 1 &gt; Content-Type: application/json
-1 &gt; Host: 127.0.0.1:41167
+1 &gt; Host: 127.0.0.1:35051
 1 &gt; User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_151)
 {"name":"Motley Crue","country":"USA"}
 
-00:24:28.036 DEBUG - 
+01:21:11.467 DEBUG - 
 1 &lt; 201
 1 &lt; Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 1 &lt; Content-Type: application/hal+json;charset=UTF-8
-1 &lt; Date: Sun, 14 Jan 2018 22:24:27 GMT
+1 &lt; Date: Sun, 14 Jan 2018 23:21:10 GMT
 1 &lt; Expires: 0
-1 &lt; Location: http://127.0.0.1:41167/api/artists/1040
+1 &lt; Location: http://127.0.0.1:35051/api/artists/1043
 1 &lt; Pragma: no-cache
-1 &lt; Set-Cookie: JSESSIONID=51727199E0F55D572122ADA105D4CE3A; Path=/api; HttpOnly
+1 &lt; Set-Cookie: JSESSIONID=8CB1842EAAEA30B588C85467BFE7F01C; Path=/api; HttpOnly
 1 &lt; Transfer-Encoding: chunked
 1 &lt; X-Application-Context: application:0
 1 &lt; X-Content-Type-Options: nosniff
 1 &lt; X-Frame-Options: DENY
 1 &lt; X-XSS-Protection: 1; mode=block
 {
-  "id" : 1040,
+  "id" : 1043,
   "name" : "Motley Crue",
   "country" : "USA",
   "albums_count" : 0,
-  "created_date" : "Mon, 15 Jan 2018 00:24:27 +0200",
-  "updated_date" : "Mon, 15 Jan 2018 00:24:27 +0200",
+  "created_date" : "Mon, 15 Jan 2018 01:21:11 +0200",
+  "updated_date" : "Mon, 15 Jan 2018 01:21:11 +0200",
   "_links" : {
     "self" : {
-      "href" : "http://127.0.0.1:41167/api/artists/1040"
+      "href" : "http://127.0.0.1:35051/api/artists/1043"
     },
     "artists" : {
-      "href" : "http://127.0.0.1:41167/api/artists"
+      "href" : "http://127.0.0.1:35051/api/artists"
     },
     "albums" : {
-      "href" : "http://127.0.0.1:41167/api/artists/1040/albums"
+      "href" : "http://127.0.0.1:35051/api/artists/1043/albums"
     },
     "genre" : {
-      "href" : "http://127.0.0.1:41167/api/artists/1040/genre"
+      "href" : "http://127.0.0.1:35051/api/artists/1043/genre"
     }
   }
 }
 
-00:24:28.037 DEBUG - response time in milliseconds: 401
-00:24:28.038 INFO  - response:
+01:21:11.468 DEBUG - response time in milliseconds: 477
+01:21:11.469 INFO  - response:
 {
-  "id": 1040,
+  "id": 1043,
   "name": "Motley Crue",
   "country": "USA",
   "albums_count": 0,
-  "created_date": "Mon, 15 Jan 2018 00:24:27 +0200",
-  "updated_date": "Mon, 15 Jan 2018 00:24:27 +0200",
+  "created_date": "Mon, 15 Jan 2018 01:21:11 +0200",
+  "updated_date": "Mon, 15 Jan 2018 01:21:11 +0200",
   "_links": {
     "self": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1040"
+      "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1043"
     },
     "artists": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/artists"
+      "href": "http:\/\/127.0.0.1:35051\/api\/artists"
     },
     "albums": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1040\/albums"
+      "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1043\/albums"
     },
     "genre": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1040\/genre"
+      "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1043\/genre"
     }
   }
 }
@@ -342,27 +342,27 @@
 <div class="step-cell">* print 'Setting GenericPostResult', karate.pretty(genericPostResult)</div>
 <div class="time-cell">0</div>
 </div>
-<pre>00:24:28.098 INFO  - [print] Setting GenericPostResult {
-  "location": "http:\/\/127.0.0.1:41167\/api\/artists\/1040",
+<pre>01:21:11.539 INFO  - [print] Setting GenericPostResult {
+  "location": "http:\/\/127.0.0.1:35051\/api\/artists\/1043",
   "response": {
-    "id": 1040,
+    "id": 1043,
     "name": "Motley Crue",
     "country": "USA",
     "albums_count": 0,
-    "created_date": "Mon, 15 Jan 2018 00:24:27 +0200",
-    "updated_date": "Mon, 15 Jan 2018 00:24:27 +0200",
+    "created_date": "Mon, 15 Jan 2018 01:21:11 +0200",
+    "updated_date": "Mon, 15 Jan 2018 01:21:11 +0200",
     "_links": {
       "self": {
-        "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1040"
+        "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1043"
       },
       "artists": {
-        "href": "http:\/\/127.0.0.1:41167\/api\/artists"
+        "href": "http:\/\/127.0.0.1:35051\/api\/artists"
       },
       "albums": {
-        "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1040\/albums"
+        "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1043\/albums"
       },
       "genre": {
-        "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1040\/genre"
+        "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1043\/genre"
       }
     }
   }
@@ -372,35 +372,35 @@
 </div>
 <div class="step-row">
 <div class="step-cell">* def postResponse = post.genericPostResult.response</div>
-<div class="time-cell">0.000433</div>
+<div class="time-cell">0.000456</div>
 </div>
 <div class="step-row">
 <div class="step-cell">* def location = post.genericPostResult.location</div>
-<div class="time-cell">0.000192</div>
+<div class="time-cell">0.000384</div>
 </div>
 <div class="step-row">
 <div class="step-cell">* print 'postRe', karate.pretty(postResponse)</div>
-<div class="time-cell">0.022843</div>
+<div class="time-cell">0.026135</div>
 </div>
-<pre>00:24:28.123 INFO  - [print] postRe {
-  "id": 1040,
+<pre>01:21:11.568 INFO  - [print] postRe {
+  "id": 1043,
   "name": "Motley Crue",
   "country": "USA",
   "albums_count": 0,
-  "created_date": "Mon, 15 Jan 2018 00:24:27 +0200",
-  "updated_date": "Mon, 15 Jan 2018 00:24:27 +0200",
+  "created_date": "Mon, 15 Jan 2018 01:21:11 +0200",
+  "updated_date": "Mon, 15 Jan 2018 01:21:11 +0200",
   "_links": {
     "self": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1040"
+      "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1043"
     },
     "artists": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/artists"
+      "href": "http:\/\/127.0.0.1:35051\/api\/artists"
     },
     "albums": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1040\/albums"
+      "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1043\/albums"
     },
     "genre": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1040\/genre"
+      "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1043\/genre"
     }
   }
 }
@@ -408,78 +408,78 @@
 </pre>
 <div class="step-row">
 <div class="step-cell">Given url location</div>
-<div class="time-cell">0.000092</div>
+<div class="time-cell">0.000101</div>
 </div>
 <div class="step-row">
 <div class="step-cell">When method get</div>
-<div class="time-cell">0.064783</div>
+<div class="time-cell">0.080598</div>
 </div>
-<pre>00:24:28.126 DEBUG - 
-1 &gt; GET http://127.0.0.1:41167/api/artists/1040
+<pre>01:21:11.571 DEBUG - 
+1 &gt; GET http://127.0.0.1:35051/api/artists/1043
 1 &gt; Accept-Encoding: gzip,deflate
-1 &gt; Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NjcwNjcsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.vY2xW05S9NaghMdw2bcccVZoUtBxdXhokUUU-MVJHgo_aA8s5LdKnCpOar4wiKDcbJAhFQqoQZSj929oUmHbXg
+1 &gt; Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NzA0NzAsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.IgEZ6OPP2n9ir3PzE8eWQF8yojLt-HoBrwdbIf5VnPLqr3oxCnBI7RJrx26YCuY78Mg6mrQt24hOGjNMd4SykQ
 1 &gt; Connection: Keep-Alive
 1 &gt; Content-Type: application/json
-1 &gt; Host: 127.0.0.1:41167
+1 &gt; Host: 127.0.0.1:35051
 1 &gt; User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_151)
 
-00:24:28.187 DEBUG - 
+01:21:11.648 DEBUG - 
 1 &lt; 200
 1 &lt; Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 1 &lt; Content-Type: application/hal+json;charset=UTF-8
-1 &lt; Date: Sun, 14 Jan 2018 22:24:27 GMT
+1 &lt; Date: Sun, 14 Jan 2018 23:21:10 GMT
 1 &lt; Expires: 0
 1 &lt; Pragma: no-cache
-1 &lt; Set-Cookie: JSESSIONID=9EB41AD6D7B6AF8F4CAAC5762DCF6107; Path=/api; HttpOnly
+1 &lt; Set-Cookie: JSESSIONID=A1883A6F8609E862519956ED68BFB371; Path=/api; HttpOnly
 1 &lt; Transfer-Encoding: chunked
 1 &lt; X-Application-Context: application:0
 1 &lt; X-Content-Type-Options: nosniff
 1 &lt; X-Frame-Options: DENY
 1 &lt; X-XSS-Protection: 1; mode=block
 {
-  "id" : 1040,
+  "id" : 1043,
   "name" : "Motley Crue",
   "country" : "USA",
   "albums_count" : 0,
-  "created_date" : "Mon, 15 Jan 2018 00:24:27 +0200",
-  "updated_date" : "Mon, 15 Jan 2018 00:24:27 +0200",
+  "created_date" : "Mon, 15 Jan 2018 01:21:11 +0200",
+  "updated_date" : "Mon, 15 Jan 2018 01:21:11 +0200",
   "_links" : {
     "self" : {
-      "href" : "http://127.0.0.1:41167/api/artists/1040"
+      "href" : "http://127.0.0.1:35051/api/artists/1043"
     },
     "artists" : {
-      "href" : "http://127.0.0.1:41167/api/artists"
+      "href" : "http://127.0.0.1:35051/api/artists"
     },
     "albums" : {
-      "href" : "http://127.0.0.1:41167/api/artists/1040/albums"
+      "href" : "http://127.0.0.1:35051/api/artists/1043/albums"
     },
     "genre" : {
-      "href" : "http://127.0.0.1:41167/api/artists/1040/genre"
+      "href" : "http://127.0.0.1:35051/api/artists/1043/genre"
     }
   }
 }
 
-00:24:28.188 DEBUG - response time in milliseconds: 64
-00:24:28.188 INFO  - response:
+01:21:11.649 DEBUG - response time in milliseconds: 80
+01:21:11.649 INFO  - response:
 {
-  "id": 1040,
+  "id": 1043,
   "name": "Motley Crue",
   "country": "USA",
   "albums_count": 0,
-  "created_date": "Mon, 15 Jan 2018 00:24:27 +0200",
-  "updated_date": "Mon, 15 Jan 2018 00:24:27 +0200",
+  "created_date": "Mon, 15 Jan 2018 01:21:11 +0200",
+  "updated_date": "Mon, 15 Jan 2018 01:21:11 +0200",
   "_links": {
     "self": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1040"
+      "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1043"
     },
     "artists": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/artists"
+      "href": "http:\/\/127.0.0.1:35051\/api\/artists"
     },
     "albums": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1040\/albums"
+      "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1043\/albums"
     },
     "genre": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1040\/genre"
+      "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1043\/genre"
     }
   }
 }
@@ -487,22 +487,22 @@
 </pre>
 <div class="step-row">
 <div class="step-cell">Then status 200</div>
-<div class="time-cell">0.000169</div>
+<div class="time-cell">0.000176</div>
 </div>
 <div class="step-row">
 <div class="step-cell">And match response contains { name: 'Motley Crue' }</div>
-<div class="time-cell">0.001589</div>
+<div class="time-cell">0.001709</div>
 </div>
 </div>
 </div>
 <div class="scenario">
 <div class="scenario-heading">
-<span class="scenario-keyword">Scenario: </span><span class="scenario-name">Associate the newly created Artist with genre 'Rock'</span>
+<span class="scenario-keyword">Scenario: </span><span class="scenario-name">Associate the newly created artist with genre 'Rock'</span>
 </div>
 <div class="scenario-steps">
 <div class="step-row">
 <div class="step-cell">* def postData = {}</div>
-<div class="time-cell">0.394244</div>
+<div class="time-cell">0.494338</div>
 </div>
 <div class="scenario-steps-nested">
 <div class="step-row">
@@ -512,7 +512,7 @@
 <pre>{
   "config": {
     "user": "admin",
-    "baseUrl": "http:\/\/127.0.0.1:41167\/api\/"
+    "baseUrl": "http:\/\/127.0.0.1:35051\/api\/"
   }
 }
 </pre>
@@ -522,9 +522,9 @@
 <div class="step-cell">* print 'Config passed: ', karate.pretty(config)</div>
 <div class="time-cell">0</div>
 </div>
-<pre>00:24:28.336 INFO  - [print] Config passed:  {
+<pre>01:21:11.893 INFO  - [print] Config passed:  {
   "user": "admin",
-  "baseUrl": "http:\/\/127.0.0.1:41167\/api\/"
+  "baseUrl": "http:\/\/127.0.0.1:35051\/api\/"
 }
 
 </pre>
@@ -564,30 +564,30 @@
 <div class="step-cell">When method post</div>
 <div class="time-cell">0</div>
 </div>
-<pre>00:24:28.365 INFO  - request:
+<pre>01:21:11.925 INFO  - request:
 {
   "password": "11111111",
   "username": "admin"
 }
 
-00:24:28.367 DEBUG - 
-1 &gt; POST http://127.0.0.1:41167/api/login
+01:21:11.927 DEBUG - 
+1 &gt; POST http://127.0.0.1:35051/api/login
 1 &gt; Accept-Encoding: gzip,deflate
 1 &gt; Connection: Keep-Alive
 1 &gt; Content-Length: 42
 1 &gt; Content-Type: application/json
-1 &gt; Host: 127.0.0.1:41167
+1 &gt; Host: 127.0.0.1:35051
 1 &gt; User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_151)
 {"password":"11111111","username":"admin"}
 
-00:24:28.574 DEBUG - 
+01:21:12.133 DEBUG - 
 1 &lt; 200
 1 &lt; Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 1 &lt; Content-Type: application/hal+json;charset=UTF-8
-1 &lt; Date: Sun, 14 Jan 2018 22:24:28 GMT
+1 &lt; Date: Sun, 14 Jan 2018 23:21:12 GMT
 1 &lt; Expires: 0
 1 &lt; Pragma: no-cache
-1 &lt; Token: eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NjcwNjgsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ._uGjwU_2lS54e_2nBFWjQlLN2Y4NtbMQMfFo_m4drsNvTZVYt_m-JT7HYkp8M83q8hXSfYLbO8UJs5eu8chuiQ
+1 &lt; Token: eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NzA0NzIsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.JfLUh0LgEV9MxAXFpA9kMn0KkhxQmk6KtZGA3kJYtFOvAwp0TDMyEWnkoa-Ccs3GkE258J7XssaguNpi5NC_-g
 1 &lt; Transfer-Encoding: chunked
 1 &lt; X-Application-Context: application:0
 1 &lt; X-Content-Type-Options: nosniff
@@ -597,20 +597,20 @@
   "username" : "admin",
   "email" : "admin@springify.com",
   "password" : "$2a$10$UClj/ChiXzRXcT6HvSdOpePZFzTIJs9CYDagygovYbM0TDzMRe7Di",
-  "jwtToken" : "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NjcwNjgsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ._uGjwU_2lS54e_2nBFWjQlLN2Y4NtbMQMfFo_m4drsNvTZVYt_m-JT7HYkp8M83q8hXSfYLbO8UJs5eu8chuiQ",
-  "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
-  "created_date" : "Sat, 13 Jan 2018 23:47:57 +0200"
+  "jwtToken" : "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NzA0NzIsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.JfLUh0LgEV9MxAXFpA9kMn0KkhxQmk6KtZGA3kJYtFOvAwp0TDMyEWnkoa-Ccs3GkE258J7XssaguNpi5NC_-g",
+  "created_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+  "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200"
 }
 
-00:24:28.575 DEBUG - response time in milliseconds: 209
-00:24:28.575 INFO  - response:
+01:21:12.134 DEBUG - response time in milliseconds: 208
+01:21:12.134 INFO  - response:
 {
   "username": "admin",
   "email": "admin@springify.com",
   "password": "$2a$10$UClj\/ChiXzRXcT6HvSdOpePZFzTIJs9CYDagygovYbM0TDzMRe7Di",
-  "jwtToken": "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NjcwNjgsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ._uGjwU_2lS54e_2nBFWjQlLN2Y4NtbMQMfFo_m4drsNvTZVYt_m-JT7HYkp8M83q8hXSfYLbO8UJs5eu8chuiQ",
-  "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
-  "created_date": "Sat, 13 Jan 2018 23:47:57 +0200"
+  "jwtToken": "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NzA0NzIsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.JfLUh0LgEV9MxAXFpA9kMn0KkhxQmk6KtZGA3kJYtFOvAwp0TDMyEWnkoa-Ccs3GkE258J7XssaguNpi5NC_-g",
+  "created_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+  "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200"
 }
 
 </pre>
@@ -632,7 +632,7 @@
 <div class="step-cell">* print 'jwtToken OK: ', karate.pretty(jwtToken)</div>
 <div class="time-cell">0</div>
 </div>
-<pre>00:24:28.594 INFO  - [print] jwtToken OK:  eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NjcwNjgsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ._uGjwU_2lS54e_2nBFWjQlLN2Y4NtbMQMfFo_m4drsNvTZVYt_m-JT7HYkp8M83q8hXSfYLbO8UJs5eu8chuiQ
+<pre>01:21:12.160 INFO  - [print] jwtToken OK:  eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NzA0NzIsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.JfLUh0LgEV9MxAXFpA9kMn0KkhxQmk6KtZGA3kJYtFOvAwp0TDMyEWnkoa-Ccs3GkE258J7XssaguNpi5NC_-g
 </pre>
 </div>
 <div class="scenario-steps-nested">
@@ -640,7 +640,7 @@
 <div class="step-cell">* def defaultHeaders =  callonce read('classpath:springifyapi/common/HeadersFun.js')  { jwtToken:  '#(jwtToken)' }</div>
 <div class="time-cell">0</div>
 </div>
-<pre>00:24:28.595 DEBUG - callonce cache hit for: read('classpath:springifyapi/common/HeadersFun.js')
+<pre>01:21:12.161 DEBUG - callonce cache hit for: read('classpath:springifyapi/common/HeadersFun.js')
 </pre>
 </div>
 <div class="scenario-steps-nested">
@@ -651,53 +651,53 @@
 </div>
 <div class="step-row">
 <div class="step-cell">* def artist_payload = {name: 'Motley Crue', country: 'USA'}</div>
-<div class="time-cell">0.000168</div>
+<div class="time-cell">0.000216</div>
 </div>
 <div class="step-row">
 <div class="step-cell">* set postData.path = 'artists'</div>
-<div class="time-cell">0.009089</div>
+<div class="time-cell">0.010836</div>
 </div>
 <div class="step-row">
 <div class="step-cell">* set postData.payload =  artist_payload</div>
-<div class="time-cell">0.000248</div>
+<div class="time-cell">0.00027</div>
 </div>
 <div class="step-row">
 <div class="step-cell">* def post = callonce read('classpath:springifyapi/common/genericPost.feature') { postData: '#(postData)' }</div>
-<div class="time-cell">0.000323</div>
+<div class="time-cell">0.000302</div>
 </div>
-<pre>00:24:28.612 DEBUG - callonce cache hit for: read('classpath:springifyapi/common/genericPost.feature')
+<pre>01:21:12.180 DEBUG - callonce cache hit for: read('classpath:springifyapi/common/genericPost.feature')
 </pre>
 <div class="step-row">
 <div class="step-cell">* def postResponse = post.genericPostResult.response</div>
-<div class="time-cell">0.000853</div>
+<div class="time-cell">0.000838</div>
 </div>
 <div class="step-row">
 <div class="step-cell">* def location = post.genericPostResult.location</div>
-<div class="time-cell">0.000215</div>
+<div class="time-cell">0.000219</div>
 </div>
 <div class="step-row">
 <div class="step-cell">* print 'postRe', karate.pretty(postResponse)</div>
-<div class="time-cell">0.022938</div>
+<div class="time-cell">0.0247</div>
 </div>
-<pre>00:24:28.637 INFO  - [print] postRe {
-  "id": 1040,
+<pre>01:21:12.206 INFO  - [print] postRe {
+  "id": 1043,
   "name": "Motley Crue",
   "country": "USA",
   "albums_count": 0,
-  "created_date": "Mon, 15 Jan 2018 00:24:27 +0200",
-  "updated_date": "Mon, 15 Jan 2018 00:24:27 +0200",
+  "created_date": "Mon, 15 Jan 2018 01:21:11 +0200",
+  "updated_date": "Mon, 15 Jan 2018 01:21:11 +0200",
   "_links": {
     "self": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1040"
+      "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1043"
     },
     "artists": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/artists"
+      "href": "http:\/\/127.0.0.1:35051\/api\/artists"
     },
     "albums": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1040\/albums"
+      "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1043\/albums"
     },
     "genre": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1040\/genre"
+      "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1043\/genre"
     }
   }
 }
@@ -705,65 +705,65 @@
 </pre>
 <div class="step-row">
 <div class="step-cell">Given url baseUrl</div>
-<div class="time-cell">0.000185</div>
+<div class="time-cell">0.000141</div>
 </div>
 <div class="step-row">
 <div class="step-cell">And path '/genres/1/artists'</div>
-<div class="time-cell">0.010987</div>
+<div class="time-cell">0.010554</div>
 </div>
 <div class="step-row">
 <div class="step-cell">And header Content-Type = 'text/uri-list'</div>
-<div class="time-cell">0.009616</div>
+<div class="time-cell">0.029036</div>
 </div>
 <div class="step-row">
 <div class="step-cell">And request location</div>
-<div class="time-cell">0.000086</div>
+<div class="time-cell">0.000099</div>
 </div>
 <div class="step-row">
 <div class="step-cell">When method put</div>
-<div class="time-cell">0.130998</div>
+<div class="time-cell">0.214951</div>
 </div>
-<pre>00:24:28.661 INFO  - request:
-http://127.0.0.1:41167/api/artists/1040
-00:24:28.663 DEBUG - 
-1 &gt; PUT http://127.0.0.1:41167/api/genres/1/artists
+<pre>01:21:12.249 INFO  - request:
+http://127.0.0.1:35051/api/artists/1043
+01:21:12.250 DEBUG - 
+1 &gt; PUT http://127.0.0.1:35051/api/genres/1/artists
 1 &gt; Accept-Encoding: gzip,deflate
-1 &gt; Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NjcwNjcsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.vY2xW05S9NaghMdw2bcccVZoUtBxdXhokUUU-MVJHgo_aA8s5LdKnCpOar4wiKDcbJAhFQqoQZSj929oUmHbXg
+1 &gt; Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NzA0NzAsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.IgEZ6OPP2n9ir3PzE8eWQF8yojLt-HoBrwdbIf5VnPLqr3oxCnBI7RJrx26YCuY78Mg6mrQt24hOGjNMd4SykQ
 1 &gt; Connection: Keep-Alive
 1 &gt; Content-Length: 39
 1 &gt; Content-Type: text/uri-list
-1 &gt; Host: 127.0.0.1:41167
+1 &gt; Host: 127.0.0.1:35051
 1 &gt; User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_151)
-http://127.0.0.1:41167/api/artists/1040
+http://127.0.0.1:35051/api/artists/1043
 
-00:24:28.791 DEBUG - 
+01:21:12.463 DEBUG - 
 1 &lt; 204
 1 &lt; Cache-Control: no-cache, no-store, max-age=0, must-revalidate
-1 &lt; Date: Sun, 14 Jan 2018 22:24:28 GMT
+1 &lt; Date: Sun, 14 Jan 2018 23:21:12 GMT
 1 &lt; Expires: 0
 1 &lt; Pragma: no-cache
-1 &lt; Set-Cookie: JSESSIONID=AC350B9DF410DFE92E5E2E76788E346D; Path=/api; HttpOnly
+1 &lt; Set-Cookie: JSESSIONID=8BDF82C9233332C9A2383ABC3A3B691C; Path=/api; HttpOnly
 1 &lt; X-Application-Context: application:0
 1 &lt; X-Content-Type-Options: nosniff
 1 &lt; X-Frame-Options: DENY
 1 &lt; X-XSS-Protection: 1; mode=block
 
-00:24:28.791 DEBUG - response time in milliseconds: 130
+01:21:12.463 DEBUG - response time in milliseconds: 214
 </pre>
 <div class="step-row">
 <div class="step-cell">Then status 204</div>
-<div class="time-cell">0.000121</div>
+<div class="time-cell">0.000108</div>
 </div>
 </div>
 </div>
 <div class="scenario">
 <div class="scenario-heading">
-<span class="scenario-keyword">Scenario: </span><span class="scenario-name">Verify that the new artist has been associated with genre 'Rock'</span>
+<span class="scenario-keyword">Scenario: </span><span class="scenario-name">Verify that the artist has been associated with genre 'Rock'</span>
 </div>
 <div class="scenario-steps">
 <div class="step-row">
 <div class="step-cell">* def postData = {}</div>
-<div class="time-cell">0.441619</div>
+<div class="time-cell">0.423034</div>
 </div>
 <div class="scenario-steps-nested">
 <div class="step-row">
@@ -773,7 +773,7 @@ http://127.0.0.1:41167/api/artists/1040
 <pre>{
   "config": {
     "user": "admin",
-    "baseUrl": "http:\/\/127.0.0.1:41167\/api\/"
+    "baseUrl": "http:\/\/127.0.0.1:35051\/api\/"
   }
 }
 </pre>
@@ -783,9 +783,9 @@ http://127.0.0.1:41167/api/artists/1040
 <div class="step-cell">* print 'Config passed: ', karate.pretty(config)</div>
 <div class="time-cell">0</div>
 </div>
-<pre>00:24:28.972 INFO  - [print] Config passed:  {
+<pre>01:21:12.619 INFO  - [print] Config passed:  {
   "user": "admin",
-  "baseUrl": "http:\/\/127.0.0.1:41167\/api\/"
+  "baseUrl": "http:\/\/127.0.0.1:35051\/api\/"
 }
 
 </pre>
@@ -825,30 +825,30 @@ http://127.0.0.1:41167/api/artists/1040
 <div class="step-cell">When method post</div>
 <div class="time-cell">0</div>
 </div>
-<pre>00:24:29.029 INFO  - request:
+<pre>01:21:12.656 INFO  - request:
 {
   "password": "11111111",
   "username": "admin"
 }
 
-00:24:29.033 DEBUG - 
-1 &gt; POST http://127.0.0.1:41167/api/login
+01:21:12.657 DEBUG - 
+1 &gt; POST http://127.0.0.1:35051/api/login
 1 &gt; Accept-Encoding: gzip,deflate
 1 &gt; Connection: Keep-Alive
 1 &gt; Content-Length: 42
 1 &gt; Content-Type: application/json
-1 &gt; Host: 127.0.0.1:41167
+1 &gt; Host: 127.0.0.1:35051
 1 &gt; User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_151)
 {"password":"11111111","username":"admin"}
 
-00:24:29.232 DEBUG - 
+01:21:12.873 DEBUG - 
 1 &lt; 200
 1 &lt; Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 1 &lt; Content-Type: application/hal+json;charset=UTF-8
-1 &lt; Date: Sun, 14 Jan 2018 22:24:28 GMT
+1 &lt; Date: Sun, 14 Jan 2018 23:21:12 GMT
 1 &lt; Expires: 0
 1 &lt; Pragma: no-cache
-1 &lt; Token: eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NjcwNjksImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.dgq14wxpva8laFVQzAWGXCbFM60qpFORhaVzxt2piUm_CWaOJwwtjqSNMgCCvwWGBDS2wb1wT0eyCf7xx-7N1A
+1 &lt; Token: eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NzA0NzIsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.JfLUh0LgEV9MxAXFpA9kMn0KkhxQmk6KtZGA3kJYtFOvAwp0TDMyEWnkoa-Ccs3GkE258J7XssaguNpi5NC_-g
 1 &lt; Transfer-Encoding: chunked
 1 &lt; X-Application-Context: application:0
 1 &lt; X-Content-Type-Options: nosniff
@@ -858,20 +858,20 @@ http://127.0.0.1:41167/api/artists/1040
   "username" : "admin",
   "email" : "admin@springify.com",
   "password" : "$2a$10$UClj/ChiXzRXcT6HvSdOpePZFzTIJs9CYDagygovYbM0TDzMRe7Di",
-  "jwtToken" : "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NjcwNjksImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.dgq14wxpva8laFVQzAWGXCbFM60qpFORhaVzxt2piUm_CWaOJwwtjqSNMgCCvwWGBDS2wb1wT0eyCf7xx-7N1A",
-  "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
-  "created_date" : "Sat, 13 Jan 2018 23:47:57 +0200"
+  "jwtToken" : "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NzA0NzIsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.JfLUh0LgEV9MxAXFpA9kMn0KkhxQmk6KtZGA3kJYtFOvAwp0TDMyEWnkoa-Ccs3GkE258J7XssaguNpi5NC_-g",
+  "created_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+  "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200"
 }
 
-00:24:29.233 DEBUG - response time in milliseconds: 204
-00:24:29.233 INFO  - response:
+01:21:12.874 DEBUG - response time in milliseconds: 217
+01:21:12.874 INFO  - response:
 {
   "username": "admin",
   "email": "admin@springify.com",
   "password": "$2a$10$UClj\/ChiXzRXcT6HvSdOpePZFzTIJs9CYDagygovYbM0TDzMRe7Di",
-  "jwtToken": "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NjcwNjksImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.dgq14wxpva8laFVQzAWGXCbFM60qpFORhaVzxt2piUm_CWaOJwwtjqSNMgCCvwWGBDS2wb1wT0eyCf7xx-7N1A",
-  "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
-  "created_date": "Sat, 13 Jan 2018 23:47:57 +0200"
+  "jwtToken": "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NzA0NzIsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.JfLUh0LgEV9MxAXFpA9kMn0KkhxQmk6KtZGA3kJYtFOvAwp0TDMyEWnkoa-Ccs3GkE258J7XssaguNpi5NC_-g",
+  "created_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+  "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200"
 }
 
 </pre>
@@ -893,7 +893,7 @@ http://127.0.0.1:41167/api/artists/1040
 <div class="step-cell">* print 'jwtToken OK: ', karate.pretty(jwtToken)</div>
 <div class="time-cell">0</div>
 </div>
-<pre>00:24:29.257 INFO  - [print] jwtToken OK:  eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NjcwNjksImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.dgq14wxpva8laFVQzAWGXCbFM60qpFORhaVzxt2piUm_CWaOJwwtjqSNMgCCvwWGBDS2wb1wT0eyCf7xx-7N1A
+<pre>01:21:12.898 INFO  - [print] jwtToken OK:  eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NzA0NzIsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.JfLUh0LgEV9MxAXFpA9kMn0KkhxQmk6KtZGA3kJYtFOvAwp0TDMyEWnkoa-Ccs3GkE258J7XssaguNpi5NC_-g
 </pre>
 </div>
 <div class="scenario-steps-nested">
@@ -901,7 +901,7 @@ http://127.0.0.1:41167/api/artists/1040
 <div class="step-cell">* def defaultHeaders =  callonce read('classpath:springifyapi/common/HeadersFun.js')  { jwtToken:  '#(jwtToken)' }</div>
 <div class="time-cell">0</div>
 </div>
-<pre>00:24:29.258 DEBUG - callonce cache hit for: read('classpath:springifyapi/common/HeadersFun.js')
+<pre>01:21:12.898 DEBUG - callonce cache hit for: read('classpath:springifyapi/common/HeadersFun.js')
 </pre>
 </div>
 <div class="scenario-steps-nested">
@@ -912,53 +912,53 @@ http://127.0.0.1:41167/api/artists/1040
 </div>
 <div class="step-row">
 <div class="step-cell">* def artist_payload = {name: 'Motley Crue', country: 'USA'}</div>
-<div class="time-cell">0.000205</div>
+<div class="time-cell">0.000221</div>
 </div>
 <div class="step-row">
 <div class="step-cell">* set postData.path = 'artists'</div>
-<div class="time-cell">0.016987</div>
+<div class="time-cell">0.022997</div>
 </div>
 <div class="step-row">
 <div class="step-cell">* set postData.payload =  artist_payload</div>
-<div class="time-cell">0.000285</div>
+<div class="time-cell">0.000281</div>
 </div>
 <div class="step-row">
 <div class="step-cell">* def post = callonce read('classpath:springifyapi/common/genericPost.feature') { postData: '#(postData)' }</div>
-<div class="time-cell">0.000747</div>
+<div class="time-cell">0.000311</div>
 </div>
-<pre>00:24:29.288 DEBUG - callonce cache hit for: read('classpath:springifyapi/common/genericPost.feature')
+<pre>01:21:12.929 DEBUG - callonce cache hit for: read('classpath:springifyapi/common/genericPost.feature')
 </pre>
 <div class="step-row">
 <div class="step-cell">* def postResponse = post.genericPostResult.response</div>
-<div class="time-cell">0.003165</div>
+<div class="time-cell">0.0002</div>
 </div>
 <div class="step-row">
 <div class="step-cell">* def location = post.genericPostResult.location</div>
-<div class="time-cell">0.000295</div>
+<div class="time-cell">0.000243</div>
 </div>
 <div class="step-row">
 <div class="step-cell">* print 'postRe', karate.pretty(postResponse)</div>
-<div class="time-cell">0.022917</div>
+<div class="time-cell">0.038912</div>
 </div>
-<pre>00:24:29.316 INFO  - [print] postRe {
-  "id": 1040,
+<pre>01:21:12.968 INFO  - [print] postRe {
+  "id": 1043,
   "name": "Motley Crue",
   "country": "USA",
   "albums_count": 0,
-  "created_date": "Mon, 15 Jan 2018 00:24:27 +0200",
-  "updated_date": "Mon, 15 Jan 2018 00:24:27 +0200",
+  "created_date": "Mon, 15 Jan 2018 01:21:11 +0200",
+  "updated_date": "Mon, 15 Jan 2018 01:21:11 +0200",
   "_links": {
     "self": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1040"
+      "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1043"
     },
     "artists": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/artists"
+      "href": "http:\/\/127.0.0.1:35051\/api\/artists"
     },
     "albums": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1040\/albums"
+      "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1043\/albums"
     },
     "genre": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1040\/genre"
+      "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1043\/genre"
     }
   }
 }
@@ -966,80 +966,80 @@ http://127.0.0.1:41167/api/artists/1040
 </pre>
 <div class="step-row">
 <div class="step-cell">Given url location</div>
-<div class="time-cell">0.000094</div>
+<div class="time-cell">0.000093</div>
 </div>
 <div class="step-row">
 <div class="step-cell">When method get</div>
-<div class="time-cell">0.085566</div>
+<div class="time-cell">0.107486</div>
 </div>
-<pre>00:24:29.319 DEBUG - 
-1 &gt; GET http://127.0.0.1:41167/api/artists/1040
+<pre>01:21:12.972 DEBUG - 
+1 &gt; GET http://127.0.0.1:35051/api/artists/1043
 1 &gt; Accept-Encoding: gzip,deflate
-1 &gt; Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NjcwNjcsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.vY2xW05S9NaghMdw2bcccVZoUtBxdXhokUUU-MVJHgo_aA8s5LdKnCpOar4wiKDcbJAhFQqoQZSj929oUmHbXg
+1 &gt; Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NzA0NzAsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.IgEZ6OPP2n9ir3PzE8eWQF8yojLt-HoBrwdbIf5VnPLqr3oxCnBI7RJrx26YCuY78Mg6mrQt24hOGjNMd4SykQ
 1 &gt; Connection: Keep-Alive
 1 &gt; Content-Type: application/json
-1 &gt; Host: 127.0.0.1:41167
+1 &gt; Host: 127.0.0.1:35051
 1 &gt; User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_151)
 
-00:24:29.401 DEBUG - 
+01:21:13.076 DEBUG - 
 1 &lt; 200
 1 &lt; Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 1 &lt; Content-Type: application/hal+json;charset=UTF-8
-1 &lt; Date: Sun, 14 Jan 2018 22:24:28 GMT
+1 &lt; Date: Sun, 14 Jan 2018 23:21:12 GMT
 1 &lt; Expires: 0
 1 &lt; Pragma: no-cache
-1 &lt; Set-Cookie: JSESSIONID=6C3BEB503F277FA6F2ED83694D6EEC53; Path=/api; HttpOnly
+1 &lt; Set-Cookie: JSESSIONID=E9F60994E2D1AE22647D6FDDCB1CA23A; Path=/api; HttpOnly
 1 &lt; Transfer-Encoding: chunked
 1 &lt; X-Application-Context: application:0
 1 &lt; X-Content-Type-Options: nosniff
 1 &lt; X-Frame-Options: DENY
 1 &lt; X-XSS-Protection: 1; mode=block
 {
-  "id" : 1040,
+  "id" : 1043,
   "name" : "Motley Crue",
   "genre" : "Rock",
   "country" : "USA",
   "albums_count" : 0,
-  "created_date" : "Mon, 15 Jan 2018 00:24:27 +0200",
-  "updated_date" : "Mon, 15 Jan 2018 00:24:28 +0200",
+  "created_date" : "Mon, 15 Jan 2018 01:21:11 +0200",
+  "updated_date" : "Mon, 15 Jan 2018 01:21:12 +0200",
   "_links" : {
     "self" : {
-      "href" : "http://127.0.0.1:41167/api/artists/1040"
+      "href" : "http://127.0.0.1:35051/api/artists/1043"
     },
     "artists" : {
-      "href" : "http://127.0.0.1:41167/api/artists"
+      "href" : "http://127.0.0.1:35051/api/artists"
     },
     "albums" : {
-      "href" : "http://127.0.0.1:41167/api/artists/1040/albums"
+      "href" : "http://127.0.0.1:35051/api/artists/1043/albums"
     },
     "genre" : {
-      "href" : "http://127.0.0.1:41167/api/artists/1040/genre"
+      "href" : "http://127.0.0.1:35051/api/artists/1043/genre"
     }
   }
 }
 
-00:24:29.402 DEBUG - response time in milliseconds: 85
-00:24:29.402 INFO  - response:
+01:21:13.076 DEBUG - response time in milliseconds: 106
+01:21:13.077 INFO  - response:
 {
-  "id": 1040,
+  "id": 1043,
   "name": "Motley Crue",
   "genre": "Rock",
   "country": "USA",
   "albums_count": 0,
-  "created_date": "Mon, 15 Jan 2018 00:24:27 +0200",
-  "updated_date": "Mon, 15 Jan 2018 00:24:28 +0200",
+  "created_date": "Mon, 15 Jan 2018 01:21:11 +0200",
+  "updated_date": "Mon, 15 Jan 2018 01:21:12 +0200",
   "_links": {
     "self": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1040"
+      "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1043"
     },
     "artists": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/artists"
+      "href": "http:\/\/127.0.0.1:35051\/api\/artists"
     },
     "albums": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1040\/albums"
+      "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1043\/albums"
     },
     "genre": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1040\/genre"
+      "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1043\/genre"
     }
   }
 }
@@ -1047,11 +1047,11 @@ http://127.0.0.1:41167/api/artists/1040
 </pre>
 <div class="step-row">
 <div class="step-cell">Then status 200</div>
-<div class="time-cell">0.000137</div>
+<div class="time-cell">0.000127</div>
 </div>
 <div class="step-row">
 <div class="step-cell">And match response contains { genre: 'Rock' }</div>
-<div class="time-cell">0.000358</div>
+<div class="time-cell">0.000352</div>
 </div>
 </div>
 </div>
@@ -1062,7 +1062,7 @@ http://127.0.0.1:41167/api/artists/1040
 <div class="scenario-steps">
 <div class="step-row">
 <div class="step-cell">* def postData = {}</div>
-<div class="time-cell">0.401571</div>
+<div class="time-cell">0.623283</div>
 </div>
 <div class="scenario-steps-nested">
 <div class="step-row">
@@ -1072,7 +1072,7 @@ http://127.0.0.1:41167/api/artists/1040
 <pre>{
   "config": {
     "user": "admin",
-    "baseUrl": "http:\/\/127.0.0.1:41167\/api\/"
+    "baseUrl": "http:\/\/127.0.0.1:35051\/api\/"
   }
 }
 </pre>
@@ -1082,9 +1082,9 @@ http://127.0.0.1:41167/api/artists/1040
 <div class="step-cell">* print 'Config passed: ', karate.pretty(config)</div>
 <div class="time-cell">0</div>
 </div>
-<pre>00:24:29.592 INFO  - [print] Config passed:  {
+<pre>01:21:13.377 INFO  - [print] Config passed:  {
   "user": "admin",
-  "baseUrl": "http:\/\/127.0.0.1:41167\/api\/"
+  "baseUrl": "http:\/\/127.0.0.1:35051\/api\/"
 }
 
 </pre>
@@ -1124,30 +1124,30 @@ http://127.0.0.1:41167/api/artists/1040
 <div class="step-cell">When method post</div>
 <div class="time-cell">0</div>
 </div>
-<pre>00:24:29.625 INFO  - request:
+<pre>01:21:13.438 INFO  - request:
 {
   "password": "11111111",
   "username": "admin"
 }
 
-00:24:29.627 DEBUG - 
-1 &gt; POST http://127.0.0.1:41167/api/login
+01:21:13.441 DEBUG - 
+1 &gt; POST http://127.0.0.1:35051/api/login
 1 &gt; Accept-Encoding: gzip,deflate
 1 &gt; Connection: Keep-Alive
 1 &gt; Content-Length: 42
 1 &gt; Content-Type: application/json
-1 &gt; Host: 127.0.0.1:41167
+1 &gt; Host: 127.0.0.1:35051
 1 &gt; User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_151)
 {"password":"11111111","username":"admin"}
 
-00:24:29.810 DEBUG - 
+01:21:13.661 DEBUG - 
 1 &lt; 200
 1 &lt; Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 1 &lt; Content-Type: application/hal+json;charset=UTF-8
-1 &lt; Date: Sun, 14 Jan 2018 22:24:29 GMT
+1 &lt; Date: Sun, 14 Jan 2018 23:21:13 GMT
 1 &lt; Expires: 0
 1 &lt; Pragma: no-cache
-1 &lt; Token: eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NjcwNjksImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.dgq14wxpva8laFVQzAWGXCbFM60qpFORhaVzxt2piUm_CWaOJwwtjqSNMgCCvwWGBDS2wb1wT0eyCf7xx-7N1A
+1 &lt; Token: eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NzA0NzMsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.7DXj9OK_3Cut9BCQ-KuKRrOwijb0QvlNMdZVi7QwFk0KqhVSA3lOWa5Da3glEpc9jFRyyNJ2JzyVNy191GYiwQ
 1 &lt; Transfer-Encoding: chunked
 1 &lt; X-Application-Context: application:0
 1 &lt; X-Content-Type-Options: nosniff
@@ -1157,20 +1157,20 @@ http://127.0.0.1:41167/api/artists/1040
   "username" : "admin",
   "email" : "admin@springify.com",
   "password" : "$2a$10$UClj/ChiXzRXcT6HvSdOpePZFzTIJs9CYDagygovYbM0TDzMRe7Di",
-  "jwtToken" : "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NjcwNjksImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.dgq14wxpva8laFVQzAWGXCbFM60qpFORhaVzxt2piUm_CWaOJwwtjqSNMgCCvwWGBDS2wb1wT0eyCf7xx-7N1A",
-  "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
-  "created_date" : "Sat, 13 Jan 2018 23:47:57 +0200"
+  "jwtToken" : "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NzA0NzMsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.7DXj9OK_3Cut9BCQ-KuKRrOwijb0QvlNMdZVi7QwFk0KqhVSA3lOWa5Da3glEpc9jFRyyNJ2JzyVNy191GYiwQ",
+  "created_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+  "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200"
 }
 
-00:24:29.810 DEBUG - response time in milliseconds: 185
-00:24:29.810 INFO  - response:
+01:21:13.661 DEBUG - response time in milliseconds: 222
+01:21:13.662 INFO  - response:
 {
   "username": "admin",
   "email": "admin@springify.com",
   "password": "$2a$10$UClj\/ChiXzRXcT6HvSdOpePZFzTIJs9CYDagygovYbM0TDzMRe7Di",
-  "jwtToken": "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NjcwNjksImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.dgq14wxpva8laFVQzAWGXCbFM60qpFORhaVzxt2piUm_CWaOJwwtjqSNMgCCvwWGBDS2wb1wT0eyCf7xx-7N1A",
-  "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
-  "created_date": "Sat, 13 Jan 2018 23:47:57 +0200"
+  "jwtToken": "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NzA0NzMsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.7DXj9OK_3Cut9BCQ-KuKRrOwijb0QvlNMdZVi7QwFk0KqhVSA3lOWa5Da3glEpc9jFRyyNJ2JzyVNy191GYiwQ",
+  "created_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+  "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200"
 }
 
 </pre>
@@ -1192,7 +1192,7 @@ http://127.0.0.1:41167/api/artists/1040
 <div class="step-cell">* print 'jwtToken OK: ', karate.pretty(jwtToken)</div>
 <div class="time-cell">0</div>
 </div>
-<pre>00:24:29.833 INFO  - [print] jwtToken OK:  eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NjcwNjksImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.dgq14wxpva8laFVQzAWGXCbFM60qpFORhaVzxt2piUm_CWaOJwwtjqSNMgCCvwWGBDS2wb1wT0eyCf7xx-7N1A
+<pre>01:21:13.725 INFO  - [print] jwtToken OK:  eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NzA0NzMsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.7DXj9OK_3Cut9BCQ-KuKRrOwijb0QvlNMdZVi7QwFk0KqhVSA3lOWa5Da3glEpc9jFRyyNJ2JzyVNy191GYiwQ
 </pre>
 </div>
 <div class="scenario-steps-nested">
@@ -1200,7 +1200,7 @@ http://127.0.0.1:41167/api/artists/1040
 <div class="step-cell">* def defaultHeaders =  callonce read('classpath:springifyapi/common/HeadersFun.js')  { jwtToken:  '#(jwtToken)' }</div>
 <div class="time-cell">0</div>
 </div>
-<pre>00:24:29.834 DEBUG - callonce cache hit for: read('classpath:springifyapi/common/HeadersFun.js')
+<pre>01:21:13.725 DEBUG - callonce cache hit for: read('classpath:springifyapi/common/HeadersFun.js')
 </pre>
 </div>
 <div class="scenario-steps-nested">
@@ -1211,53 +1211,53 @@ http://127.0.0.1:41167/api/artists/1040
 </div>
 <div class="step-row">
 <div class="step-cell">* def artist_payload = {name: 'Motley Crue', country: 'USA'}</div>
-<div class="time-cell">0.000193</div>
+<div class="time-cell">0.00099</div>
 </div>
 <div class="step-row">
 <div class="step-cell">* set postData.path = 'artists'</div>
-<div class="time-cell">0.010533</div>
+<div class="time-cell">0.010892</div>
 </div>
 <div class="step-row">
 <div class="step-cell">* set postData.payload =  artist_payload</div>
-<div class="time-cell">0.000156</div>
+<div class="time-cell">0.000329</div>
 </div>
 <div class="step-row">
 <div class="step-cell">* def post = callonce read('classpath:springifyapi/common/genericPost.feature') { postData: '#(postData)' }</div>
-<div class="time-cell">0.000267</div>
+<div class="time-cell">0.000354</div>
 </div>
-<pre>00:24:29.850 DEBUG - callonce cache hit for: read('classpath:springifyapi/common/genericPost.feature')
+<pre>01:21:13.750 DEBUG - callonce cache hit for: read('classpath:springifyapi/common/genericPost.feature')
 </pre>
 <div class="step-row">
 <div class="step-cell">* def postResponse = post.genericPostResult.response</div>
-<div class="time-cell">0.00012</div>
+<div class="time-cell">0.000186</div>
 </div>
 <div class="step-row">
 <div class="step-cell">* def location = post.genericPostResult.location</div>
-<div class="time-cell">0.000131</div>
+<div class="time-cell">0.000141</div>
 </div>
 <div class="step-row">
 <div class="step-cell">* print 'postRe', karate.pretty(postResponse)</div>
-<div class="time-cell">0.033496</div>
+<div class="time-cell">0.02371</div>
 </div>
-<pre>00:24:29.884 INFO  - [print] postRe {
-  "id": 1040,
+<pre>01:21:13.774 INFO  - [print] postRe {
+  "id": 1043,
   "name": "Motley Crue",
   "country": "USA",
   "albums_count": 0,
-  "created_date": "Mon, 15 Jan 2018 00:24:27 +0200",
-  "updated_date": "Mon, 15 Jan 2018 00:24:27 +0200",
+  "created_date": "Mon, 15 Jan 2018 01:21:11 +0200",
+  "updated_date": "Mon, 15 Jan 2018 01:21:11 +0200",
   "_links": {
     "self": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1040"
+      "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1043"
     },
     "artists": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/artists"
+      "href": "http:\/\/127.0.0.1:35051\/api\/artists"
     },
     "albums": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1040\/albums"
+      "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1043\/albums"
     },
     "genre": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1040\/genre"
+      "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1043\/genre"
     }
   }
 }
@@ -1265,71 +1265,43 @@ http://127.0.0.1:41167/api/artists/1040
 </pre>
 <div class="step-row">
 <div class="step-cell">Given url baseUrl</div>
-<div class="time-cell">0.000079</div>
+<div class="time-cell">0.000088</div>
 </div>
 <div class="step-row">
 <div class="step-cell">And path '/genres/1/artists/' + postResponse.id</div>
-<div class="time-cell">0.020691</div>
+<div class="time-cell">0.018435</div>
 </div>
 <div class="step-row">
 <div class="step-cell">When method delete</div>
-<div class="time-cell">0.102275</div>
+<div class="time-cell">0.084435</div>
 </div>
-<pre>00:24:29.913 DEBUG - 
-1 &gt; DELETE http://127.0.0.1:41167/api/genres/1/artists/1040
+<pre>01:21:13.799 DEBUG - 
+1 &gt; DELETE http://127.0.0.1:35051/api/genres/1/artists/1043
 1 &gt; Accept-Encoding: gzip,deflate
-1 &gt; Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NjcwNjcsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.vY2xW05S9NaghMdw2bcccVZoUtBxdXhokUUU-MVJHgo_aA8s5LdKnCpOar4wiKDcbJAhFQqoQZSj929oUmHbXg
+1 &gt; Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NzA0NzAsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.IgEZ6OPP2n9ir3PzE8eWQF8yojLt-HoBrwdbIf5VnPLqr3oxCnBI7RJrx26YCuY78Mg6mrQt24hOGjNMd4SykQ
 1 &gt; Connection: Keep-Alive
 1 &gt; Content-Type: application/json
-1 &gt; Host: 127.0.0.1:41167
+1 &gt; Host: 127.0.0.1:35051
 1 &gt; User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_151)
 
-00:24:30.011 DEBUG - 
+01:21:13.878 DEBUG - 
 1 &lt; 204
 1 &lt; Cache-Control: no-cache, no-store, max-age=0, must-revalidate
-1 &lt; Date: Sun, 14 Jan 2018 22:24:29 GMT
+1 &lt; Date: Sun, 14 Jan 2018 23:21:13 GMT
 1 &lt; Expires: 0
 1 &lt; Pragma: no-cache
-1 &lt; Set-Cookie: JSESSIONID=0EA2493A53104084B123F456C247024D; Path=/api; HttpOnly
+1 &lt; Set-Cookie: JSESSIONID=F1BC382A462E482566BBD77622683603; Path=/api; HttpOnly
 1 &lt; X-Application-Context: application:0
 1 &lt; X-Content-Type-Options: nosniff
 1 &lt; X-Frame-Options: DENY
 1 &lt; X-XSS-Protection: 1; mode=block
 
-00:24:30.011 DEBUG - response time in milliseconds: 102
+01:21:13.878 DEBUG - response time in milliseconds: 84
 </pre>
 <div class="step-row">
 <div class="step-cell">Then status 204</div>
-<div class="time-cell">0.000164</div>
+<div class="time-cell">0.00011</div>
 </div>
-<div class="step-row">
-<div class="step-cell">* print 'postRe', karate.pretty(postResponse)</div>
-<div class="time-cell">0.026911</div>
-</div>
-<pre>00:24:30.036 INFO  - [print] postRe {
-  "id": 1040,
-  "name": "Motley Crue",
-  "country": "USA",
-  "albums_count": 0,
-  "created_date": "Mon, 15 Jan 2018 00:24:27 +0200",
-  "updated_date": "Mon, 15 Jan 2018 00:24:27 +0200",
-  "_links": {
-    "self": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1040"
-    },
-    "artists": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/artists"
-    },
-    "albums": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1040\/albums"
-    },
-    "genre": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1040\/genre"
-    }
-  }
-}
-
-</pre>
 </div>
 </div>
 <div class="scenario">
@@ -1339,7 +1311,7 @@ http://127.0.0.1:41167/api/artists/1040
 <div class="scenario-steps">
 <div class="step-row">
 <div class="step-cell">* def postData = {}</div>
-<div class="time-cell">0.465729</div>
+<div class="time-cell">0.460516</div>
 </div>
 <div class="scenario-steps-nested">
 <div class="step-row">
@@ -1349,7 +1321,7 @@ http://127.0.0.1:41167/api/artists/1040
 <pre>{
   "config": {
     "user": "admin",
-    "baseUrl": "http:\/\/127.0.0.1:41167\/api\/"
+    "baseUrl": "http:\/\/127.0.0.1:35051\/api\/"
   }
 }
 </pre>
@@ -1359,9 +1331,9 @@ http://127.0.0.1:41167/api/artists/1040
 <div class="step-cell">* print 'Config passed: ', karate.pretty(config)</div>
 <div class="time-cell">0</div>
 </div>
-<pre>00:24:30.235 INFO  - [print] Config passed:  {
+<pre>01:21:14.070 INFO  - [print] Config passed:  {
   "user": "admin",
-  "baseUrl": "http:\/\/127.0.0.1:41167\/api\/"
+  "baseUrl": "http:\/\/127.0.0.1:35051\/api\/"
 }
 
 </pre>
@@ -1401,30 +1373,30 @@ http://127.0.0.1:41167/api/artists/1040
 <div class="step-cell">When method post</div>
 <div class="time-cell">0</div>
 </div>
-<pre>00:24:30.265 INFO  - request:
+<pre>01:21:14.112 INFO  - request:
 {
   "password": "11111111",
   "username": "admin"
 }
 
-00:24:30.267 DEBUG - 
-1 &gt; POST http://127.0.0.1:41167/api/login
+01:21:14.114 DEBUG - 
+1 &gt; POST http://127.0.0.1:35051/api/login
 1 &gt; Accept-Encoding: gzip,deflate
 1 &gt; Connection: Keep-Alive
 1 &gt; Content-Length: 42
 1 &gt; Content-Type: application/json
-1 &gt; Host: 127.0.0.1:41167
+1 &gt; Host: 127.0.0.1:35051
 1 &gt; User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_151)
 {"password":"11111111","username":"admin"}
 
-00:24:30.494 DEBUG - 
+01:21:14.331 DEBUG - 
 1 &lt; 200
 1 &lt; Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 1 &lt; Content-Type: application/hal+json;charset=UTF-8
-1 &lt; Date: Sun, 14 Jan 2018 22:24:29 GMT
+1 &lt; Date: Sun, 14 Jan 2018 23:21:13 GMT
 1 &lt; Expires: 0
 1 &lt; Pragma: no-cache
-1 &lt; Token: eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NjcwNzAsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.45Lf9FF-YVfQ49ltE-FaicJ4pyjygHoRbF26ZqKfs2A4bDUWtIh2IliSd0CtvPMLC9YQSXmKy5lsv_nmGX2DVg
+1 &lt; Token: eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NzA0NzQsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.oMsbHJ7eL1xGgvwVmgoN0uNZWhfusC3X9syIAhBdIMdlLsbJQA4egQ1BnZOZjnGnV-HQA35OvG9rGFTeWb_69g
 1 &lt; Transfer-Encoding: chunked
 1 &lt; X-Application-Context: application:0
 1 &lt; X-Content-Type-Options: nosniff
@@ -1434,20 +1406,20 @@ http://127.0.0.1:41167/api/artists/1040
   "username" : "admin",
   "email" : "admin@springify.com",
   "password" : "$2a$10$UClj/ChiXzRXcT6HvSdOpePZFzTIJs9CYDagygovYbM0TDzMRe7Di",
-  "jwtToken" : "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NjcwNzAsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.45Lf9FF-YVfQ49ltE-FaicJ4pyjygHoRbF26ZqKfs2A4bDUWtIh2IliSd0CtvPMLC9YQSXmKy5lsv_nmGX2DVg",
-  "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
-  "created_date" : "Sat, 13 Jan 2018 23:47:57 +0200"
+  "jwtToken" : "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NzA0NzQsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.oMsbHJ7eL1xGgvwVmgoN0uNZWhfusC3X9syIAhBdIMdlLsbJQA4egQ1BnZOZjnGnV-HQA35OvG9rGFTeWb_69g",
+  "created_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+  "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200"
 }
 
-00:24:30.495 DEBUG - response time in milliseconds: 230
-00:24:30.495 INFO  - response:
+01:21:14.332 DEBUG - response time in milliseconds: 219
+01:21:14.332 INFO  - response:
 {
   "username": "admin",
   "email": "admin@springify.com",
   "password": "$2a$10$UClj\/ChiXzRXcT6HvSdOpePZFzTIJs9CYDagygovYbM0TDzMRe7Di",
-  "jwtToken": "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NjcwNzAsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.45Lf9FF-YVfQ49ltE-FaicJ4pyjygHoRbF26ZqKfs2A4bDUWtIh2IliSd0CtvPMLC9YQSXmKy5lsv_nmGX2DVg",
-  "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
-  "created_date": "Sat, 13 Jan 2018 23:47:57 +0200"
+  "jwtToken": "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NzA0NzQsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.oMsbHJ7eL1xGgvwVmgoN0uNZWhfusC3X9syIAhBdIMdlLsbJQA4egQ1BnZOZjnGnV-HQA35OvG9rGFTeWb_69g",
+  "created_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+  "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200"
 }
 
 </pre>
@@ -1469,7 +1441,7 @@ http://127.0.0.1:41167/api/artists/1040
 <div class="step-cell">* print 'jwtToken OK: ', karate.pretty(jwtToken)</div>
 <div class="time-cell">0</div>
 </div>
-<pre>00:24:30.524 INFO  - [print] jwtToken OK:  eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NjcwNzAsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.45Lf9FF-YVfQ49ltE-FaicJ4pyjygHoRbF26ZqKfs2A4bDUWtIh2IliSd0CtvPMLC9YQSXmKy5lsv_nmGX2DVg
+<pre>01:21:14.370 INFO  - [print] jwtToken OK:  eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NzA0NzQsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.oMsbHJ7eL1xGgvwVmgoN0uNZWhfusC3X9syIAhBdIMdlLsbJQA4egQ1BnZOZjnGnV-HQA35OvG9rGFTeWb_69g
 </pre>
 </div>
 <div class="scenario-steps-nested">
@@ -1477,7 +1449,7 @@ http://127.0.0.1:41167/api/artists/1040
 <div class="step-cell">* def defaultHeaders =  callonce read('classpath:springifyapi/common/HeadersFun.js')  { jwtToken:  '#(jwtToken)' }</div>
 <div class="time-cell">0</div>
 </div>
-<pre>00:24:30.525 DEBUG - callonce cache hit for: read('classpath:springifyapi/common/HeadersFun.js')
+<pre>01:21:14.374 DEBUG - callonce cache hit for: read('classpath:springifyapi/common/HeadersFun.js')
 </pre>
 </div>
 <div class="scenario-steps-nested">
@@ -1488,53 +1460,53 @@ http://127.0.0.1:41167/api/artists/1040
 </div>
 <div class="step-row">
 <div class="step-cell">* def artist_payload = {name: 'Motley Crue', country: 'USA'}</div>
-<div class="time-cell">0.000182</div>
+<div class="time-cell">0.000545</div>
 </div>
 <div class="step-row">
 <div class="step-cell">* set postData.path = 'artists'</div>
-<div class="time-cell">0.02055</div>
+<div class="time-cell">0.034897</div>
 </div>
 <div class="step-row">
 <div class="step-cell">* set postData.payload =  artist_payload</div>
-<div class="time-cell">0.000215</div>
+<div class="time-cell">0.000233</div>
 </div>
 <div class="step-row">
 <div class="step-cell">* def post = callonce read('classpath:springifyapi/common/genericPost.feature') { postData: '#(postData)' }</div>
-<div class="time-cell">0.0003</div>
+<div class="time-cell">0.000326</div>
 </div>
-<pre>00:24:30.561 DEBUG - callonce cache hit for: read('classpath:springifyapi/common/genericPost.feature')
+<pre>01:21:14.420 DEBUG - callonce cache hit for: read('classpath:springifyapi/common/genericPost.feature')
 </pre>
 <div class="step-row">
 <div class="step-cell">* def postResponse = post.genericPostResult.response</div>
-<div class="time-cell">0.000168</div>
+<div class="time-cell">0.000355</div>
 </div>
 <div class="step-row">
 <div class="step-cell">* def location = post.genericPostResult.location</div>
-<div class="time-cell">0.000197</div>
+<div class="time-cell">0.002862</div>
 </div>
 <div class="step-row">
 <div class="step-cell">* print 'postRe', karate.pretty(postResponse)</div>
-<div class="time-cell">0.019806</div>
+<div class="time-cell">0.03543</div>
 </div>
-<pre>00:24:30.581 INFO  - [print] postRe {
-  "id": 1040,
+<pre>01:21:14.461 INFO  - [print] postRe {
+  "id": 1043,
   "name": "Motley Crue",
   "country": "USA",
   "albums_count": 0,
-  "created_date": "Mon, 15 Jan 2018 00:24:27 +0200",
-  "updated_date": "Mon, 15 Jan 2018 00:24:27 +0200",
+  "created_date": "Mon, 15 Jan 2018 01:21:11 +0200",
+  "updated_date": "Mon, 15 Jan 2018 01:21:11 +0200",
   "_links": {
     "self": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1040"
+      "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1043"
     },
     "artists": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/artists"
+      "href": "http:\/\/127.0.0.1:35051\/api\/artists"
     },
     "albums": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1040\/albums"
+      "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1043\/albums"
     },
     "genre": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1040\/genre"
+      "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1043\/genre"
     }
   }
 }
@@ -1542,78 +1514,78 @@ http://127.0.0.1:41167/api/artists/1040
 </pre>
 <div class="step-row">
 <div class="step-cell">Given url location</div>
-<div class="time-cell">0.000674</div>
+<div class="time-cell">0.001082</div>
 </div>
 <div class="step-row">
 <div class="step-cell">When method get</div>
-<div class="time-cell">0.044985</div>
+<div class="time-cell">0.039094</div>
 </div>
-<pre>00:24:30.585 DEBUG - 
-1 &gt; GET http://127.0.0.1:41167/api/artists/1040
+<pre>01:21:14.466 DEBUG - 
+1 &gt; GET http://127.0.0.1:35051/api/artists/1043
 1 &gt; Accept-Encoding: gzip,deflate
-1 &gt; Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NjcwNjcsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.vY2xW05S9NaghMdw2bcccVZoUtBxdXhokUUU-MVJHgo_aA8s5LdKnCpOar4wiKDcbJAhFQqoQZSj929oUmHbXg
+1 &gt; Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NzA0NzAsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.IgEZ6OPP2n9ir3PzE8eWQF8yojLt-HoBrwdbIf5VnPLqr3oxCnBI7RJrx26YCuY78Mg6mrQt24hOGjNMd4SykQ
 1 &gt; Connection: Keep-Alive
 1 &gt; Content-Type: application/json
-1 &gt; Host: 127.0.0.1:41167
+1 &gt; Host: 127.0.0.1:35051
 1 &gt; User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_151)
 
-00:24:30.627 DEBUG - 
+01:21:14.502 DEBUG - 
 1 &lt; 200
 1 &lt; Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 1 &lt; Content-Type: application/hal+json;charset=UTF-8
-1 &lt; Date: Sun, 14 Jan 2018 22:24:29 GMT
+1 &lt; Date: Sun, 14 Jan 2018 23:21:13 GMT
 1 &lt; Expires: 0
 1 &lt; Pragma: no-cache
-1 &lt; Set-Cookie: JSESSIONID=E39CB567A0304E78FF408D382B0DC389; Path=/api; HttpOnly
+1 &lt; Set-Cookie: JSESSIONID=619DBDA25A4E7F87C30458B31DEDB135; Path=/api; HttpOnly
 1 &lt; Transfer-Encoding: chunked
 1 &lt; X-Application-Context: application:0
 1 &lt; X-Content-Type-Options: nosniff
 1 &lt; X-Frame-Options: DENY
 1 &lt; X-XSS-Protection: 1; mode=block
 {
-  "id" : 1040,
+  "id" : 1043,
   "name" : "Motley Crue",
   "country" : "USA",
   "albums_count" : 0,
-  "created_date" : "Mon, 15 Jan 2018 00:24:27 +0200",
-  "updated_date" : "Mon, 15 Jan 2018 00:24:29 +0200",
+  "created_date" : "Mon, 15 Jan 2018 01:21:11 +0200",
+  "updated_date" : "Mon, 15 Jan 2018 01:21:13 +0200",
   "_links" : {
     "self" : {
-      "href" : "http://127.0.0.1:41167/api/artists/1040"
+      "href" : "http://127.0.0.1:35051/api/artists/1043"
     },
     "artists" : {
-      "href" : "http://127.0.0.1:41167/api/artists"
+      "href" : "http://127.0.0.1:35051/api/artists"
     },
     "albums" : {
-      "href" : "http://127.0.0.1:41167/api/artists/1040/albums"
+      "href" : "http://127.0.0.1:35051/api/artists/1043/albums"
     },
     "genre" : {
-      "href" : "http://127.0.0.1:41167/api/artists/1040/genre"
+      "href" : "http://127.0.0.1:35051/api/artists/1043/genre"
     }
   }
 }
 
-00:24:30.628 DEBUG - response time in milliseconds: 44
-00:24:30.628 INFO  - response:
+01:21:14.503 DEBUG - response time in milliseconds: 37
+01:21:14.503 INFO  - response:
 {
-  "id": 1040,
+  "id": 1043,
   "name": "Motley Crue",
   "country": "USA",
   "albums_count": 0,
-  "created_date": "Mon, 15 Jan 2018 00:24:27 +0200",
-  "updated_date": "Mon, 15 Jan 2018 00:24:29 +0200",
+  "created_date": "Mon, 15 Jan 2018 01:21:11 +0200",
+  "updated_date": "Mon, 15 Jan 2018 01:21:13 +0200",
   "_links": {
     "self": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1040"
+      "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1043"
     },
     "artists": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/artists"
+      "href": "http:\/\/127.0.0.1:35051\/api\/artists"
     },
     "albums": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1040\/albums"
+      "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1043\/albums"
     },
     "genre": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1040\/genre"
+      "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1043\/genre"
     }
   }
 }
@@ -1621,11 +1593,11 @@ http://127.0.0.1:41167/api/artists/1040
 </pre>
 <div class="step-row">
 <div class="step-cell">Then status 200</div>
-<div class="time-cell">0.000113</div>
+<div class="time-cell">0.000126</div>
 </div>
 <div class="step-row">
 <div class="step-cell">And match response contains { genre: '#null' }</div>
-<div class="time-cell">0.00233</div>
+<div class="time-cell">0.002034</div>
 </div>
 </div>
 </div>
@@ -1636,7 +1608,7 @@ http://127.0.0.1:41167/api/artists/1040
 <div class="scenario-steps">
 <div class="step-row">
 <div class="step-cell">* def postData = {}</div>
-<div class="time-cell">0.429869</div>
+<div class="time-cell">0.47069</div>
 </div>
 <div class="scenario-steps-nested">
 <div class="step-row">
@@ -1646,7 +1618,7 @@ http://127.0.0.1:41167/api/artists/1040
 <pre>{
   "config": {
     "user": "admin",
-    "baseUrl": "http:\/\/127.0.0.1:41167\/api\/"
+    "baseUrl": "http:\/\/127.0.0.1:35051\/api\/"
   }
 }
 </pre>
@@ -1656,9 +1628,9 @@ http://127.0.0.1:41167/api/artists/1040
 <div class="step-cell">* print 'Config passed: ', karate.pretty(config)</div>
 <div class="time-cell">0</div>
 </div>
-<pre>00:24:30.773 INFO  - [print] Config passed:  {
+<pre>01:21:14.667 INFO  - [print] Config passed:  {
   "user": "admin",
-  "baseUrl": "http:\/\/127.0.0.1:41167\/api\/"
+  "baseUrl": "http:\/\/127.0.0.1:35051\/api\/"
 }
 
 </pre>
@@ -1698,30 +1670,30 @@ http://127.0.0.1:41167/api/artists/1040
 <div class="step-cell">When method post</div>
 <div class="time-cell">0</div>
 </div>
-<pre>00:24:30.840 INFO  - request:
+<pre>01:21:14.717 INFO  - request:
 {
   "password": "11111111",
   "username": "admin"
 }
 
-00:24:30.843 DEBUG - 
-1 &gt; POST http://127.0.0.1:41167/api/login
+01:21:14.719 DEBUG - 
+1 &gt; POST http://127.0.0.1:35051/api/login
 1 &gt; Accept-Encoding: gzip,deflate
 1 &gt; Connection: Keep-Alive
 1 &gt; Content-Length: 42
 1 &gt; Content-Type: application/json
-1 &gt; Host: 127.0.0.1:41167
+1 &gt; Host: 127.0.0.1:35051
 1 &gt; User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_151)
 {"password":"11111111","username":"admin"}
 
-00:24:31.052 DEBUG - 
+01:21:14.962 DEBUG - 
 1 &lt; 200
 1 &lt; Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 1 &lt; Content-Type: application/hal+json;charset=UTF-8
-1 &lt; Date: Sun, 14 Jan 2018 22:24:31 GMT
+1 &lt; Date: Sun, 14 Jan 2018 23:21:14 GMT
 1 &lt; Expires: 0
 1 &lt; Pragma: no-cache
-1 &lt; Token: eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NjcwNzEsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.b0en5TX8LPW2ryLUoPk2UX-p3L_-pL80qil0HE8owkEkD1Sdcu2R5IPzo3f_Z2Ifd3l8nlcXHqfNTm0CLkMIig
+1 &lt; Token: eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NzA0NzQsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.oMsbHJ7eL1xGgvwVmgoN0uNZWhfusC3X9syIAhBdIMdlLsbJQA4egQ1BnZOZjnGnV-HQA35OvG9rGFTeWb_69g
 1 &lt; Transfer-Encoding: chunked
 1 &lt; X-Application-Context: application:0
 1 &lt; X-Content-Type-Options: nosniff
@@ -1731,20 +1703,20 @@ http://127.0.0.1:41167/api/artists/1040
   "username" : "admin",
   "email" : "admin@springify.com",
   "password" : "$2a$10$UClj/ChiXzRXcT6HvSdOpePZFzTIJs9CYDagygovYbM0TDzMRe7Di",
-  "jwtToken" : "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NjcwNzEsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.b0en5TX8LPW2ryLUoPk2UX-p3L_-pL80qil0HE8owkEkD1Sdcu2R5IPzo3f_Z2Ifd3l8nlcXHqfNTm0CLkMIig",
-  "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
-  "created_date" : "Sat, 13 Jan 2018 23:47:57 +0200"
+  "jwtToken" : "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NzA0NzQsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.oMsbHJ7eL1xGgvwVmgoN0uNZWhfusC3X9syIAhBdIMdlLsbJQA4egQ1BnZOZjnGnV-HQA35OvG9rGFTeWb_69g",
+  "created_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+  "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200"
 }
 
-00:24:31.052 DEBUG - response time in milliseconds: 212
-00:24:31.053 INFO  - response:
+01:21:14.962 DEBUG - response time in milliseconds: 244
+01:21:14.962 INFO  - response:
 {
   "username": "admin",
   "email": "admin@springify.com",
   "password": "$2a$10$UClj\/ChiXzRXcT6HvSdOpePZFzTIJs9CYDagygovYbM0TDzMRe7Di",
-  "jwtToken": "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NjcwNzEsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.b0en5TX8LPW2ryLUoPk2UX-p3L_-pL80qil0HE8owkEkD1Sdcu2R5IPzo3f_Z2Ifd3l8nlcXHqfNTm0CLkMIig",
-  "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
-  "created_date": "Sat, 13 Jan 2018 23:47:57 +0200"
+  "jwtToken": "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NzA0NzQsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.oMsbHJ7eL1xGgvwVmgoN0uNZWhfusC3X9syIAhBdIMdlLsbJQA4egQ1BnZOZjnGnV-HQA35OvG9rGFTeWb_69g",
+  "created_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+  "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200"
 }
 
 </pre>
@@ -1766,7 +1738,7 @@ http://127.0.0.1:41167/api/artists/1040
 <div class="step-cell">* print 'jwtToken OK: ', karate.pretty(jwtToken)</div>
 <div class="time-cell">0</div>
 </div>
-<pre>00:24:31.078 INFO  - [print] jwtToken OK:  eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NjcwNzEsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.b0en5TX8LPW2ryLUoPk2UX-p3L_-pL80qil0HE8owkEkD1Sdcu2R5IPzo3f_Z2Ifd3l8nlcXHqfNTm0CLkMIig
+<pre>01:21:14.984 INFO  - [print] jwtToken OK:  eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NzA0NzQsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.oMsbHJ7eL1xGgvwVmgoN0uNZWhfusC3X9syIAhBdIMdlLsbJQA4egQ1BnZOZjnGnV-HQA35OvG9rGFTeWb_69g
 </pre>
 </div>
 <div class="scenario-steps-nested">
@@ -1774,7 +1746,7 @@ http://127.0.0.1:41167/api/artists/1040
 <div class="step-cell">* def defaultHeaders =  callonce read('classpath:springifyapi/common/HeadersFun.js')  { jwtToken:  '#(jwtToken)' }</div>
 <div class="time-cell">0</div>
 </div>
-<pre>00:24:31.079 DEBUG - callonce cache hit for: read('classpath:springifyapi/common/HeadersFun.js')
+<pre>01:21:14.985 DEBUG - callonce cache hit for: read('classpath:springifyapi/common/HeadersFun.js')
 </pre>
 </div>
 <div class="scenario-steps-nested">
@@ -1785,53 +1757,53 @@ http://127.0.0.1:41167/api/artists/1040
 </div>
 <div class="step-row">
 <div class="step-cell">* def artist_payload = {name: 'Motley Crue', country: 'USA'}</div>
-<div class="time-cell">0.00025</div>
+<div class="time-cell">0.000175</div>
 </div>
 <div class="step-row">
 <div class="step-cell">* set postData.path = 'artists'</div>
-<div class="time-cell">0.009857</div>
+<div class="time-cell">0.00836</div>
 </div>
 <div class="step-row">
 <div class="step-cell">* set postData.payload =  artist_payload</div>
-<div class="time-cell">0.000234</div>
+<div class="time-cell">0.000183</div>
 </div>
 <div class="step-row">
 <div class="step-cell">* def post = callonce read('classpath:springifyapi/common/genericPost.feature') { postData: '#(postData)' }</div>
-<div class="time-cell">0.000276</div>
+<div class="time-cell">0.000248</div>
 </div>
-<pre>00:24:31.098 DEBUG - callonce cache hit for: read('classpath:springifyapi/common/genericPost.feature')
+<pre>01:21:14.999 DEBUG - callonce cache hit for: read('classpath:springifyapi/common/genericPost.feature')
 </pre>
 <div class="step-row">
 <div class="step-cell">* def postResponse = post.genericPostResult.response</div>
-<div class="time-cell">0.000262</div>
+<div class="time-cell">0.000178</div>
 </div>
 <div class="step-row">
 <div class="step-cell">* def location = post.genericPostResult.location</div>
-<div class="time-cell">0.000193</div>
+<div class="time-cell">0.00012</div>
 </div>
 <div class="step-row">
 <div class="step-cell">* print 'postRe', karate.pretty(postResponse)</div>
-<div class="time-cell">0.020437</div>
+<div class="time-cell">0.026957</div>
 </div>
-<pre>00:24:31.119 INFO  - [print] postRe {
-  "id": 1040,
+<pre>01:21:15.027 INFO  - [print] postRe {
+  "id": 1043,
   "name": "Motley Crue",
   "country": "USA",
   "albums_count": 0,
-  "created_date": "Mon, 15 Jan 2018 00:24:27 +0200",
-  "updated_date": "Mon, 15 Jan 2018 00:24:27 +0200",
+  "created_date": "Mon, 15 Jan 2018 01:21:11 +0200",
+  "updated_date": "Mon, 15 Jan 2018 01:21:11 +0200",
   "_links": {
     "self": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1040"
+      "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1043"
     },
     "artists": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/artists"
+      "href": "http:\/\/127.0.0.1:35051\/api\/artists"
     },
     "albums": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1040\/albums"
+      "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1043\/albums"
     },
     "genre": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1040\/genre"
+      "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1043\/genre"
     }
   }
 }
@@ -1839,45 +1811,45 @@ http://127.0.0.1:41167/api/artists/1040
 </pre>
 <div class="step-row">
 <div class="step-cell">* def artistStructure = read('classpath:springifyapi/common/schemas/artist.js')</div>
-<div class="time-cell">0.016738</div>
+<div class="time-cell">0.013771</div>
 </div>
 <div class="step-row">
 <div class="step-cell">* def pageStructure = read('classpath:springifyapi/common/schemas/page.js')</div>
-<div class="time-cell">0.014804</div>
+<div class="time-cell">0.012383</div>
 </div>
 <div class="step-row">
 <div class="step-cell">* def linksStructure = read('classpath:springifyapi/common/schemas/artists_links.js')</div>
-<div class="time-cell">0.027762</div>
+<div class="time-cell">0.0115</div>
 </div>
 <div class="step-row">
 <div class="step-cell">Given url baseUrl</div>
-<div class="time-cell">0.000075</div>
+<div class="time-cell">0.000161</div>
 </div>
 <div class="step-row">
 <div class="step-cell">And path '/genres/1/artists/'</div>
-<div class="time-cell">0.009827</div>
+<div class="time-cell">0.007974</div>
 </div>
 <div class="step-row">
 <div class="step-cell">When method get</div>
-<div class="time-cell">0.29288</div>
+<div class="time-cell">0.274482</div>
 </div>
-<pre>00:24:31.197 DEBUG - 
-1 &gt; GET http://127.0.0.1:41167/api/genres/1/artists/
+<pre>01:21:15.076 DEBUG - 
+1 &gt; GET http://127.0.0.1:35051/api/genres/1/artists/
 1 &gt; Accept-Encoding: gzip,deflate
-1 &gt; Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NjcwNjcsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.vY2xW05S9NaghMdw2bcccVZoUtBxdXhokUUU-MVJHgo_aA8s5LdKnCpOar4wiKDcbJAhFQqoQZSj929oUmHbXg
+1 &gt; Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2NzA0NzAsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.IgEZ6OPP2n9ir3PzE8eWQF8yojLt-HoBrwdbIf5VnPLqr3oxCnBI7RJrx26YCuY78Mg6mrQt24hOGjNMd4SykQ
 1 &gt; Connection: Keep-Alive
 1 &gt; Content-Type: application/json
-1 &gt; Host: 127.0.0.1:41167
+1 &gt; Host: 127.0.0.1:35051
 1 &gt; User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_151)
 
-00:24:31.471 DEBUG - 
+01:21:15.344 DEBUG - 
 1 &lt; 200
 1 &lt; Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 1 &lt; Content-Type: application/hal+json;charset=UTF-8
-1 &lt; Date: Sun, 14 Jan 2018 22:24:31 GMT
+1 &lt; Date: Sun, 14 Jan 2018 23:21:14 GMT
 1 &lt; Expires: 0
 1 &lt; Pragma: no-cache
-1 &lt; Set-Cookie: JSESSIONID=6B91A6D636EC7B84DC8B61A328356E4F; Path=/api; HttpOnly
+1 &lt; Set-Cookie: JSESSIONID=2DE2B5D77A7C94D892D61A24D6599041; Path=/api; HttpOnly
 1 &lt; Transfer-Encoding: chunked
 1 &lt; X-Application-Context: application:0
 1 &lt; X-Content-Type-Options: nosniff
@@ -1895,16 +1867,16 @@ http://127.0.0.1:41167/api/artists/1040
       "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
       "_links" : {
         "self" : {
-          "href" : "http://127.0.0.1:41167/api/artists/11"
+          "href" : "http://127.0.0.1:35051/api/artists/11"
         },
         "artists" : {
-          "href" : "http://127.0.0.1:41167/api/artists"
+          "href" : "http://127.0.0.1:35051/api/artists"
         },
         "albums" : {
-          "href" : "http://127.0.0.1:41167/api/artists/11/albums"
+          "href" : "http://127.0.0.1:35051/api/artists/11/albums"
         },
         "genre" : {
-          "href" : "http://127.0.0.1:41167/api/artists/11/genre"
+          "href" : "http://127.0.0.1:35051/api/artists/11/genre"
         }
       }
     }, {
@@ -1917,16 +1889,16 @@ http://127.0.0.1:41167/api/artists/1040
       "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
       "_links" : {
         "self" : {
-          "href" : "http://127.0.0.1:41167/api/artists/12"
+          "href" : "http://127.0.0.1:35051/api/artists/12"
         },
         "artists" : {
-          "href" : "http://127.0.0.1:41167/api/artists"
+          "href" : "http://127.0.0.1:35051/api/artists"
         },
         "albums" : {
-          "href" : "http://127.0.0.1:41167/api/artists/12/albums"
+          "href" : "http://127.0.0.1:35051/api/artists/12/albums"
         },
         "genre" : {
-          "href" : "http://127.0.0.1:41167/api/artists/12/genre"
+          "href" : "http://127.0.0.1:35051/api/artists/12/genre"
         }
       }
     }, {
@@ -1939,16 +1911,16 @@ http://127.0.0.1:41167/api/artists/1040
       "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
       "_links" : {
         "self" : {
-          "href" : "http://127.0.0.1:41167/api/artists/13"
+          "href" : "http://127.0.0.1:35051/api/artists/13"
         },
         "artists" : {
-          "href" : "http://127.0.0.1:41167/api/artists"
+          "href" : "http://127.0.0.1:35051/api/artists"
         },
         "albums" : {
-          "href" : "http://127.0.0.1:41167/api/artists/13/albums"
+          "href" : "http://127.0.0.1:35051/api/artists/13/albums"
         },
         "genre" : {
-          "href" : "http://127.0.0.1:41167/api/artists/13/genre"
+          "href" : "http://127.0.0.1:35051/api/artists/13/genre"
         }
       }
     }, {
@@ -1961,16 +1933,16 @@ http://127.0.0.1:41167/api/artists/1040
       "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
       "_links" : {
         "self" : {
-          "href" : "http://127.0.0.1:41167/api/artists/14"
+          "href" : "http://127.0.0.1:35051/api/artists/14"
         },
         "artists" : {
-          "href" : "http://127.0.0.1:41167/api/artists"
+          "href" : "http://127.0.0.1:35051/api/artists"
         },
         "albums" : {
-          "href" : "http://127.0.0.1:41167/api/artists/14/albums"
+          "href" : "http://127.0.0.1:35051/api/artists/14/albums"
         },
         "genre" : {
-          "href" : "http://127.0.0.1:41167/api/artists/14/genre"
+          "href" : "http://127.0.0.1:35051/api/artists/14/genre"
         }
       }
     }, {
@@ -1983,16 +1955,16 @@ http://127.0.0.1:41167/api/artists/1040
       "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
       "_links" : {
         "self" : {
-          "href" : "http://127.0.0.1:41167/api/artists/15"
+          "href" : "http://127.0.0.1:35051/api/artists/15"
         },
         "artists" : {
-          "href" : "http://127.0.0.1:41167/api/artists"
+          "href" : "http://127.0.0.1:35051/api/artists"
         },
         "albums" : {
-          "href" : "http://127.0.0.1:41167/api/artists/15/albums"
+          "href" : "http://127.0.0.1:35051/api/artists/15/albums"
         },
         "genre" : {
-          "href" : "http://127.0.0.1:41167/api/artists/15/genre"
+          "href" : "http://127.0.0.1:35051/api/artists/15/genre"
         }
       }
     }, {
@@ -2005,16 +1977,16 @@ http://127.0.0.1:41167/api/artists/1040
       "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
       "_links" : {
         "self" : {
-          "href" : "http://127.0.0.1:41167/api/artists/16"
+          "href" : "http://127.0.0.1:35051/api/artists/16"
         },
         "artists" : {
-          "href" : "http://127.0.0.1:41167/api/artists"
+          "href" : "http://127.0.0.1:35051/api/artists"
         },
         "albums" : {
-          "href" : "http://127.0.0.1:41167/api/artists/16/albums"
+          "href" : "http://127.0.0.1:35051/api/artists/16/albums"
         },
         "genre" : {
-          "href" : "http://127.0.0.1:41167/api/artists/16/genre"
+          "href" : "http://127.0.0.1:35051/api/artists/16/genre"
         }
       }
     }, {
@@ -2027,16 +1999,16 @@ http://127.0.0.1:41167/api/artists/1040
       "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
       "_links" : {
         "self" : {
-          "href" : "http://127.0.0.1:41167/api/artists/17"
+          "href" : "http://127.0.0.1:35051/api/artists/17"
         },
         "artists" : {
-          "href" : "http://127.0.0.1:41167/api/artists"
+          "href" : "http://127.0.0.1:35051/api/artists"
         },
         "albums" : {
-          "href" : "http://127.0.0.1:41167/api/artists/17/albums"
+          "href" : "http://127.0.0.1:35051/api/artists/17/albums"
         },
         "genre" : {
-          "href" : "http://127.0.0.1:41167/api/artists/17/genre"
+          "href" : "http://127.0.0.1:35051/api/artists/17/genre"
         }
       }
     }, {
@@ -2049,16 +2021,16 @@ http://127.0.0.1:41167/api/artists/1040
       "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
       "_links" : {
         "self" : {
-          "href" : "http://127.0.0.1:41167/api/artists/18"
+          "href" : "http://127.0.0.1:35051/api/artists/18"
         },
         "artists" : {
-          "href" : "http://127.0.0.1:41167/api/artists"
+          "href" : "http://127.0.0.1:35051/api/artists"
         },
         "albums" : {
-          "href" : "http://127.0.0.1:41167/api/artists/18/albums"
+          "href" : "http://127.0.0.1:35051/api/artists/18/albums"
         },
         "genre" : {
-          "href" : "http://127.0.0.1:41167/api/artists/18/genre"
+          "href" : "http://127.0.0.1:35051/api/artists/18/genre"
         }
       }
     }, {
@@ -2071,16 +2043,16 @@ http://127.0.0.1:41167/api/artists/1040
       "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
       "_links" : {
         "self" : {
-          "href" : "http://127.0.0.1:41167/api/artists/19"
+          "href" : "http://127.0.0.1:35051/api/artists/19"
         },
         "artists" : {
-          "href" : "http://127.0.0.1:41167/api/artists"
+          "href" : "http://127.0.0.1:35051/api/artists"
         },
         "albums" : {
-          "href" : "http://127.0.0.1:41167/api/artists/19/albums"
+          "href" : "http://127.0.0.1:35051/api/artists/19/albums"
         },
         "genre" : {
-          "href" : "http://127.0.0.1:41167/api/artists/19/genre"
+          "href" : "http://127.0.0.1:35051/api/artists/19/genre"
         }
       }
     }, {
@@ -2093,16 +2065,16 @@ http://127.0.0.1:41167/api/artists/1040
       "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
       "_links" : {
         "self" : {
-          "href" : "http://127.0.0.1:41167/api/artists/20"
+          "href" : "http://127.0.0.1:35051/api/artists/20"
         },
         "artists" : {
-          "href" : "http://127.0.0.1:41167/api/artists"
+          "href" : "http://127.0.0.1:35051/api/artists"
         },
         "albums" : {
-          "href" : "http://127.0.0.1:41167/api/artists/20/albums"
+          "href" : "http://127.0.0.1:35051/api/artists/20/albums"
         },
         "genre" : {
-          "href" : "http://127.0.0.1:41167/api/artists/20/genre"
+          "href" : "http://127.0.0.1:35051/api/artists/20/genre"
         }
       }
     }, {
@@ -2115,16 +2087,16 @@ http://127.0.0.1:41167/api/artists/1040
       "updated_date" : "Sun, 14 Jan 2018 22:24:59 +0200",
       "_links" : {
         "self" : {
-          "href" : "http://127.0.0.1:41167/api/artists/1021"
+          "href" : "http://127.0.0.1:35051/api/artists/1021"
         },
         "artists" : {
-          "href" : "http://127.0.0.1:41167/api/artists"
+          "href" : "http://127.0.0.1:35051/api/artists"
         },
         "albums" : {
-          "href" : "http://127.0.0.1:41167/api/artists/1021/albums"
+          "href" : "http://127.0.0.1:35051/api/artists/1021/albums"
         },
         "genre" : {
-          "href" : "http://127.0.0.1:41167/api/artists/1021/genre"
+          "href" : "http://127.0.0.1:35051/api/artists/1021/genre"
         }
       }
     }, {
@@ -2137,16 +2109,16 @@ http://127.0.0.1:41167/api/artists/1040
       "updated_date" : "Sun, 14 Jan 2018 22:29:56 +0200",
       "_links" : {
         "self" : {
-          "href" : "http://127.0.0.1:41167/api/artists/1022"
+          "href" : "http://127.0.0.1:35051/api/artists/1022"
         },
         "artists" : {
-          "href" : "http://127.0.0.1:41167/api/artists"
+          "href" : "http://127.0.0.1:35051/api/artists"
         },
         "albums" : {
-          "href" : "http://127.0.0.1:41167/api/artists/1022/albums"
+          "href" : "http://127.0.0.1:35051/api/artists/1022/albums"
         },
         "genre" : {
-          "href" : "http://127.0.0.1:41167/api/artists/1022/genre"
+          "href" : "http://127.0.0.1:35051/api/artists/1022/genre"
         }
       }
     }, {
@@ -2159,16 +2131,16 @@ http://127.0.0.1:41167/api/artists/1040
       "updated_date" : "Sun, 14 Jan 2018 22:36:09 +0200",
       "_links" : {
         "self" : {
-          "href" : "http://127.0.0.1:41167/api/artists/1023"
+          "href" : "http://127.0.0.1:35051/api/artists/1023"
         },
         "artists" : {
-          "href" : "http://127.0.0.1:41167/api/artists"
+          "href" : "http://127.0.0.1:35051/api/artists"
         },
         "albums" : {
-          "href" : "http://127.0.0.1:41167/api/artists/1023/albums"
+          "href" : "http://127.0.0.1:35051/api/artists/1023/albums"
         },
         "genre" : {
-          "href" : "http://127.0.0.1:41167/api/artists/1023/genre"
+          "href" : "http://127.0.0.1:35051/api/artists/1023/genre"
         }
       }
     }, {
@@ -2181,16 +2153,16 @@ http://127.0.0.1:41167/api/artists/1040
       "updated_date" : "Sun, 14 Jan 2018 22:40:07 +0200",
       "_links" : {
         "self" : {
-          "href" : "http://127.0.0.1:41167/api/artists/1024"
+          "href" : "http://127.0.0.1:35051/api/artists/1024"
         },
         "artists" : {
-          "href" : "http://127.0.0.1:41167/api/artists"
+          "href" : "http://127.0.0.1:35051/api/artists"
         },
         "albums" : {
-          "href" : "http://127.0.0.1:41167/api/artists/1024/albums"
+          "href" : "http://127.0.0.1:35051/api/artists/1024/albums"
         },
         "genre" : {
-          "href" : "http://127.0.0.1:41167/api/artists/1024/genre"
+          "href" : "http://127.0.0.1:35051/api/artists/1024/genre"
         }
       }
     }, {
@@ -2203,16 +2175,16 @@ http://127.0.0.1:41167/api/artists/1040
       "updated_date" : "Sun, 14 Jan 2018 22:43:41 +0200",
       "_links" : {
         "self" : {
-          "href" : "http://127.0.0.1:41167/api/artists/1025"
+          "href" : "http://127.0.0.1:35051/api/artists/1025"
         },
         "artists" : {
-          "href" : "http://127.0.0.1:41167/api/artists"
+          "href" : "http://127.0.0.1:35051/api/artists"
         },
         "albums" : {
-          "href" : "http://127.0.0.1:41167/api/artists/1025/albums"
+          "href" : "http://127.0.0.1:35051/api/artists/1025/albums"
         },
         "genre" : {
-          "href" : "http://127.0.0.1:41167/api/artists/1025/genre"
+          "href" : "http://127.0.0.1:35051/api/artists/1025/genre"
         }
       }
     }, {
@@ -2225,32 +2197,32 @@ http://127.0.0.1:41167/api/artists/1040
       "updated_date" : "Sun, 14 Jan 2018 22:45:28 +0200",
       "_links" : {
         "self" : {
-          "href" : "http://127.0.0.1:41167/api/artists/1026"
+          "href" : "http://127.0.0.1:35051/api/artists/1026"
         },
         "artists" : {
-          "href" : "http://127.0.0.1:41167/api/artists"
+          "href" : "http://127.0.0.1:35051/api/artists"
         },
         "albums" : {
-          "href" : "http://127.0.0.1:41167/api/artists/1026/albums"
+          "href" : "http://127.0.0.1:35051/api/artists/1026/albums"
         },
         "genre" : {
-          "href" : "http://127.0.0.1:41167/api/artists/1026/genre"
+          "href" : "http://127.0.0.1:35051/api/artists/1026/genre"
         }
       }
     } ]
   },
   "_links" : {
     "self" : {
-      "href" : "http://127.0.0.1:41167/api/genres/1/artists/?page=0&amp;size=20"
+      "href" : "http://127.0.0.1:35051/api/genres/1/artists/?page=0&amp;size=20"
     },
     "artists" : {
-      "href" : "http://127.0.0.1:41167/api/artists"
+      "href" : "http://127.0.0.1:35051/api/artists"
     },
     "playlists" : {
-      "href" : "http://127.0.0.1:41167/api/playlists"
+      "href" : "http://127.0.0.1:35051/api/playlists"
     },
     "home" : {
-      "href" : "http://127.0.0.1:41167/api/"
+      "href" : "http://127.0.0.1:35051/api/"
     }
   },
   "page" : {
@@ -2261,8 +2233,8 @@ http://127.0.0.1:41167/api/artists/1040
   }
 }
 
-00:24:31.472 DEBUG - response time in milliseconds: 277
-00:24:31.486 INFO  - response:
+01:21:15.345 DEBUG - response time in milliseconds: 270
+01:21:15.348 INFO  - response:
 {
   "_embedded": {
     "artistResources": [
@@ -2276,16 +2248,16 @@ http://127.0.0.1:41167/api/artists/1040
         "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
         "_links": {
           "self": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/11"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/11"
           },
           "artists": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists"
           },
           "albums": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/11\/albums"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/11\/albums"
           },
           "genre": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/11\/genre"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/11\/genre"
           }
         }
       },
@@ -2299,16 +2271,16 @@ http://127.0.0.1:41167/api/artists/1040
         "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
         "_links": {
           "self": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/12"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/12"
           },
           "artists": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists"
           },
           "albums": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/12\/albums"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/12\/albums"
           },
           "genre": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/12\/genre"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/12\/genre"
           }
         }
       },
@@ -2322,16 +2294,16 @@ http://127.0.0.1:41167/api/artists/1040
         "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
         "_links": {
           "self": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/13"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/13"
           },
           "artists": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists"
           },
           "albums": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/13\/albums"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/13\/albums"
           },
           "genre": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/13\/genre"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/13\/genre"
           }
         }
       },
@@ -2345,16 +2317,16 @@ http://127.0.0.1:41167/api/artists/1040
         "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
         "_links": {
           "self": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/14"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/14"
           },
           "artists": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists"
           },
           "albums": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/14\/albums"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/14\/albums"
           },
           "genre": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/14\/genre"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/14\/genre"
           }
         }
       },
@@ -2368,16 +2340,16 @@ http://127.0.0.1:41167/api/artists/1040
         "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
         "_links": {
           "self": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/15"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/15"
           },
           "artists": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists"
           },
           "albums": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/15\/albums"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/15\/albums"
           },
           "genre": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/15\/genre"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/15\/genre"
           }
         }
       },
@@ -2391,16 +2363,16 @@ http://127.0.0.1:41167/api/artists/1040
         "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
         "_links": {
           "self": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/16"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/16"
           },
           "artists": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists"
           },
           "albums": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/16\/albums"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/16\/albums"
           },
           "genre": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/16\/genre"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/16\/genre"
           }
         }
       },
@@ -2414,16 +2386,16 @@ http://127.0.0.1:41167/api/artists/1040
         "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
         "_links": {
           "self": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/17"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/17"
           },
           "artists": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists"
           },
           "albums": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/17\/albums"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/17\/albums"
           },
           "genre": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/17\/genre"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/17\/genre"
           }
         }
       },
@@ -2437,16 +2409,16 @@ http://127.0.0.1:41167/api/artists/1040
         "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
         "_links": {
           "self": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/18"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/18"
           },
           "artists": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists"
           },
           "albums": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/18\/albums"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/18\/albums"
           },
           "genre": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/18\/genre"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/18\/genre"
           }
         }
       },
@@ -2460,16 +2432,16 @@ http://127.0.0.1:41167/api/artists/1040
         "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
         "_links": {
           "self": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/19"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/19"
           },
           "artists": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists"
           },
           "albums": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/19\/albums"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/19\/albums"
           },
           "genre": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/19\/genre"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/19\/genre"
           }
         }
       },
@@ -2483,16 +2455,16 @@ http://127.0.0.1:41167/api/artists/1040
         "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
         "_links": {
           "self": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/20"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/20"
           },
           "artists": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists"
           },
           "albums": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/20\/albums"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/20\/albums"
           },
           "genre": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/20\/genre"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/20\/genre"
           }
         }
       },
@@ -2506,16 +2478,16 @@ http://127.0.0.1:41167/api/artists/1040
         "updated_date": "Sun, 14 Jan 2018 22:24:59 +0200",
         "_links": {
           "self": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1021"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1021"
           },
           "artists": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists"
           },
           "albums": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1021\/albums"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1021\/albums"
           },
           "genre": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1021\/genre"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1021\/genre"
           }
         }
       },
@@ -2529,16 +2501,16 @@ http://127.0.0.1:41167/api/artists/1040
         "updated_date": "Sun, 14 Jan 2018 22:29:56 +0200",
         "_links": {
           "self": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1022"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1022"
           },
           "artists": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists"
           },
           "albums": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1022\/albums"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1022\/albums"
           },
           "genre": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1022\/genre"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1022\/genre"
           }
         }
       },
@@ -2552,16 +2524,16 @@ http://127.0.0.1:41167/api/artists/1040
         "updated_date": "Sun, 14 Jan 2018 22:36:09 +0200",
         "_links": {
           "self": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1023"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1023"
           },
           "artists": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists"
           },
           "albums": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1023\/albums"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1023\/albums"
           },
           "genre": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1023\/genre"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1023\/genre"
           }
         }
       },
@@ -2575,16 +2547,16 @@ http://127.0.0.1:41167/api/artists/1040
         "updated_date": "Sun, 14 Jan 2018 22:40:07 +0200",
         "_links": {
           "self": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1024"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1024"
           },
           "artists": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists"
           },
           "albums": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1024\/albums"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1024\/albums"
           },
           "genre": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1024\/genre"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1024\/genre"
           }
         }
       },
@@ -2598,16 +2570,16 @@ http://127.0.0.1:41167/api/artists/1040
         "updated_date": "Sun, 14 Jan 2018 22:43:41 +0200",
         "_links": {
           "self": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1025"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1025"
           },
           "artists": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists"
           },
           "albums": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1025\/albums"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1025\/albums"
           },
           "genre": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1025\/genre"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1025\/genre"
           }
         }
       },
@@ -2621,16 +2593,16 @@ http://127.0.0.1:41167/api/artists/1040
         "updated_date": "Sun, 14 Jan 2018 22:45:28 +0200",
         "_links": {
           "self": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1026"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1026"
           },
           "artists": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists"
           },
           "albums": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1026\/albums"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1026\/albums"
           },
           "genre": {
-            "href": "http:\/\/127.0.0.1:41167\/api\/artists\/1026\/genre"
+            "href": "http:\/\/127.0.0.1:35051\/api\/artists\/1026\/genre"
           }
         }
       }
@@ -2638,16 +2610,16 @@ http://127.0.0.1:41167/api/artists/1040
   },
   "_links": {
     "self": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/genres\/1\/artists\/?page=0&amp;size=20"
+      "href": "http:\/\/127.0.0.1:35051\/api\/genres\/1\/artists\/?page=0&amp;size=20"
     },
     "artists": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/artists"
+      "href": "http:\/\/127.0.0.1:35051\/api\/artists"
     },
     "playlists": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/playlists"
+      "href": "http:\/\/127.0.0.1:35051\/api\/playlists"
     },
     "home": {
-      "href": "http:\/\/127.0.0.1:41167\/api\/"
+      "href": "http:\/\/127.0.0.1:35051\/api\/"
     }
   },
   "page": {
@@ -2661,19 +2633,19 @@ http://127.0.0.1:41167/api/artists/1040
 </pre>
 <div class="step-row">
 <div class="step-cell">Then status 200</div>
-<div class="time-cell">0.000137</div>
+<div class="time-cell">0.000136</div>
 </div>
 <div class="step-row">
 <div class="step-cell">And match response._embedded.artistResources == '#[] artistStructure'</div>
-<div class="time-cell">0.022814</div>
+<div class="time-cell">0.013442</div>
 </div>
 <div class="step-row">
 <div class="step-cell">And match response._links == linksStructure</div>
-<div class="time-cell">0.000412</div>
+<div class="time-cell">0.000425</div>
 </div>
 <div class="step-row">
 <div class="step-cell">And match response.page == pageStructure</div>
-<div class="time-cell">0.001357</div>
+<div class="time-cell">0.000321</div>
 </div>
 </div>
 </div>

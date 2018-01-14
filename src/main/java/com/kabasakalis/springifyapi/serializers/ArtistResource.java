@@ -1,5 +1,6 @@
 package com.kabasakalis.springifyapi.serializers;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.kabasakalis.springifyapi.domain.Artist;
 import com.kabasakalis.springifyapi.domain.Genre;
 
@@ -9,6 +10,7 @@ import static java.util.Optional.ofNullable;
 
 public class ArtistResource extends BaseResourceSupport {
 
+    @JsonProperty
     public long id;
     public String name;
     public String  genre;

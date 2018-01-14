@@ -1,9 +1,11 @@
 package com.kabasakalis.springifyapi.serializers;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.kabasakalis.springifyapi.domain.Genre;
 
 public class GenreResource extends BaseResourceSupport {
 
+    @JsonProperty
     public long id;
     public String name;
     public int artists_count;

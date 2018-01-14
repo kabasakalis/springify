@@ -1,5 +1,5 @@
-@ignore
-Feature: delete a  genre
+# @ignore
+Feature:  Delete
 
   Background:
     # create a genre just to delete it
@@ -9,7 +9,7 @@ Feature: delete a  genre
     * set postData.payload = payload
     * def post = call read('classpath:springifyapi/common/genericPost.feature') { postData: '#(postData)' }
 
-  Scenario: Delete the genre we just created
+  Scenario: delete a genre
     Given url post.genericPostResult.location
     When method delete
     Then status 200

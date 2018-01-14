@@ -1,6 +1,7 @@
 
 package com.kabasakalis.springifyapi.serializers;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.kabasakalis.springifyapi.domain.Role;
 import com.kabasakalis.springifyapi.domain.SpringifyUser;
 
@@ -8,6 +9,7 @@ import java.util.stream.Collectors;
 
 public class UserResource extends BaseResourceSupport {
 
+    @JsonProperty
     public long id;
     public String name;
     public String token;

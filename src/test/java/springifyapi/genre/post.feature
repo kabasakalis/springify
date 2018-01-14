@@ -1,5 +1,5 @@
-@ignore
-Feature: Create a genre
+# @ignore
+Feature: Post
 
 Background:
   # set up post data
@@ -14,7 +14,7 @@ Background:
   * def location = post.genericPostResult.location
   * print 'genericPostResult', karate.pretty(genericPostResult)
 
-Scenario: Verify a genre was created
+Scenario: create a new genre
 
 Given url location
 When method get

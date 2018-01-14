@@ -1,9 +1,11 @@
 package com.kabasakalis.springifyapi.serializers;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.kabasakalis.springifyapi.domain.Role;
 
 public class RoleResource extends BaseResourceSupport {
 
+    @JsonProperty
     public long id;
     public String name;
     public String created_date;
