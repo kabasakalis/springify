@@ -31,6 +31,7 @@ insert into genres (id, name ) values (3, 'Pop');
 insert into genres (id, name ) values (4, 'Rap');
 insert into genres (id, name) values (5, 'Trap');
 insert into genres (id, name) values (6, 'Soundtrack');
+insert into genres (id, name) values (7, 'Eurodance');
 
 
 -- Artists -------------------------------------------------------------------------------

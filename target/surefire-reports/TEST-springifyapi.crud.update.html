@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>springifyapi/crud/update.feature</title>
+<style>body { font-family: monospace, monospace; font-size: small; } table { border-collapse: collapse; } table td { border: 1px solid gray; padding: 0.1em 0.2em; } .scenario-heading { background-color: #F5F28F; padding: 0.2em 0.5em; border-bottom: 1px solid gray; } .scenario-name { font-weight: bold; } .scenario { border: 1px solid gray; margin-bottom: 1em; } .scenario-steps { padding-left: 0.2em; } .scenario-steps-nested { padding-left: 2em; } .step-row { margin: 0.2em 0; } .step-cell { background-color: #92DD96; display: inline-block; width: 85%; padding: 0.2em 0.5em; } .time-cell { background-color: #92DD96; display: inline-block; width: 10%; padding: 0.2em 0.5em; } .failed { background-color: #F2928C; } .skipped { background-color: #8AF; }</style>
+</head>
+<body>
+<div>
+<div class="scenario">
+<div class="scenario-heading">
+<span class="scenario-keyword">Scenario: </span><span class="scenario-name">update a genre</span>
+</div>
+<div class="scenario-steps">
+<div class="step-row">
+<div class="step-cell">* url baseUrl</div>
+<div class="time-cell">0.507251</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* call classpath:springifyapi/common/setHeaders.feature</div>
+<div class="time-cell">0</div>
+</div>
+<pre>{
+  "config": {
+    "user": "admin",
+    "baseUrl": "http:\/\/127.0.0.1:35823\/api\/"
+  }
+}
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* print 'Config passed: ', karate.pretty(config)</div>
+<div class="time-cell">0</div>
+</div>
+<pre>02:32:11.530 INFO  - [print] Config passed:  {
+  "user": "admin",
+  "baseUrl": "http:\/\/127.0.0.1:35823\/api\/"
+}
+
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* def creds = read('classpath:springifyapi/data/'+ config.user + '.json')</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* url baseUrl</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">Given url baseUrl</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">And path 'login'</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">And request creds</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">When method post</div>
+<div class="time-cell">0</div>
+</div>
+<pre>02:32:11.581 INFO  - request:
+{
+  "password": "11111111",
+  "username": "admin"
+}
+
+02:32:11.583 DEBUG - 
+1 &gt; POST http://127.0.0.1:35823/api/login
+1 &gt; Accept-Encoding: gzip,deflate
+1 &gt; Connection: Keep-Alive
+1 &gt; Content-Length: 42
+1 &gt; Content-Type: application/json
+1 &gt; Host: 127.0.0.1:35823
+1 &gt; User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_151)
+{"password":"11111111","username":"admin"}
+
+02:32:11.797 DEBUG - 
+1 &lt; 200
+1 &lt; Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+1 &lt; Content-Type: application/hal+json;charset=UTF-8
+1 &lt; Date: Sun, 14 Jan 2018 00:32:11 GMT
+1 &lt; Expires: 0
+1 &lt; Pragma: no-cache
+1 &lt; Token: eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY1ODgzMzEsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.2SR_wC8VPl2q8rc4qS7Ay4p5Rha01SdsplDAHKod3NAu7mJAV6QNcPSZ6FDgAfMK7mL8PRZVaWwVcSKVtFBF_Q
+1 &lt; Transfer-Encoding: chunked
+1 &lt; X-Application-Context: application:0
+1 &lt; X-Content-Type-Options: nosniff
+1 &lt; X-Frame-Options: DENY
+1 &lt; X-XSS-Protection: 1; mode=block
+{
+  "username" : "admin",
+  "email" : "admin@springify.com",
+  "password" : "$2a$10$UClj/ChiXzRXcT6HvSdOpePZFzTIJs9CYDagygovYbM0TDzMRe7Di",
+  "jwtToken" : "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY1ODgzMzEsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.2SR_wC8VPl2q8rc4qS7Ay4p5Rha01SdsplDAHKod3NAu7mJAV6QNcPSZ6FDgAfMK7mL8PRZVaWwVcSKVtFBF_Q",
+  "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+  "created_date" : "Sat, 13 Jan 2018 23:47:57 +0200"
+}
+
+02:32:11.797 DEBUG - response time in milliseconds: 216
+02:32:11.798 INFO  - response:
+{
+  "username": "admin",
+  "email": "admin@springify.com",
+  "password": "$2a$10$UClj\/ChiXzRXcT6HvSdOpePZFzTIJs9CYDagygovYbM0TDzMRe7Di",
+  "jwtToken": "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY1ODgzMzEsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.2SR_wC8VPl2q8rc4qS7Ay4p5Rha01SdsplDAHKod3NAu7mJAV6QNcPSZ6FDgAfMK7mL8PRZVaWwVcSKVtFBF_Q",
+  "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+  "created_date": "Sat, 13 Jan 2018 23:47:57 +0200"
+}
+
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">Then status 200</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* def jwtToken = response.jwtToken</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* print 'jwtToken OK: ', karate.pretty(jwtToken)</div>
+<div class="time-cell">0</div>
+</div>
+<pre>02:32:11.820 INFO  - [print] jwtToken OK:  eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY1ODgzMzEsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.2SR_wC8VPl2q8rc4qS7Ay4p5Rha01SdsplDAHKod3NAu7mJAV6QNcPSZ6FDgAfMK7mL8PRZVaWwVcSKVtFBF_Q
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* def defaultHeaders =  call read('classpath:springifyapi/common/HeadersFun.js')  { jwtToken:  '#(jwtToken)' }</div>
+<div class="time-cell">0</div>
+</div>
+<pre>02:32:11.873 INFO  - AUTH {jwtToken=eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY1ODgzMzEsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.2SR_wC8VPl2q8rc4qS7Ay4p5Rha01SdsplDAHKod3NAu7mJAV6QNcPSZ6FDgAfMK7mL8PRZVaWwVcSKVtFBF_Q} 
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* configure headers = defaultHeaders</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="step-row">
+<div class="step-cell">Given path 'genres', 2</div>
+<div class="time-cell">0.01759</div>
+</div>
+<div class="step-row">
+<div class="step-cell">And request { name: 'Thrash Metal' }</div>
+<div class="time-cell">0.000241</div>
+</div>
+<div class="step-row">
+<div class="step-cell">When method patch</div>
+<div class="time-cell">0.119498</div>
+</div>
+<pre>02:32:11.899 INFO  - request:
+{
+  "name": "Thrash Metal"
+}
+
+02:32:11.901 DEBUG - 
+1 &gt; PATCH http://127.0.0.1:35823/api/genres/2
+1 &gt; Accept-Encoding: gzip,deflate
+1 &gt; Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY1ODgzMzEsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.2SR_wC8VPl2q8rc4qS7Ay4p5Rha01SdsplDAHKod3NAu7mJAV6QNcPSZ6FDgAfMK7mL8PRZVaWwVcSKVtFBF_Q
+1 &gt; Connection: Keep-Alive
+1 &gt; Content-Length: 23
+1 &gt; Content-Type: application/json
+1 &gt; Host: 127.0.0.1:35823
+1 &gt; User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_151)
+{"name":"Thrash Metal"}
+
+02:32:12.017 DEBUG - 
+1 &lt; 200
+1 &lt; Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+1 &lt; Content-Type: application/hal+json;charset=UTF-8
+1 &lt; Date: Sun, 14 Jan 2018 00:32:11 GMT
+1 &lt; Expires: 0
+1 &lt; Pragma: no-cache
+1 &lt; Set-Cookie: JSESSIONID=12F35EEB7458F9BF782B79F665257F8A; Path=/api; HttpOnly
+1 &lt; Transfer-Encoding: chunked
+1 &lt; X-Application-Context: application:0
+1 &lt; X-Content-Type-Options: nosniff
+1 &lt; X-Frame-Options: DENY
+1 &lt; X-XSS-Protection: 1; mode=block
+{
+  "name" : "Thrash Metal",
+  "updated_date" : "Sun, 14 Jan 2018 02:32:11 +0200",
+  "created_date" : "Sun, 14 Jan 2018 02:32:11 +0200"
+}
+
+02:32:12.018 DEBUG - response time in milliseconds: 118
+02:32:12.018 INFO  - response:
+{
+  "name": "Thrash Metal",
+  "updated_date": "Sun, 14 Jan 2018 02:32:11 +0200",
+  "created_date": "Sun, 14 Jan 2018 02:32:11 +0200"
+}
+
+</pre>
+<div class="step-row">
+<div class="step-cell">Then status 200</div>
+<div class="time-cell">0.000155</div>
+</div>
+<div class="step-row">
+<div class="step-cell">And match response contains { name: 'Thrash Metal' }</div>
+<div class="time-cell">0.001636</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

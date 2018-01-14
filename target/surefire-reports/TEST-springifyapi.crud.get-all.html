@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>springifyapi/crud/get-all.feature</title>
+<style>body { font-family: monospace, monospace; font-size: small; } table { border-collapse: collapse; } table td { border: 1px solid gray; padding: 0.1em 0.2em; } .scenario-heading { background-color: #F5F28F; padding: 0.2em 0.5em; border-bottom: 1px solid gray; } .scenario-name { font-weight: bold; } .scenario { border: 1px solid gray; margin-bottom: 1em; } .scenario-steps { padding-left: 0.2em; } .scenario-steps-nested { padding-left: 2em; } .step-row { margin: 0.2em 0; } .step-cell { background-color: #92DD96; display: inline-block; width: 85%; padding: 0.2em 0.5em; } .time-cell { background-color: #92DD96; display: inline-block; width: 10%; padding: 0.2em 0.5em; } .failed { background-color: #F2928C; } .skipped { background-color: #8AF; }</style>
+</head>
+<body>
+<div>
+<div class="scenario">
+<div class="scenario-heading">
+<span class="scenario-keyword">Scenario: </span><span class="scenario-name">retrieve all with links and pagination</span>
+</div>
+<div class="scenario-steps">
+<div class="step-row">
+<div class="step-cell">* url baseUrl</div>
+<div class="time-cell">4.191532</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* call classpath:springifyapi/common/setHeaders.feature</div>
+<div class="time-cell">0</div>
+</div>
+<pre>{
+  "config": {
+    "user": "admin",
+    "baseUrl": "http:\/\/127.0.0.1:35823\/api\/"
+  }
+}
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* print 'Config passed: ', karate.pretty(config)</div>
+<div class="time-cell">0</div>
+</div>
+<pre>02:32:07.300 INFO  - [print] Config passed:  {
+  "user": "admin",
+  "baseUrl": "http:\/\/127.0.0.1:35823\/api\/"
+}
+
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* def creds = read('classpath:springifyapi/data/'+ config.user + '.json')</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* url baseUrl</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">Given url baseUrl</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">And path 'login'</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">And request creds</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">When method post</div>
+<div class="time-cell">0</div>
+</div>
+<pre>02:32:07.414 INFO  - request:
+{
+  "password": "11111111",
+  "username": "admin"
+}
+
+02:32:07.929 DEBUG - 
+1 &gt; POST http://127.0.0.1:35823/api/login
+1 &gt; Accept-Encoding: gzip,deflate
+1 &gt; Connection: Keep-Alive
+1 &gt; Content-Length: 42
+1 &gt; Content-Type: application/json
+1 &gt; Host: 127.0.0.1:35823
+1 &gt; User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_151)
+{"password":"11111111","username":"admin"}
+
+02:32:09.590 DEBUG - 
+1 &lt; 200
+1 &lt; Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+1 &lt; Content-Type: application/hal+json;charset=UTF-8
+1 &lt; Date: Sun, 14 Jan 2018 00:32:09 GMT
+1 &lt; Expires: 0
+1 &lt; Pragma: no-cache
+1 &lt; Token: eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY1ODgzMjksImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.TdC4ENR8GVpK2OOEq0rj15_F7cuPTnkyiNT8p8k8GCoavaI_Qnxa15GkLdXLG5myjnSfxqNRSblqxDTlF4Uu4A
+1 &lt; Transfer-Encoding: chunked
+1 &lt; X-Application-Context: application:0
+1 &lt; X-Content-Type-Options: nosniff
+1 &lt; X-Frame-Options: DENY
+1 &lt; X-XSS-Protection: 1; mode=block
+{
+  "username" : "admin",
+  "email" : "admin@springify.com",
+  "password" : "$2a$10$UClj/ChiXzRXcT6HvSdOpePZFzTIJs9CYDagygovYbM0TDzMRe7Di",
+  "jwtToken" : "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY1ODgzMjksImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.TdC4ENR8GVpK2OOEq0rj15_F7cuPTnkyiNT8p8k8GCoavaI_Qnxa15GkLdXLG5myjnSfxqNRSblqxDTlF4Uu4A",
+  "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+  "created_date" : "Sat, 13 Jan 2018 23:47:57 +0200"
+}
+
+02:32:09.593 DEBUG - response time in milliseconds: 2159
+02:32:09.596 INFO  - response:
+{
+  "username": "admin",
+  "email": "admin@springify.com",
+  "password": "$2a$10$UClj\/ChiXzRXcT6HvSdOpePZFzTIJs9CYDagygovYbM0TDzMRe7Di",
+  "jwtToken": "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY1ODgzMjksImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.TdC4ENR8GVpK2OOEq0rj15_F7cuPTnkyiNT8p8k8GCoavaI_Qnxa15GkLdXLG5myjnSfxqNRSblqxDTlF4Uu4A",
+  "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+  "created_date": "Sat, 13 Jan 2018 23:47:57 +0200"
+}
+
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">Then status 200</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* def jwtToken = response.jwtToken</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* print 'jwtToken OK: ', karate.pretty(jwtToken)</div>
+<div class="time-cell">0</div>
+</div>
+<pre>02:32:09.688 INFO  - [print] jwtToken OK:  eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY1ODgzMjksImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.TdC4ENR8GVpK2OOEq0rj15_F7cuPTnkyiNT8p8k8GCoavaI_Qnxa15GkLdXLG5myjnSfxqNRSblqxDTlF4Uu4A
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* def defaultHeaders =  call read('classpath:springifyapi/common/HeadersFun.js')  { jwtToken:  '#(jwtToken)' }</div>
+<div class="time-cell">0</div>
+</div>
+<pre>02:32:09.827 INFO  - AUTH {jwtToken=eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY1ODgzMjksImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.TdC4ENR8GVpK2OOEq0rj15_F7cuPTnkyiNT8p8k8GCoavaI_Qnxa15GkLdXLG5myjnSfxqNRSblqxDTlF4Uu4A} 
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* configure headers = defaultHeaders</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="step-row">
+<div class="step-cell">* def genresBaseUrl = baseUrl + 'genres'</div>
+<div class="time-cell">0.013348</div>
+</div>
+<div class="step-row">
+<div class="step-cell">Given path 'genres'</div>
+<div class="time-cell">0.019574</div>
+</div>
+<div class="step-row">
+<div class="step-cell">When method get</div>
+<div class="time-cell">0.571256</div>
+</div>
+<pre>02:32:09.906 DEBUG - 
+1 &gt; GET http://127.0.0.1:35823/api/genres
+1 &gt; Accept-Encoding: gzip,deflate
+1 &gt; Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY1ODgzMjksImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.TdC4ENR8GVpK2OOEq0rj15_F7cuPTnkyiNT8p8k8GCoavaI_Qnxa15GkLdXLG5myjnSfxqNRSblqxDTlF4Uu4A
+1 &gt; Connection: Keep-Alive
+1 &gt; Content-Type: application/json
+1 &gt; Host: 127.0.0.1:35823
+1 &gt; User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_151)
+
+02:32:10.468 DEBUG - 
+1 &lt; 200
+1 &lt; Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+1 &lt; Content-Type: application/hal+json;charset=UTF-8
+1 &lt; Date: Sun, 14 Jan 2018 00:32:09 GMT
+1 &lt; Expires: 0
+1 &lt; Pragma: no-cache
+1 &lt; Set-Cookie: JSESSIONID=FDC43CCCD11E479C15D996F4E4944568; Path=/api; HttpOnly
+1 &lt; Transfer-Encoding: chunked
+1 &lt; X-Application-Context: application:0
+1 &lt; X-Content-Type-Options: nosniff
+1 &lt; X-Frame-Options: DENY
+1 &lt; X-XSS-Protection: 1; mode=block
+{
+  "_embedded" : {
+    "genreResources" : [ {
+      "name" : "Rock",
+      "artists_count" : 10,
+      "created_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:35823/api/genres/1"
+        },
+        "genres" : {
+          "href" : "http://127.0.0.1:35823/api/genres"
+        },
+        "artists" : {
+          "href" : "http://127.0.0.1:35823/api/genres/1/artists"
+        }
+      }
+    }, {
+      "name" : "Pop",
+      "artists_count" : 7,
+      "created_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:35823/api/genres/3"
+        },
+        "genres" : {
+          "href" : "http://127.0.0.1:35823/api/genres"
+        },
+        "artists" : {
+          "href" : "http://127.0.0.1:35823/api/genres/3/artists"
+        }
+      }
+    }, {
+      "name" : "Rap",
+      "artists_count" : 5,
+      "created_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:35823/api/genres/4"
+        },
+        "genres" : {
+          "href" : "http://127.0.0.1:35823/api/genres"
+        },
+        "artists" : {
+          "href" : "http://127.0.0.1:35823/api/genres/4/artists"
+        }
+      }
+    }, {
+      "name" : "Trap",
+      "artists_count" : 3,
+      "created_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:35823/api/genres/5"
+        },
+        "genres" : {
+          "href" : "http://127.0.0.1:35823/api/genres"
+        },
+        "artists" : {
+          "href" : "http://127.0.0.1:35823/api/genres/5/artists"
+        }
+      }
+    }, {
+      "name" : "Soundtrack",
+      "artists_count" : 4,
+      "created_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:35823/api/genres/6"
+        },
+        "genres" : {
+          "href" : "http://127.0.0.1:35823/api/genres"
+        },
+        "artists" : {
+          "href" : "http://127.0.0.1:35823/api/genres/6/artists"
+        }
+      }
+    }, {
+      "name" : "Eurodance",
+      "artists_count" : 0,
+      "created_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:35823/api/genres/7"
+        },
+        "genres" : {
+          "href" : "http://127.0.0.1:35823/api/genres"
+        },
+        "artists" : {
+          "href" : "http://127.0.0.1:35823/api/genres/7/artists"
+        }
+      }
+    }, {
+      "name" : "EDM",
+      "artists_count" : 0,
+      "created_date" : "Sun, 14 Jan 2018 01:48:34 +0200",
+      "updated_date" : "Sun, 14 Jan 2018 01:48:34 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:35823/api/genres/100"
+        },
+        "genres" : {
+          "href" : "http://127.0.0.1:35823/api/genres"
+        },
+        "artists" : {
+          "href" : "http://127.0.0.1:35823/api/genres/100/artists"
+        }
+      }
+    }, {
+      "name" : "EDM",
+      "artists_count" : 0,
+      "created_date" : "Sun, 14 Jan 2018 01:51:38 +0200",
+      "updated_date" : "Sun, 14 Jan 2018 01:51:38 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:35823/api/genres/101"
+        },
+        "genres" : {
+          "href" : "http://127.0.0.1:35823/api/genres"
+        },
+        "artists" : {
+          "href" : "http://127.0.0.1:35823/api/genres/101/artists"
+        }
+      }
+    }, {
+      "name" : "EDM",
+      "artists_count" : 0,
+      "created_date" : "Sun, 14 Jan 2018 01:56:44 +0200",
+      "updated_date" : "Sun, 14 Jan 2018 01:56:44 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:35823/api/genres/102"
+        },
+        "genres" : {
+          "href" : "http://127.0.0.1:35823/api/genres"
+        },
+        "artists" : {
+          "href" : "http://127.0.0.1:35823/api/genres/102/artists"
+        }
+      }
+    }, {
+      "name" : "EDM",
+      "artists_count" : 0,
+      "created_date" : "Sun, 14 Jan 2018 01:58:43 +0200",
+      "updated_date" : "Sun, 14 Jan 2018 01:58:43 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:35823/api/genres/103"
+        },
+        "genres" : {
+          "href" : "http://127.0.0.1:35823/api/genres"
+        },
+        "artists" : {
+          "href" : "http://127.0.0.1:35823/api/genres/103/artists"
+        }
+      }
+    }, {
+      "name" : "EDM",
+      "artists_count" : 0,
+      "created_date" : "Sun, 14 Jan 2018 02:05:32 +0200",
+      "updated_date" : "Sun, 14 Jan 2018 02:05:32 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:35823/api/genres/104"
+        },
+        "genres" : {
+          "href" : "http://127.0.0.1:35823/api/genres"
+        },
+        "artists" : {
+          "href" : "http://127.0.0.1:35823/api/genres/104/artists"
+        }
+      }
+    }, {
+      "name" : "EDM",
+      "artists_count" : 0,
+      "created_date" : "Sun, 14 Jan 2018 02:07:27 +0200",
+      "updated_date" : "Sun, 14 Jan 2018 02:07:27 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:35823/api/genres/105"
+        },
+        "genres" : {
+          "href" : "http://127.0.0.1:35823/api/genres"
+        },
+        "artists" : {
+          "href" : "http://127.0.0.1:35823/api/genres/105/artists"
+        }
+      }
+    }, {
+      "name" : "EDM",
+      "artists_count" : 0,
+      "created_date" : "Sun, 14 Jan 2018 02:11:55 +0200",
+      "updated_date" : "Sun, 14 Jan 2018 02:11:55 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:35823/api/genres/106"
+        },
+        "genres" : {
+          "href" : "http://127.0.0.1:35823/api/genres"
+        },
+        "artists" : {
+          "href" : "http://127.0.0.1:35823/api/genres/106/artists"
+        }
+      }
+    }, {
+      "name" : "EDM",
+      "artists_count" : 0,
+      "created_date" : "Sun, 14 Jan 2018 02:14:19 +0200",
+      "updated_date" : "Sun, 14 Jan 2018 02:14:19 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:35823/api/genres/107"
+        },
+        "genres" : {
+          "href" : "http://127.0.0.1:35823/api/genres"
+        },
+        "artists" : {
+          "href" : "http://127.0.0.1:35823/api/genres/107/artists"
+        }
+      }
+    }, {
+      "name" : "EDM",
+      "artists_count" : 0,
+      "created_date" : "Sun, 14 Jan 2018 02:21:05 +0200",
+      "updated_date" : "Sun, 14 Jan 2018 02:21:05 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:35823/api/genres/108"
+        },
+        "genres" : {
+          "href" : "http://127.0.0.1:35823/api/genres"
+        },
+        "artists" : {
+          "href" : "http://127.0.0.1:35823/api/genres/108/artists"
+        }
+      }
+    }, {
+      "name" : "EDM",
+      "artists_count" : 0,
+      "created_date" : "Sun, 14 Jan 2018 02:23:34 +0200",
+      "updated_date" : "Sun, 14 Jan 2018 02:23:34 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:35823/api/genres/109"
+        },
+        "genres" : {
+          "href" : "http://127.0.0.1:35823/api/genres"
+        },
+        "artists" : {
+          "href" : "http://127.0.0.1:35823/api/genres/109/artists"
+        }
+      }
+    }, {
+      "name" : "Thrash Metal",
+      "artists_count" : 10,
+      "created_date" : "Sun, 14 Jan 2018 02:23:35 +0200",
+      "updated_date" : "Sun, 14 Jan 2018 02:23:35 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:35823/api/genres/2"
+        },
+        "genres" : {
+          "href" : "http://127.0.0.1:35823/api/genres"
+        },
+        "artists" : {
+          "href" : "http://127.0.0.1:35823/api/genres/2/artists"
+        }
+      }
+    } ]
+  },
+  "_links" : {
+    "self" : {
+      "href" : "http://127.0.0.1:35823/api/genres?page=0&amp;size=20"
+    },
+    "artists" : {
+      "href" : "http://127.0.0.1:35823/api/artists"
+    },
+    "playlists" : {
+      "href" : "http://127.0.0.1:35823/api/playlists"
+    },
+    "home" : {
+      "href" : "http://127.0.0.1:35823/api/"
+    }
+  },
+  "page" : {
+    "size" : 20,
+    "totalElements" : 17,
+    "totalPages" : 1,
+    "number" : 0
+  }
+}
+
+02:32:10.469 DEBUG - response time in milliseconds: 565
+02:32:10.474 INFO  - response:
+{
+  "_embedded": {
+    "genreResources": [
+      {
+        "name": "Rock",
+        "artists_count": 10,
+        "created_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/1"
+          },
+          "genres": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres"
+          },
+          "artists": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/1\/artists"
+          }
+        }
+      },
+      {
+        "name": "Pop",
+        "artists_count": 7,
+        "created_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/3"
+          },
+          "genres": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres"
+          },
+          "artists": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/3\/artists"
+          }
+        }
+      },
+      {
+        "name": "Rap",
+        "artists_count": 5,
+        "created_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/4"
+          },
+          "genres": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres"
+          },
+          "artists": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/4\/artists"
+          }
+        }
+      },
+      {
+        "name": "Trap",
+        "artists_count": 3,
+        "created_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/5"
+          },
+          "genres": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres"
+          },
+          "artists": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/5\/artists"
+          }
+        }
+      },
+      {
+        "name": "Soundtrack",
+        "artists_count": 4,
+        "created_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/6"
+          },
+          "genres": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres"
+          },
+          "artists": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/6\/artists"
+          }
+        }
+      },
+      {
+        "name": "Eurodance",
+        "artists_count": 0,
+        "created_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/7"
+          },
+          "genres": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres"
+          },
+          "artists": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/7\/artists"
+          }
+        }
+      },
+      {
+        "name": "EDM",
+        "artists_count": 0,
+        "created_date": "Sun, 14 Jan 2018 01:48:34 +0200",
+        "updated_date": "Sun, 14 Jan 2018 01:48:34 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/100"
+          },
+          "genres": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres"
+          },
+          "artists": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/100\/artists"
+          }
+        }
+      },
+      {
+        "name": "EDM",
+        "artists_count": 0,
+        "created_date": "Sun, 14 Jan 2018 01:51:38 +0200",
+        "updated_date": "Sun, 14 Jan 2018 01:51:38 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/101"
+          },
+          "genres": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres"
+          },
+          "artists": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/101\/artists"
+          }
+        }
+      },
+      {
+        "name": "EDM",
+        "artists_count": 0,
+        "created_date": "Sun, 14 Jan 2018 01:56:44 +0200",
+        "updated_date": "Sun, 14 Jan 2018 01:56:44 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/102"
+          },
+          "genres": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres"
+          },
+          "artists": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/102\/artists"
+          }
+        }
+      },
+      {
+        "name": "EDM",
+        "artists_count": 0,
+        "created_date": "Sun, 14 Jan 2018 01:58:43 +0200",
+        "updated_date": "Sun, 14 Jan 2018 01:58:43 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/103"
+          },
+          "genres": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres"
+          },
+          "artists": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/103\/artists"
+          }
+        }
+      },
+      {
+        "name": "EDM",
+        "artists_count": 0,
+        "created_date": "Sun, 14 Jan 2018 02:05:32 +0200",
+        "updated_date": "Sun, 14 Jan 2018 02:05:32 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/104"
+          },
+          "genres": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres"
+          },
+          "artists": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/104\/artists"
+          }
+        }
+      },
+      {
+        "name": "EDM",
+        "artists_count": 0,
+        "created_date": "Sun, 14 Jan 2018 02:07:27 +0200",
+        "updated_date": "Sun, 14 Jan 2018 02:07:27 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/105"
+          },
+          "genres": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres"
+          },
+          "artists": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/105\/artists"
+          }
+        }
+      },
+      {
+        "name": "EDM",
+        "artists_count": 0,
+        "created_date": "Sun, 14 Jan 2018 02:11:55 +0200",
+        "updated_date": "Sun, 14 Jan 2018 02:11:55 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/106"
+          },
+          "genres": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres"
+          },
+          "artists": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/106\/artists"
+          }
+        }
+      },
+      {
+        "name": "EDM",
+        "artists_count": 0,
+        "created_date": "Sun, 14 Jan 2018 02:14:19 +0200",
+        "updated_date": "Sun, 14 Jan 2018 02:14:19 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/107"
+          },
+          "genres": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres"
+          },
+          "artists": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/107\/artists"
+          }
+        }
+      },
+      {
+        "name": "EDM",
+        "artists_count": 0,
+        "created_date": "Sun, 14 Jan 2018 02:21:05 +0200",
+        "updated_date": "Sun, 14 Jan 2018 02:21:05 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/108"
+          },
+          "genres": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres"
+          },
+          "artists": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/108\/artists"
+          }
+        }
+      },
+      {
+        "name": "EDM",
+        "artists_count": 0,
+        "created_date": "Sun, 14 Jan 2018 02:23:34 +0200",
+        "updated_date": "Sun, 14 Jan 2018 02:23:34 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/109"
+          },
+          "genres": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres"
+          },
+          "artists": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/109\/artists"
+          }
+        }
+      },
+      {
+        "name": "Thrash Metal",
+        "artists_count": 10,
+        "created_date": "Sun, 14 Jan 2018 02:23:35 +0200",
+        "updated_date": "Sun, 14 Jan 2018 02:23:35 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/2"
+          },
+          "genres": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres"
+          },
+          "artists": {
+            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/2\/artists"
+          }
+        }
+      }
+    ]
+  },
+  "_links": {
+    "self": {
+      "href": "http:\/\/127.0.0.1:35823\/api\/genres?page=0&amp;size=20"
+    },
+    "artists": {
+      "href": "http:\/\/127.0.0.1:35823\/api\/artists"
+    },
+    "playlists": {
+      "href": "http:\/\/127.0.0.1:35823\/api\/playlists"
+    },
+    "home": {
+      "href": "http:\/\/127.0.0.1:35823\/api\/"
+    }
+  },
+  "page": {
+    "size": 20,
+    "totalElements": 17,
+    "totalPages": 1,
+    "number": 0
+  }
+}
+
+</pre>
+<div class="step-row">
+<div class="step-cell">Then status 200</div>
+<div class="time-cell">0.000209</div>
+</div>
+<div class="step-row">
+<div class="step-cell">And match response._embedded.genreResources == '#[]'</div>
+<div class="time-cell">0.031056</div>
+</div>
+<div class="step-row">
+<div class="step-cell">And match response._links.self.href == genresBaseUrl + '?page=0&amp;size=20'</div>
+<div class="time-cell">0.016457</div>
+</div>
+<div class="step-row">
+<div class="step-cell">And match response._links.artists.href == baseUrl + 'artists'</div>
+<div class="time-cell">0.012442</div>
+</div>
+<div class="step-row">
+<div class="step-cell">And match response._links.playlists.href == baseUrl + 'playlists'</div>
+<div class="time-cell">0.012164</div>
+</div>
+<div class="step-row">
+<div class="step-cell">And match response._links.home.href == baseUrl</div>
+<div class="time-cell">0.000409</div>
+</div>
+<div class="step-row">
+<div class="step-cell">And match response.page ==</div>
+<div class="time-cell">0.000628</div>
+</div>
+<pre>{
+  size: '#number',
+  totalElements: '#number',
+  totalPages: '#number',
+  number: '#number'
+}</pre>
+</div>
+</div>
+</div>
+</body>
+</html>

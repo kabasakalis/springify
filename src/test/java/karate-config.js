@@ -12,7 +12,7 @@ function() {
   var config = {};
   config.user = 'admin' ;
 
-  config.baseUrl = 'http://127.0.0.1:' + port + '/api' ;
+  config.baseUrl = 'http://127.0.0.1:' + port + '/api/' ;
   karate.set('baseUrl', config.baseUrl);
   var result = karate.call('classpath:springifyapi/common/setHeaders.feature', {config: config});
   karate.configure('headers', result.defaultHeaders);
