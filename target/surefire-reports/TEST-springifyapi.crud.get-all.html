@@ -14,7 +14,7 @@
 <div class="scenario-steps">
 <div class="step-row">
 <div class="step-cell">* url baseUrl</div>
-<div class="time-cell">4.191532</div>
+<div class="time-cell">0.760297</div>
 </div>
 <div class="scenario-steps-nested">
 <div class="step-row">
@@ -24,7 +24,7 @@
 <pre>{
   "config": {
     "user": "admin",
-    "baseUrl": "http:\/\/127.0.0.1:35823\/api\/"
+    "baseUrl": "http:\/\/127.0.0.1:40361\/api\/"
   }
 }
 </pre>
@@ -34,9 +34,9 @@
 <div class="step-cell">* print 'Config passed: ', karate.pretty(config)</div>
 <div class="time-cell">0</div>
 </div>
-<pre>02:32:07.300 INFO  - [print] Config passed:  {
+<pre>12:28:37.512 INFO  - [print] Config passed:  {
   "user": "admin",
-  "baseUrl": "http:\/\/127.0.0.1:35823\/api\/"
+  "baseUrl": "http:\/\/127.0.0.1:40361\/api\/"
 }
 
 </pre>
@@ -76,30 +76,30 @@
 <div class="step-cell">When method post</div>
 <div class="time-cell">0</div>
 </div>
-<pre>02:32:07.414 INFO  - request:
+<pre>12:28:37.554 INFO  - request:
 {
   "password": "11111111",
   "username": "admin"
 }
 
-02:32:07.929 DEBUG - 
-1 &gt; POST http://127.0.0.1:35823/api/login
+12:28:37.557 DEBUG - 
+1 &gt; POST http://127.0.0.1:40361/api/login
 1 &gt; Accept-Encoding: gzip,deflate
 1 &gt; Connection: Keep-Alive
 1 &gt; Content-Length: 42
 1 &gt; Content-Type: application/json
-1 &gt; Host: 127.0.0.1:35823
+1 &gt; Host: 127.0.0.1:40361
 1 &gt; User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_151)
 {"password":"11111111","username":"admin"}
 
-02:32:09.590 DEBUG - 
+12:28:37.895 DEBUG - 
 1 &lt; 200
 1 &lt; Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 1 &lt; Content-Type: application/hal+json;charset=UTF-8
-1 &lt; Date: Sun, 14 Jan 2018 00:32:09 GMT
+1 &lt; Date: Sun, 14 Jan 2018 10:28:37 GMT
 1 &lt; Expires: 0
 1 &lt; Pragma: no-cache
-1 &lt; Token: eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY1ODgzMjksImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.TdC4ENR8GVpK2OOEq0rj15_F7cuPTnkyiNT8p8k8GCoavaI_Qnxa15GkLdXLG5myjnSfxqNRSblqxDTlF4Uu4A
+1 &lt; Token: eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2MjQxMTcsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.ph2xZOpUq9tu3qUET619DF79sNOEeyUV3RKL92FDMO9rFUXcWWW2wvx-UDCdsP7kGYSNolspdsdmJ98tBcG81A
 1 &lt; Transfer-Encoding: chunked
 1 &lt; X-Application-Context: application:0
 1 &lt; X-Content-Type-Options: nosniff
@@ -109,18 +109,18 @@
   "username" : "admin",
   "email" : "admin@springify.com",
   "password" : "$2a$10$UClj/ChiXzRXcT6HvSdOpePZFzTIJs9CYDagygovYbM0TDzMRe7Di",
-  "jwtToken" : "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY1ODgzMjksImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.TdC4ENR8GVpK2OOEq0rj15_F7cuPTnkyiNT8p8k8GCoavaI_Qnxa15GkLdXLG5myjnSfxqNRSblqxDTlF4Uu4A",
+  "jwtToken" : "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2MjQxMTcsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.ph2xZOpUq9tu3qUET619DF79sNOEeyUV3RKL92FDMO9rFUXcWWW2wvx-UDCdsP7kGYSNolspdsdmJ98tBcG81A",
   "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
   "created_date" : "Sat, 13 Jan 2018 23:47:57 +0200"
 }
 
-02:32:09.593 DEBUG - response time in milliseconds: 2159
-02:32:09.596 INFO  - response:
+12:28:37.896 DEBUG - response time in milliseconds: 341
+12:28:37.896 INFO  - response:
 {
   "username": "admin",
   "email": "admin@springify.com",
   "password": "$2a$10$UClj\/ChiXzRXcT6HvSdOpePZFzTIJs9CYDagygovYbM0TDzMRe7Di",
-  "jwtToken": "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY1ODgzMjksImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.TdC4ENR8GVpK2OOEq0rj15_F7cuPTnkyiNT8p8k8GCoavaI_Qnxa15GkLdXLG5myjnSfxqNRSblqxDTlF4Uu4A",
+  "jwtToken": "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2MjQxMTcsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.ph2xZOpUq9tu3qUET619DF79sNOEeyUV3RKL92FDMO9rFUXcWWW2wvx-UDCdsP7kGYSNolspdsdmJ98tBcG81A",
   "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
   "created_date": "Sat, 13 Jan 2018 23:47:57 +0200"
 }
@@ -144,7 +144,7 @@
 <div class="step-cell">* print 'jwtToken OK: ', karate.pretty(jwtToken)</div>
 <div class="time-cell">0</div>
 </div>
-<pre>02:32:09.688 INFO  - [print] jwtToken OK:  eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY1ODgzMjksImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.TdC4ENR8GVpK2OOEq0rj15_F7cuPTnkyiNT8p8k8GCoavaI_Qnxa15GkLdXLG5myjnSfxqNRSblqxDTlF4Uu4A
+<pre>12:28:37.967 INFO  - [print] jwtToken OK:  eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2MjQxMTcsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.ph2xZOpUq9tu3qUET619DF79sNOEeyUV3RKL92FDMO9rFUXcWWW2wvx-UDCdsP7kGYSNolspdsdmJ98tBcG81A
 </pre>
 </div>
 <div class="scenario-steps-nested">
@@ -152,7 +152,7 @@
 <div class="step-cell">* def defaultHeaders =  call read('classpath:springifyapi/common/HeadersFun.js')  { jwtToken:  '#(jwtToken)' }</div>
 <div class="time-cell">0</div>
 </div>
-<pre>02:32:09.827 INFO  - AUTH {jwtToken=eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY1ODgzMjksImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.TdC4ENR8GVpK2OOEq0rj15_F7cuPTnkyiNT8p8k8GCoavaI_Qnxa15GkLdXLG5myjnSfxqNRSblqxDTlF4Uu4A} 
+<pre>12:28:38.083 INFO  - AUTH {jwtToken=eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2MjQxMTcsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.ph2xZOpUq9tu3qUET619DF79sNOEeyUV3RKL92FDMO9rFUXcWWW2wvx-UDCdsP7kGYSNolspdsdmJ98tBcG81A} 
 </pre>
 </div>
 <div class="scenario-steps-nested">
@@ -163,33 +163,33 @@
 </div>
 <div class="step-row">
 <div class="step-cell">* def genresBaseUrl = baseUrl + 'genres'</div>
-<div class="time-cell">0.013348</div>
+<div class="time-cell">0.025715</div>
 </div>
 <div class="step-row">
 <div class="step-cell">Given path 'genres'</div>
-<div class="time-cell">0.019574</div>
+<div class="time-cell">0.01704</div>
 </div>
 <div class="step-row">
 <div class="step-cell">When method get</div>
-<div class="time-cell">0.571256</div>
+<div class="time-cell">0.646893</div>
 </div>
-<pre>02:32:09.906 DEBUG - 
-1 &gt; GET http://127.0.0.1:35823/api/genres
+<pre>12:28:38.183 DEBUG - 
+1 &gt; GET http://127.0.0.1:40361/api/genres
 1 &gt; Accept-Encoding: gzip,deflate
-1 &gt; Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY1ODgzMjksImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.TdC4ENR8GVpK2OOEq0rj15_F7cuPTnkyiNT8p8k8GCoavaI_Qnxa15GkLdXLG5myjnSfxqNRSblqxDTlF4Uu4A
+1 &gt; Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY2MjQxMTcsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.ph2xZOpUq9tu3qUET619DF79sNOEeyUV3RKL92FDMO9rFUXcWWW2wvx-UDCdsP7kGYSNolspdsdmJ98tBcG81A
 1 &gt; Connection: Keep-Alive
 1 &gt; Content-Type: application/json
-1 &gt; Host: 127.0.0.1:35823
+1 &gt; Host: 127.0.0.1:40361
 1 &gt; User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_151)
 
-02:32:10.468 DEBUG - 
+12:28:38.810 DEBUG - 
 1 &lt; 200
 1 &lt; Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 1 &lt; Content-Type: application/hal+json;charset=UTF-8
-1 &lt; Date: Sun, 14 Jan 2018 00:32:09 GMT
+1 &lt; Date: Sun, 14 Jan 2018 10:28:38 GMT
 1 &lt; Expires: 0
 1 &lt; Pragma: no-cache
-1 &lt; Set-Cookie: JSESSIONID=FDC43CCCD11E479C15D996F4E4944568; Path=/api; HttpOnly
+1 &lt; Set-Cookie: JSESSIONID=9E36F944B07300E4A825406CC865C99F; Path=/api; HttpOnly
 1 &lt; Transfer-Encoding: chunked
 1 &lt; X-Application-Context: application:0
 1 &lt; X-Content-Type-Options: nosniff
@@ -204,13 +204,13 @@
       "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
       "_links" : {
         "self" : {
-          "href" : "http://127.0.0.1:35823/api/genres/1"
+          "href" : "http://127.0.0.1:40361/api/genres/1"
         },
         "genres" : {
-          "href" : "http://127.0.0.1:35823/api/genres"
+          "href" : "http://127.0.0.1:40361/api/genres"
         },
         "artists" : {
-          "href" : "http://127.0.0.1:35823/api/genres/1/artists"
+          "href" : "http://127.0.0.1:40361/api/genres/1/artists"
         }
       }
     }, {
@@ -220,13 +220,13 @@
       "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
       "_links" : {
         "self" : {
-          "href" : "http://127.0.0.1:35823/api/genres/3"
+          "href" : "http://127.0.0.1:40361/api/genres/3"
         },
         "genres" : {
-          "href" : "http://127.0.0.1:35823/api/genres"
+          "href" : "http://127.0.0.1:40361/api/genres"
         },
         "artists" : {
-          "href" : "http://127.0.0.1:35823/api/genres/3/artists"
+          "href" : "http://127.0.0.1:40361/api/genres/3/artists"
         }
       }
     }, {
@@ -236,13 +236,13 @@
       "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
       "_links" : {
         "self" : {
-          "href" : "http://127.0.0.1:35823/api/genres/4"
+          "href" : "http://127.0.0.1:40361/api/genres/4"
         },
         "genres" : {
-          "href" : "http://127.0.0.1:35823/api/genres"
+          "href" : "http://127.0.0.1:40361/api/genres"
         },
         "artists" : {
-          "href" : "http://127.0.0.1:35823/api/genres/4/artists"
+          "href" : "http://127.0.0.1:40361/api/genres/4/artists"
         }
       }
     }, {
@@ -252,13 +252,13 @@
       "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
       "_links" : {
         "self" : {
-          "href" : "http://127.0.0.1:35823/api/genres/5"
+          "href" : "http://127.0.0.1:40361/api/genres/5"
         },
         "genres" : {
-          "href" : "http://127.0.0.1:35823/api/genres"
+          "href" : "http://127.0.0.1:40361/api/genres"
         },
         "artists" : {
-          "href" : "http://127.0.0.1:35823/api/genres/5/artists"
+          "href" : "http://127.0.0.1:40361/api/genres/5/artists"
         }
       }
     }, {
@@ -268,13 +268,13 @@
       "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
       "_links" : {
         "self" : {
-          "href" : "http://127.0.0.1:35823/api/genres/6"
+          "href" : "http://127.0.0.1:40361/api/genres/6"
         },
         "genres" : {
-          "href" : "http://127.0.0.1:35823/api/genres"
+          "href" : "http://127.0.0.1:40361/api/genres"
         },
         "artists" : {
-          "href" : "http://127.0.0.1:35823/api/genres/6/artists"
+          "href" : "http://127.0.0.1:40361/api/genres/6/artists"
         }
       }
     }, {
@@ -284,13 +284,13 @@
       "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
       "_links" : {
         "self" : {
-          "href" : "http://127.0.0.1:35823/api/genres/7"
+          "href" : "http://127.0.0.1:40361/api/genres/7"
         },
         "genres" : {
-          "href" : "http://127.0.0.1:35823/api/genres"
+          "href" : "http://127.0.0.1:40361/api/genres"
         },
         "artists" : {
-          "href" : "http://127.0.0.1:35823/api/genres/7/artists"
+          "href" : "http://127.0.0.1:40361/api/genres/7/artists"
         }
       }
     }, {
@@ -300,13 +300,13 @@
       "updated_date" : "Sun, 14 Jan 2018 01:48:34 +0200",
       "_links" : {
         "self" : {
-          "href" : "http://127.0.0.1:35823/api/genres/100"
+          "href" : "http://127.0.0.1:40361/api/genres/100"
         },
         "genres" : {
-          "href" : "http://127.0.0.1:35823/api/genres"
+          "href" : "http://127.0.0.1:40361/api/genres"
         },
         "artists" : {
-          "href" : "http://127.0.0.1:35823/api/genres/100/artists"
+          "href" : "http://127.0.0.1:40361/api/genres/100/artists"
         }
       }
     }, {
@@ -316,13 +316,13 @@
       "updated_date" : "Sun, 14 Jan 2018 01:51:38 +0200",
       "_links" : {
         "self" : {
-          "href" : "http://127.0.0.1:35823/api/genres/101"
+          "href" : "http://127.0.0.1:40361/api/genres/101"
         },
         "genres" : {
-          "href" : "http://127.0.0.1:35823/api/genres"
+          "href" : "http://127.0.0.1:40361/api/genres"
         },
         "artists" : {
-          "href" : "http://127.0.0.1:35823/api/genres/101/artists"
+          "href" : "http://127.0.0.1:40361/api/genres/101/artists"
         }
       }
     }, {
@@ -332,13 +332,13 @@
       "updated_date" : "Sun, 14 Jan 2018 01:56:44 +0200",
       "_links" : {
         "self" : {
-          "href" : "http://127.0.0.1:35823/api/genres/102"
+          "href" : "http://127.0.0.1:40361/api/genres/102"
         },
         "genres" : {
-          "href" : "http://127.0.0.1:35823/api/genres"
+          "href" : "http://127.0.0.1:40361/api/genres"
         },
         "artists" : {
-          "href" : "http://127.0.0.1:35823/api/genres/102/artists"
+          "href" : "http://127.0.0.1:40361/api/genres/102/artists"
         }
       }
     }, {
@@ -348,13 +348,13 @@
       "updated_date" : "Sun, 14 Jan 2018 01:58:43 +0200",
       "_links" : {
         "self" : {
-          "href" : "http://127.0.0.1:35823/api/genres/103"
+          "href" : "http://127.0.0.1:40361/api/genres/103"
         },
         "genres" : {
-          "href" : "http://127.0.0.1:35823/api/genres"
+          "href" : "http://127.0.0.1:40361/api/genres"
         },
         "artists" : {
-          "href" : "http://127.0.0.1:35823/api/genres/103/artists"
+          "href" : "http://127.0.0.1:40361/api/genres/103/artists"
         }
       }
     }, {
@@ -364,13 +364,13 @@
       "updated_date" : "Sun, 14 Jan 2018 02:05:32 +0200",
       "_links" : {
         "self" : {
-          "href" : "http://127.0.0.1:35823/api/genres/104"
+          "href" : "http://127.0.0.1:40361/api/genres/104"
         },
         "genres" : {
-          "href" : "http://127.0.0.1:35823/api/genres"
+          "href" : "http://127.0.0.1:40361/api/genres"
         },
         "artists" : {
-          "href" : "http://127.0.0.1:35823/api/genres/104/artists"
+          "href" : "http://127.0.0.1:40361/api/genres/104/artists"
         }
       }
     }, {
@@ -380,13 +380,13 @@
       "updated_date" : "Sun, 14 Jan 2018 02:07:27 +0200",
       "_links" : {
         "self" : {
-          "href" : "http://127.0.0.1:35823/api/genres/105"
+          "href" : "http://127.0.0.1:40361/api/genres/105"
         },
         "genres" : {
-          "href" : "http://127.0.0.1:35823/api/genres"
+          "href" : "http://127.0.0.1:40361/api/genres"
         },
         "artists" : {
-          "href" : "http://127.0.0.1:35823/api/genres/105/artists"
+          "href" : "http://127.0.0.1:40361/api/genres/105/artists"
         }
       }
     }, {
@@ -396,13 +396,13 @@
       "updated_date" : "Sun, 14 Jan 2018 02:11:55 +0200",
       "_links" : {
         "self" : {
-          "href" : "http://127.0.0.1:35823/api/genres/106"
+          "href" : "http://127.0.0.1:40361/api/genres/106"
         },
         "genres" : {
-          "href" : "http://127.0.0.1:35823/api/genres"
+          "href" : "http://127.0.0.1:40361/api/genres"
         },
         "artists" : {
-          "href" : "http://127.0.0.1:35823/api/genres/106/artists"
+          "href" : "http://127.0.0.1:40361/api/genres/106/artists"
         }
       }
     }, {
@@ -412,13 +412,13 @@
       "updated_date" : "Sun, 14 Jan 2018 02:14:19 +0200",
       "_links" : {
         "self" : {
-          "href" : "http://127.0.0.1:35823/api/genres/107"
+          "href" : "http://127.0.0.1:40361/api/genres/107"
         },
         "genres" : {
-          "href" : "http://127.0.0.1:35823/api/genres"
+          "href" : "http://127.0.0.1:40361/api/genres"
         },
         "artists" : {
-          "href" : "http://127.0.0.1:35823/api/genres/107/artists"
+          "href" : "http://127.0.0.1:40361/api/genres/107/artists"
         }
       }
     }, {
@@ -428,13 +428,13 @@
       "updated_date" : "Sun, 14 Jan 2018 02:21:05 +0200",
       "_links" : {
         "self" : {
-          "href" : "http://127.0.0.1:35823/api/genres/108"
+          "href" : "http://127.0.0.1:40361/api/genres/108"
         },
         "genres" : {
-          "href" : "http://127.0.0.1:35823/api/genres"
+          "href" : "http://127.0.0.1:40361/api/genres"
         },
         "artists" : {
-          "href" : "http://127.0.0.1:35823/api/genres/108/artists"
+          "href" : "http://127.0.0.1:40361/api/genres/108/artists"
         }
       }
     }, {
@@ -444,57 +444,114 @@
       "updated_date" : "Sun, 14 Jan 2018 02:23:34 +0200",
       "_links" : {
         "self" : {
-          "href" : "http://127.0.0.1:35823/api/genres/109"
+          "href" : "http://127.0.0.1:40361/api/genres/109"
         },
         "genres" : {
-          "href" : "http://127.0.0.1:35823/api/genres"
+          "href" : "http://127.0.0.1:40361/api/genres"
         },
         "artists" : {
-          "href" : "http://127.0.0.1:35823/api/genres/109/artists"
+          "href" : "http://127.0.0.1:40361/api/genres/109/artists"
+        }
+      }
+    }, {
+      "name" : "EDM",
+      "artists_count" : 0,
+      "created_date" : "Sun, 14 Jan 2018 02:32:11 +0200",
+      "updated_date" : "Sun, 14 Jan 2018 02:32:11 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:40361/api/genres/110"
+        },
+        "genres" : {
+          "href" : "http://127.0.0.1:40361/api/genres"
+        },
+        "artists" : {
+          "href" : "http://127.0.0.1:40361/api/genres/110/artists"
         }
       }
     }, {
       "name" : "Thrash Metal",
       "artists_count" : 10,
-      "created_date" : "Sun, 14 Jan 2018 02:23:35 +0200",
-      "updated_date" : "Sun, 14 Jan 2018 02:23:35 +0200",
+      "created_date" : "Sun, 14 Jan 2018 02:32:11 +0200",
+      "updated_date" : "Sun, 14 Jan 2018 02:32:11 +0200",
       "_links" : {
         "self" : {
-          "href" : "http://127.0.0.1:35823/api/genres/2"
+          "href" : "http://127.0.0.1:40361/api/genres/2"
         },
         "genres" : {
-          "href" : "http://127.0.0.1:35823/api/genres"
+          "href" : "http://127.0.0.1:40361/api/genres"
         },
         "artists" : {
-          "href" : "http://127.0.0.1:35823/api/genres/2/artists"
+          "href" : "http://127.0.0.1:40361/api/genres/2/artists"
+        }
+      }
+    }, {
+      "name" : "EDM",
+      "artists_count" : 0,
+      "created_date" : "Sun, 14 Jan 2018 02:35:22 +0200",
+      "updated_date" : "Sun, 14 Jan 2018 02:35:22 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:40361/api/genres/111"
+        },
+        "genres" : {
+          "href" : "http://127.0.0.1:40361/api/genres"
+        },
+        "artists" : {
+          "href" : "http://127.0.0.1:40361/api/genres/111/artists"
+        }
+      }
+    }, {
+      "name" : "EDM",
+      "artists_count" : 0,
+      "created_date" : "Sun, 14 Jan 2018 02:37:09 +0200",
+      "updated_date" : "Sun, 14 Jan 2018 02:37:09 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:40361/api/genres/112"
+        },
+        "genres" : {
+          "href" : "http://127.0.0.1:40361/api/genres"
+        },
+        "artists" : {
+          "href" : "http://127.0.0.1:40361/api/genres/112/artists"
         }
       }
     } ]
   },
   "_links" : {
+    "first" : {
+      "href" : "http://127.0.0.1:40361/api/genres?page=0&amp;size=20"
+    },
     "self" : {
-      "href" : "http://127.0.0.1:35823/api/genres?page=0&amp;size=20"
+      "href" : "http://127.0.0.1:40361/api/genres?page=0&amp;size=20"
+    },
+    "next" : {
+      "href" : "http://127.0.0.1:40361/api/genres?page=1&amp;size=20"
+    },
+    "last" : {
+      "href" : "http://127.0.0.1:40361/api/genres?page=1&amp;size=20"
     },
     "artists" : {
-      "href" : "http://127.0.0.1:35823/api/artists"
+      "href" : "http://127.0.0.1:40361/api/artists"
     },
     "playlists" : {
-      "href" : "http://127.0.0.1:35823/api/playlists"
+      "href" : "http://127.0.0.1:40361/api/playlists"
     },
     "home" : {
-      "href" : "http://127.0.0.1:35823/api/"
+      "href" : "http://127.0.0.1:40361/api/"
     }
   },
   "page" : {
     "size" : 20,
-    "totalElements" : 17,
-    "totalPages" : 1,
+    "totalElements" : 24,
+    "totalPages" : 2,
     "number" : 0
   }
 }
 
-02:32:10.469 DEBUG - response time in milliseconds: 565
-02:32:10.474 INFO  - response:
+12:28:38.815 DEBUG - response time in milliseconds: 634
+12:28:38.824 INFO  - response:
 {
   "_embedded": {
     "genreResources": [
@@ -505,13 +562,13 @@
         "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
         "_links": {
           "self": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/1"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres\/1"
           },
           "genres": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres"
           },
           "artists": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/1\/artists"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres\/1\/artists"
           }
         }
       },
@@ -522,13 +579,13 @@
         "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
         "_links": {
           "self": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/3"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres\/3"
           },
           "genres": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres"
           },
           "artists": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/3\/artists"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres\/3\/artists"
           }
         }
       },
@@ -539,13 +596,13 @@
         "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
         "_links": {
           "self": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/4"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres\/4"
           },
           "genres": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres"
           },
           "artists": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/4\/artists"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres\/4\/artists"
           }
         }
       },
@@ -556,13 +613,13 @@
         "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
         "_links": {
           "self": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/5"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres\/5"
           },
           "genres": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres"
           },
           "artists": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/5\/artists"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres\/5\/artists"
           }
         }
       },
@@ -573,13 +630,13 @@
         "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
         "_links": {
           "self": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/6"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres\/6"
           },
           "genres": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres"
           },
           "artists": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/6\/artists"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres\/6\/artists"
           }
         }
       },
@@ -590,13 +647,13 @@
         "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
         "_links": {
           "self": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/7"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres\/7"
           },
           "genres": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres"
           },
           "artists": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/7\/artists"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres\/7\/artists"
           }
         }
       },
@@ -607,13 +664,13 @@
         "updated_date": "Sun, 14 Jan 2018 01:48:34 +0200",
         "_links": {
           "self": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/100"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres\/100"
           },
           "genres": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres"
           },
           "artists": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/100\/artists"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres\/100\/artists"
           }
         }
       },
@@ -624,13 +681,13 @@
         "updated_date": "Sun, 14 Jan 2018 01:51:38 +0200",
         "_links": {
           "self": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/101"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres\/101"
           },
           "genres": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres"
           },
           "artists": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/101\/artists"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres\/101\/artists"
           }
         }
       },
@@ -641,13 +698,13 @@
         "updated_date": "Sun, 14 Jan 2018 01:56:44 +0200",
         "_links": {
           "self": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/102"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres\/102"
           },
           "genres": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres"
           },
           "artists": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/102\/artists"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres\/102\/artists"
           }
         }
       },
@@ -658,13 +715,13 @@
         "updated_date": "Sun, 14 Jan 2018 01:58:43 +0200",
         "_links": {
           "self": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/103"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres\/103"
           },
           "genres": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres"
           },
           "artists": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/103\/artists"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres\/103\/artists"
           }
         }
       },
@@ -675,13 +732,13 @@
         "updated_date": "Sun, 14 Jan 2018 02:05:32 +0200",
         "_links": {
           "self": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/104"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres\/104"
           },
           "genres": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres"
           },
           "artists": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/104\/artists"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres\/104\/artists"
           }
         }
       },
@@ -692,13 +749,13 @@
         "updated_date": "Sun, 14 Jan 2018 02:07:27 +0200",
         "_links": {
           "self": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/105"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres\/105"
           },
           "genres": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres"
           },
           "artists": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/105\/artists"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres\/105\/artists"
           }
         }
       },
@@ -709,13 +766,13 @@
         "updated_date": "Sun, 14 Jan 2018 02:11:55 +0200",
         "_links": {
           "self": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/106"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres\/106"
           },
           "genres": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres"
           },
           "artists": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/106\/artists"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres\/106\/artists"
           }
         }
       },
@@ -726,13 +783,13 @@
         "updated_date": "Sun, 14 Jan 2018 02:14:19 +0200",
         "_links": {
           "self": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/107"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres\/107"
           },
           "genres": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres"
           },
           "artists": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/107\/artists"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres\/107\/artists"
           }
         }
       },
@@ -743,13 +800,13 @@
         "updated_date": "Sun, 14 Jan 2018 02:21:05 +0200",
         "_links": {
           "self": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/108"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres\/108"
           },
           "genres": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres"
           },
           "artists": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/108\/artists"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres\/108\/artists"
           }
         }
       },
@@ -760,53 +817,113 @@
         "updated_date": "Sun, 14 Jan 2018 02:23:34 +0200",
         "_links": {
           "self": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/109"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres\/109"
           },
           "genres": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres"
           },
           "artists": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/109\/artists"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres\/109\/artists"
+          }
+        }
+      },
+      {
+        "name": "EDM",
+        "artists_count": 0,
+        "created_date": "Sun, 14 Jan 2018 02:32:11 +0200",
+        "updated_date": "Sun, 14 Jan 2018 02:32:11 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres\/110"
+          },
+          "genres": {
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres"
+          },
+          "artists": {
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres\/110\/artists"
           }
         }
       },
       {
         "name": "Thrash Metal",
         "artists_count": 10,
-        "created_date": "Sun, 14 Jan 2018 02:23:35 +0200",
-        "updated_date": "Sun, 14 Jan 2018 02:23:35 +0200",
+        "created_date": "Sun, 14 Jan 2018 02:32:11 +0200",
+        "updated_date": "Sun, 14 Jan 2018 02:32:11 +0200",
         "_links": {
           "self": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/2"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres\/2"
           },
           "genres": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres"
           },
           "artists": {
-            "href": "http:\/\/127.0.0.1:35823\/api\/genres\/2\/artists"
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres\/2\/artists"
+          }
+        }
+      },
+      {
+        "name": "EDM",
+        "artists_count": 0,
+        "created_date": "Sun, 14 Jan 2018 02:35:22 +0200",
+        "updated_date": "Sun, 14 Jan 2018 02:35:22 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres\/111"
+          },
+          "genres": {
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres"
+          },
+          "artists": {
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres\/111\/artists"
+          }
+        }
+      },
+      {
+        "name": "EDM",
+        "artists_count": 0,
+        "created_date": "Sun, 14 Jan 2018 02:37:09 +0200",
+        "updated_date": "Sun, 14 Jan 2018 02:37:09 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres\/112"
+          },
+          "genres": {
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres"
+          },
+          "artists": {
+            "href": "http:\/\/127.0.0.1:40361\/api\/genres\/112\/artists"
           }
         }
       }
     ]
   },
   "_links": {
+    "first": {
+      "href": "http:\/\/127.0.0.1:40361\/api\/genres?page=0&amp;size=20"
+    },
     "self": {
-      "href": "http:\/\/127.0.0.1:35823\/api\/genres?page=0&amp;size=20"
+      "href": "http:\/\/127.0.0.1:40361\/api\/genres?page=0&amp;size=20"
+    },
+    "next": {
+      "href": "http:\/\/127.0.0.1:40361\/api\/genres?page=1&amp;size=20"
+    },
+    "last": {
+      "href": "http:\/\/127.0.0.1:40361\/api\/genres?page=1&amp;size=20"
     },
     "artists": {
-      "href": "http:\/\/127.0.0.1:35823\/api\/artists"
+      "href": "http:\/\/127.0.0.1:40361\/api\/artists"
     },
     "playlists": {
-      "href": "http:\/\/127.0.0.1:35823\/api\/playlists"
+      "href": "http:\/\/127.0.0.1:40361\/api\/playlists"
     },
     "home": {
-      "href": "http:\/\/127.0.0.1:35823\/api\/"
+      "href": "http:\/\/127.0.0.1:40361\/api\/"
     }
   },
   "page": {
     "size": 20,
-    "totalElements": 17,
-    "totalPages": 1,
+    "totalElements": 24,
+    "totalPages": 2,
     "number": 0
   }
 }
@@ -814,31 +931,31 @@
 </pre>
 <div class="step-row">
 <div class="step-cell">Then status 200</div>
-<div class="time-cell">0.000209</div>
+<div class="time-cell">0.000179</div>
 </div>
 <div class="step-row">
 <div class="step-cell">And match response._embedded.genreResources == '#[]'</div>
-<div class="time-cell">0.031056</div>
+<div class="time-cell">0.017681</div>
 </div>
 <div class="step-row">
 <div class="step-cell">And match response._links.self.href == genresBaseUrl + '?page=0&amp;size=20'</div>
-<div class="time-cell">0.016457</div>
+<div class="time-cell">0.010471</div>
 </div>
 <div class="step-row">
 <div class="step-cell">And match response._links.artists.href == baseUrl + 'artists'</div>
-<div class="time-cell">0.012442</div>
+<div class="time-cell">0.016034</div>
 </div>
 <div class="step-row">
 <div class="step-cell">And match response._links.playlists.href == baseUrl + 'playlists'</div>
-<div class="time-cell">0.012164</div>
+<div class="time-cell">0.014878</div>
 </div>
 <div class="step-row">
 <div class="step-cell">And match response._links.home.href == baseUrl</div>
-<div class="time-cell">0.000409</div>
+<div class="time-cell">0.000434</div>
 </div>
 <div class="step-row">
 <div class="step-cell">And match response.page ==</div>
-<div class="time-cell">0.000628</div>
+<div class="time-cell">0.0018</div>
 </div>
 <pre>{
   size: '#number',
