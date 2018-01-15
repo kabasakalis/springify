@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>springifyapi/playlist/get-all.feature</title>
+<style>body { font-family: monospace, monospace; font-size: small; } table { border-collapse: collapse; } table td { border: 1px solid gray; padding: 0.1em 0.2em; } .scenario-heading { background-color: #F5F28F; padding: 0.2em 0.5em; border-bottom: 1px solid gray; } .scenario-name { font-weight: bold; } .scenario { border: 1px solid gray; margin-bottom: 1em; } .scenario-steps { padding-left: 0.2em; } .scenario-steps-nested { padding-left: 2em; } .step-row { margin: 0.2em 0; } .step-cell { background-color: #92DD96; display: inline-block; width: 85%; padding: 0.2em 0.5em; } .time-cell { background-color: #92DD96; display: inline-block; width: 10%; padding: 0.2em 0.5em; } .failed { background-color: #F2928C; } .skipped { background-color: #8AF; }</style>
+</head>
+<body>
+<div>
+<div class="scenario">
+<div class="scenario-heading">
+<span class="scenario-keyword">Scenario: </span><span class="scenario-name">get all playlists and validate schema</span>
+</div>
+<div class="scenario-steps">
+<div class="step-row">
+<div class="step-cell">* url baseUrl</div>
+<div class="time-cell">0.571655</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* call classpath:springifyapi/common/setHeaders.feature</div>
+<div class="time-cell">0</div>
+</div>
+<pre>{
+  "config": {
+    "user": "admin",
+    "baseUrl": "http:\/\/127.0.0.1:36661\/api\/"
+  }
+}
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* print 'Config passed: ', karate.pretty(config)</div>
+<div class="time-cell">0</div>
+</div>
+<pre>18:13:11.461 INFO  - [print] Config passed:  {
+  "user": "admin",
+  "baseUrl": "http:\/\/127.0.0.1:36661\/api\/"
+}
+
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* def creds = read('classpath:springifyapi/data/'+ config.user + '.json')</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* url baseUrl</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">Given url baseUrl</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">And path 'login'</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">And request creds</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">When method post</div>
+<div class="time-cell">0</div>
+</div>
+<pre>18:13:11.508 INFO  - request:
+{
+  "password": "11111111",
+  "username": "admin"
+}
+
+18:13:11.514 DEBUG - 
+1 &gt; POST http://127.0.0.1:36661/api/login
+1 &gt; Accept-Encoding: gzip,deflate
+1 &gt; Connection: Keep-Alive
+1 &gt; Content-Length: 42
+1 &gt; Content-Type: application/json
+1 &gt; Host: 127.0.0.1:36661
+1 &gt; User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_151)
+{"password":"11111111","username":"admin"}
+
+18:13:11.750 DEBUG - 
+1 &lt; 200
+1 &lt; Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+1 &lt; Content-Type: application/hal+json;charset=UTF-8
+1 &lt; Date: Mon, 15 Jan 2018 16:13:10 GMT
+1 &lt; Expires: 0
+1 &lt; Pragma: no-cache
+1 &lt; Token: eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY3MzExOTEsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.qs49BYeXwFwMSe2P4MJ8LCLBmL61Tjky0YCIoynO_fIz-4cb28UjkRfHkbOdtY_ZciD-JR0Wz5bgI_OxaetdcQ
+1 &lt; Transfer-Encoding: chunked
+1 &lt; X-Application-Context: application:0
+1 &lt; X-Content-Type-Options: nosniff
+1 &lt; X-Frame-Options: DENY
+1 &lt; X-XSS-Protection: 1; mode=block
+{
+  "username" : "admin",
+  "email" : "admin@springify.com",
+  "password" : "$2a$10$UClj/ChiXzRXcT6HvSdOpePZFzTIJs9CYDagygovYbM0TDzMRe7Di",
+  "jwtToken" : "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY3MzExOTEsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.qs49BYeXwFwMSe2P4MJ8LCLBmL61Tjky0YCIoynO_fIz-4cb28UjkRfHkbOdtY_ZciD-JR0Wz5bgI_OxaetdcQ",
+  "updated_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+  "created_date" : "Mon, 15 Jan 2018 15:20:18 +0200"
+}
+
+18:13:11.750 DEBUG - response time in milliseconds: 237
+18:13:11.751 INFO  - response:
+{
+  "username": "admin",
+  "email": "admin@springify.com",
+  "password": "$2a$10$UClj\/ChiXzRXcT6HvSdOpePZFzTIJs9CYDagygovYbM0TDzMRe7Di",
+  "jwtToken": "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY3MzExOTEsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.qs49BYeXwFwMSe2P4MJ8LCLBmL61Tjky0YCIoynO_fIz-4cb28UjkRfHkbOdtY_ZciD-JR0Wz5bgI_OxaetdcQ",
+  "updated_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+  "created_date": "Mon, 15 Jan 2018 15:20:18 +0200"
+}
+
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">Then status 200</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* def jwtToken = response.jwtToken</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* print 'jwtToken OK: ', karate.pretty(jwtToken)</div>
+<div class="time-cell">0</div>
+</div>
+<pre>18:13:11.784 INFO  - [print] jwtToken OK:  eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY3MzExOTEsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.qs49BYeXwFwMSe2P4MJ8LCLBmL61Tjky0YCIoynO_fIz-4cb28UjkRfHkbOdtY_ZciD-JR0Wz5bgI_OxaetdcQ
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* def defaultHeaders =  callonce read('classpath:springifyapi/common/HeadersFun.js')  { jwtToken:  '#(jwtToken)' }</div>
+<div class="time-cell">0</div>
+</div>
+<pre>18:13:11.846 INFO  - AUTH {jwtToken=eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY3MzExOTEsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.qs49BYeXwFwMSe2P4MJ8LCLBmL61Tjky0YCIoynO_fIz-4cb28UjkRfHkbOdtY_ZciD-JR0Wz5bgI_OxaetdcQ} 
+18:13:11.848 DEBUG - cached callonce: read('classpath:springifyapi/common/HeadersFun.js')
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* configure headers = defaultHeaders</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="step-row">
+<div class="step-cell">* def playlistStructure = read('classpath:springifyapi/common/schemas/playlist.js')</div>
+<div class="time-cell">0.01639</div>
+</div>
+<div class="step-row">
+<div class="step-cell">* def pageStructure = read('classpath:springifyapi/common/schemas/page.js')</div>
+<div class="time-cell">0.024165</div>
+</div>
+<div class="step-row">
+<div class="step-cell">* def linksStructure = read('classpath:springifyapi/common/schemas/playlists_links.js')</div>
+<div class="time-cell">0.038606</div>
+</div>
+<div class="step-row">
+<div class="step-cell">Given path 'playlists'</div>
+<div class="time-cell">0.012309</div>
+</div>
+<div class="step-row">
+<div class="step-cell">When method get</div>
+<div class="time-cell">0.266495</div>
+</div>
+<pre>18:13:11.954 DEBUG - 
+1 &gt; GET http://127.0.0.1:36661/api/playlists
+1 &gt; Accept-Encoding: gzip,deflate
+1 &gt; Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY3MzExOTEsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.qs49BYeXwFwMSe2P4MJ8LCLBmL61Tjky0YCIoynO_fIz-4cb28UjkRfHkbOdtY_ZciD-JR0Wz5bgI_OxaetdcQ
+1 &gt; Connection: Keep-Alive
+1 &gt; Content-Type: application/json
+1 &gt; Host: 127.0.0.1:36661
+1 &gt; User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_151)
+
+18:13:12.210 DEBUG - 
+1 &lt; 200
+1 &lt; Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+1 &lt; Content-Type: application/hal+json;charset=UTF-8
+1 &lt; Date: Mon, 15 Jan 2018 16:13:12 GMT
+1 &lt; Expires: 0
+1 &lt; Pragma: no-cache
+1 &lt; Set-Cookie: JSESSIONID=54159B6C4B3A40BE39636E33577A4D89; Path=/api; HttpOnly
+1 &lt; Transfer-Encoding: chunked
+1 &lt; X-Application-Context: application:0
+1 &lt; X-Content-Type-Options: nosniff
+1 &lt; X-Frame-Options: DENY
+1 &lt; X-XSS-Protection: 1; mode=block
+{
+  "_embedded" : {
+    "playlistResources" : [ {
+      "id" : 2,
+      "name" : "USA Top 50",
+      "albums_count" : 12,
+      "created_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "updated_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:36661/api/playlists/2"
+        },
+        "playlists" : {
+          "href" : "http://127.0.0.1:36661/api/playlists"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:36661/api/playlists/2/albums"
+        }
+      }
+    }, {
+      "id" : 3,
+      "name" : "Classic Rock",
+      "albums_count" : 19,
+      "created_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "updated_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:36661/api/playlists/3"
+        },
+        "playlists" : {
+          "href" : "http://127.0.0.1:36661/api/playlists"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:36661/api/playlists/3/albums"
+        }
+      }
+    }, {
+      "id" : 4,
+      "name" : "Rock Anthems",
+      "albums_count" : 19,
+      "created_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "updated_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:36661/api/playlists/4"
+        },
+        "playlists" : {
+          "href" : "http://127.0.0.1:36661/api/playlists"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:36661/api/playlists/4/albums"
+        }
+      }
+    }, {
+      "id" : 5,
+      "name" : "Essential Metal",
+      "albums_count" : 16,
+      "created_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "updated_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:36661/api/playlists/5"
+        },
+        "playlists" : {
+          "href" : "http://127.0.0.1:36661/api/playlists"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:36661/api/playlists/5/albums"
+        }
+      }
+    }, {
+      "id" : 6,
+      "name" : "Metal Anthems",
+      "albums_count" : 16,
+      "created_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "updated_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:36661/api/playlists/6"
+        },
+        "playlists" : {
+          "href" : "http://127.0.0.1:36661/api/playlists"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:36661/api/playlists/6/albums"
+        }
+      }
+    }, {
+      "id" : 7,
+      "name" : "Essential Pop",
+      "albums_count" : 5,
+      "created_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "updated_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:36661/api/playlists/7"
+        },
+        "playlists" : {
+          "href" : "http://127.0.0.1:36661/api/playlists"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:36661/api/playlists/7/albums"
+        }
+      }
+    }, {
+      "id" : 8,
+      "name" : "Latest Pop",
+      "albums_count" : 5,
+      "created_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "updated_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:36661/api/playlists/8"
+        },
+        "playlists" : {
+          "href" : "http://127.0.0.1:36661/api/playlists"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:36661/api/playlists/8/albums"
+        }
+      }
+    }, {
+      "id" : 9,
+      "name" : "Soundtrack",
+      "albums_count" : 10,
+      "created_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "updated_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:36661/api/playlists/9"
+        },
+        "playlists" : {
+          "href" : "http://127.0.0.1:36661/api/playlists"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:36661/api/playlists/9/albums"
+        }
+      }
+    }, {
+      "id" : 10,
+      "name" : "Orchestral",
+      "albums_count" : 10,
+      "created_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "updated_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:36661/api/playlists/10"
+        },
+        "playlists" : {
+          "href" : "http://127.0.0.1:36661/api/playlists"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:36661/api/playlists/10/albums"
+        }
+      }
+    }, {
+      "id" : 11,
+      "name" : "Rap Anthems",
+      "albums_count" : 11,
+      "created_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "updated_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:36661/api/playlists/11"
+        },
+        "playlists" : {
+          "href" : "http://127.0.0.1:36661/api/playlists"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:36661/api/playlists/11/albums"
+        }
+      }
+    }, {
+      "id" : 12,
+      "name" : "Rap Essentials",
+      "albums_count" : 11,
+      "created_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "updated_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:36661/api/playlists/12"
+        },
+        "playlists" : {
+          "href" : "http://127.0.0.1:36661/api/playlists"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:36661/api/playlists/12/albums"
+        }
+      }
+    }, {
+      "id" : 13,
+      "name" : "Trap",
+      "albums_count" : 7,
+      "created_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "updated_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:36661/api/playlists/13"
+        },
+        "playlists" : {
+          "href" : "http://127.0.0.1:36661/api/playlists"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:36661/api/playlists/13/albums"
+        }
+      }
+    }, {
+      "id" : 100,
+      "name" : "Billboard Top 100",
+      "albums_count" : 0,
+      "created_date" : "Mon, 15 Jan 2018 18:10:24 +0200",
+      "updated_date" : "Mon, 15 Jan 2018 18:10:24 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:36661/api/playlists/100"
+        },
+        "playlists" : {
+          "href" : "http://127.0.0.1:36661/api/playlists"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:36661/api/playlists/100/albums"
+        }
+      }
+    }, {
+      "id" : 101,
+      "name" : "Billboard Top 100",
+      "albums_count" : 0,
+      "created_date" : "Mon, 15 Jan 2018 18:11:52 +0200",
+      "updated_date" : "Mon, 15 Jan 2018 18:11:52 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:36661/api/playlists/101"
+        },
+        "playlists" : {
+          "href" : "http://127.0.0.1:36661/api/playlists"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:36661/api/playlists/101/albums"
+        }
+      }
+    }, {
+      "id" : 1,
+      "name" : "Global Top 100",
+      "albums_count" : 0,
+      "created_date" : "Mon, 15 Jan 2018 18:11:52 +0200",
+      "updated_date" : "Mon, 15 Jan 2018 18:11:52 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:36661/api/playlists/1"
+        },
+        "playlists" : {
+          "href" : "http://127.0.0.1:36661/api/playlists"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:36661/api/playlists/1/albums"
+        }
+      }
+    } ]
+  },
+  "_links" : {
+    "self" : {
+      "href" : "http://127.0.0.1:36661/api/playlists?page=0&amp;size=20"
+    },
+    "artists" : {
+      "href" : "http://127.0.0.1:36661/api/artists"
+    },
+    "genres" : {
+      "href" : "http://127.0.0.1:36661/api/genres"
+    },
+    "albums" : {
+      "href" : "http://127.0.0.1:36661/api/albums"
+    },
+    "home" : {
+      "href" : "http://127.0.0.1:36661/api/"
+    }
+  },
+  "page" : {
+    "size" : 20,
+    "totalElements" : 15,
+    "totalPages" : 1,
+    "number" : 0
+  }
+}
+
+18:13:12.212 DEBUG - response time in milliseconds: 261
+18:13:12.214 INFO  - response:
+{
+  "_embedded": {
+    "playlistResources": [
+      {
+        "id": 2,
+        "name": "USA Top 50",
+        "albums_count": 12,
+        "created_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "updated_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:36661\/api\/playlists\/2"
+          },
+          "playlists": {
+            "href": "http:\/\/127.0.0.1:36661\/api\/playlists"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:36661\/api\/playlists\/2\/albums"
+          }
+        }
+      },
+      {
+        "id": 3,
+        "name": "Classic Rock",
+        "albums_count": 19,
+        "created_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "updated_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:36661\/api\/playlists\/3"
+          },
+          "playlists": {
+            "href": "http:\/\/127.0.0.1:36661\/api\/playlists"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:36661\/api\/playlists\/3\/albums"
+          }
+        }
+      },
+      {
+        "id": 4,
+        "name": "Rock Anthems",
+        "albums_count": 19,
+        "created_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "updated_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:36661\/api\/playlists\/4"
+          },
+          "playlists": {
+            "href": "http:\/\/127.0.0.1:36661\/api\/playlists"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:36661\/api\/playlists\/4\/albums"
+          }
+        }
+      },
+      {
+        "id": 5,
+        "name": "Essential Metal",
+        "albums_count": 16,
+        "created_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "updated_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:36661\/api\/playlists\/5"
+          },
+          "playlists": {
+            "href": "http:\/\/127.0.0.1:36661\/api\/playlists"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:36661\/api\/playlists\/5\/albums"
+          }
+        }
+      },
+      {
+        "id": 6,
+        "name": "Metal Anthems",
+        "albums_count": 16,
+        "created_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "updated_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:36661\/api\/playlists\/6"
+          },
+          "playlists": {
+            "href": "http:\/\/127.0.0.1:36661\/api\/playlists"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:36661\/api\/playlists\/6\/albums"
+          }
+        }
+      },
+      {
+        "id": 7,
+        "name": "Essential Pop",
+        "albums_count": 5,
+        "created_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "updated_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:36661\/api\/playlists\/7"
+          },
+          "playlists": {
+            "href": "http:\/\/127.0.0.1:36661\/api\/playlists"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:36661\/api\/playlists\/7\/albums"
+          }
+        }
+      },
+      {
+        "id": 8,
+        "name": "Latest Pop",
+        "albums_count": 5,
+        "created_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "updated_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:36661\/api\/playlists\/8"
+          },
+          "playlists": {
+            "href": "http:\/\/127.0.0.1:36661\/api\/playlists"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:36661\/api\/playlists\/8\/albums"
+          }
+        }
+      },
+      {
+        "id": 9,
+        "name": "Soundtrack",
+        "albums_count": 10,
+        "created_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "updated_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:36661\/api\/playlists\/9"
+          },
+          "playlists": {
+            "href": "http:\/\/127.0.0.1:36661\/api\/playlists"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:36661\/api\/playlists\/9\/albums"
+          }
+        }
+      },
+      {
+        "id": 10,
+        "name": "Orchestral",
+        "albums_count": 10,
+        "created_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "updated_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:36661\/api\/playlists\/10"
+          },
+          "playlists": {
+            "href": "http:\/\/127.0.0.1:36661\/api\/playlists"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:36661\/api\/playlists\/10\/albums"
+          }
+        }
+      },
+      {
+        "id": 11,
+        "name": "Rap Anthems",
+        "albums_count": 11,
+        "created_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "updated_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:36661\/api\/playlists\/11"
+          },
+          "playlists": {
+            "href": "http:\/\/127.0.0.1:36661\/api\/playlists"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:36661\/api\/playlists\/11\/albums"
+          }
+        }
+      },
+      {
+        "id": 12,
+        "name": "Rap Essentials",
+        "albums_count": 11,
+        "created_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "updated_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:36661\/api\/playlists\/12"
+          },
+          "playlists": {
+            "href": "http:\/\/127.0.0.1:36661\/api\/playlists"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:36661\/api\/playlists\/12\/albums"
+          }
+        }
+      },
+      {
+        "id": 13,
+        "name": "Trap",
+        "albums_count": 7,
+        "created_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "updated_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:36661\/api\/playlists\/13"
+          },
+          "playlists": {
+            "href": "http:\/\/127.0.0.1:36661\/api\/playlists"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:36661\/api\/playlists\/13\/albums"
+          }
+        }
+      },
+      {
+        "id": 100,
+        "name": "Billboard Top 100",
+        "albums_count": 0,
+        "created_date": "Mon, 15 Jan 2018 18:10:24 +0200",
+        "updated_date": "Mon, 15 Jan 2018 18:10:24 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:36661\/api\/playlists\/100"
+          },
+          "playlists": {
+            "href": "http:\/\/127.0.0.1:36661\/api\/playlists"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:36661\/api\/playlists\/100\/albums"
+          }
+        }
+      },
+      {
+        "id": 101,
+        "name": "Billboard Top 100",
+        "albums_count": 0,
+        "created_date": "Mon, 15 Jan 2018 18:11:52 +0200",
+        "updated_date": "Mon, 15 Jan 2018 18:11:52 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:36661\/api\/playlists\/101"
+          },
+          "playlists": {
+            "href": "http:\/\/127.0.0.1:36661\/api\/playlists"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:36661\/api\/playlists\/101\/albums"
+          }
+        }
+      },
+      {
+        "id": 1,
+        "name": "Global Top 100",
+        "albums_count": 0,
+        "created_date": "Mon, 15 Jan 2018 18:11:52 +0200",
+        "updated_date": "Mon, 15 Jan 2018 18:11:52 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:36661\/api\/playlists\/1"
+          },
+          "playlists": {
+            "href": "http:\/\/127.0.0.1:36661\/api\/playlists"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:36661\/api\/playlists\/1\/albums"
+          }
+        }
+      }
+    ]
+  },
+  "_links": {
+    "self": {
+      "href": "http:\/\/127.0.0.1:36661\/api\/playlists?page=0&amp;size=20"
+    },
+    "artists": {
+      "href": "http:\/\/127.0.0.1:36661\/api\/artists"
+    },
+    "genres": {
+      "href": "http:\/\/127.0.0.1:36661\/api\/genres"
+    },
+    "albums": {
+      "href": "http:\/\/127.0.0.1:36661\/api\/albums"
+    },
+    "home": {
+      "href": "http:\/\/127.0.0.1:36661\/api\/"
+    }
+  },
+  "page": {
+    "size": 20,
+    "totalElements": 15,
+    "totalPages": 1,
+    "number": 0
+  }
+}
+
+</pre>
+<div class="step-row">
+<div class="step-cell">Then status 200</div>
+<div class="time-cell">0.00021</div>
+</div>
+<div class="step-row">
+<div class="step-cell">And match response._embedded.playlistResources == '#[] playlistStructure'</div>
+<div class="time-cell">0.012765</div>
+</div>
+<div class="step-row">
+<div class="step-cell">And match response._links == linksStructure</div>
+<div class="time-cell">0.000364</div>
+</div>
+<div class="step-row">
+<div class="step-cell">And match response.page == pageStructure</div>
+<div class="time-cell">0.000228</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

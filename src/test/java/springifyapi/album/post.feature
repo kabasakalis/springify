@@ -1,5 +1,5 @@
 # @ignore
-Feature: Post
+Feature: Post album
 
 Background:
   # set up post data

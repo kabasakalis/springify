@@ -1,16 +1,17 @@
 # @ignore
-Feature:  Delete
+Feature:  Delete an album
 
   Background:
-    # create a genre just to delete it
+    # create an album just to delete it
     * def postData = {}
-    * def payload = {name: 'EDM'}
-    * set postData.path = 'genres'
+    * def payload = {title: 'Hysteria', year: '2000' }
+    * set postData.path = 'albums'
     * set postData.payload = payload
     * def post = call read('classpath:springifyapi/common/genericPost.feature') { postData: '#(postData)' }
 
-  Scenario: delete a genre
+  Scenario: delete an album
     Given url post.genericPostResult.location
     When method delete
     Then status 200
-    And match response contains { name: 'EDM' }
+    And match response contains {title: 'Hysteria', year: '2000' }
+

@@ -1,17 +1,15 @@
 # @ignore
-Feature: Get One
+Feature: Get one playlist
 
 Background:
 * url baseUrl
-* def id = 1
-* def genresBaseUrl = baseUrl + 'genres'
-* def genreStructure = read('classpath:springifyapi/common/schemas/genre.js')
-* def linksStructure = read('classpath:springifyapi/common/schemas/genres_links.js')
+* def id = 13
+* def playlistStructure = read('classpath:springifyapi/common/schemas/playlist.js')
 
-Scenario: get a genre and validate schema
+Scenario: get a playlist and validate schema
 
-Given path 'genres', id
+Given path 'playlists', id
 When method get
 Then status 200
-And match response contains { name: 'Rock' }
-And match response == genreStructure
+And match response contains { name: 'Trap' }
+And match response == playlistStructure
