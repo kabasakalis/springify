@@ -60,10 +60,7 @@ public abstract class AbstractBaseRestController<T extends BaseEntity>
     protected ApplicationContext appContext;
 
 
-    public AbstractBaseRestController() {
-    }
-
-    ;
+    public AbstractBaseRestController() { };
 
     @Autowired
     public AbstractBaseRestController(JpaRepository<T, Long> repository,

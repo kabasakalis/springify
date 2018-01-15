@@ -24,7 +24,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/users")
 public class UserController extends AbstractBaseRestController<SpringifyUser> {
 
-    private UserRepository repository;
+    @Autowired
+    private UserResourceAssembler assembler;
     private RoleRepository roleRepository;
     private RoleResourceAssembler roleResourceAssembler;
     private PagedCustomResourcesAssembler<Role> pagedRoleAssembler;

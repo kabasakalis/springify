@@ -24,12 +24,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/roles")
 public class RoleController extends AbstractBaseRestController<Role> {
 
-    private RoleRepository repository;
+    @Autowired
+    private RoleResourceAssembler assembler;
     private UserRepository userRepository;
-   private UserResourceAssembler userResourceAssembler;
+    private UserResourceAssembler userResourceAssembler;
     private PagedCustomResourcesAssembler<SpringifyUser> pagedUserAssembler;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-
 
     @Autowired
     public RoleController(RoleRepository repository,

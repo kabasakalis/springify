@@ -596,7 +596,7 @@
 						"header": [],
 						"body": {},
 						"url": {
-							"raw": "http://localhost:8080/api/artists/1",
+							"raw": "http://localhost:8080/api/artists/1001",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -605,7 +605,7 @@
 							"path": [
 								"api",
 								"artists",
-								"1"
+								"1001"
 							]
 						},
 						"description": "\n"
@@ -1259,6 +1259,63 @@
 						"description": ""
 					},
 					"response": []
+				},
+				{
+					"name": "Get User Roles",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f8668fc0-a3f2-4891-9e60-514e37ac5130",
+								"type": "text/javascript",
+								"exec": [
+									"pm.sendRequest(\"https://postman-echo.com/get\", function (err, response) {",
+									"    console.log(response.json());",
+									"});"
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f29fa242-1e19-4950-a220-22cefc15e7ae",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"usernmame\": \"admin\",\n\"password\": \"11111111\"}\n"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/users/1/roles",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"1",
+								"roles"
+							]
+						},
+						"description": ""
+					},
+					"response": []
 				}
 			],
 			"event": [
@@ -1397,6 +1454,63 @@
 								"api",
 								"roles",
 								"1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get  Users With This Role",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f8668fc0-a3f2-4891-9e60-514e37ac5130",
+								"type": "text/javascript",
+								"exec": [
+									"pm.sendRequest(\"https://postman-echo.com/get\", function (err, response) {",
+									"    console.log(response.json());",
+									"});"
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f29fa242-1e19-4950-a220-22cefc15e7ae",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"usernmame\": \"admin\",\n\"password\": \"11111111\"}\n"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/roles/3/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"roles",
+								"3",
+								"users"
 							]
 						},
 						"description": ""
@@ -1567,7 +1681,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTYzOTA4NjksImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.Q9Y_gipfDZsvDSKANPW07yFV7e3_I9JYugT0_gqX0OvB4qEA1laqM5usrEuj1cJ8yP-UoJfARgY1Ug-lpaS54Q",
+				"value": "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY3MDkyOTMsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.FK6RbaKEqvTQTDK1R4rG8EzIcZyrJ44jHqWjEVCGd3baUjbw2KbPajpGEu8TYR152sKh0xwnHiEatX0f6IltAQ",
 				"type": "string"
 			}
 		]
