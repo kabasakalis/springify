@@ -37,6 +37,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
@@ -59,7 +60,10 @@ public abstract class AbstractBaseRestController<T extends BaseEntity>
     protected ApplicationContext appContext;
 
 
-    public AbstractBaseRestController(){};
+    public AbstractBaseRestController() {
+    }
+
+    ;
 
     @Autowired
     public AbstractBaseRestController(JpaRepository<T, Long> repository,
@@ -102,7 +106,7 @@ public abstract class AbstractBaseRestController<T extends BaseEntity>
     ResponseEntity<ResourceSupport> getOne(@PathVariable Long id) throws EntityNotFoundException {
         return Optional.ofNullable(repository.findOne(id))
                 .map(o -> new ResponseEntity<>(assembler.toCustomResource(o), HttpStatus.OK))
-                .orElseThrow(() ->  new EntityNotFoundException(resourceClass, id) );
+                .orElseThrow(() -> new EntityNotFoundException(resourceClass, id));
 
     }
 
@@ -144,7 +148,7 @@ public abstract class AbstractBaseRestController<T extends BaseEntity>
                     repository.delete(entity);
                     return new ResponseEntity<>(assembler.toResource(entity), HttpStatus.OK);
                 })
-                .orElseThrow(() ->  new EntityNotFoundException(resourceClass, id));
+                .orElseThrow(() -> new EntityNotFoundException(resourceClass, id));
     }
 
 
@@ -153,9 +157,10 @@ public abstract class AbstractBaseRestController<T extends BaseEntity>
             PagedCustomResourcesAssembler<R> associatedResourcePagedAssembler,
             Page<R> pagedAssociatedResources,
             Pageable pageRequest) {
-          PagedResources<ResourceSupport> pagedResponseBody = associatedResourcePagedAssembler
+        PagedResources<ResourceSupport> pagedResponseBody = associatedResourcePagedAssembler
                 .toResource(pagedAssociatedResources, associatedResourceAssembler);
-        assembler.addLinks(pagedResponseBody);
+//        assembler.addLinks(pagedResponseBody);
+        associatedResourceAssembler.addLinks(pagedResponseBody);
         return new ResponseEntity(pagedResponseBody, HttpStatus.OK);
     }
 
@@ -206,8 +211,8 @@ public abstract class AbstractBaseRestController<T extends BaseEntity>
 
                             } else if (association == Association.MANY_TO_MANY) {
 
-                                List<BaseEntity> subresourceCollection = getResourceCollection(resourceAccessor, associatedResourceClassName);
-                                List<BaseEntity> resourceCollection = getResourceCollection(subresourceAccessor, resourceClassName);
+                                Set<BaseEntity> subresourceCollection = getSetResourceCollection(resourceAccessor, associatedResourceClassName);
+                                Set<BaseEntity> resourceCollection = getSetResourceCollection(subresourceAccessor, resourceClassName);
                                 subresourceCollection.add(subresource.get());
                                 resourceCollection.add(resource);
 
@@ -226,7 +231,7 @@ public abstract class AbstractBaseRestController<T extends BaseEntity>
                     repository.save(resource);
                     return ControllerUtils.toEmptyResponse(HttpStatus.NO_CONTENT);
                 })
-                .orElseThrow( ()-> new EntityNotFoundException(resourceClass, id));
+                .orElseThrow(() -> new EntityNotFoundException(resourceClass, id));
     }
 
 
@@ -249,8 +254,8 @@ public abstract class AbstractBaseRestController<T extends BaseEntity>
         if (association == Association.ONE_TO_MANY) {
             subresourceAccessor.setPropertyValue(resourceClassName.toLowerCase(), null);
         } else if (association == Association.MANY_TO_MANY) {
-            List<BaseEntity> associatedResourceCollection = getResourceCollection(resourceAccessor, associatedClassName);
-            List<BaseEntity> resourceCollection = getResourceCollection(subresourceAccessor, resourceClassName);
+            Set<BaseEntity> associatedResourceCollection = getSetResourceCollection(resourceAccessor, associatedClassName);
+            Set<BaseEntity> resourceCollection = getSetResourceCollection(subresourceAccessor, resourceClassName);
             associatedResourceCollection.remove(associatedResource);
             resourceCollection.remove(resource);
         } else if (association == Association.ONE_TO_ONE) {
@@ -263,6 +268,10 @@ public abstract class AbstractBaseRestController<T extends BaseEntity>
 
     private List<BaseEntity> getResourceCollection(PropertyAccessor accessor, String className) {
         return (List<BaseEntity>) accessor.getPropertyValue(className.toLowerCase().concat("s"));
+    }
+
+    private Set<BaseEntity> getSetResourceCollection(PropertyAccessor accessor, String className) {
+        return (Set<BaseEntity>) accessor.getPropertyValue(className.toLowerCase().concat("s"));
     }
 
     private Class<?> getAssociatedClassFromRepository(JpaRepository<?, Long> repository) {
@@ -295,8 +304,8 @@ public abstract class AbstractBaseRestController<T extends BaseEntity>
             BaseEntity subresourceOwner = (BaseEntity) subresourceAccessor.getPropertyValue(resourceClassName.toLowerCase());
             return subresourceOwner != null && subresourceOwner.getId().equals(resource.getId());
         } else if (association == Association.MANY_TO_MANY) {
-            List<BaseEntity> subresourceCollection = getResourceCollection(resourceAccessor, subresource.getClass().getSimpleName());
-            List<BaseEntity> resourceCollection = getResourceCollection(subresourceAccessor, resourceClassName);
+            Set<BaseEntity> subresourceCollection = getSetResourceCollection(resourceAccessor, subresource.getClass().getSimpleName());
+            Set<BaseEntity> resourceCollection = getSetResourceCollection(subresourceAccessor, resourceClassName);
             return (subresourceCollection.contains(subresource) && resourceCollection.contains(resource));
         } else if (association == Association.ONE_TO_ONE) {
             BaseEntity subresourceOwner = (BaseEntity) subresourceAccessor.getPropertyValue(resourceClassName.toLowerCase());

@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>springifyapi/album/get-all.feature</title>
+<style>body { font-family: monospace, monospace; font-size: small; } table { border-collapse: collapse; } table td { border: 1px solid gray; padding: 0.1em 0.2em; } .scenario-heading { background-color: #F5F28F; padding: 0.2em 0.5em; border-bottom: 1px solid gray; } .scenario-name { font-weight: bold; } .scenario { border: 1px solid gray; margin-bottom: 1em; } .scenario-steps { padding-left: 0.2em; } .scenario-steps-nested { padding-left: 2em; } .step-row { margin: 0.2em 0; } .step-cell { background-color: #92DD96; display: inline-block; width: 85%; padding: 0.2em 0.5em; } .time-cell { background-color: #92DD96; display: inline-block; width: 10%; padding: 0.2em 0.5em; } .failed { background-color: #F2928C; } .skipped { background-color: #8AF; }</style>
+</head>
+<body>
+<div>
+<div class="scenario">
+<div class="scenario-heading">
+<span class="scenario-keyword">Scenario: </span><span class="scenario-name">get all albums and validate schema</span>
+</div>
+<div class="scenario-steps">
+<div class="step-row">
+<div class="step-cell">* url baseUrl</div>
+<div class="time-cell">0.724468</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* call classpath:springifyapi/common/setHeaders.feature</div>
+<div class="time-cell">0</div>
+</div>
+<pre>{
+  "config": {
+    "user": "admin",
+    "baseUrl": "http:\/\/127.0.0.1:43175\/api\/"
+  }
+}
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* print 'Config passed: ', karate.pretty(config)</div>
+<div class="time-cell">0</div>
+</div>
+<pre>16:19:21.415 INFO  - [print] Config passed:  {
+  "user": "admin",
+  "baseUrl": "http:\/\/127.0.0.1:43175\/api\/"
+}
+
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* def creds = read('classpath:springifyapi/data/'+ config.user + '.json')</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* url baseUrl</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">Given url baseUrl</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">And path 'login'</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">And request creds</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">When method post</div>
+<div class="time-cell">0</div>
+</div>
+<pre>16:19:21.484 INFO  - request:
+{
+  "password": "11111111",
+  "username": "admin"
+}
+
+16:19:21.488 DEBUG - 
+1 &gt; POST http://127.0.0.1:43175/api/login
+1 &gt; Accept-Encoding: gzip,deflate
+1 &gt; Connection: Keep-Alive
+1 &gt; Content-Length: 42
+1 &gt; Content-Type: application/json
+1 &gt; Host: 127.0.0.1:43175
+1 &gt; User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_151)
+{"password":"11111111","username":"admin"}
+
+16:19:21.763 DEBUG - 
+1 &lt; 200
+1 &lt; Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+1 &lt; Content-Type: application/hal+json;charset=UTF-8
+1 &lt; Date: Mon, 15 Jan 2018 14:19:21 GMT
+1 &lt; Expires: 0
+1 &lt; Pragma: no-cache
+1 &lt; Token: eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY3MjQzNjEsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.Ig9lnu1xd5GN5cBdQHk3yJ6Dx32QM9det2y49TdxU03pem7XSwRO5fz5dKjvCp7ux4r40Rm2Ng_ODZquyV8nhw
+1 &lt; Transfer-Encoding: chunked
+1 &lt; X-Application-Context: application:0
+1 &lt; X-Content-Type-Options: nosniff
+1 &lt; X-Frame-Options: DENY
+1 &lt; X-XSS-Protection: 1; mode=block
+{
+  "username" : "admin",
+  "email" : "admin@springify.com",
+  "password" : "$2a$10$UClj/ChiXzRXcT6HvSdOpePZFzTIJs9CYDagygovYbM0TDzMRe7Di",
+  "jwtToken" : "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY3MjQzNjEsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.Ig9lnu1xd5GN5cBdQHk3yJ6Dx32QM9det2y49TdxU03pem7XSwRO5fz5dKjvCp7ux4r40Rm2Ng_ODZquyV8nhw",
+  "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+  "created_date" : "Sat, 13 Jan 2018 23:47:57 +0200"
+}
+
+16:19:21.763 DEBUG - response time in milliseconds: 278
+16:19:21.764 INFO  - response:
+{
+  "username": "admin",
+  "email": "admin@springify.com",
+  "password": "$2a$10$UClj\/ChiXzRXcT6HvSdOpePZFzTIJs9CYDagygovYbM0TDzMRe7Di",
+  "jwtToken": "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY3MjQzNjEsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.Ig9lnu1xd5GN5cBdQHk3yJ6Dx32QM9det2y49TdxU03pem7XSwRO5fz5dKjvCp7ux4r40Rm2Ng_ODZquyV8nhw",
+  "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+  "created_date": "Sat, 13 Jan 2018 23:47:57 +0200"
+}
+
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">Then status 200</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* def jwtToken = response.jwtToken</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* print 'jwtToken OK: ', karate.pretty(jwtToken)</div>
+<div class="time-cell">0</div>
+</div>
+<pre>16:19:21.801 INFO  - [print] jwtToken OK:  eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY3MjQzNjEsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.Ig9lnu1xd5GN5cBdQHk3yJ6Dx32QM9det2y49TdxU03pem7XSwRO5fz5dKjvCp7ux4r40Rm2Ng_ODZquyV8nhw
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* def defaultHeaders =  callonce read('classpath:springifyapi/common/HeadersFun.js')  { jwtToken:  '#(jwtToken)' }</div>
+<div class="time-cell">0</div>
+</div>
+<pre>16:19:21.900 INFO  - AUTH {jwtToken=eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY3MjQzNjEsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.Ig9lnu1xd5GN5cBdQHk3yJ6Dx32QM9det2y49TdxU03pem7XSwRO5fz5dKjvCp7ux4r40Rm2Ng_ODZquyV8nhw} 
+16:19:21.902 DEBUG - cached callonce: read('classpath:springifyapi/common/HeadersFun.js')
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* configure headers = defaultHeaders</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="step-row">
+<div class="step-cell">* def albumStructure = read('classpath:springifyapi/common/schemas/album.js')</div>
+<div class="time-cell">0.015393</div>
+</div>
+<div class="step-row">
+<div class="step-cell">* def pageStructure = read('classpath:springifyapi/common/schemas/page.js')</div>
+<div class="time-cell">0.012565</div>
+</div>
+<div class="step-row">
+<div class="step-cell">* def linksStructure = read('classpath:springifyapi/common/schemas/albums_links.js')</div>
+<div class="time-cell">0.009494</div>
+</div>
+<div class="step-row">
+<div class="step-cell">Given path 'albums'</div>
+<div class="time-cell">0.009085</div>
+</div>
+<div class="step-row">
+<div class="step-cell">When method get</div>
+<div class="time-cell">0.40878</div>
+</div>
+<pre>16:19:21.965 DEBUG - 
+1 &gt; GET http://127.0.0.1:43175/api/albums
+1 &gt; Accept-Encoding: gzip,deflate
+1 &gt; Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY3MjQzNjEsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.Ig9lnu1xd5GN5cBdQHk3yJ6Dx32QM9det2y49TdxU03pem7XSwRO5fz5dKjvCp7ux4r40Rm2Ng_ODZquyV8nhw
+1 &gt; Connection: Keep-Alive
+1 &gt; Content-Type: application/json
+1 &gt; Host: 127.0.0.1:43175
+1 &gt; User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_151)
+
+16:19:22.361 DEBUG - 
+1 &lt; 200
+1 &lt; Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+1 &lt; Content-Type: application/hal+json;charset=UTF-8
+1 &lt; Date: Mon, 15 Jan 2018 14:19:21 GMT
+1 &lt; Expires: 0
+1 &lt; Pragma: no-cache
+1 &lt; Set-Cookie: JSESSIONID=7CBEDBB55D38868B83F9414AEA373799; Path=/api; HttpOnly
+1 &lt; Transfer-Encoding: chunked
+1 &lt; X-Application-Context: application:0
+1 &lt; X-Content-Type-Options: nosniff
+1 &lt; X-Frame-Options: DENY
+1 &lt; X-XSS-Protection: 1; mode=block
+{
+  "_embedded" : {
+    "albumResources" : [ {
+      "id" : 1,
+      "title" : "Fatal Portrait",
+      "year" : "1986",
+      "artist" : "King Diamond",
+      "created_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:43175/api/albums/1"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:43175/api/albums"
+        },
+        "playlists" : {
+          "href" : "http://127.0.0.1:43175/api/albums/1/playlists"
+        },
+        "artist" : {
+          "href" : "http://127.0.0.1:43175/api/albums/1/artist"
+        }
+      }
+    }, {
+      "id" : 2,
+      "title" : "Abigail",
+      "year" : "1987",
+      "artist" : "King Diamond",
+      "created_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:43175/api/albums/2"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:43175/api/albums"
+        },
+        "playlists" : {
+          "href" : "http://127.0.0.1:43175/api/albums/2/playlists"
+        },
+        "artist" : {
+          "href" : "http://127.0.0.1:43175/api/albums/2/artist"
+        }
+      }
+    }, {
+      "id" : 3,
+      "title" : "Them",
+      "year" : "1988",
+      "artist" : "King Diamond",
+      "created_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:43175/api/albums/3"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:43175/api/albums"
+        },
+        "playlists" : {
+          "href" : "http://127.0.0.1:43175/api/albums/3/playlists"
+        },
+        "artist" : {
+          "href" : "http://127.0.0.1:43175/api/albums/3/artist"
+        }
+      }
+    }, {
+      "id" : 4,
+      "title" : "Conspiracy",
+      "year" : "1990",
+      "artist" : "King Diamond",
+      "created_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:43175/api/albums/4"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:43175/api/albums"
+        },
+        "playlists" : {
+          "href" : "http://127.0.0.1:43175/api/albums/4/playlists"
+        },
+        "artist" : {
+          "href" : "http://127.0.0.1:43175/api/albums/4/artist"
+        }
+      }
+    }, {
+      "id" : 5,
+      "title" : "The Number Of The  Beast",
+      "year" : "1982",
+      "artist" : "Iron Maiden",
+      "created_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:43175/api/albums/5"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:43175/api/albums"
+        },
+        "playlists" : {
+          "href" : "http://127.0.0.1:43175/api/albums/5/playlists"
+        },
+        "artist" : {
+          "href" : "http://127.0.0.1:43175/api/albums/5/artist"
+        }
+      }
+    }, {
+      "id" : 6,
+      "title" : "Piece Of Mind",
+      "year" : "1983",
+      "artist" : "Iron Maiden",
+      "created_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:43175/api/albums/6"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:43175/api/albums"
+        },
+        "playlists" : {
+          "href" : "http://127.0.0.1:43175/api/albums/6/playlists"
+        },
+        "artist" : {
+          "href" : "http://127.0.0.1:43175/api/albums/6/artist"
+        }
+      }
+    }, {
+      "id" : 7,
+      "title" : "Powerslave",
+      "year" : "1984",
+      "artist" : "Iron Maiden",
+      "created_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:43175/api/albums/7"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:43175/api/albums"
+        },
+        "playlists" : {
+          "href" : "http://127.0.0.1:43175/api/albums/7/playlists"
+        },
+        "artist" : {
+          "href" : "http://127.0.0.1:43175/api/albums/7/artist"
+        }
+      }
+    }, {
+      "id" : 8,
+      "title" : "Somewhere in Time",
+      "year" : "1986",
+      "artist" : "Iron Maiden",
+      "created_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:43175/api/albums/8"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:43175/api/albums"
+        },
+        "playlists" : {
+          "href" : "http://127.0.0.1:43175/api/albums/8/playlists"
+        },
+        "artist" : {
+          "href" : "http://127.0.0.1:43175/api/albums/8/artist"
+        }
+      }
+    }, {
+      "id" : 9,
+      "title" : "Painkiller",
+      "year" : "1990",
+      "artist" : "Judas Priest",
+      "created_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:43175/api/albums/9"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:43175/api/albums"
+        },
+        "playlists" : {
+          "href" : "http://127.0.0.1:43175/api/albums/9/playlists"
+        },
+        "artist" : {
+          "href" : "http://127.0.0.1:43175/api/albums/9/artist"
+        }
+      }
+    }, {
+      "id" : 10,
+      "title" : "Screaming For Vengeance",
+      "year" : "1982",
+      "artist" : "Judas Priest",
+      "created_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:43175/api/albums/10"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:43175/api/albums"
+        },
+        "playlists" : {
+          "href" : "http://127.0.0.1:43175/api/albums/10/playlists"
+        },
+        "artist" : {
+          "href" : "http://127.0.0.1:43175/api/albums/10/artist"
+        }
+      }
+    }, {
+      "id" : 11,
+      "title" : "Defenders Of The Faith",
+      "year" : "1984",
+      "artist" : "Judas Priest",
+      "created_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:43175/api/albums/11"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:43175/api/albums"
+        },
+        "playlists" : {
+          "href" : "http://127.0.0.1:43175/api/albums/11/playlists"
+        },
+        "artist" : {
+          "href" : "http://127.0.0.1:43175/api/albums/11/artist"
+        }
+      }
+    }, {
+      "id" : 12,
+      "title" : "Turbo Lover",
+      "year" : "1986",
+      "artist" : "Judas Priest",
+      "created_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:43175/api/albums/12"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:43175/api/albums"
+        },
+        "playlists" : {
+          "href" : "http://127.0.0.1:43175/api/albums/12/playlists"
+        },
+        "artist" : {
+          "href" : "http://127.0.0.1:43175/api/albums/12/artist"
+        }
+      }
+    }, {
+      "id" : 13,
+      "title" : "Images And Words",
+      "year" : "1992",
+      "artist" : "Dream Theater",
+      "created_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:43175/api/albums/13"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:43175/api/albums"
+        },
+        "playlists" : {
+          "href" : "http://127.0.0.1:43175/api/albums/13/playlists"
+        },
+        "artist" : {
+          "href" : "http://127.0.0.1:43175/api/albums/13/artist"
+        }
+      }
+    }, {
+      "id" : 14,
+      "title" : "Metropolis Pt2: Scenes From A Memory",
+      "year" : "1999",
+      "artist" : "Dream Theater",
+      "created_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:43175/api/albums/14"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:43175/api/albums"
+        },
+        "playlists" : {
+          "href" : "http://127.0.0.1:43175/api/albums/14/playlists"
+        },
+        "artist" : {
+          "href" : "http://127.0.0.1:43175/api/albums/14/artist"
+        }
+      }
+    }, {
+      "id" : 15,
+      "title" : "Dream Theater",
+      "year" : "2013",
+      "artist" : "Dream Theater",
+      "created_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:43175/api/albums/15"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:43175/api/albums"
+        },
+        "playlists" : {
+          "href" : "http://127.0.0.1:43175/api/albums/15/playlists"
+        },
+        "artist" : {
+          "href" : "http://127.0.0.1:43175/api/albums/15/artist"
+        }
+      }
+    }, {
+      "id" : 16,
+      "title" : "Train Of Thought",
+      "year" : "2003",
+      "artist" : "Dream Theater",
+      "created_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:43175/api/albums/16"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:43175/api/albums"
+        },
+        "playlists" : {
+          "href" : "http://127.0.0.1:43175/api/albums/16/playlists"
+        },
+        "artist" : {
+          "href" : "http://127.0.0.1:43175/api/albums/16/artist"
+        }
+      }
+    }, {
+      "id" : 17,
+      "title" : "Back in Black",
+      "year" : "1980",
+      "artist" : "AC/DC",
+      "created_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:43175/api/albums/17"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:43175/api/albums"
+        },
+        "playlists" : {
+          "href" : "http://127.0.0.1:43175/api/albums/17/playlists"
+        },
+        "artist" : {
+          "href" : "http://127.0.0.1:43175/api/albums/17/artist"
+        }
+      }
+    }, {
+      "id" : 18,
+      "title" : "For Those About To Rock",
+      "year" : "1981",
+      "artist" : "AC/DC",
+      "created_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:43175/api/albums/18"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:43175/api/albums"
+        },
+        "playlists" : {
+          "href" : "http://127.0.0.1:43175/api/albums/18/playlists"
+        },
+        "artist" : {
+          "href" : "http://127.0.0.1:43175/api/albums/18/artist"
+        }
+      }
+    }, {
+      "id" : 19,
+      "title" : "Flick Of The Switch",
+      "year" : "1983",
+      "artist" : "AC/DC",
+      "created_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:43175/api/albums/19"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:43175/api/albums"
+        },
+        "playlists" : {
+          "href" : "http://127.0.0.1:43175/api/albums/19/playlists"
+        },
+        "artist" : {
+          "href" : "http://127.0.0.1:43175/api/albums/19/artist"
+        }
+      }
+    }, {
+      "id" : 20,
+      "title" : "Fly On The Wall",
+      "year" : "1985",
+      "artist" : "AC/DC",
+      "created_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "updated_date" : "Sat, 13 Jan 2018 23:47:57 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:43175/api/albums/20"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:43175/api/albums"
+        },
+        "playlists" : {
+          "href" : "http://127.0.0.1:43175/api/albums/20/playlists"
+        },
+        "artist" : {
+          "href" : "http://127.0.0.1:43175/api/albums/20/artist"
+        }
+      }
+    } ]
+  },
+  "_links" : {
+    "first" : {
+      "href" : "http://127.0.0.1:43175/api/albums?page=0&amp;size=20"
+    },
+    "self" : {
+      "href" : "http://127.0.0.1:43175/api/albums?page=0&amp;size=20"
+    },
+    "next" : {
+      "href" : "http://127.0.0.1:43175/api/albums?page=1&amp;size=20"
+    },
+    "last" : {
+      "href" : "http://127.0.0.1:43175/api/albums?page=4&amp;size=20"
+    },
+    "artists" : {
+      "href" : "http://127.0.0.1:43175/api/artists"
+    },
+    "playlists" : {
+      "href" : "http://127.0.0.1:43175/api/playlists"
+    },
+    "home" : {
+      "href" : "http://127.0.0.1:43175/api/"
+    }
+  },
+  "page" : {
+    "size" : 20,
+    "totalElements" : 86,
+    "totalPages" : 5,
+    "number" : 0
+  }
+}
+
+16:19:22.362 DEBUG - response time in milliseconds: 401
+16:19:22.367 INFO  - response:
+{
+  "_embedded": {
+    "albumResources": [
+      {
+        "id": 1,
+        "title": "Fatal Portrait",
+        "year": "1986",
+        "artist": "King Diamond",
+        "created_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/1"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums"
+          },
+          "playlists": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/1\/playlists"
+          },
+          "artist": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/1\/artist"
+          }
+        }
+      },
+      {
+        "id": 2,
+        "title": "Abigail",
+        "year": "1987",
+        "artist": "King Diamond",
+        "created_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/2"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums"
+          },
+          "playlists": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/2\/playlists"
+          },
+          "artist": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/2\/artist"
+          }
+        }
+      },
+      {
+        "id": 3,
+        "title": "Them",
+        "year": "1988",
+        "artist": "King Diamond",
+        "created_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/3"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums"
+          },
+          "playlists": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/3\/playlists"
+          },
+          "artist": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/3\/artist"
+          }
+        }
+      },
+      {
+        "id": 4,
+        "title": "Conspiracy",
+        "year": "1990",
+        "artist": "King Diamond",
+        "created_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/4"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums"
+          },
+          "playlists": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/4\/playlists"
+          },
+          "artist": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/4\/artist"
+          }
+        }
+      },
+      {
+        "id": 5,
+        "title": "The Number Of The  Beast",
+        "year": "1982",
+        "artist": "Iron Maiden",
+        "created_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/5"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums"
+          },
+          "playlists": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/5\/playlists"
+          },
+          "artist": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/5\/artist"
+          }
+        }
+      },
+      {
+        "id": 6,
+        "title": "Piece Of Mind",
+        "year": "1983",
+        "artist": "Iron Maiden",
+        "created_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/6"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums"
+          },
+          "playlists": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/6\/playlists"
+          },
+          "artist": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/6\/artist"
+          }
+        }
+      },
+      {
+        "id": 7,
+        "title": "Powerslave",
+        "year": "1984",
+        "artist": "Iron Maiden",
+        "created_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/7"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums"
+          },
+          "playlists": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/7\/playlists"
+          },
+          "artist": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/7\/artist"
+          }
+        }
+      },
+      {
+        "id": 8,
+        "title": "Somewhere in Time",
+        "year": "1986",
+        "artist": "Iron Maiden",
+        "created_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/8"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums"
+          },
+          "playlists": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/8\/playlists"
+          },
+          "artist": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/8\/artist"
+          }
+        }
+      },
+      {
+        "id": 9,
+        "title": "Painkiller",
+        "year": "1990",
+        "artist": "Judas Priest",
+        "created_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/9"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums"
+          },
+          "playlists": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/9\/playlists"
+          },
+          "artist": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/9\/artist"
+          }
+        }
+      },
+      {
+        "id": 10,
+        "title": "Screaming For Vengeance",
+        "year": "1982",
+        "artist": "Judas Priest",
+        "created_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/10"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums"
+          },
+          "playlists": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/10\/playlists"
+          },
+          "artist": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/10\/artist"
+          }
+        }
+      },
+      {
+        "id": 11,
+        "title": "Defenders Of The Faith",
+        "year": "1984",
+        "artist": "Judas Priest",
+        "created_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/11"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums"
+          },
+          "playlists": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/11\/playlists"
+          },
+          "artist": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/11\/artist"
+          }
+        }
+      },
+      {
+        "id": 12,
+        "title": "Turbo Lover",
+        "year": "1986",
+        "artist": "Judas Priest",
+        "created_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/12"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums"
+          },
+          "playlists": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/12\/playlists"
+          },
+          "artist": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/12\/artist"
+          }
+        }
+      },
+      {
+        "id": 13,
+        "title": "Images And Words",
+        "year": "1992",
+        "artist": "Dream Theater",
+        "created_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/13"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums"
+          },
+          "playlists": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/13\/playlists"
+          },
+          "artist": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/13\/artist"
+          }
+        }
+      },
+      {
+        "id": 14,
+        "title": "Metropolis Pt2: Scenes From A Memory",
+        "year": "1999",
+        "artist": "Dream Theater",
+        "created_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/14"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums"
+          },
+          "playlists": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/14\/playlists"
+          },
+          "artist": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/14\/artist"
+          }
+        }
+      },
+      {
+        "id": 15,
+        "title": "Dream Theater",
+        "year": "2013",
+        "artist": "Dream Theater",
+        "created_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/15"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums"
+          },
+          "playlists": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/15\/playlists"
+          },
+          "artist": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/15\/artist"
+          }
+        }
+      },
+      {
+        "id": 16,
+        "title": "Train Of Thought",
+        "year": "2003",
+        "artist": "Dream Theater",
+        "created_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/16"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums"
+          },
+          "playlists": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/16\/playlists"
+          },
+          "artist": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/16\/artist"
+          }
+        }
+      },
+      {
+        "id": 17,
+        "title": "Back in Black",
+        "year": "1980",
+        "artist": "AC\/DC",
+        "created_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/17"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums"
+          },
+          "playlists": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/17\/playlists"
+          },
+          "artist": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/17\/artist"
+          }
+        }
+      },
+      {
+        "id": 18,
+        "title": "For Those About To Rock",
+        "year": "1981",
+        "artist": "AC\/DC",
+        "created_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/18"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums"
+          },
+          "playlists": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/18\/playlists"
+          },
+          "artist": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/18\/artist"
+          }
+        }
+      },
+      {
+        "id": 19,
+        "title": "Flick Of The Switch",
+        "year": "1983",
+        "artist": "AC\/DC",
+        "created_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/19"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums"
+          },
+          "playlists": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/19\/playlists"
+          },
+          "artist": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/19\/artist"
+          }
+        }
+      },
+      {
+        "id": 20,
+        "title": "Fly On The Wall",
+        "year": "1985",
+        "artist": "AC\/DC",
+        "created_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "updated_date": "Sat, 13 Jan 2018 23:47:57 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/20"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums"
+          },
+          "playlists": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/20\/playlists"
+          },
+          "artist": {
+            "href": "http:\/\/127.0.0.1:43175\/api\/albums\/20\/artist"
+          }
+        }
+      }
+    ]
+  },
+  "_links": {
+    "first": {
+      "href": "http:\/\/127.0.0.1:43175\/api\/albums?page=0&amp;size=20"
+    },
+    "self": {
+      "href": "http:\/\/127.0.0.1:43175\/api\/albums?page=0&amp;size=20"
+    },
+    "next": {
+      "href": "http:\/\/127.0.0.1:43175\/api\/albums?page=1&amp;size=20"
+    },
+    "last": {
+      "href": "http:\/\/127.0.0.1:43175\/api\/albums?page=4&amp;size=20"
+    },
+    "artists": {
+      "href": "http:\/\/127.0.0.1:43175\/api\/artists"
+    },
+    "playlists": {
+      "href": "http:\/\/127.0.0.1:43175\/api\/playlists"
+    },
+    "home": {
+      "href": "http:\/\/127.0.0.1:43175\/api\/"
+    }
+  },
+  "page": {
+    "size": 20,
+    "totalElements": 86,
+    "totalPages": 5,
+    "number": 0
+  }
+}
+
+</pre>
+<div class="step-row">
+<div class="step-cell">Then status 200</div>
+<div class="time-cell">0.00058</div>
+</div>
+<div class="step-row">
+<div class="step-cell">And match response._embedded.albumResources == '#[] albumStructure'</div>
+<div class="time-cell">0.030039</div>
+</div>
+<div class="step-row">
+<div class="step-cell">And match response._links == linksStructure</div>
+<div class="time-cell">0.00033</div>
+</div>
+<div class="step-row">
+<div class="step-cell">And match response.page == pageStructure</div>
+<div class="time-cell">0.000223</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

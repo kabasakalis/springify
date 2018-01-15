@@ -1,5 +1,5 @@
 # @ignore
-Feature:  Delete genre
+Feature:  Delete
 
   Background:
     # create a genre just to delete it

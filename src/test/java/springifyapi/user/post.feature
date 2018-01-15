@@ -1,5 +1,5 @@
 # @ignore
-Feature: Post genre
+Feature: Post
 
 Background:
   # set up post data

@@ -1,5 +1,5 @@
 # @ignore
-Feature: Get One Genre
+Feature: Get One
 
 Background:
 * url baseUrl

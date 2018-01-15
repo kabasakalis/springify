@@ -1,5 +1,5 @@
 # @ignore
-Feature: Update genre
+Feature: Update
 
 Background:
   * url baseUrl
