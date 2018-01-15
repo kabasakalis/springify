@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>springifyapi/artist/get-all.feature</title>
+<style>body { font-family: monospace, monospace; font-size: small; } table { border-collapse: collapse; } table td { border: 1px solid gray; padding: 0.1em 0.2em; } .scenario-heading { background-color: #F5F28F; padding: 0.2em 0.5em; border-bottom: 1px solid gray; } .scenario-name { font-weight: bold; } .scenario { border: 1px solid gray; margin-bottom: 1em; } .scenario-steps { padding-left: 0.2em; } .scenario-steps-nested { padding-left: 2em; } .step-row { margin: 0.2em 0; } .step-cell { background-color: #92DD96; display: inline-block; width: 85%; padding: 0.2em 0.5em; } .time-cell { background-color: #92DD96; display: inline-block; width: 10%; padding: 0.2em 0.5em; } .failed { background-color: #F2928C; } .skipped { background-color: #8AF; }</style>
+</head>
+<body>
+<div>
+<div class="scenario">
+<div class="scenario-heading">
+<span class="scenario-keyword">Scenario: </span><span class="scenario-name">get all artists and validate schema</span>
+</div>
+<div class="scenario-steps">
+<div class="step-row">
+<div class="step-cell">* url baseUrl</div>
+<div class="time-cell">0.785102</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* call classpath:springifyapi/common/setHeaders.feature</div>
+<div class="time-cell">0</div>
+</div>
+<pre>{
+  "config": {
+    "user": "admin",
+    "baseUrl": "http:\/\/127.0.0.1:35917\/api\/"
+  }
+}
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* print 'Config passed: ', karate.pretty(config)</div>
+<div class="time-cell">0</div>
+</div>
+<pre>17:44:02.224 INFO  - [print] Config passed:  {
+  "user": "admin",
+  "baseUrl": "http:\/\/127.0.0.1:35917\/api\/"
+}
+
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* def creds = read('classpath:springifyapi/data/'+ config.user + '.json')</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* url baseUrl</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">Given url baseUrl</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">And path 'login'</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">And request creds</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">When method post</div>
+<div class="time-cell">0</div>
+</div>
+<pre>17:44:02.452 INFO  - request:
+{
+  "password": "11111111",
+  "username": "admin"
+}
+
+17:44:02.474 DEBUG - 
+1 &gt; POST http://127.0.0.1:35917/api/login
+1 &gt; Accept-Encoding: gzip,deflate
+1 &gt; Connection: Keep-Alive
+1 &gt; Content-Length: 42
+1 &gt; Content-Type: application/json
+1 &gt; Host: 127.0.0.1:35917
+1 &gt; User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_151)
+{"password":"11111111","username":"admin"}
+
+17:44:02.740 DEBUG - 
+1 &lt; 200
+1 &lt; Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+1 &lt; Content-Type: application/hal+json;charset=UTF-8
+1 &lt; Date: Mon, 15 Jan 2018 15:44:02 GMT
+1 &lt; Expires: 0
+1 &lt; Pragma: no-cache
+1 &lt; Token: eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY3Mjk0NDIsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.Z60aGT06hPHe54hudNqPayutI9-6ZwO6qw0fLqdkn_NygNXVeUcAK_GkEeRbDvuEflBszQYmNXl8gOY3A7W38A
+1 &lt; Transfer-Encoding: chunked
+1 &lt; X-Application-Context: application:0
+1 &lt; X-Content-Type-Options: nosniff
+1 &lt; X-Frame-Options: DENY
+1 &lt; X-XSS-Protection: 1; mode=block
+{
+  "username" : "admin",
+  "email" : "admin@springify.com",
+  "password" : "$2a$10$UClj/ChiXzRXcT6HvSdOpePZFzTIJs9CYDagygovYbM0TDzMRe7Di",
+  "jwtToken" : "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY3Mjk0NDIsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.Z60aGT06hPHe54hudNqPayutI9-6ZwO6qw0fLqdkn_NygNXVeUcAK_GkEeRbDvuEflBszQYmNXl8gOY3A7W38A",
+  "updated_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+  "created_date" : "Mon, 15 Jan 2018 15:20:18 +0200"
+}
+
+17:44:02.740 DEBUG - response time in milliseconds: 287
+17:44:02.741 INFO  - response:
+{
+  "username": "admin",
+  "email": "admin@springify.com",
+  "password": "$2a$10$UClj\/ChiXzRXcT6HvSdOpePZFzTIJs9CYDagygovYbM0TDzMRe7Di",
+  "jwtToken": "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY3Mjk0NDIsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.Z60aGT06hPHe54hudNqPayutI9-6ZwO6qw0fLqdkn_NygNXVeUcAK_GkEeRbDvuEflBszQYmNXl8gOY3A7W38A",
+  "updated_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+  "created_date": "Mon, 15 Jan 2018 15:20:18 +0200"
+}
+
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">Then status 200</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* def jwtToken = response.jwtToken</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* print 'jwtToken OK: ', karate.pretty(jwtToken)</div>
+<div class="time-cell">0</div>
+</div>
+<pre>17:44:02.765 INFO  - [print] jwtToken OK:  eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY3Mjk0NDIsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.Z60aGT06hPHe54hudNqPayutI9-6ZwO6qw0fLqdkn_NygNXVeUcAK_GkEeRbDvuEflBszQYmNXl8gOY3A7W38A
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* def defaultHeaders =  callonce read('classpath:springifyapi/common/HeadersFun.js')  { jwtToken:  '#(jwtToken)' }</div>
+<div class="time-cell">0</div>
+</div>
+<pre>17:44:02.801 INFO  - AUTH {jwtToken=eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY3Mjk0NDIsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.Z60aGT06hPHe54hudNqPayutI9-6ZwO6qw0fLqdkn_NygNXVeUcAK_GkEeRbDvuEflBszQYmNXl8gOY3A7W38A} 
+17:44:02.803 DEBUG - cached callonce: read('classpath:springifyapi/common/HeadersFun.js')
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* configure headers = defaultHeaders</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="step-row">
+<div class="step-cell">* def artistStructure = read('classpath:springifyapi/common/schemas/artist.js')</div>
+<div class="time-cell">0.017592</div>
+</div>
+<div class="step-row">
+<div class="step-cell">* def pageStructure = read('classpath:springifyapi/common/schemas/page.js')</div>
+<div class="time-cell">0.009114</div>
+</div>
+<div class="step-row">
+<div class="step-cell">* def linksStructure = read('classpath:springifyapi/common/schemas/artists_links.js')</div>
+<div class="time-cell">0.01583</div>
+</div>
+<div class="step-row">
+<div class="step-cell">Given path 'artists'</div>
+<div class="time-cell">0.010173</div>
+</div>
+<div class="step-row">
+<div class="step-cell">When method get</div>
+<div class="time-cell">0.17735</div>
+</div>
+<pre>17:44:02.867 DEBUG - 
+1 &gt; GET http://127.0.0.1:35917/api/artists
+1 &gt; Accept-Encoding: gzip,deflate
+1 &gt; Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY3Mjk0NDIsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.Z60aGT06hPHe54hudNqPayutI9-6ZwO6qw0fLqdkn_NygNXVeUcAK_GkEeRbDvuEflBszQYmNXl8gOY3A7W38A
+1 &gt; Connection: Keep-Alive
+1 &gt; Content-Type: application/json
+1 &gt; Host: 127.0.0.1:35917
+1 &gt; User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_151)
+
+17:44:03.037 DEBUG - 
+1 &lt; 200
+1 &lt; Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+1 &lt; Content-Type: application/hal+json;charset=UTF-8
+1 &lt; Date: Mon, 15 Jan 2018 15:44:02 GMT
+1 &lt; Expires: 0
+1 &lt; Pragma: no-cache
+1 &lt; Set-Cookie: JSESSIONID=21A5B11C0D6D8537C2792A78366424AA; Path=/api; HttpOnly
+1 &lt; Transfer-Encoding: chunked
+1 &lt; X-Application-Context: application:0
+1 &lt; X-Content-Type-Options: nosniff
+1 &lt; X-Frame-Options: DENY
+1 &lt; X-XSS-Protection: 1; mode=block
+{
+  "_embedded" : {
+    "artistResources" : [ {
+      "id" : 1,
+      "name" : "King Diamond",
+      "genre" : "Metal",
+      "country" : "Denmark",
+      "albums_count" : 4,
+      "created_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "updated_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:35917/api/artists/1"
+        },
+        "artists" : {
+          "href" : "http://127.0.0.1:35917/api/artists"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:35917/api/artists/1/albums"
+        },
+        "genre" : {
+          "href" : "http://127.0.0.1:35917/api/artists/1/genre"
+        }
+      }
+    }, {
+      "id" : 2,
+      "name" : "Iron Maiden",
+      "genre" : "Metal",
+      "country" : "UK",
+      "albums_count" : 4,
+      "created_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "updated_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:35917/api/artists/2"
+        },
+        "artists" : {
+          "href" : "http://127.0.0.1:35917/api/artists"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:35917/api/artists/2/albums"
+        },
+        "genre" : {
+          "href" : "http://127.0.0.1:35917/api/artists/2/genre"
+        }
+      }
+    }, {
+      "id" : 3,
+      "name" : "Judas Priest",
+      "genre" : "Metal",
+      "country" : "UK",
+      "albums_count" : 4,
+      "created_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "updated_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:35917/api/artists/3"
+        },
+        "artists" : {
+          "href" : "http://127.0.0.1:35917/api/artists"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:35917/api/artists/3/albums"
+        },
+        "genre" : {
+          "href" : "http://127.0.0.1:35917/api/artists/3/genre"
+        }
+      }
+    }, {
+      "id" : 4,
+      "name" : "Savatage",
+      "genre" : "Metal",
+      "country" : "USA",
+      "albums_count" : 0,
+      "created_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "updated_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:35917/api/artists/4"
+        },
+        "artists" : {
+          "href" : "http://127.0.0.1:35917/api/artists"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:35917/api/artists/4/albums"
+        },
+        "genre" : {
+          "href" : "http://127.0.0.1:35917/api/artists/4/genre"
+        }
+      }
+    }, {
+      "id" : 5,
+      "name" : "Metallica",
+      "genre" : "Metal",
+      "country" : "USA",
+      "albums_count" : 0,
+      "created_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "updated_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:35917/api/artists/5"
+        },
+        "artists" : {
+          "href" : "http://127.0.0.1:35917/api/artists"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:35917/api/artists/5/albums"
+        },
+        "genre" : {
+          "href" : "http://127.0.0.1:35917/api/artists/5/genre"
+        }
+      }
+    }, {
+      "id" : 6,
+      "name" : "Ozzy Osbourne",
+      "genre" : "Metal",
+      "country" : "USA",
+      "albums_count" : 0,
+      "created_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "updated_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:35917/api/artists/6"
+        },
+        "artists" : {
+          "href" : "http://127.0.0.1:35917/api/artists"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:35917/api/artists/6/albums"
+        },
+        "genre" : {
+          "href" : "http://127.0.0.1:35917/api/artists/6/genre"
+        }
+      }
+    }, {
+      "id" : 7,
+      "name" : "Dio",
+      "genre" : "Metal",
+      "country" : "USA",
+      "albums_count" : 0,
+      "created_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "updated_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:35917/api/artists/7"
+        },
+        "artists" : {
+          "href" : "http://127.0.0.1:35917/api/artists"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:35917/api/artists/7/albums"
+        },
+        "genre" : {
+          "href" : "http://127.0.0.1:35917/api/artists/7/genre"
+        }
+      }
+    }, {
+      "id" : 8,
+      "name" : "Dream Theater",
+      "genre" : "Metal",
+      "country" : "USA",
+      "albums_count" : 4,
+      "created_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "updated_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:35917/api/artists/8"
+        },
+        "artists" : {
+          "href" : "http://127.0.0.1:35917/api/artists"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:35917/api/artists/8/albums"
+        },
+        "genre" : {
+          "href" : "http://127.0.0.1:35917/api/artists/8/genre"
+        }
+      }
+    }, {
+      "id" : 9,
+      "name" : "Pantera",
+      "genre" : "Metal",
+      "country" : "USA",
+      "albums_count" : 0,
+      "created_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "updated_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:35917/api/artists/9"
+        },
+        "artists" : {
+          "href" : "http://127.0.0.1:35917/api/artists"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:35917/api/artists/9/albums"
+        },
+        "genre" : {
+          "href" : "http://127.0.0.1:35917/api/artists/9/genre"
+        }
+      }
+    }, {
+      "id" : 10,
+      "name" : "Megadeth",
+      "genre" : "Metal",
+      "country" : "USA",
+      "albums_count" : 0,
+      "created_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "updated_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:35917/api/artists/10"
+        },
+        "artists" : {
+          "href" : "http://127.0.0.1:35917/api/artists"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:35917/api/artists/10/albums"
+        },
+        "genre" : {
+          "href" : "http://127.0.0.1:35917/api/artists/10/genre"
+        }
+      }
+    }, {
+      "id" : 11,
+      "name" : "AC/DC",
+      "genre" : "Rock",
+      "country" : "Australia",
+      "albums_count" : 4,
+      "created_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "updated_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:35917/api/artists/11"
+        },
+        "artists" : {
+          "href" : "http://127.0.0.1:35917/api/artists"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:35917/api/artists/11/albums"
+        },
+        "genre" : {
+          "href" : "http://127.0.0.1:35917/api/artists/11/genre"
+        }
+      }
+    }, {
+      "id" : 12,
+      "name" : "Van Halen",
+      "genre" : "Rock",
+      "country" : "USA",
+      "albums_count" : 4,
+      "created_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "updated_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:35917/api/artists/12"
+        },
+        "artists" : {
+          "href" : "http://127.0.0.1:35917/api/artists"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:35917/api/artists/12/albums"
+        },
+        "genre" : {
+          "href" : "http://127.0.0.1:35917/api/artists/12/genre"
+        }
+      }
+    }, {
+      "id" : 13,
+      "name" : "Def Leppard",
+      "genre" : "Rock",
+      "country" : "UK",
+      "albums_count" : 4,
+      "created_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "updated_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:35917/api/artists/13"
+        },
+        "artists" : {
+          "href" : "http://127.0.0.1:35917/api/artists"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:35917/api/artists/13/albums"
+        },
+        "genre" : {
+          "href" : "http://127.0.0.1:35917/api/artists/13/genre"
+        }
+      }
+    }, {
+      "id" : 14,
+      "name" : "Kip Winger",
+      "genre" : "Rock",
+      "country" : "USA",
+      "albums_count" : 2,
+      "created_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "updated_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:35917/api/artists/14"
+        },
+        "artists" : {
+          "href" : "http://127.0.0.1:35917/api/artists"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:35917/api/artists/14/albums"
+        },
+        "genre" : {
+          "href" : "http://127.0.0.1:35917/api/artists/14/genre"
+        }
+      }
+    }, {
+      "id" : 15,
+      "name" : "Foreigner",
+      "genre" : "Rock",
+      "country" : "USA",
+      "albums_count" : 2,
+      "created_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "updated_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:35917/api/artists/15"
+        },
+        "artists" : {
+          "href" : "http://127.0.0.1:35917/api/artists"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:35917/api/artists/15/albums"
+        },
+        "genre" : {
+          "href" : "http://127.0.0.1:35917/api/artists/15/genre"
+        }
+      }
+    }, {
+      "id" : 16,
+      "name" : "Supertramp",
+      "genre" : "Rock",
+      "country" : "USA",
+      "albums_count" : 2,
+      "created_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "updated_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:35917/api/artists/16"
+        },
+        "artists" : {
+          "href" : "http://127.0.0.1:35917/api/artists"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:35917/api/artists/16/albums"
+        },
+        "genre" : {
+          "href" : "http://127.0.0.1:35917/api/artists/16/genre"
+        }
+      }
+    }, {
+      "id" : 17,
+      "name" : "Queen",
+      "genre" : "Rock",
+      "country" : "USA",
+      "albums_count" : 2,
+      "created_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "updated_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:35917/api/artists/17"
+        },
+        "artists" : {
+          "href" : "http://127.0.0.1:35917/api/artists"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:35917/api/artists/17/albums"
+        },
+        "genre" : {
+          "href" : "http://127.0.0.1:35917/api/artists/17/genre"
+        }
+      }
+    }, {
+      "id" : 18,
+      "name" : "ZZ Top",
+      "genre" : "Rock",
+      "country" : "USA",
+      "albums_count" : 0,
+      "created_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "updated_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:35917/api/artists/18"
+        },
+        "artists" : {
+          "href" : "http://127.0.0.1:35917/api/artists"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:35917/api/artists/18/albums"
+        },
+        "genre" : {
+          "href" : "http://127.0.0.1:35917/api/artists/18/genre"
+        }
+      }
+    }, {
+      "id" : 19,
+      "name" : "Kiss",
+      "genre" : "Rock",
+      "country" : "USA",
+      "albums_count" : 0,
+      "created_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "updated_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:35917/api/artists/19"
+        },
+        "artists" : {
+          "href" : "http://127.0.0.1:35917/api/artists"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:35917/api/artists/19/albums"
+        },
+        "genre" : {
+          "href" : "http://127.0.0.1:35917/api/artists/19/genre"
+        }
+      }
+    }, {
+      "id" : 20,
+      "name" : "Rush",
+      "genre" : "Rock",
+      "country" : "USA",
+      "albums_count" : 0,
+      "created_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "updated_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+      "_links" : {
+        "self" : {
+          "href" : "http://127.0.0.1:35917/api/artists/20"
+        },
+        "artists" : {
+          "href" : "http://127.0.0.1:35917/api/artists"
+        },
+        "albums" : {
+          "href" : "http://127.0.0.1:35917/api/artists/20/albums"
+        },
+        "genre" : {
+          "href" : "http://127.0.0.1:35917/api/artists/20/genre"
+        }
+      }
+    } ]
+  },
+  "_links" : {
+    "first" : {
+      "href" : "http://127.0.0.1:35917/api/artists?page=0&amp;size=20"
+    },
+    "self" : {
+      "href" : "http://127.0.0.1:35917/api/artists?page=0&amp;size=20"
+    },
+    "next" : {
+      "href" : "http://127.0.0.1:35917/api/artists?page=1&amp;size=20"
+    },
+    "last" : {
+      "href" : "http://127.0.0.1:35917/api/artists?page=2&amp;size=20"
+    },
+    "genres" : {
+      "href" : "http://127.0.0.1:35917/api/genres"
+    },
+    "playlists" : {
+      "href" : "http://127.0.0.1:35917/api/playlists"
+    },
+    "home" : {
+      "href" : "http://127.0.0.1:35917/api/"
+    }
+  },
+  "page" : {
+    "size" : 20,
+    "totalElements" : 41,
+    "totalPages" : 3,
+    "number" : 0
+  }
+}
+
+17:44:03.038 DEBUG - response time in milliseconds: 174
+17:44:03.041 INFO  - response:
+{
+  "_embedded": {
+    "artistResources": [
+      {
+        "id": 1,
+        "name": "King Diamond",
+        "genre": "Metal",
+        "country": "Denmark",
+        "albums_count": 4,
+        "created_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "updated_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/1"
+          },
+          "artists": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/1\/albums"
+          },
+          "genre": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/1\/genre"
+          }
+        }
+      },
+      {
+        "id": 2,
+        "name": "Iron Maiden",
+        "genre": "Metal",
+        "country": "UK",
+        "albums_count": 4,
+        "created_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "updated_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/2"
+          },
+          "artists": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/2\/albums"
+          },
+          "genre": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/2\/genre"
+          }
+        }
+      },
+      {
+        "id": 3,
+        "name": "Judas Priest",
+        "genre": "Metal",
+        "country": "UK",
+        "albums_count": 4,
+        "created_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "updated_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/3"
+          },
+          "artists": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/3\/albums"
+          },
+          "genre": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/3\/genre"
+          }
+        }
+      },
+      {
+        "id": 4,
+        "name": "Savatage",
+        "genre": "Metal",
+        "country": "USA",
+        "albums_count": 0,
+        "created_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "updated_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/4"
+          },
+          "artists": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/4\/albums"
+          },
+          "genre": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/4\/genre"
+          }
+        }
+      },
+      {
+        "id": 5,
+        "name": "Metallica",
+        "genre": "Metal",
+        "country": "USA",
+        "albums_count": 0,
+        "created_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "updated_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/5"
+          },
+          "artists": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/5\/albums"
+          },
+          "genre": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/5\/genre"
+          }
+        }
+      },
+      {
+        "id": 6,
+        "name": "Ozzy Osbourne",
+        "genre": "Metal",
+        "country": "USA",
+        "albums_count": 0,
+        "created_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "updated_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/6"
+          },
+          "artists": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/6\/albums"
+          },
+          "genre": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/6\/genre"
+          }
+        }
+      },
+      {
+        "id": 7,
+        "name": "Dio",
+        "genre": "Metal",
+        "country": "USA",
+        "albums_count": 0,
+        "created_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "updated_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/7"
+          },
+          "artists": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/7\/albums"
+          },
+          "genre": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/7\/genre"
+          }
+        }
+      },
+      {
+        "id": 8,
+        "name": "Dream Theater",
+        "genre": "Metal",
+        "country": "USA",
+        "albums_count": 4,
+        "created_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "updated_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/8"
+          },
+          "artists": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/8\/albums"
+          },
+          "genre": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/8\/genre"
+          }
+        }
+      },
+      {
+        "id": 9,
+        "name": "Pantera",
+        "genre": "Metal",
+        "country": "USA",
+        "albums_count": 0,
+        "created_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "updated_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/9"
+          },
+          "artists": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/9\/albums"
+          },
+          "genre": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/9\/genre"
+          }
+        }
+      },
+      {
+        "id": 10,
+        "name": "Megadeth",
+        "genre": "Metal",
+        "country": "USA",
+        "albums_count": 0,
+        "created_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "updated_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/10"
+          },
+          "artists": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/10\/albums"
+          },
+          "genre": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/10\/genre"
+          }
+        }
+      },
+      {
+        "id": 11,
+        "name": "AC\/DC",
+        "genre": "Rock",
+        "country": "Australia",
+        "albums_count": 4,
+        "created_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "updated_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/11"
+          },
+          "artists": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/11\/albums"
+          },
+          "genre": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/11\/genre"
+          }
+        }
+      },
+      {
+        "id": 12,
+        "name": "Van Halen",
+        "genre": "Rock",
+        "country": "USA",
+        "albums_count": 4,
+        "created_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "updated_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/12"
+          },
+          "artists": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/12\/albums"
+          },
+          "genre": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/12\/genre"
+          }
+        }
+      },
+      {
+        "id": 13,
+        "name": "Def Leppard",
+        "genre": "Rock",
+        "country": "UK",
+        "albums_count": 4,
+        "created_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "updated_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/13"
+          },
+          "artists": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/13\/albums"
+          },
+          "genre": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/13\/genre"
+          }
+        }
+      },
+      {
+        "id": 14,
+        "name": "Kip Winger",
+        "genre": "Rock",
+        "country": "USA",
+        "albums_count": 2,
+        "created_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "updated_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/14"
+          },
+          "artists": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/14\/albums"
+          },
+          "genre": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/14\/genre"
+          }
+        }
+      },
+      {
+        "id": 15,
+        "name": "Foreigner",
+        "genre": "Rock",
+        "country": "USA",
+        "albums_count": 2,
+        "created_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "updated_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/15"
+          },
+          "artists": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/15\/albums"
+          },
+          "genre": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/15\/genre"
+          }
+        }
+      },
+      {
+        "id": 16,
+        "name": "Supertramp",
+        "genre": "Rock",
+        "country": "USA",
+        "albums_count": 2,
+        "created_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "updated_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/16"
+          },
+          "artists": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/16\/albums"
+          },
+          "genre": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/16\/genre"
+          }
+        }
+      },
+      {
+        "id": 17,
+        "name": "Queen",
+        "genre": "Rock",
+        "country": "USA",
+        "albums_count": 2,
+        "created_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "updated_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/17"
+          },
+          "artists": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/17\/albums"
+          },
+          "genre": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/17\/genre"
+          }
+        }
+      },
+      {
+        "id": 18,
+        "name": "ZZ Top",
+        "genre": "Rock",
+        "country": "USA",
+        "albums_count": 0,
+        "created_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "updated_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/18"
+          },
+          "artists": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/18\/albums"
+          },
+          "genre": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/18\/genre"
+          }
+        }
+      },
+      {
+        "id": 19,
+        "name": "Kiss",
+        "genre": "Rock",
+        "country": "USA",
+        "albums_count": 0,
+        "created_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "updated_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/19"
+          },
+          "artists": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/19\/albums"
+          },
+          "genre": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/19\/genre"
+          }
+        }
+      },
+      {
+        "id": 20,
+        "name": "Rush",
+        "genre": "Rock",
+        "country": "USA",
+        "albums_count": 0,
+        "created_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "updated_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+        "_links": {
+          "self": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/20"
+          },
+          "artists": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists"
+          },
+          "albums": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/20\/albums"
+          },
+          "genre": {
+            "href": "http:\/\/127.0.0.1:35917\/api\/artists\/20\/genre"
+          }
+        }
+      }
+    ]
+  },
+  "_links": {
+    "first": {
+      "href": "http:\/\/127.0.0.1:35917\/api\/artists?page=0&amp;size=20"
+    },
+    "self": {
+      "href": "http:\/\/127.0.0.1:35917\/api\/artists?page=0&amp;size=20"
+    },
+    "next": {
+      "href": "http:\/\/127.0.0.1:35917\/api\/artists?page=1&amp;size=20"
+    },
+    "last": {
+      "href": "http:\/\/127.0.0.1:35917\/api\/artists?page=2&amp;size=20"
+    },
+    "genres": {
+      "href": "http:\/\/127.0.0.1:35917\/api\/genres"
+    },
+    "playlists": {
+      "href": "http:\/\/127.0.0.1:35917\/api\/playlists"
+    },
+    "home": {
+      "href": "http:\/\/127.0.0.1:35917\/api\/"
+    }
+  },
+  "page": {
+    "size": 20,
+    "totalElements": 41,
+    "totalPages": 3,
+    "number": 0
+  }
+}
+
+</pre>
+<div class="step-row">
+<div class="step-cell">Then status 200</div>
+<div class="time-cell">0.00026</div>
+</div>
+<div class="step-row">
+<div class="step-cell">And match response._embedded.artistResources == '#[] artistStructure'</div>
+<div class="time-cell">0.010763</div>
+</div>
+<div class="step-row">
+<div class="step-cell">And match response._links == linksStructure</div>
+<div class="time-cell">0.001236</div>
+</div>
+<div class="step-row">
+<div class="step-cell">And match response.page == pageStructure</div>
+<div class="time-cell">0.000228</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

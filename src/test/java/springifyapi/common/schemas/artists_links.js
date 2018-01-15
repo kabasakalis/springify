@@ -1,17 +1,11 @@
 {
-  first: {
-    href: '##string'
-  },
-  last: {
-    href: '##string'
-  },
-  next: {
-    href: '##string'
-  },
+  first: '##object',
+  last: '##object',
+  next: '##object',
   self: {
     href: '#string'
   },
-  artists: {
+  genres: {
     href: '#string'
   },
   playlists: {

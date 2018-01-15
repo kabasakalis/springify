@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>springifyapi/artist/delete.feature</title>
+<style>body { font-family: monospace, monospace; font-size: small; } table { border-collapse: collapse; } table td { border: 1px solid gray; padding: 0.1em 0.2em; } .scenario-heading { background-color: #F5F28F; padding: 0.2em 0.5em; border-bottom: 1px solid gray; } .scenario-name { font-weight: bold; } .scenario { border: 1px solid gray; margin-bottom: 1em; } .scenario-steps { padding-left: 0.2em; } .scenario-steps-nested { padding-left: 2em; } .step-row { margin: 0.2em 0; } .step-cell { background-color: #92DD96; display: inline-block; width: 85%; padding: 0.2em 0.5em; } .time-cell { background-color: #92DD96; display: inline-block; width: 10%; padding: 0.2em 0.5em; } .failed { background-color: #F2928C; } .skipped { background-color: #8AF; }</style>
+</head>
+<body>
+<div>
+<div class="scenario">
+<div class="scenario-heading">
+<span class="scenario-keyword">Scenario: </span><span class="scenario-name">delete an artist</span>
+</div>
+<div class="scenario-steps">
+<div class="step-row">
+<div class="step-cell">* def postData = {}</div>
+<div class="time-cell">0.473152</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* call classpath:springifyapi/common/setHeaders.feature</div>
+<div class="time-cell">0</div>
+</div>
+<pre>{
+  "config": {
+    "user": "admin",
+    "baseUrl": "http:\/\/127.0.0.1:35917\/api\/"
+  }
+}
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* print 'Config passed: ', karate.pretty(config)</div>
+<div class="time-cell">0</div>
+</div>
+<pre>17:44:01.400 INFO  - [print] Config passed:  {
+  "user": "admin",
+  "baseUrl": "http:\/\/127.0.0.1:35917\/api\/"
+}
+
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* def creds = read('classpath:springifyapi/data/'+ config.user + '.json')</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* url baseUrl</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">Given url baseUrl</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">And path 'login'</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">And request creds</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">When method post</div>
+<div class="time-cell">0</div>
+</div>
+<pre>17:44:01.424 INFO  - request:
+{
+  "password": "11111111",
+  "username": "admin"
+}
+
+17:44:01.426 DEBUG - 
+1 &gt; POST http://127.0.0.1:35917/api/login
+1 &gt; Accept-Encoding: gzip,deflate
+1 &gt; Connection: Keep-Alive
+1 &gt; Content-Length: 42
+1 &gt; Content-Type: application/json
+1 &gt; Host: 127.0.0.1:35917
+1 &gt; User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_151)
+{"password":"11111111","username":"admin"}
+
+17:44:01.625 DEBUG - 
+1 &lt; 200
+1 &lt; Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+1 &lt; Content-Type: application/hal+json;charset=UTF-8
+1 &lt; Date: Mon, 15 Jan 2018 15:44:01 GMT
+1 &lt; Expires: 0
+1 &lt; Pragma: no-cache
+1 &lt; Token: eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY3Mjk0NDEsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.iDSMvYGHWqh6rUasB6OJlpg-5_887SB9KJ8Fh8VwEisMAAItARBWCeiUrBVez5ZKTS8pt3Hl2vsbjzdUwPdepg
+1 &lt; Transfer-Encoding: chunked
+1 &lt; X-Application-Context: application:0
+1 &lt; X-Content-Type-Options: nosniff
+1 &lt; X-Frame-Options: DENY
+1 &lt; X-XSS-Protection: 1; mode=block
+{
+  "username" : "admin",
+  "email" : "admin@springify.com",
+  "password" : "$2a$10$UClj/ChiXzRXcT6HvSdOpePZFzTIJs9CYDagygovYbM0TDzMRe7Di",
+  "jwtToken" : "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY3Mjk0NDEsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.iDSMvYGHWqh6rUasB6OJlpg-5_887SB9KJ8Fh8VwEisMAAItARBWCeiUrBVez5ZKTS8pt3Hl2vsbjzdUwPdepg",
+  "updated_date" : "Mon, 15 Jan 2018 15:20:18 +0200",
+  "created_date" : "Mon, 15 Jan 2018 15:20:18 +0200"
+}
+
+17:44:01.626 DEBUG - response time in milliseconds: 201
+17:44:01.626 INFO  - response:
+{
+  "username": "admin",
+  "email": "admin@springify.com",
+  "password": "$2a$10$UClj\/ChiXzRXcT6HvSdOpePZFzTIJs9CYDagygovYbM0TDzMRe7Di",
+  "jwtToken": "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY3Mjk0NDEsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.iDSMvYGHWqh6rUasB6OJlpg-5_887SB9KJ8Fh8VwEisMAAItARBWCeiUrBVez5ZKTS8pt3Hl2vsbjzdUwPdepg",
+  "updated_date": "Mon, 15 Jan 2018 15:20:18 +0200",
+  "created_date": "Mon, 15 Jan 2018 15:20:18 +0200"
+}
+
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">Then status 200</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* def jwtToken = response.jwtToken</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* print 'jwtToken OK: ', karate.pretty(jwtToken)</div>
+<div class="time-cell">0</div>
+</div>
+<pre>17:44:01.672 INFO  - [print] jwtToken OK:  eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY3Mjk0NDEsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.iDSMvYGHWqh6rUasB6OJlpg-5_887SB9KJ8Fh8VwEisMAAItARBWCeiUrBVez5ZKTS8pt3Hl2vsbjzdUwPdepg
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* def defaultHeaders =  callonce read('classpath:springifyapi/common/HeadersFun.js')  { jwtToken:  '#(jwtToken)' }</div>
+<div class="time-cell">0</div>
+</div>
+<pre>17:44:01.731 INFO  - AUTH {jwtToken=eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY3Mjk0NDEsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.iDSMvYGHWqh6rUasB6OJlpg-5_887SB9KJ8Fh8VwEisMAAItARBWCeiUrBVez5ZKTS8pt3Hl2vsbjzdUwPdepg} 
+17:44:01.733 DEBUG - cached callonce: read('classpath:springifyapi/common/HeadersFun.js')
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* configure headers = defaultHeaders</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="step-row">
+<div class="step-cell">* def payload = {name: 'Foo Fighters', country: 'USA' }</div>
+<div class="time-cell">0.000147</div>
+</div>
+<div class="step-row">
+<div class="step-cell">* set postData.path = 'artists'</div>
+<div class="time-cell">0.007131</div>
+</div>
+<div class="step-row">
+<div class="step-cell">* set postData.payload = payload</div>
+<div class="time-cell">0.00022</div>
+</div>
+<div class="step-row">
+<div class="step-cell">* def post = call read('classpath:springifyapi/common/genericPost.feature') { postData: '#(postData)' }</div>
+<div class="time-cell">0.146008</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* call classpath:springifyapi/common/genericPost.feature</div>
+<div class="time-cell">0</div>
+</div>
+<pre>{
+  "postData": {
+    "path": "artists",
+    "payload": {
+      "name": "Foo Fighters",
+      "country": "USA"
+    }
+  }
+}
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* print 'Starting generic post with postData', karate.pretty(postData)</div>
+<div class="time-cell">0</div>
+</div>
+<pre>17:44:01.803 INFO  - [print] Starting generic post with postData {
+  "path": "artists",
+  "payload": {
+    "name": "Foo Fighters",
+    "country": "USA"
+  }
+}
+
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* url baseUrl</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* def genericPostResult = {}</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">Given path postData.path</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">And request postData.payload</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">When method post</div>
+<div class="time-cell">0</div>
+</div>
+<pre>17:44:01.805 INFO  - request:
+{
+  "name": "Foo Fighters",
+  "country": "USA"
+}
+
+17:44:01.807 DEBUG - 
+1 &gt; POST http://127.0.0.1:35917/api/artists
+1 &gt; Accept-Encoding: gzip,deflate
+1 &gt; Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY3Mjk0NDEsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.iDSMvYGHWqh6rUasB6OJlpg-5_887SB9KJ8Fh8VwEisMAAItARBWCeiUrBVez5ZKTS8pt3Hl2vsbjzdUwPdepg
+1 &gt; Connection: Keep-Alive
+1 &gt; Content-Length: 39
+1 &gt; Content-Type: application/json
+1 &gt; Host: 127.0.0.1:35917
+1 &gt; User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_151)
+{"name":"Foo Fighters","country":"USA"}
+
+17:44:01.841 DEBUG - 
+1 &lt; 201
+1 &lt; Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+1 &lt; Content-Type: application/hal+json;charset=UTF-8
+1 &lt; Date: Mon, 15 Jan 2018 15:44:01 GMT
+1 &lt; Expires: 0
+1 &lt; Location: http://127.0.0.1:35917/api/artists/1004
+1 &lt; Pragma: no-cache
+1 &lt; Set-Cookie: JSESSIONID=48E7D5C4B3D22F8A605DCB4533E285D8; Path=/api; HttpOnly
+1 &lt; Transfer-Encoding: chunked
+1 &lt; X-Application-Context: application:0
+1 &lt; X-Content-Type-Options: nosniff
+1 &lt; X-Frame-Options: DENY
+1 &lt; X-XSS-Protection: 1; mode=block
+{
+  "id" : 1004,
+  "name" : "Foo Fighters",
+  "country" : "USA",
+  "albums_count" : 0,
+  "created_date" : "Mon, 15 Jan 2018 17:44:01 +0200",
+  "updated_date" : "Mon, 15 Jan 2018 17:44:01 +0200",
+  "_links" : {
+    "self" : {
+      "href" : "http://127.0.0.1:35917/api/artists/1004"
+    },
+    "artists" : {
+      "href" : "http://127.0.0.1:35917/api/artists"
+    },
+    "albums" : {
+      "href" : "http://127.0.0.1:35917/api/artists/1004/albums"
+    },
+    "genre" : {
+      "href" : "http://127.0.0.1:35917/api/artists/1004/genre"
+    }
+  }
+}
+
+17:44:01.842 DEBUG - response time in milliseconds: 36
+17:44:01.842 INFO  - response:
+{
+  "id": 1004,
+  "name": "Foo Fighters",
+  "country": "USA",
+  "albums_count": 0,
+  "created_date": "Mon, 15 Jan 2018 17:44:01 +0200",
+  "updated_date": "Mon, 15 Jan 2018 17:44:01 +0200",
+  "_links": {
+    "self": {
+      "href": "http:\/\/127.0.0.1:35917\/api\/artists\/1004"
+    },
+    "artists": {
+      "href": "http:\/\/127.0.0.1:35917\/api\/artists"
+    },
+    "albums": {
+      "href": "http:\/\/127.0.0.1:35917\/api\/artists\/1004\/albums"
+    },
+    "genre": {
+      "href": "http:\/\/127.0.0.1:35917\/api\/artists\/1004\/genre"
+    }
+  }
+}
+
+</pre>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">Then status 201</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">And set genericPostResult.location = responseHeaders['Location'][0]</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">And set genericPostResult.response = response</div>
+<div class="time-cell">0</div>
+</div>
+</div>
+<div class="scenario-steps-nested">
+<div class="step-row">
+<div class="step-cell">* print 'Setting GenericPostResult', karate.pretty(genericPostResult)</div>
+<div class="time-cell">0</div>
+</div>
+<pre>17:44:01.890 INFO  - [print] Setting GenericPostResult {
+  "location": "http:\/\/127.0.0.1:35917\/api\/artists\/1004",
+  "response": {
+    "id": 1004,
+    "name": "Foo Fighters",
+    "country": "USA",
+    "albums_count": 0,
+    "created_date": "Mon, 15 Jan 2018 17:44:01 +0200",
+    "updated_date": "Mon, 15 Jan 2018 17:44:01 +0200",
+    "_links": {
+      "self": {
+        "href": "http:\/\/127.0.0.1:35917\/api\/artists\/1004"
+      },
+      "artists": {
+        "href": "http:\/\/127.0.0.1:35917\/api\/artists"
+      },
+      "albums": {
+        "href": "http:\/\/127.0.0.1:35917\/api\/artists\/1004\/albums"
+      },
+      "genre": {
+        "href": "http:\/\/127.0.0.1:35917\/api\/artists\/1004\/genre"
+      }
+    }
+  }
+}
+
+</pre>
+</div>
+<div class="step-row">
+<div class="step-cell">Given url post.genericPostResult.location</div>
+<div class="time-cell">0.000245</div>
+</div>
+<div class="step-row">
+<div class="step-cell">When method delete</div>
+<div class="time-cell">0.055316</div>
+</div>
+<pre>17:44:01.894 DEBUG - 
+1 &gt; DELETE http://127.0.0.1:35917/api/artists/1004
+1 &gt; Accept-Encoding: gzip,deflate
+1 &gt; Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTcHJpbmdpZnkgVXNlcnMiLCJqdGkiOiJhZG1pbkBzcHJpbmdpZnkuY29tIiwic3ViIjoiYWRtaW4iLCJleHAiOjE1MTY3Mjk0NDEsImlzcyI6ImNvbS5zcnBpbmdpZnkua2FiYXNha2FsaXMifQ.iDSMvYGHWqh6rUasB6OJlpg-5_887SB9KJ8Fh8VwEisMAAItARBWCeiUrBVez5ZKTS8pt3Hl2vsbjzdUwPdepg
+1 &gt; Connection: Keep-Alive
+1 &gt; Content-Type: application/json
+1 &gt; Host: 127.0.0.1:35917
+1 &gt; User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_151)
+
+17:44:01.946 DEBUG - 
+1 &lt; 200
+1 &lt; Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+1 &lt; Content-Type: application/hal+json;charset=UTF-8
+1 &lt; Date: Mon, 15 Jan 2018 15:44:01 GMT
+1 &lt; Expires: 0
+1 &lt; Pragma: no-cache
+1 &lt; Set-Cookie: JSESSIONID=190FACA843AFF42BD6165C7AC9FC920D; Path=/api; HttpOnly
+1 &lt; Transfer-Encoding: chunked
+1 &lt; X-Application-Context: application:0
+1 &lt; X-Content-Type-Options: nosniff
+1 &lt; X-Frame-Options: DENY
+1 &lt; X-XSS-Protection: 1; mode=block
+{
+  "id" : 1004,
+  "name" : "Foo Fighters",
+  "country" : "USA",
+  "albums_count" : 0,
+  "created_date" : "Mon, 15 Jan 2018 17:44:01 +0200",
+  "updated_date" : "Mon, 15 Jan 2018 17:44:01 +0200",
+  "_links" : {
+    "self" : {
+      "href" : "http://127.0.0.1:35917/api/artists/1004"
+    },
+    "artists" : {
+      "href" : "http://127.0.0.1:35917/api/artists"
+    },
+    "albums" : {
+      "href" : "http://127.0.0.1:35917/api/artists/1004/albums"
+    },
+    "genre" : {
+      "href" : "http://127.0.0.1:35917/api/artists/1004/genre"
+    }
+  }
+}
+
+17:44:01.947 DEBUG - response time in milliseconds: 54
+17:44:01.947 INFO  - response:
+{
+  "id": 1004,
+  "name": "Foo Fighters",
+  "country": "USA",
+  "albums_count": 0,
+  "created_date": "Mon, 15 Jan 2018 17:44:01 +0200",
+  "updated_date": "Mon, 15 Jan 2018 17:44:01 +0200",
+  "_links": {
+    "self": {
+      "href": "http:\/\/127.0.0.1:35917\/api\/artists\/1004"
+    },
+    "artists": {
+      "href": "http:\/\/127.0.0.1:35917\/api\/artists"
+    },
+    "albums": {
+      "href": "http:\/\/127.0.0.1:35917\/api\/artists\/1004\/albums"
+    },
+    "genre": {
+      "href": "http:\/\/127.0.0.1:35917\/api\/artists\/1004\/genre"
+    }
+  }
+}
+
+</pre>
+<div class="step-row">
+<div class="step-cell">Then status 200</div>
+<div class="time-cell">0.000128</div>
+</div>
+<div class="step-row">
+<div class="step-cell">And match response contains {name: 'Foo Fighters', country: 'USA' }</div>
+<div class="time-cell">0.00028</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

@@ -1,12 +1,12 @@
 # @ignore
-Feature: Update
+Feature: Update artist
 
 Background:
   * url baseUrl
 
-Scenario: update a genre
-  Given path 'genres', 2
-  And request { name: 'Thrash Metal' }
+Scenario: update an artist
+  Given path 'artists', 34
+  And request { name: 'Postie Malone' }
   When method patch
   Then status 200
-  And match response contains { name: 'Thrash Metal' }
+  And match response contains { name: 'Postie Malone' }

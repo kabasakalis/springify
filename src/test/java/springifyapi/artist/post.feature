@@ -1,11 +1,11 @@
 # @ignore
-Feature: Post
+Feature: Post and artist
 
 Background:
   # set up post data
   * def postData = {}
-  * def payload = {name: 'Eurodance'}
-  * set postData.path = 'genres'
+  * def payload = {name: 'Vio-lence', country: 'USA' }
+  * set postData.path = 'artists'
   * set postData.payload =  payload
   # call generic post with postdata
   * def post = call read('classpath:springifyapi/common/genericPost.feature') { postData: '#(postData)' }
@@ -14,9 +14,9 @@ Background:
   * def location = post.genericPostResult.location
   * print 'genericPostResult', karate.pretty(genericPostResult)
 
-Scenario: create a new genre
+Scenario: create a new artist
 
 Given url location
 When method get
 Then status 200
-And  match response contains { name: 'Eurodance' }
+And  match response contains {name: 'Vio-lence', country: 'USA' }

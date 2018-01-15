@@ -142,11 +142,11 @@ public abstract class AbstractBaseRestController<T extends BaseEntity>
             method = RequestMethod.DELETE,
             path = "/{id}",
             produces = MediaTypes.HAL_JSON_VALUE)
-    ResponseEntity<Resource<T>> deleteOne(@PathVariable Long id) throws EntityNotFoundException {
+    ResponseEntity deleteOne(@PathVariable Long id) throws EntityNotFoundException {
         return Optional.ofNullable(repository.findOne(id))
                 .map(entity -> {
                     repository.delete(entity);
-                    return new ResponseEntity<>(assembler.toResource(entity), HttpStatus.OK);
+                    return new ResponseEntity<>(assembler.toCustomResource(entity), HttpStatus.OK);
                 })
                 .orElseThrow(() -> new EntityNotFoundException(resourceClass, id));
     }
@@ -159,7 +159,6 @@ public abstract class AbstractBaseRestController<T extends BaseEntity>
             Pageable pageRequest) {
         PagedResources<ResourceSupport> pagedResponseBody = associatedResourcePagedAssembler
                 .toResource(pagedAssociatedResources, associatedResourceAssembler);
-//        assembler.addLinks(pagedResponseBody);
         associatedResourceAssembler.addLinks(pagedResponseBody);
         return new ResponseEntity(pagedResponseBody, HttpStatus.OK);
     }
