@@ -1,4 +1,7 @@
 # @ignore
+# NOTICE: A user is usually created with posting at the sign-up endpoint.
+# This endpoint is generated from the generic AbstractBaseController and is tested for completeness.
+# It shouldn't be used for signing up a user.
 Feature: Post a user
 
   Background:
@@ -6,7 +9,7 @@ Feature: Post a user
     * def postData = {}
     * def username = 'editor-' + uuid
     * def email = username + '@gmail.com'
-    * def password = '55555555'
+    * def password = '$2a$10$UClj/ChiXzRXcT6HvSdOpePZFzTIJs9CYDagygovYbM0TDzMRe7Di'
     * def payload = {username: '#(username)', email: '#(email)' , password: '#(password)' }
     * set postData.path = 'users'
     * set postData.payload = payload
