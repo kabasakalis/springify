@@ -1,22 +1,20 @@
 # @ignore
-Feature: Post
+Feature: Post a user
 
-Background:
-  # set up post data
-  * def postData = {}
-  * def payload = {name: 'Eurodance'}
-  * set postData.path = 'genres'
-  * set postData.payload =  payload
-  # call generic post with postdata
-  * def post = call read('classpath:springifyapi/common/genericPost.feature') { postData: '#(postData)' }
-  # get response and headers
-  * def postResponse = post.genericPostResult.response
-  * def location = post.genericPostResult.location
-  * print 'genericPostResult', karate.pretty(genericPostResult)
+  Background:
+    # set up post data
+    * def postData = {}
+    * def username = 'editor-' + uuid
+    * def email = username + '@gmail.com'
+    * def password = '55555555'
+    * def payload = {username: '#(username)', email: '#(email)' , password: '#(password)' }
+    * set postData.path = 'users'
+    * set postData.payload = payload
+    * def post = call read('classpath:springifyapi/common/genericPost.feature') { postData: '#(postData)' }
 
-Scenario: create a new genre
+  Scenario: create a new User
 
-Given url location
-When method get
-Then status 200
-And  match response contains { name: 'Eurodance' }
+    Given url post.genericPostResult.location
+    When method get
+    Then status 200
+    And  match response contains {username: '#(username)', email: '#(email)'}

@@ -14,14 +14,14 @@ import java.util.Set;
 public class SpringifyUser extends BaseEntity {
 
     @NotBlank
-    @Size(min=4, max = 20)
+    @Size(min=4)
     private String username;
     @Email
     @NotBlank
     private String email;
     @NotBlank
     private String password;
-    @NotBlank
+//    @NotBlank
     @Transient
     private String passwordConfirm;
     @Transient

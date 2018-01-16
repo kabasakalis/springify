@@ -11,7 +11,8 @@ function() {
   }
   var config = {};
   config.user = 'admin' ;
-
+  var uuid = java.util.UUID.randomUUID();
+  config.uuid = uuid.toString() ;
   config.baseUrl = 'http://127.0.0.1:' + port + '/api/' ;
   karate.set('baseUrl', config.baseUrl);
   //next call should be once for the whole test suit unfortunately callSingle not available.

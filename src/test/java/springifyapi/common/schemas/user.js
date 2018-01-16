@@ -1,7 +1,8 @@
 {
   id: '##number',
-  name:  '#string',
-  roles:  '#string',
+  username:  '#string',
+  email:  '#string',
+  roles:  '##string',
   created_date: '#string',
   updated_date: '#string',
   _links: {

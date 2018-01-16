@@ -1,61 +1,60 @@
-Feature: Genre Associations
+Feature: User Associations
 
 Background:
   # set up post data
   * def postData = {}
-  * def artist_payload = {name: 'Motley Crue', country: 'USA'}
-  * set postData.path = 'artists'
-  * set postData.payload =  artist_payload
+  * def role_payload = {name: 'GOD'}
+  * set postData.path = 'roles'
+  * set postData.payload =  role_payload
   # call generic post with postdata
   * def post = callonce read('classpath:springifyapi/common/genericPost.feature') { postData: '#(postData)' }
   # get response and headers
   * def postResponse = post.genericPostResult.response
   * def location = post.genericPostResult.location
-  * print 'postRe', karate.pretty(postResponse)
+  * print 'postResult', karate.pretty(postResponse)
 
-Scenario: Verify newly created genre
+Scenario: Verify newly created role
 
 Given url location
 When method get
 Then status 200
-And  match response contains { name: 'Motley Crue' }
+And  match response contains { name: 'GOD' }
 
-Scenario: Associate the newly created artist with genre 'Rock'
+Scenario: Associate the newly created role with user 'moderator'
 Given url baseUrl
-And path '/genres/1/artists'
+And path '/users/2/roles'
 And header Content-Type = 'text/uri-list'
 And request location
 When method put
 Then status 204
 
-Scenario: Verify that the artist has been associated with genre 'Rock'
-Given url location
+Scenario: Verify that the role has been associated with user 'moderator'
+Given url location + '/users'
 When method get
 Then status 200
-And  match response contains { genre: 'Rock' }
+And  match response._embedded.userResources[*].username contains 'moderator'
 
-Scenario: Remove association of artist with this genre
+Scenario: Remove association of role with this user
 Given url baseUrl
-And path '/genres/1/artists/' + postResponse.id
+And path '/users/2/roles/' + postResponse.id
 When method delete
 Then status 204
 
-Scenario: Verify that the new artist has no genre
-Given url location
+Scenario: Verify that the new role is not assigned to the user
+Given url location + '/users'
 When method get
 Then status 200
-And  match response contains { genre: '#null' }
+And  match response !contains { _embedded: '#object' }
 
-Scenario: Get all artists of this genre and verify the json schema
-* def artistStructure = read('classpath:springifyapi/common/schemas/artist.js')
+Scenario: Get all user roles and validate the schema
+* def roleStructure = read('classpath:springifyapi/common/schemas/role.js')
 * def pageStructure = read('classpath:springifyapi/common/schemas/page.js')
-* def linksStructure = read('classpath:springifyapi/common/schemas/artists_links.js')
+* def linksStructure = read('classpath:springifyapi/common/schemas/roles_links.js')
 Given url baseUrl
-And path '/genres/1/artists/'
+And path '/users/1/roles'
 When method get
 Then status 200
 # Validate schema
-And match response._embedded.artistResources == '#[] artistStructure'
+And match response._embedded.roleResources == '#[] roleStructure'
 And match response._links == linksStructure
 And match response.page == pageStructure
-

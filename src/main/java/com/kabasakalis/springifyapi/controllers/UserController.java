@@ -3,6 +3,7 @@ package com.kabasakalis.springifyapi.controllers;
 import com.kabasakalis.springifyapi.assemblers.PagedCustomResourcesAssembler;
 import com.kabasakalis.springifyapi.assemblers.RoleResourceAssembler;
 import com.kabasakalis.springifyapi.assemblers.UserResourceAssembler;
+import com.kabasakalis.springifyapi.domain.BaseEntity;
 import com.kabasakalis.springifyapi.domain.Role;
 import com.kabasakalis.springifyapi.domain.SpringifyUser;
 import com.kabasakalis.springifyapi.repositories.RoleRepository;
@@ -14,9 +15,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.data.web.HateoasPageableHandlerMethodArgumentResolver;
 import org.springframework.hateoas.MediaTypes;
+import org.springframework.hateoas.ResourceSupport;
+import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -57,6 +61,31 @@ public class UserController extends AbstractBaseRestController<SpringifyUser> {
         Page<Role> pagedUserRoles = roleRepository.findAllBySpringifyUsers(repository.getOne(id), pageRequest);
         return getAssociatedResources(roleResourceAssembler, pagedRoleAssembler, pagedUserRoles, pageRequest);
     }
+
+
+    @RequestMapping(
+            method = {RequestMethod.PATCH, RequestMethod.PUT, RequestMethod.POST},
+            path = "/{id}/roles",
+            consumes = {"application/json", "text/uri-list"},
+            produces = MediaTypes.HAL_JSON_VALUE)
+    public ResponseEntity<? extends ResourceSupport> addRoleAssociations(
+            @PathVariable long id,
+            @RequestBody(required = false) Resources<? extends BaseEntity> roleLinks) {
+        return associateResources(Association.MANY_TO_MANY, Role.class, roleRepository, id, roleLinks);
+    }
+
+
+
+        @RequestMapping(
+            method = RequestMethod.DELETE,
+            path = "/{id}/roles/{roleId}",
+            produces = MediaTypes.HAL_JSON_VALUE)
+    public ResponseEntity deleteRoleAssociation(
+            @PathVariable Long id, @PathVariable Long roleId) {
+        return deleteAssociation(Association.MANY_TO_MANY,Role.class, roleRepository, id, roleId);
+    }
+
+
 
 
 }

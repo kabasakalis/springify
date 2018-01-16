@@ -1,19 +1,18 @@
 # @ignore
-Feature: Get All
+Feature: Get all users
 
 Background:
 * url baseUrl
-* def genresBaseUrl = baseUrl + 'genres'
-* def genreStructure = read('classpath:springifyapi/common/schemas/genre.js')
+* def userStructure = read('classpath:springifyapi/common/schemas/user.js')
 * def pageStructure = read('classpath:springifyapi/common/schemas/page.js')
-* def linksStructure = read('classpath:springifyapi/common/schemas/genres_links.js')
+* def linksStructure = read('classpath:springifyapi/common/schemas/users_links.js')
 
-Scenario: get all genres and validate schema
+Scenario: get all users and validate schema
 
-Given path 'genres'
+Given path 'users'
 When method get
 Then status 200
 
-And match response._embedded.genreResources == '#[] genreStructure'
+And match response._embedded.userResources == '#[] userStructure'
 And match response._links == linksStructure
 And match response.page == pageStructure

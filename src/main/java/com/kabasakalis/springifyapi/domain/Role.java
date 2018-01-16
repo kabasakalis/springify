@@ -26,11 +26,11 @@ public class Role extends BaseEntity {
         this.name = name;
     }
 
-    public Set<SpringifyUser> getSpringifyUsers() {
+    public Set<SpringifyUser> getSpringifyusers() {
         return springifyUsers;
     }
 
-    public void setSpringifyUsers(Set<SpringifyUser> springifyUsers) {
+    public void setSpringifyusers(Set<SpringifyUser> springifyUsers) {
         this.springifyUsers = springifyUsers;
     }
 }

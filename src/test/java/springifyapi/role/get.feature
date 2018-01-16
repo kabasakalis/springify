@@ -1,17 +1,15 @@
 # @ignore
-Feature: Get One
+Feature: Get one role
 
 Background:
 * url baseUrl
 * def id = 1
-* def genresBaseUrl = baseUrl + 'genres'
-* def genreStructure = read('classpath:springifyapi/common/schemas/genre.js')
-* def linksStructure = read('classpath:springifyapi/common/schemas/genres_links.js')
+* def roleStructure = read('classpath:springifyapi/common/schemas/role.js')
 
-Scenario: get a genre and validate schema
+Scenario: get an role and validate schema
 
-Given path 'genres', id
+Given path 'roles', id
 When method get
 Then status 200
-And match response contains { name: 'Rock' }
-And match response == genreStructure
+And match response contains { name: 'ADMIN' }
+And match response == roleStructure
