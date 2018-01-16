@@ -67,7 +67,7 @@ public class RegisterController {
         HttpHeaders httpHeaders = new HttpHeaders();
         URI location_link = linkTo(methodOn(UserController.class).getOne(newUser.getId())).toUri();
         httpHeaders.setLocation(location_link);
-        return new ResponseEntity(assembler.toResource(newUser), httpHeaders, HttpStatus.CREATED);
+        return new ResponseEntity(assembler.toCustomResource(newUser), httpHeaders, HttpStatus.CREATED);
     }
 
 }

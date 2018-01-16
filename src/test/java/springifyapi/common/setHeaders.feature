@@ -2,7 +2,7 @@
 Feature: configure headers per user role
 
 Background:
-* print 'Config passed: ', karate.pretty(config)
+* print 'Configuration passed to setHeaders: ', karate.pretty(config)
 * def creds = read('classpath:springifyapi/data/'+ config.user + '.json')
 * url baseUrl
 
@@ -14,7 +14,7 @@ And request creds
 When method post
 Then status 200
 
-* def jwtToken = response.jwtToken
-* print 'jwtToken OK: ', karate.pretty(jwtToken)
-* def defaultHeaders =  callonce read('classpath:springifyapi/common/HeadersFun.js')  { jwtToken:  '#(jwtToken)' }
+* def token = response.token
+* print 'jwtToken has been assigned: ', karate.pretty(token)
+* def defaultHeaders =  callonce read('classpath:springifyapi/common/HeadersFun.js')  { jwtToken:  '#(token)' }
 * configure headers = defaultHeaders

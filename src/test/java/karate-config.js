@@ -18,7 +18,7 @@ function() {
   //next call should be once for the whole test suit unfortunately callSingle not available.
   var result = karate.call('classpath:springifyapi/common/setHeaders.feature', {config: config});
   karate.configure('headers', result.defaultHeaders);
-  config.auth = { jwtToken: result.jwtToken };
+  config.auth = { jwtToken: result.token };
   karate.log('CONFIG OBJECT', karate.pretty(config));
   return config;
 }

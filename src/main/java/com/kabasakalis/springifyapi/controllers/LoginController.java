@@ -45,7 +45,7 @@ public class LoginController {
                         HttpHeaders httpHeaders = new HttpHeaders();
                         httpHeaders.add("Token", jwtToken );
                         springifyUser.setJwtToken(jwtToken);
-                        return new ResponseEntity(userResourceAssembler.toResource(springifyUser),
+                        return new ResponseEntity(userResourceAssembler.toCustomResource(springifyUser),
                                 httpHeaders,
                                 HttpStatus.OK);
                     } catch (Exception e) {
