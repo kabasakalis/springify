@@ -23,9 +23,8 @@ public class UserResource extends BaseResourceSupport {
         id = user.getId();
         username = user.getUsername();
         email = user.getEmail();
-//        roles = user.getRoles().stream().map(Role::getName).collect(Collectors.joining(","));
-//        roles = user.getRoles().isEmpty() ? "" : user.getRoles().stream().map(Role::getName).collect(Collectors.joining(","));
-        token = user.getJwtToken();
+        roles = user.getRoles() == null ? "" : user.getRoles().stream().map(Role::getName).collect(Collectors.joining(","));
+        token = user.getJwtToken() == null ? "" : user.getJwtToken();
         created_date = user.getFormattedCreatedDate();
         updated_date = user.getFormattedUpdatedDate();
     }

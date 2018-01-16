@@ -3,6 +3,7 @@
   username:  '#string',
   email:  '#string',
   roles:  '##string',
+  token:  '##string',
   created_date: '#string',
   updated_date: '#string',
   _links: {
