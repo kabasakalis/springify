@@ -8,7 +8,7 @@ Background:
   * set postData.path = 'artists'
   * set postData.payload =  payload
   # call generic post with postdata
-  * def post = call read('classpath:springifyapi/common/genericPost.feature') { postData: '#(postData)' }
+  * def post = callonce read('classpath:springifyapi/common/genericPost.feature') { postData: '#(postData)' }
   # get response and headers
   * def postResponse = post.genericPostResult.response
   * def location = post.genericPostResult.location

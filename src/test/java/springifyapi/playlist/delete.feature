@@ -7,7 +7,7 @@ Feature:  Delete an album
     * def payload = {title: 'Hysteria', year: '2000' }
     * set postData.path = 'albums'
     * set postData.payload = payload
-    * def post = call read('classpath:springifyapi/common/genericPost.feature') { postData: '#(postData)' }
+    * def post = callonce read('classpath:springifyapi/common/genericPost.feature') { postData: '#(postData)' }
 
   Scenario: delete an album
     Given url post.genericPostResult.location

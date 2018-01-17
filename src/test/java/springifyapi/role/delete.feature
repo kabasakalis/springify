@@ -7,7 +7,7 @@ Feature:  Delete a role
     * def payload = {name: 'SUPERADMIN' }
     * set postData.path = 'roles'
     * set postData.payload = payload
-    * def post = call read('classpath:springifyapi/common/genericPost.feature') { postData: '#(postData)' }
+    * def post = callonce read('classpath:springifyapi/common/genericPost.feature') { postData: '#(postData)' }
 
   Scenario: delete an role
     Given url post.genericPostResult.location
