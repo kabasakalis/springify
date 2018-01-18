@@ -37,9 +37,9 @@ apply from: './gradle/profiles.gradle'
 apply from: './gradle/db.gradle'
 
 
-bootRun {
-  systemProperties = System.properties
-}
+// bootRun {
+//   systemProperties = System.properties
+// }
 
 
 

@@ -15,6 +15,7 @@ def prodProfile='prod'
 def devProfile='dev'
 def testsProfile='tests'
 def debProfile='deb'
+def travisProfile='travis'
 def propertyDrivenProfile;
 
 if (project.hasProperty("${prodProfile}")) {
@@ -22,22 +23,30 @@ if (project.hasProperty("${prodProfile}")) {
   propertyDrivenProfile = prodProfile
     apply from: rootProject.file("./gradle/${prodProfile}.gradle");
 
-} else if (project.hasProperty('tests')) {
+} else if (project.hasProperty("${testsProfile}")) {
 
-  // Used for test environment
+  // Used for tests environment
   propertyDrivenProfile = testsProfile
     apply from: rootProject.file("./gradle/${testsProfile}.gradle");
 
-} else if (project.hasProperty('dev')) {
+} else if (project.hasProperty("${devProfile}")) {
 
   // Used for development environment
   propertyDrivenProfile = devProfile
     apply from: rootProject.file("./gradle/${devProfile}.gradle");
-} else if (project.hasProperty('deb')) {
+} else if (project.hasProperty("${debProfile}")) {
 
-  // Used for development environment
-  propertyDrivenProfile = devProfile
+  // Used for debugging
+  propertyDrivenProfile = debProfile
     apply from: rootProject.file("./gradle/${debProfile}.gradle");
+
+} else if (project.hasProperty("${travisProfile}")) {
+
+  // Used for travis
+  propertyDrivenProfile = travisProfile
+    apply from: rootProject.file("./gradle/${travisProfile}.gradle");
+
+
 
 } else {
 
@@ -48,57 +57,26 @@ if (project.hasProperty("${prodProfile}")) {
 }
 ext.set("propertyDrivenProfile", propertyDrivenProfile)
 println 'Using profile: "' + propertyDrivenProfile + '" for ' + project.getName()
-
+println "Populating project.ext.appProps with application properties for ${propertyDrivenProfile} profile."
 // Reading environment specific properties.
 file("./src/main/resources/application-${propertyDrivenProfile}.properties").withReader {
   Properties props = new Properties()
     props.load(it)
     project.ext.appProps = props
 }
-
-// Extract application properties needed for build.
-println "Exctracting application properties for ${propertyDrivenProfile} profile."
-
-ext.set("spring.datasource.url", "${ext.appProps['spring.datasource.url']}")
-ext.set("spring.datasource.username", "${ext.appProps['spring.datasource.username']}")
-ext.set("spring.datasource.password", "${ext.appProps['spring.datasource.password']}")
-ext.set("liquibase.change-log", "${ext.appProps['liquibase.change-log']}")
+println "project.ext.appProps :"
+println project.ext.appProps
 
 // bootRun will rely on the -P profile argument,
-// defaulting to the "test" profile if no -P arguments are provided
+// defaulting to the "dev" profile if no -P arguments are provided
 bootRun {
   systemProperties = [
     'spring.profiles.active':   propertyDrivenProfile  ]
-
-      // Use -Pproperty.name=value in addition to a -P profile argument
-      // for each property below to pass database connection properties.
-      //
-      // These will only be used if profile specific property files do not override them.
-      // They are intended for use with the "prod" profile.
-      ext.applyPropertyIfExists = { propertyKey ->
-        if(project.hasProperty(propertyKey)) {
-          systemProperties[propertyKey] = project.getProperty(propertyKey)
-        }
+      classes.doLast {
+        println 'Adding spring.profiles.active=' + propertyDrivenProfile + ' to application.properties'
+          FileTree tree = fileTree(dir: "build/resources/main").include("application.properties")
+          tree.each { File file ->
+            file.append('\nspring.profiles.active=' + propertyDrivenProfile);
+          }
       }
-    applyPropertyIfExists('spring.datasource.username')
-    applyPropertyIfExists("spring.datasource.url")
-    applyPropertyIfExists('spring.datasource.password')
-    applyPropertyIfExists('jasypt.encryptor.password')
-    println "System Properties :"
-    println systemProperties
-
-    // Alternative to using the extended bootRun task above to set properties.
-    // Comment out the bootRun task extension above (lines 45 to 63) and un-comment this task (lines 72 to 78) to try it.
-    //
-    // Appends properties to each subproject's application.properties file during compilation,
-    // which ensures WARs and JARs always run with the profiles they were built with.
-    // Also works with the bootRun task without requiring it to be extended.
-    // Defaults to the "test" profile if no -P arguments are provided.
-    // classes << {
-    //     println 'Adding spring.profiles.active=' + propertyDrivenProfiles + ' to application.properties'
-    //     FileTree tree = fileTree(dir: "build/resources/main").include("application.properties")
-    //     tree.each { File file ->
-    //         file.append('\nspring.profiles.active=' + propertyDrivenProfiles);
-    //     }
-    // }
 }
