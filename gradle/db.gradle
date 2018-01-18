@@ -17,6 +17,7 @@ task migrate {
               referenceDriver  'org.postgresql.Driver'
               // classpath     '/home/spiros/.gradle/caches/modules-2/files-2.1/org.postgresql/postgresql/9.4.1212/38931d70811d9bfcecf9c06f7222973c038a12de/postgresql-9.4.1212.jar'
               // classpath     '/home/spiros/.gradle/caches/modules-2/files-2.1/org.postgresql/postgresql/42.1.4/1c7788d16b67d51f2f38ae99e474ece968bf715a/postgresql-42.1.4.jar'
+              classpath     'postgresql-42.1.4.jar'
           }
         }
       }
