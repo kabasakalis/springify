@@ -1,4 +1,3 @@
-# @ignore
 Feature: Get home page
 
 Background:

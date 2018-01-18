@@ -1,3 +1,4 @@
+@ignore
 Feature: Get a resource
 
 Background:

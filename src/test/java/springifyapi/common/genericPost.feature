@@ -1,3 +1,4 @@
+@ignore
 Feature: Create a generic post
 
 Background:

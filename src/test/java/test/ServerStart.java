@@ -25,11 +25,11 @@ package test;
 
 import com.kabasakalis.springifyapi.SpringifyApiApplication;
 import com.kabasakalis.springifyapi.configuration.ServerStartedInitializingBean;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ConfigurableApplicationContext;
-
 
 public class ServerStart {
 
@@ -75,7 +75,7 @@ public class ServerStart {
         context.stop();
     }
 
-    @Test
+//    @Test
     public void startServer() throws Exception {
         start(new String[]{}, true);
     }
