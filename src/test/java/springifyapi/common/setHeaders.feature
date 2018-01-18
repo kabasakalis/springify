@@ -17,4 +17,3 @@ Then status 200
 * def token = response.token
 * print 'jwtToken has been assigned: ', karate.pretty(token)
 * def defaultHeaders =  callonce read('classpath:springifyapi/common/HeadersFun.js')  { jwtToken:  '#(token)' }
-* configure headers = defaultHeaders
