@@ -8,3 +8,14 @@ println 'Loaded test.gradle'
 //     compile 'com.h2database:h2:1.4.185'
 //     // End: Database
 // }
+
+apply plugin: 'jacoco'
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled false
+    }
+}
+
+check.dependsOn jacocoTestReport

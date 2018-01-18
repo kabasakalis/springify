@@ -20,3 +20,5 @@ before_script:
   - gradle -Ptravis migrate update
 script:
   - gradle -Ptravis check
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
