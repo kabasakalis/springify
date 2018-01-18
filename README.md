@@ -1,12 +1,11 @@
-== Work in Progress!
+### Work in Progress!
 [![Build Status](https://travis-ci.org/kabasakalis/springify.svg?branch=master)](https://travis-ci.org/kabasakalis/springify)
 [![codecov](https://codecov.io/gh/kabasakalis/springify/branch/master/graph/badge.svg)](https://codecov.io/gh/kabasakalis/springify)
-image:https://raw.githubusercontent.com/drumaddict/springify/master/src/main/resources/static/springify.png[alt="springify"]
+[![logo](https://raw.githubusercontent.com/drumaddict/springify/master/src/main/resources/static/springify.png)](https://github.com/kabasakalis/springify)
 
-== Overview
+## Overview
 
-== Features
+##Features
 
-== References
+## References
 
-* link:[Ref one] - Ref one
