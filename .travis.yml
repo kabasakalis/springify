@@ -15,7 +15,7 @@ before_install:
   - cd ~/postgres-driver
   - wget https://jdbc.postgresql.org/download/postgresql-42.1.4.jar
 before_script:
-  - psql -U postgres -c 'create database springify-test;'
+  - psql -U postgres -c 'create database springify_test;'
   - psql -U postgres -c 'create role spiros with superuser login;'
   - gradle -Ptravis migrate update
 script:
