@@ -48,8 +48,8 @@ protected void configure(HttpSecurity http) throws Exception {
             .antMatchers(PATCH,MODERATOR_PATHS).hasAuthority("MODERATOR")
             .antMatchers(PUT,MODERATOR_PATHS).hasAuthority("MODERATOR")
             .antMatchers(DELETE,MODERATOR_PATHS).hasAuthority("MODERATOR")
-
             .anyRequest().authenticated()
+//            .anyRequest().permitAll()
             .and()
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
             .exceptionHandling()

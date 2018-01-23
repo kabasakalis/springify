@@ -1,27 +1,26 @@
 buildscript {
-  ext {
-    springBootVersion = '1.5.9.RELEASE'
-      karateVersion = '0.6.2'
-      masterThought = '3.13.0'
-  }
-  repositories {
-    mavenCentral()
-      maven { url 'https://plugins.gradle.org/m2/' }
-    maven { url "http://repo.spring.io/release" }
-    maven { url "http://repo.spring.io/milestone" }
-    maven { url "http://repo.spring.io/snapshot" }
-  }
-  dependencies {
-    classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-      classpath "org.liquibase:liquibase-gradle-plugin:1.2.4"
-      // classpath('org.postgresql:postgresql:9.4.1212')
-      classpath('org.yaml:snakeyaml:1.15')
-      classpath "org.liquibase.ext:liquibase-hibernate5:3.6"
-  }
+    ext {
+        springBootVersion = '1.5.9.RELEASE'
+        karateVersion = '0.6.2'
+        masterThought = '3.13.0'
+    }
+    repositories {
+        mavenCentral()
+        maven { url 'https://plugins.gradle.org/m2/' }
+        maven { url "http://repo.spring.io/release" }
+        maven { url "http://repo.spring.io/milestone" }
+        maven { url "http://repo.spring.io/snapshot" }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "org.liquibase:liquibase-gradle-plugin:1.2.4"
+        classpath('org.yaml:snakeyaml:1.15')
+        classpath "org.liquibase.ext:liquibase-hibernate5:3.6"
+    }
 }
 
 plugins {
-  id 'org.liquibase.gradle' version '1.2.4'
+    id 'org.liquibase.gradle' version '1.2.4'
 
 }
 
@@ -36,11 +35,9 @@ apply plugin: 'war'
 apply from: './gradle/profiles.gradle'
 apply from: './gradle/db.gradle'
 
-
 // bootRun {
 //   systemProperties = System.properties
 // }
-
 
 
 group = 'com.kabasakalis'
@@ -49,11 +46,12 @@ sourceCompatibility = 1.8
 description = 'Hypermedia Driven Music API.'
 
 repositories {
-  mavenLocal()
-  mavenCentral()
-  maven { url "http://repo.spring.io/release" }
-  maven { url "http://repo.spring.io/milestone" }
-  maven { url "http://repo.spring.io/snapshot" }
+    mavenLocal()
+    mavenCentral()
+    maven { url "http://repo.spring.io/release" }
+    maven { url "http://repo.spring.io/milestone" }
+    maven { url "http://repo.spring.io/snapshot" }
+    maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local/' }
 }
 
 
@@ -61,24 +59,24 @@ repositories {
 sourceSets {
     test {
         java
-            {
-                // Excluding UIRunner files as these require the javafx libraries
-                // which are not shipped with OpenJDK. These UIRunner classes are
-                // classes that allow developers to run/debug karate tests via a UI
-                // and as such are not required for headless runs on jenkins server
-                // but can run happily via IDE of the developer without needed to be
-                // compiled by gradle.
-                srcDir file('src/test/java')
-                exclude '**/*UiRunner*.java'
-            }
+                {
+                    // Excluding UIRunner files as these require the javafx libraries
+                    // which are not shipped with OpenJDK. These UIRunner classes are
+                    // classes that allow developers to run/debug karate tests via a UI
+                    // and as such are not required for headless runs on jenkins server
+                    // but can run happily via IDE of the developer without needed to be
+                    // compiled by gradle.
+                    srcDir file('src/test/java')
+                    exclude '**/*UiRunner*.java'
+                }
         resources
-            {
-                // Using recommended karate project layout where karate feature files
-                // and associated javascript resources sit in same /test/java folders
-                // as their java counterparts.
-                srcDir file('src/test/java')
-                exclude '**/*.java'
-            }
+                {
+                    // Using recommended karate project layout where karate feature files
+                    // and associated javascript resources sit in same /test/java folders
+                    // as their java counterparts.
+                    srcDir file('src/test/java')
+                    exclude '**/*.java'
+                }
     }
 }
 
@@ -94,7 +92,7 @@ test {
 
 
 configurations {
-  providedRuntime
+    providedRuntime
 }
 
 dependencies {
@@ -110,10 +108,15 @@ dependencies {
     compile('org.liquibase:liquibase-core')
     compile('org.springframework.boot:spring-boot-starter-security')
     compile("io.jsonwebtoken:jjwt:0.9.0")
-    compile( 'com.github.ulisesbocchio:jasypt-spring-boot-starter:1.16')
+    compile('com.github.ulisesbocchio:jasypt-spring-boot-starter:1.16')
     compile group: 'org.postgresql', name: 'postgresql', version: '42.1.4'
     compile 'commons-io:commons-io:2.6'
     compile 'com.github.java-json-tools:json-schema-validator:2.2.8'
+    //    Swagger - does not work because of no inheritance support for controllers.
+//    compile "io.springfox:springfox-swagger2:2.7.1-SNAPSHOT"
+//    compile "io.springfox:springfox-data-rest:2.7.1-SNAPSHOT"
+//    compile 'io.springfox:springfox-swagger-ui:2.7.1-SNAPSHOT'
+//    compile "io.springfox:springfox-bean-validators:2.7.1-SNAPSHOT"
 
     runtime('org.springframework.boot:spring-boot-devtools')
     compileOnly('org.springframework.boot:spring-boot-configuration-processor')
