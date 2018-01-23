@@ -20,5 +20,13 @@ public class SecurityConstants {
             "/albums/**",
             "/playlists/**",
     };
+    public static final String[] SWAGGER_DOCS = new String[]{
+            "/docs/v1/**",
+            "/docs/v1/css/**",
+            "/docs/v1/fonts/**",
+            "/docs/v1/images/**",
+            "/docs/v1/lib/**",
+    };
+
 
 }

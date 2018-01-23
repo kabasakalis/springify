@@ -11,11 +11,7 @@ import java.util.stream.Collectors;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 
-//@ControllerAdvice
-
-
-
-
+@ControllerAdvice
 public class ExceptionHandlers extends BaseExceptionHandler {
 
     private static final Map<Class<Exception>, HttpStatus> DEFAULT_SPRINGIFY_EXCEPTION_RESPONSE_CODES =

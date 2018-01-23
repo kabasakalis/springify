@@ -10,14 +10,13 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import static com.kabasakalis.springifyapi.configuration.SecurityConstants.ADMIN_PATHS;
-import static com.kabasakalis.springifyapi.configuration.SecurityConstants.MODERATOR_PATHS;
-import static com.kabasakalis.springifyapi.configuration.SecurityConstants.PERMIT_ALL_PATHS;
+import static com.kabasakalis.springifyapi.configuration.SecurityConstants.*;
 import static org.springframework.http.HttpMethod.*;
 
 
@@ -40,9 +39,15 @@ public void configure(AuthenticationManagerBuilder auth)  throws Exception {
 
 @Override
 protected void configure(HttpSecurity http) throws Exception {
+    http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     http.cors().and().csrf().disable().authorizeRequests()
+            .antMatchers(SWAGGER_DOCS).permitAll()
             .antMatchers(PERMIT_ALL_PATHS).permitAll()
-            .antMatchers(ADMIN_PATHS).hasAuthority("ADMIN")
+
+            .antMatchers(POST,ADMIN_PATHS).hasAuthority("ADMIN")
+            .antMatchers(PATCH,ADMIN_PATHS).hasAuthority("ADMIN")
+            .antMatchers(PUT,ADMIN_PATHS).hasAuthority("ADMIN")
+            .antMatchers(DELETE,ADMIN_PATHS).hasAuthority("ADMIN")
 
             .antMatchers(POST,MODERATOR_PATHS).hasAuthority("MODERATOR")
             .antMatchers(PATCH,MODERATOR_PATHS).hasAuthority("MODERATOR")
