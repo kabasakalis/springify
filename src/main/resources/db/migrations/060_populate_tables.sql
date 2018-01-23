@@ -9,7 +9,7 @@ insert into roles (id, name) values (3, 'USER');
 
 -- Users -------------------------------------------------------------------------------
 
--- insert into users (id, username, email, password) values (1, 'admin', 'admin@springify.com', '$2a$10$UClj/ChiXzRXcT6HvSdOpePZFzTIJs9CYDagygovYbM0TDzMRe7Di');
+insert into users (id, username, email, password) values (1, 'admin', 'admin@springify.com', '$2a$10$efzxz2vlIbHOA4bmae41aOKlS97sOhtzagxLLxemVyYagM9vTIv5m');
 insert into users (id, username, email, password) values (2, 'moderator', 'mod@springify.com', '$2a$10$.JWu1W6bpa1tlMtGKUt50uF8Gkd01sNme9D4PPryRXR6sjZ9pXYrG');
 insert into users (id, username, email, password) values (3, 'peter', 'zourdos@gmail.com', '$2a$10$eAQhN15Bz7liEDjmzohBBekENkn73AzQqW9ILsJDWaE6QCeK90eDu' );
 insert into users (id, username, email, password) values (4, 'moderator2', 'moderator2@springify.com', '$2a$10$UClj/ChiXzRXcT6HvSdOpePZFzTIJs9CYDagygovYbM0TDzMRe7Di' );
@@ -17,11 +17,10 @@ insert into users (id, username, email, password) values (4, 'moderator2', 'mode
 
 -- Assign Users to Roles -------------------------------------------------------------------------------
 
--- insert into users_roles (user_id, role_id) values (1, 1);
--- insert into users_roles (user_id, role_id) values (1, 2);
--- insert into users_roles (user_id, role_id) values (1, 3);
+insert into users_roles (user_id, role_id) values (1, 1);
+insert into users_roles (user_id, role_id) values (1, 2);
+insert into users_roles (user_id, role_id) values (1, 3);
 
--- insert into users_roles (user_id, role_id) values (4, 1);
 insert into users_roles (user_id, role_id) values (4, 2);
 insert into users_roles (user_id, role_id) values (4, 3);
 

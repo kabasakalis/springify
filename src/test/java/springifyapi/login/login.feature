@@ -2,7 +2,7 @@
 Feature: Login
 
 Background:
-* def creds = read('classpath:springifyapi/data/admin.json')
+* def creds = read('classpath:springifyapi/data/user.json')
 * url baseUrl
 * def userStructure = read('classpath:springifyapi/common/schemas/user.js')
 

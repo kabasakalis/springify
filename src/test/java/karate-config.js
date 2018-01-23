@@ -1,5 +1,6 @@
 function() {
-  karate.log('CONFIGURATION STARTS');
+  karate.log('CONFIGURATION STARTSs');
+  karate.log('admin pwd  ', karate.properties['karate.adminpwd']);
   karate.configure('logPrettyRequest', true);
   karate.configure('logPrettyResponse', true);
   karate.configure('connectTimeout', 5000);
@@ -14,6 +15,7 @@ function() {
   var uuid = java.util.UUID.randomUUID();
   config.uuid = uuid.toString() ;
   config.baseUrl = 'http://127.0.0.1:' + port + '/api/' ;
+  config.adminpwd = karate.properties['karate.adminpwd'];
   karate.set('baseUrl', config.baseUrl);
   //next call should be once for the whole test suite
   //unfortunately callSingle, as explained in karate docs, is not available.

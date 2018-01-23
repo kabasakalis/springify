@@ -5,19 +5,20 @@ Feature: User with USER role cannot access user endpoints
     * url baseUrl
     * def config = {}
     * set config.user = 'user'
+    * set config.adminpwd = ''
     * def result = callonce read('classpath:springifyapi/common/setHeaders.feature') {config: '#(config)'}
     * def auth_header = 'Bearer ' + result.token
     * configure headers = { Authorization:  '#(auth_header)' }
 
-  Scenario: cannot read user
+  Scenario: can read user
     Given path 'users', 4
     When method get
-    Then status 403
+    Then status 200
 
-  Scenario: cannot read users
+  Scenario: can read users
     Given path 'users'
     When method get
-    Then status 403
+    Then status 200
 
   Scenario: cannot update user
     Given path 'users', 4
