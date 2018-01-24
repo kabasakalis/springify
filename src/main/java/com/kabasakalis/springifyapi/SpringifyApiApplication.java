@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
-import org.springframework.orm.jpa.vendor.HibernateJpaSessionFactoryBean;
+//import org.springframework.orm.jpa.vendor.HibernateJpaSessionFactoryBean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @EnableEncryptableProperties
@@ -21,10 +21,10 @@ public class SpringifyApiApplication {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public HibernateJpaSessionFactoryBean sessionFactory() {
-        return new HibernateJpaSessionFactoryBean();
-    }
+//    @Bean
+//    public HibernateJpaSessionFactoryBean sessionFactory() {
+//        return new HibernateJpaSessionFactoryBean();
+//    }
 
 	public static ConfigurableApplicationContext run(String[] args) {
 		return SpringApplication.run(SpringifyApiApplication.class, args);
