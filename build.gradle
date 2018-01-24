@@ -86,10 +86,15 @@ sourceSets {
     }
 }
 
-task stage {
-  // dependsOn installDist
-  dependsOn build
-}
+
+
+
+
+// task stage {
+//   // dependsOn installDist
+//   dependsOn build
+  dependsOn assemble
+// }
 
 // test {
 //     // pull cucumber options into the cucumber jvm
