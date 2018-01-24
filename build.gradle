@@ -91,16 +91,16 @@ task stage {
   dependsOn build
 }
 
-test {
-    // pull cucumber options into the cucumber jvm
-    systemProperty "cucumber.options", System.properties.getProperty("cucumber.options")
-    // pull karate options into the jvm
-    systemProperty "karate.env", System.properties.getProperty("karate.env")
-    systemProperty "karate.adminpwd", findProperty("adminpwd")
-   // ensure tests are always run
-
-    outputs.upToDateWhen { false }
-}
+// test {
+//     // pull cucumber options into the cucumber jvm
+//     systemProperty "cucumber.options", System.properties.getProperty("cucumber.options")
+//     // pull karate options into the jvm
+//     systemProperty "karate.env", System.properties.getProperty("karate.env")
+//     systemProperty "karate.adminpwd", findProperty("adminpwd")
+//    // ensure tests are always run
+//
+//     outputs.upToDateWhen { false }
+// }
 
 
 
