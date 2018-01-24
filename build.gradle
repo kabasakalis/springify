@@ -107,9 +107,9 @@ sourceSets {
 // 	dependsOn assemble
 // }
 //
-// jar {
-// 	baseName = 'heroku-springify'
-// }
+jar {
+	baseName = 'heroku-springify'
+}
 
 
 
