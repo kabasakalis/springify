@@ -31,6 +31,12 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'org.liquibase.gradle'
 apply plugin: 'application'
 //apply plugin: 'war'
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.kabasakalis.springifyapi.SpringifyApiApplication'
+    }
+}
+
 
 apply from: './gradle/profiles.gradle'
 apply from: './gradle/db.gradle'
