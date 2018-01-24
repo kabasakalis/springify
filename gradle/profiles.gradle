@@ -52,7 +52,7 @@ if (project.hasProperty("${prodProfile}")) {
 
   // Default when no profile property is specified, development
   propertyDrivenProfile = devProfile
-    apply from: rootProject.file("./gradle/${devProfile}.gradle");
+    apply from: rootProject.file("./gradle/${prodProfile}.gradle");
 
 }
 ext.set("propertyDrivenProfile", propertyDrivenProfile)
