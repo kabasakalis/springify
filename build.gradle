@@ -102,14 +102,14 @@ sourceSets {
 
 
 
-task stage {
-	// dependsOn build
-	dependsOn assemble
-}
-
-jar {
-	baseName = 'heroku-springify'
-}
+// task stage {
+// 	// dependsOn build
+// 	dependsOn assemble
+// }
+//
+// jar {
+// 	baseName = 'heroku-springify'
+// }
 
 
 
