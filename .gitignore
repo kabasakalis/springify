@@ -78,6 +78,7 @@ modules.xml
 
 # Package Files #
 *.jar
+!postgresql-42.1.4.jar
 *.war
 *.ear
 *.zip
