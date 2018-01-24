@@ -92,8 +92,8 @@ sourceSets {
 
 // task stage {
 //   // dependsOn installDist
-//   dependsOn build
-  dependsOn assemble
+  dependsOn build
+  // dependsOn assemble
 // }
 
 // test {
