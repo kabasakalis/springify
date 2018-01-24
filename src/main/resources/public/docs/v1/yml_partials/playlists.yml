@@ -1,0 +1,136 @@
+  /playlists:
+    get:
+      tags:
+        - playlist
+      summary: Finds all playlists
+      description: Gets all playlists,paginated result.
+      operationId: getAllPlaylists
+      parameters:
+        - in: query
+          name: user
+          description: Filter by User's ID
+          required: false
+          type: string
+      security:
+       - Authorization: []
+      responses:
+        "200":
+          description: Successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Playlist"
+        "404":
+          description: Not Found
+        "401":
+          description: Unauthorized
+        "500":
+          description: Server Error
+        "400":
+          description: Bad Request
+    post:
+      tags:
+        - playlist
+      summary: Add a new playlist
+      description: Only Admins and SuperAdmins can create playlists
+      operationId: addPlaylist
+      parameters:
+        - in: body
+          name: body
+          description: Playlist to add.You can provide a user_id (list users  to find the id) to associate the playlist with an existing user. You can also create and associate albums and tracks for the new playlist.
+          required: false
+          schema:
+            $ref: "#/definitions/Playlist"
+      security:
+       - Authorization: []
+      responses:
+        "405":
+          description: Invalid input
+        "401":
+          description: Unauthorized
+        "400":
+          description: Bad Request
+  /playlists/{playlistId}:
+    get:
+      tags:
+        - playlist
+      summary: Find playlist by ID
+      description: Returns a playlist
+      operationId: getPlaylistById
+      parameters:
+        - in: path
+          name: playlistId
+          description: ID of playlist that needs to be fetched
+          required: true
+          type: integer
+          format: int64
+      security:
+       - Authorization: []
+      responses:
+        "404":
+          description: playlist not found
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/Playlist"
+        "400":
+          description: Invalid ID supplied
+    put:
+      tags:
+        - playlist
+      summary: Updates a playlist
+      description: ""
+      operationId: updatePlaylist
+      parameters:
+        - in: path
+          name: playlistId
+          description: ID of playlist to be updated
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Updated attributes for playlist.
+          required: false
+          schema:
+            $ref: "#/definitions/Playlist"
+      responses:
+        "405":
+          description: Invalid input
+        "404":
+          description: playlist not found
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/Playlist"
+        "400":
+          description: Invalid ID supplied
+      security:
+        - Authorization: []
+    delete:
+      tags:
+        - playlist
+      summary: Deletes a playlist
+      description: ""
+      operationId: deletePlaylist
+      parameters:
+        - in: path
+          name: playlistId
+          description: playlist id to delete
+          required: true
+          type: integer
+          format: int64
+      responses:
+        "400":
+          description: Invalid playlist value
+        "204":
+          description: No Content. Successfully Deleted.
+        "404":
+          description: Playlist not found
+      security:
+        - Authorization: []
+
+
+
+
+
+

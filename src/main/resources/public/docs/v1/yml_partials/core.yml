@@ -1,0 +1,23 @@
+swagger: "2.0"
+info:
+  description: |
+    This is MyMusic API,a demo for exploring API design best practices in Rails 5.
+    To try operations you have to obtain a JSON Web Token, fill  in the token field and press the arrow button next to it.
+  version: "1.0.0"
+  title: MyMusic
+  termsOfService: ""
+  contact:
+    name: Spiros Kabasakalis
+    email: kabasakalis@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: api.app.me:3000
+basePath: /v1
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/vnd.siren+json
+paths:

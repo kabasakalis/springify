@@ -1,0 +1,227 @@
+securityDefinitions:
+  Authorization:
+    type: apiKey
+    name: Authorization
+    in: header
+definitions:
+  Auth:
+    type: object
+    properties:
+      auth:
+        type: object
+        required:
+          - email
+          - password
+        properties:
+          email:
+            type: string
+          password:
+            type: string
+
+  User:
+    type: object
+    properties:
+      user:
+        type: object
+        required:
+          - email
+          - password
+          - role
+        properties:
+          name:
+            type: string
+            description: username
+          email:
+            type: string
+            description: email
+          password:
+            type: string
+            description: password (at least 8 characters)
+          password_confirmation:
+            type: string
+            description: password confirmation
+          role:
+            type: string
+            enum: ['user','admin','superadmin']
+          playlists_attributes:
+            description: playlists that this track belongs to
+            type: array
+            items:
+              type: object
+              properties:
+                title:
+                  type: string
+
+  UserNested:
+    type: object
+    required:
+      - email
+      - password
+      - role
+    properties:
+      name:
+        type: string
+        description: username
+      email:
+        type: string
+        description: email
+      password:
+        type: string
+        description: password (at least 8 characters)
+      password_confirmation:
+        type: string
+        description: password confirmation
+      role:
+        type: string
+        enum: ['user','admin','superadmin']
+
+  Genre:
+    type: object
+    required:
+      - title
+    properties:
+      title:
+        type: string
+        description: Name of new Genre to add.
+  Artist:
+    type: object
+    properties:
+      artist:
+        type: object
+        required:
+          - title
+        properties:
+          genre_id:
+            type: integer
+            format: int64
+          title:
+            type: string
+            example: Myrath
+            description: Name of band or album.
+          country:
+            type: string
+            example: Tunisia
+            description: artist's country of origin.
+          genre_attributes:
+            $ref: "#/definitions/Genre"
+          albums_attributes:
+            description: artist's albums
+            type: array
+            items:
+              $ref: "#/definitions/AlbumNested"
+  ArtistNested:
+    type: object
+    required:
+      - title
+    properties:
+      genre_id:
+        type: integer
+        format: int64
+      title:
+        type: string
+        example: Myrath
+        description: Name of band or artist.
+      country:
+        type: string
+        example: USA
+        description: artist's country of origin.
+      genre_attributes:
+        $ref: "#/definitions/Genre"
+  Album:
+    type: object
+    properties:
+      album:
+        type: object
+        required:
+          - title
+        properties:
+          artist_id:
+            type: integer
+            format: int64
+          title:
+            type: string
+          year:
+            type: integer
+            format: int32
+          tracks_attributes:
+            description: Tracks on this album
+            type: array
+            items:
+              $ref: "#/definitions/TrackNested"
+  AlbumNested:
+    type: object
+    required:
+      - title
+    properties:
+      title:
+        type: string
+      year:
+        type: integer
+        format: int32
+  Track:
+    type: object
+    properties:
+      track:
+        type: object
+        required:
+          - title
+        properties:
+          title:
+            type: string
+          time:
+            type: string
+          album_id:
+            type: integer
+            format: int64
+          album_attributes:
+            description: album this track belongs to
+            $ref: "#/definitions/AlbumNested"
+  TrackNested:
+    type: object
+    required:
+      - title
+    properties:
+      title:
+        type: string
+      time:
+        type: string
+  Playlist:
+    type: object
+    properties:
+      playlist:
+        type: object
+        required:
+          - title
+        properties:
+          title:
+            type: string
+          user_id:
+            type: integer
+            format: int64
+          tracks_attributes:
+            description: tracks in this playlist
+            type: array
+            items:
+              $ref: "#/definitions/TrackNested"
+          albums_attributes:
+            description: albums in this playlist
+            type: array
+            items:
+              $ref: "#/definitions/AlbumNested"
+  PlaylistNested:
+    type: object
+    required:
+      - title
+    properties:
+      title:
+        type: string
+      tracks_attributes:
+        description: tracks in this playlist
+        type: array
+        items:
+          $ref: "#/definitions/TrackNested"
+      albums_attributes:
+        description: albums in this playlist
+        type: array
+        items:
+          $ref: "#/definitions/AlbumNested"

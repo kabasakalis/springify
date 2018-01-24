@@ -1,0 +1,26 @@
+  /auth:
+    post:
+      tags:
+        - JWT_Token
+      summary: Obtain JSON Web Token (JWT)
+      description: If you get a 401 Unauthorized server response you are either
+                    unauthenticated or not authorized.You have to
+                    provide a JSON  Web Authentication Token (JWT) in the header for every request.
+                   You get a new JWT by executing this operation with valid user credentials,JWT is
+                   the value of token field in server response.The token can be copied and pasted in
+                   TOKEN field (upper left of the window).Pressing the arrow button will populate the header with the token for all subsequent requests.
+      operationId: getToken
+      parameters:
+        - in: body
+          name: body
+          description: Login to receive a token
+          required: true
+          schema:
+            $ref: "#/definitions/Auth"
+      responses:
+        "200":
+          description: Successful Token retrieval
+        "401":
+          description: Invalid credentials
+        "400":
+          description: Bad Request

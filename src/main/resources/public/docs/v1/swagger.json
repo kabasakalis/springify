@@ -1,0 +1,2547 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "title": "Springify API",
+    "description": "Hypermedia Based (HAL) Music API",
+    "contact": {
+      "name": "Spiros Kabasakalis",
+      "email": "kabasakalis@gmail.com"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "http://github.com/gruntjs/grunt/blob/master/LICENSE-MIT"
+    }
+  },
+  "host": "localhost:8080",
+  "basePath": "/api",
+  "securityDefinitions": {
+    "Authorization": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/hal+json"
+  ],
+  "paths": {
+    "/artists/{artist_id}": {
+      "get": {
+        "description": "Returns an artist",
+        "summary": "Get One Artist",
+        "tags": [
+          "Artists"
+        ],
+        "operationId": "getArtistById",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "artist_id",
+            "description": "ID of artist to fetch, example: 1",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Artist not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/genres/{genreId}": {
+      "get": {
+        "description": "Returns a Genre",
+        "summary": "Find genre by Id",
+        "tags": [
+          "Genres"
+        ],
+        "operationId": "getGenreById",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "genreId",
+            "description": "ID of genre to fetch, example: 1",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Genre not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/genres": {
+      "get": {
+        "description": "Returns all genres with pagination",
+        "summary": "Get All Genres",
+        "tags": [
+          "Genres"
+        ],
+        "operationId": "getAllGenres",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "exclusiveMaximum": false,
+            "exclusiveMinimum": false,
+            "description": "Page number"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "exclusiveMaximum": false,
+            "exclusiveMinimum": false,
+            "description": "Page size"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Genre not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      },
+      "post": {
+        "description": "Creates a new genre",
+        "summary": "Add One Genre",
+        "tags": [
+          "Genres"
+        ],
+        "operationId": "addGenre",
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/AddOneGenrerequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Genre not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/albums/{albumId}/artist": {
+      "get": {
+        "description": "Returns the artist this album belongs to",
+        "summary": "Get Album's Artist",
+        "tags": [
+          "Albums"
+        ],
+        "operationId": "getArtistOfAlbum",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "albumId",
+            "description": "The id of the album",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Genre not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/albums/{album_id}": {
+      "get": {
+        "description": "Returns an album",
+        "summary": "Get One Album",
+        "tags": [
+          "Albums"
+        ],
+        "operationId": "getAlbum",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "album_id",
+            "description": "The Id of the album",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Genre not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/": {
+      "get": {
+        "description": "Point of API Entry",
+        "summary": "Home",
+        "tags": [
+          "Root"
+        ],
+        "operationId": "getHome",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Genre not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/roles/{roleId}/users": {
+      "get": {
+        "description": "Return users that have this role",
+        "summary": "Get Users With This Role",
+        "tags": [
+          "Roles"
+        ],
+        "operationId": "getRoleUsers",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "roleId",
+            "description": "role id of the users we want to retreive ",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Genre not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/users/{userId}/roles": {
+      "get": {
+        "description": "Return the roles a particular user has",
+        "summary": "Get User Roles",
+        "tags": [
+          "Users"
+        ],
+        "operationId": "getUserRoles",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "description": "user id to delete",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Genre not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/users/{userId}": {
+      "get": {
+        "description": "Return a user by id",
+        "summary": "Get User",
+        "tags": [
+          "Users"
+        ],
+        "operationId": "getUser",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "description": "user id to delete",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Genre not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/users": {
+      "get": {
+        "description": "Return all users",
+        "summary": "Get Users",
+        "tags": [
+          "Users"
+        ],
+        "operationId": "getUsers",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "exclusiveMaximum": false,
+            "exclusiveMinimum": false,
+            "description": "Page number"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "exclusiveMaximum": false,
+            "exclusiveMinimum": false,
+            "description": "Size of each page"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/playlists/{playlistId}": {
+      "get": {
+        "description": "Returns a playlist",
+        "summary": "Get One Playlist",
+        "tags": [
+          "Playlists"
+        ],
+        "operationId": "getPlaylist",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "playlistID",
+            "description": "Id of playlist to be retrieved, ex. 1",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/playlists": {
+      "get": {
+        "description": "Returns all playlists with pagination",
+        "summary": "Get Playlists",
+        "tags": [
+          "Playlists"
+        ],
+        "operationId": "getPlaylists",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "exclusiveMaximum": false,
+            "exclusiveMinimum": false,
+            "description": "Page number"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "exclusiveMaximum": false,
+            "exclusiveMinimum": false,
+            "description": "Size of each page"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      },
+      "post": {
+        "description": "Add a playlist",
+        "summary": "Add One Playlist",
+        "tags": [
+          "Playlists"
+        ],
+        "operationId": "addPlaylist",
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/AddOnePlaylistrequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/artists/{artistId}/genre": {
+      "get": {
+        "description": "Get genre of a particular artist",
+        "summary": "Get Artist Genre",
+        "tags": [
+          "Artists"
+        ],
+        "operationId": "getArtistGenre",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "artistId",
+            "description": "id of artist, ex. 3",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/artists/{artistId}/albums": {
+      "get": {
+        "description": "Returns albums of this artist",
+        "summary": "Get Artist Albums",
+        "tags": [
+          "Artists"
+        ],
+        "operationId": "getArtistAlbums",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "artistId",
+            "description": "id of artist, ex. 3",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/artists": {
+      "get": {
+        "description": "Returns all artists",
+        "summary": "Get Artists",
+        "tags": [
+          "Artists"
+        ],
+        "operationId": "getArtists",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "exclusiveMaximum": false,
+            "exclusiveMinimum": false,
+            "description": "Page number"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "exclusiveMaximum": false,
+            "exclusiveMinimum": false,
+            "description": "Size of each page"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      },
+      "post": {
+        "description": "Creates a new artist",
+        "summary": "Add Artist",
+        "tags": [
+          "Artists"
+        ],
+        "operationId": "addArtist",
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/AddArtistrequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/albums": {
+      "get": {
+        "description": "Return all albums with pagination",
+        "summary": "Get All Albums",
+        "tags": [
+          "Albums"
+        ],
+        "operationId": "getAlbums",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "exclusiveMaximum": false,
+            "exclusiveMinimum": false,
+            "description": "Page number"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "exclusiveMaximum": false,
+            "exclusiveMinimum": false,
+            "description": "Size of each page"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      },
+      "post": {
+        "description": "Create an album",
+        "summary": "Add One Album",
+        "tags": [
+          "Albums"
+        ],
+        "operationId": "getOneAlbum",
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/AddOneAlbumrequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/albums/{albumId}": {
+      "patch": {
+        "description": "Updates an album",
+        "summary": "Update One Album",
+        "tags": [
+          "Albums"
+        ],
+        "operationId": "updateAlbum",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "albumId",
+            "description": "The id of the album",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/UpdateOneAlbumrequest"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/albums/{albumIdToDelete}": {
+      "delete": {
+        "description": "Deletes an album",
+        "summary": "Delete One Album",
+        "tags": [
+          "Albums"
+        ],
+        "operationId": "deleteAlbum",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "albumIdToDelete",
+            "description": "id of album to delete",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/albums/{albumId}/playlists": {
+      "get": {
+        "description": "Get playlists that contain this album, with pagination",
+        "summary": "Get Album Playlists",
+        "tags": [
+          "Albums"
+        ],
+        "operationId": "getAlbumPlaylists",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "albumId",
+            "description": "The id of the album",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "exclusiveMaximum": false,
+            "exclusiveMinimum": false,
+            "description": "Page number"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "exclusiveMaximum": false,
+            "exclusiveMinimum": false,
+            "description": "Size of each page"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/albums/{album_Id}/playlists": {
+      "put": {
+        "description": "Add playlists to this album",
+        "summary": "Add Playlists to Album",
+        "tags": [
+          "Albums"
+        ],
+        "consumes": [
+          "text/uri-list"
+        ],
+        "produces": [
+          "application/hal+json"
+        ],
+        "operationId": "addAlbumPlaylists",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "album_Id",
+            "description": "id of album to add playlists to",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "playlist list",
+            "schema": {
+              "$ref": "#/definitions/PlaylistUriList"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/albums/{albumId}/playlists/{playlistId}": {
+      "delete": {
+        "description": "Remove an album-playlist association, without deleting the playlist",
+        "summary": "Remove Album-Playlist Association",
+        "tags": [
+          "Albums"
+        ],
+        "operationId": "removeAlbumPlaylistAssociation",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "albumId",
+            "description": "Id of Album",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "path",
+            "name": "playlistId",
+            "description": "Id of Playlist",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/genres/{genre_id}": {
+      "delete": {
+        "description": "Remove a genre",
+        "summary": "Delete One Genre",
+        "tags": [
+          "Genres"
+        ],
+        "operationId": "deleteGenre",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "genre_id",
+            "description": "Id of Genre",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      },
+      "patch": {
+        "description": "Update a genre",
+        "summary": "Update One Genre",
+        "tags": [
+          "Genres"
+        ],
+        "operationId": "updateGenre",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "genre_id",
+            "description": "Id of Genre",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/UpdateOneGenrerequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/genres/{genreId}/artists/{artistId}": {
+      "delete": {
+        "description": "Remove artist from genre, without deleting the artist",
+        "summary": "Remove Genre-Artist Association",
+        "tags": [
+          "Genres"
+        ],
+        "operationId": "removeArtistGenreAssociation",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "genreId",
+            "description": "id of genre",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "path",
+            "name": "artistId",
+            "description": "id of artist",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/genres/{genre_id}/artists": {
+      "put": {
+        "description": "Add artists to this genre",
+        "summary": "Add Artists to Genre",
+        "tags": [
+          "Genres"
+        ],
+        "consumes": [
+          "text/uri-list"
+        ],
+        "produces": [
+          "application/hal+json"
+        ],
+        "operationId": "addArtistsToGenre",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "genre_id",
+            "description": "id of genre",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "artist list",
+            "schema": {
+              "$ref": "#/definitions/ArtistUriList"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/genres/{genreId}/artists": {
+      "get": {
+        "description": "Get all artists of this genre with pagination",
+        "summary": "Get Genre Artists",
+        "tags": [
+          "Genres"
+        ],
+        "operationId": "getGenreArtists",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "genreId",
+            "description": "id of genre",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "exclusiveMaximum": false,
+            "exclusiveMinimum": false,
+            "description": ""
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "exclusiveMaximum": false,
+            "exclusiveMinimum": false,
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/artists/{artistId}": {
+      "delete": {
+        "description": "Delete an artist",
+        "summary": "Delete Artist",
+        "tags": [
+          "Artists"
+        ],
+        "operationId": "deleteArtist",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "artistId",
+            "description": "Id of artist to delete, ex. 19",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      },
+      "patch": {
+        "description": "Update an artist",
+        "summary": "Update Artist",
+        "tags": [
+          "Artists"
+        ],
+        "operationId": "updateArtist",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "artistId",
+            "description": "id of artist",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/UpdateArtistrequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/artists/findByCountry": {
+      "get": {
+        "description": "Find artists with country matching query parameter",
+        "summary": "Get Artists By Country",
+        "tags": [
+          "Artists"
+        ],
+        "operationId": "getArtistsByCountryLike",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "string that matches artist country"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/artists/findByName": {
+      "get": {
+        "description": "Find artists with name matching query parameter",
+        "summary": "Get Artists By Name",
+        "tags": [
+          "Artists"
+        ],
+        "operationId": "getArtistsByName",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "String that matches artist name"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/artists/{artist_id}/albums": {
+      "put": {
+        "description": "Add albums to this artist",
+        "summary": "Add Albums to Artist",
+        "tags": [
+          "Artists"
+        ],
+        "consumes": [
+          "text/uri-list"
+        ],
+        "produces": [
+          "application/hal+json"
+        ],
+        "operationId": "addAlbumsToArtist",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "artist_id",
+            "description": "id of artist",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "album list",
+            "schema": {
+              "$ref": "#/definitions/AlbumUriList"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/artists/{artistId}/albums/{albumId}": {
+      "delete": {
+        "description": "Remove album from artist, without deleting the album",
+        "summary": "Remove Album-Artist Association",
+        "tags": [
+          "Artists"
+        ],
+        "operationId": "removeAlbumArtistAssociation",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "artistId",
+            "description": "id of artist",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "path",
+            "name": "albumId",
+            "description": "id of album",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/playlists/{playlist_id}": {
+      "patch": {
+        "description": "Update playlist",
+        "summary": "Update Playlist",
+        "tags": [
+          "Playlists"
+        ],
+        "operationId": "updatePlaylist",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "playlist_id",
+            "description": "playlist id to delete",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/UpdateOnePlaylistrequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/playlists/{pl_id}": {
+      "delete": {
+        "description": "Delete a playlist",
+        "summary": "Delete One Playlist",
+        "tags": [
+          "Playlists"
+        ],
+        "operationId": "deletePlaylist",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "pl_id",
+            "description": "id of playlist, ex. 5",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/playlists/{playlistId}/albums": {
+      "get": {
+        "description": "Get albums that this playlist contains, with pagination",
+        "summary": "Get Playlist Albums",
+        "tags": [
+          "Playlists"
+        ],
+        "operationId": "getPlaylistAlbums",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "playlistId",
+            "description": "playlist id to get albums for",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "exclusiveMaximum": false,
+            "exclusiveMinimum": false,
+            "description": ""
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "exclusiveMaximum": false,
+            "exclusiveMinimum": false,
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/playlists/{playlist_id}/albums": {
+      "put": {
+        "description": "Add albums to this playlist",
+        "summary": "Add Albums to Playlist",
+        "tags": [
+          "Playlists"
+        ],
+        "consumes": [
+          "text/uri-list"
+        ],
+        "produces": [
+          "application/hal+json"
+        ],
+        "operationId": "addAlbumsToPlaylist",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "playlist_id",
+            "description": "id of playlist",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "albums list",
+            "schema": {
+              "$ref": "#/definitions/AlbumUriList"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/playlists/{playlistId}/albums/{albumId}": {
+      "delete": {
+        "description": "Remove album from playlist, without deleting the album",
+        "summary": "Remove playlist album association",
+        "tags": [
+          "Playlists"
+        ],
+        "operationId": "removePlaylistAlbumAssociation",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "playlistId",
+            "description": "id of playlist",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "path",
+            "name": "albumId",
+            "description": "id of album",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/roles": {
+      "get": {
+        "description": "Get all authorization roles",
+        "summary": "Get Roles",
+        "tags": [
+          "Roles"
+        ],
+        "operationId": "GetRoles",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "exclusiveMaximum": false,
+            "exclusiveMinimum": false,
+            "description": "Page number"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "exclusiveMaximum": false,
+            "exclusiveMinimum": false,
+            "description": "Size of each page"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/roles/{roleId}": {
+      "get": {
+        "description": "Get a role by id",
+        "summary": "Get One Role",
+        "tags": [
+          "Roles"
+        ],
+        "operationId": "getRole",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "roleId",
+            "description": "id of role, ex. 1",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/login": {
+      "post": {
+        "description": "",
+        "summary": "Login",
+        "tags": [
+          "Root"
+        ],
+        "operationId": "login",
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/LoginRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/sign-up": {
+      "post": {
+        "description": "Create a new user with defaut USER role",
+        "summary": "Sign Up",
+        "tags": [
+          "Root"
+        ],
+        "operationId": "signUp",
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/SignUprequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "UpdateOnePlaylistrequest": {
+      "title": "Update One PlaylistRequest",
+      "example": {
+        "name": "Top UK"
+      },
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "",
+          "example": "Top UK",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "LoginRequest": {
+      "title": "LoginRequest",
+      "example": {
+        "username": "moderator",
+        "password": "22222222"
+      },
+      "type": "object",
+      "properties": {
+        "username": {
+          "description": "The username",
+          "example": "moderator",
+          "type": "string"
+        },
+        "password": {
+          "description": "The password",
+          "example": "22222222",
+          "type": "string"
+        }
+      },
+      "required": [
+        "username",
+        "password"
+      ]
+    },
+    "SignUprequest": {
+      "title": "Sign UpRequest",
+      "example": {
+        "username": "john",
+        "password": "55555555",
+        "passwordConfirm": "55555555",
+        "email": "john@gmail.com"
+      },
+      "type": "object",
+      "properties": {
+        "username": {
+          "description": "The username",
+          "example": "john",
+          "type": "string"
+        },
+        "password": {
+          "description": "The password",
+          "example": "55555555",
+          "type": "string"
+        },
+        "passwordConfirm": {
+          "description": "Password Confirmation",
+          "example": "55555555",
+          "type": "string"
+        },
+        "email": {
+          "description": "Email",
+          "example": "john@gmail.com",
+          "type": "string"
+        }
+      },
+      "required": [
+        "username",
+        "password",
+        "passwordConfirm",
+        "email"
+      ]
+    },
+    "UpdateOneAlbumrequest": {
+      "title": "Update One AlbumRequest",
+      "example": {
+        "title": "Updated",
+        "year": "2020"
+      },
+      "type": "object",
+      "properties": {
+        "title": {
+          "description": "Title of Album",
+          "example": "Updated",
+          "type": "string"
+        },
+        "year": {
+          "description": "Year",
+          "example": "2020",
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "year"
+      ]
+    },
+    "AddOneGenrerequest": {
+      "title": "Add One GenreRequest",
+      "example": {
+        "name": "PsyTrance"
+      },
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Name of Genre",
+          "example": "PsyTrance",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "UpdateOneGenrerequest": {
+      "title": "Update One GenreRequest",
+      "example": {
+        "name": "PsyTrance Updated"
+      },
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Name of Genre",
+          "example": "PsyTrance Updated",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "AddArtistrequest": {
+      "title": "Add ArtistRequest",
+      "example": {
+        "name": "Vio-lence",
+        "country": "USA"
+      },
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Name of Artist",
+          "example": "Vio-lence",
+          "type": "string"
+        },
+        "country": {
+          "description": "Country of Artist",
+          "example": "USA",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "country"
+      ]
+    },
+    "UpdateArtistrequest": {
+      "title": "Update ArtistRequest",
+      "example": {
+        "name": "Updated Artist",
+        "country": "Updated Country"
+      },
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "",
+          "example": "Updated Artist",
+          "type": "string"
+        },
+        "country": {
+          "description": "",
+          "example": "Updated Country",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "country"
+      ]
+    },
+    "AddOnePlaylistrequest": {
+      "title": "Add One PlaylistRequest",
+      "example": {
+        "name": "Top Malta"
+      },
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Name of Playlist",
+          "example": "Top Malta",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "AddOneAlbumrequest": {
+      "title": "Add One AlbumRequest",
+      "example": {
+        "title": "Rockstar",
+        "year": "2017"
+      },
+      "type": "object",
+      "properties": {
+        "title": {
+          "description": "Title of Album",
+          "example": "Rockstar",
+          "type": "string"
+        },
+        "year": {
+          "description": "Year of Album",
+          "example": "2017",
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "year"
+      ]
+    },
+    "ArtistUriList": {
+      "title": "Artist Uri list",
+      "type": "string",
+      "example": "/artists/1 \n /artists/2"
+    },
+    "AlbumUriList": {
+      "title": "Album Uri list",
+      "type": "string",
+      "example": "/albums/1 \n /albums/2"
+    },
+    "PlaylistUriList": {
+      "title": "Playlist Uri list",
+      "type": "string",
+      "example": "/playlist/1 \n /playlist/2"
+    }
+  }
+}
