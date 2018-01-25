@@ -30,20 +30,13 @@ apply plugin: 'eclipse-wtp'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'org.liquibase.gradle'
 apply plugin: 'application'
-//apply plugin: 'war'
-// jar {
-//     manifest {
-//         attributes 'Main-Class': 'com.kabasakalis.springifyapi.SpringifyApiApplication'
-//     }
-// }
 
+jar {
+	baseName = 'heroku-springify'
+}
 
 apply from: './gradle/profiles.gradle'
 apply from: './gradle/db.gradle'
-
-// bootRun {
-//   systemProperties = System.properties
-// }
 
 
 group = 'com.kabasakalis'
@@ -60,81 +53,29 @@ repositories {
     maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local/' }
 }
 
-
-
 sourceSets {
     test {
         java
-                {
-                    // Excluding UIRunner files as these require the javafx libraries
-                    // which are not shipped with OpenJDK. These UIRunner classes are
-                    // classes that allow developers to run/debug karate tests via a UI
-                    // and as such are not required for headless runs on jenkins server
-                    // but can run happily via IDE of the developer without needed to be
-                    // compiled by gradle.
-                    srcDir file('src/test/java')
-                    exclude '**/*UiRunner*.java'
+            {
+              // Excluding UIRunner files as these require the javafx libraries
+              // which are not shipped with OpenJDK. These UIRunner classes are
+              // classes that allow developers to run/debug karate tests via a UI
+              // and as such are not required for headless runs on jenkins server
+              // but can run happily via IDE of the developer without needed to be
+              // compiled by gradle.
+              srcDir file('src/test/java')
+              exclude '**/*UiRunner*.java'
                 }
         resources
                 {
-                    // Using recommended karate project layout where karate feature files
-                    // and associated javascript resources sit in same /test/java folders
-                    // as their java counterparts.
-                    srcDir file('src/test/java')
-                    exclude '**/*.java'
+              // Using recommended karate project layout where karate feature files
+              // and associated javascript resources sit in same /test/java folders
+              // as their java counterparts.
+              srcDir file('src/test/java')
+              exclude '**/*.java'
                 }
     }
 }
-
-
-// task stage(type: Copy, dependsOn: [clean, build]) {
-//     from jar.archivePath
-//     into project.rootDir
-//     rename {
-//         'app.jar'
-//     }
-// }
-// stage.mustRunAfter(clean)
-//
-// clean << {
-//     project.file('app.jar').delete()
-// }
-
-
-
-
-// task stage {
-// 	// dependsOn build
-// 	dependsOn assemble
-// }
-//
-jar {
-	baseName = 'heroku-springify'
-}
-
-
-
-
-//  task stage {
-// //     // dependsOn installDist
-// //    dependsOn assemble
-//
-//  println 'Got home   :  ' + System.getenv('HOME')
-//
-//  }
-
-// test {
-//     // pull cucumber options into the cucumber jvm
-//     systemProperty "cucumber.options", System.properties.getProperty("cucumber.options")
-//     // pull karate options into the jvm
-//     systemProperty "karate.env", System.properties.getProperty("karate.env")
-//     systemProperty "karate.adminpwd", findProperty("adminpwd")
-//    // ensure tests are always run
-//
-//     outputs.upToDateWhen { false }
-// }
-
-
 
 configurations {
     providedRuntime

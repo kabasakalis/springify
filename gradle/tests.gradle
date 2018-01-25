@@ -1,13 +1,4 @@
 println 'Loaded test.gradle'
-// dependencies {
-//     // Start: Webserver
-//     providedCompile 'org.springframework.boot:spring-boot-starter-undertow'
-//     // End: Webserver
-//
-//     // Start: Database
-//     compile 'com.h2database:h2:1.4.185'
-//     // End: Database
-// }
 
 test {
     // pull cucumber options into the cucumber jvm
@@ -20,9 +11,7 @@ test {
     outputs.upToDateWhen { false }
 }
 
-
-
-
+//Code Coverage
 apply plugin: 'jacoco'
 
 jacocoTestReport {

@@ -3,32 +3,26 @@ task migrate {
   // supports only one profile.
   doLast {
     println "Executing $propertyDrivenProfile migrate task actions for ${project.ext.appProps.getProperty('liquibase.change-log')} changelog file."
-    def dbUrl, dbUsername, dbPassword
-      // if(!project.hasProperty("db_env")) {
+      def dbUrl, dbUsername, dbPassword
       if(propertyDrivenProfile == 'prod') {
+        // Heroku
         dbUrl = System.getenv('JDBC_DATABASE_URL')
-        dbUsername = System.getenv('JDBC_DATABASE_USERNAME')
-        dbPassword = System.getenv('JDBC_DATABASE_PASSWORD')
+          dbUsername = System.getenv('JDBC_DATABASE_USERNAME')
+          dbPassword = System.getenv('JDBC_DATABASE_PASSWORD')
       } else {
-        //Do something
-        dbUrl = project.ext.appProps.getProperty("spring.datasource.url")
-        dbUsername = project.ext.appProps.getProperty("spring.datasource.username")
-        dbPassword = project.ext.appProps.getProperty("spring.datasource.password")
-
+          dbUrl = project.ext.appProps.getProperty("spring.datasource.url")
+          dbUsername = project.ext.appProps.getProperty("spring.datasource.username")
+          dbPassword = project.ext.appProps.getProperty("spring.datasource.password")
       }
 
     liquibase {
       activities {
         main {
           changeLogFile    "$projectDir" + project.ext.appProps.getProperty("liquibase.change-log")
-            // url            project.ext.appProps.getProperty("spring.datasource.url")
-            // username       project.ext.appProps.getProperty("spring.datasource.username")
-            // password       project.ext.appProps.getProperty("spring.datasource.password")
-
             url           dbUrl
             username      dbUsername
             password      dbPassword
-            referenceUrl    'hibernate:spring:com.kabasakalis.springifyapi.domain?dialect=org.hibernate.dialect.PostgreSQLDialect'
+            referenceUrl  'hibernate:spring:com.kabasakalis.springifyapi.domain?dialect=org.hibernate.dialect.PostgreSQLDialect'
             driver        'org.postgresql.Driver'
             referenceDriver  'org.postgresql.Driver'
             classpath    project.ext.appProps.getProperty("liquibase.classpath")

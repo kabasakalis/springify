@@ -11,20 +11,20 @@
 // individual projects can be targeted using their name:
 // gradle -Pdev subproject:bootRun
 
-def prodProfile='prod'
-def devProfile='dev'
-def testsProfile='tests'
-def debProfile='deb'
-def travisProfile='travis'
-def propertyDrivenProfile;
+def prodProfile='prod' // Heroku
+def devProfile='dev' // Development
+def testsProfile='tests' // Tests
+def debProfile='deb'   // Debug
+def travisProfile='travis' // CI
+
+def propertyDrivenProfile; // Active Profile
 
 if (project.hasProperty("${prodProfile}")) {
-  // Used for production environment
+  // Used for production environment (Heroku)
   propertyDrivenProfile = prodProfile
     apply from: rootProject.file("./gradle/${prodProfile}.gradle");
 
 } else if (project.hasProperty("${testsProfile}")) {
-
   // Used for tests environment
   propertyDrivenProfile = testsProfile
     apply from: rootProject.file("./gradle/${testsProfile}.gradle");
@@ -46,11 +46,9 @@ if (project.hasProperty("${prodProfile}")) {
   propertyDrivenProfile = travisProfile
     apply from: rootProject.file("./gradle/${travisProfile}.gradle");
 
-
-
 } else {
 
-  // Default when no profile property is specified, development
+  // Default when no profile property is specified, Heroku.
   propertyDrivenProfile = prodProfile
     apply from: rootProject.file("./gradle/${prodProfile}.gradle");
 
