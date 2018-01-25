@@ -13,7 +13,7 @@
       "url": "http://github.com/gruntjs/grunt/blob/master/LICENSE-MIT"
     }
   },
-  "host": "springify.herokuapp.com",
+  "host": "https://springify.herokuapp.com",
   "basePath": "/api",
   "securityDefinitions": {
     "Authorization": {
