@@ -115,13 +115,13 @@ jar {
 
 
 
- task stage {
-//     // dependsOn installDist
-//    dependsOn assemble
-
- println 'Got home   :  ' + System.getenv('HOME')
-
- }
+//  task stage {
+// //     // dependsOn installDist
+// //    dependsOn assemble
+//
+//  println 'Got home   :  ' + System.getenv('HOME')
+//
+//  }
 
 // test {
 //     // pull cucumber options into the cucumber jvm
