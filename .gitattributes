@@ -1,2 +1,3 @@
 src/main/java/resources/public/docs/v1/lib/*.js linguist-vendored
 src/main/resources/public/docs/v1/*.js  linguist-vendored
+src/main/resources/public/docs/v1/css/*.css  linguist-vendored
