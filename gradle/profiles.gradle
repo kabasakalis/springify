@@ -67,7 +67,9 @@ println project.ext.appProps
 
 // bootRun will rely on the -P profile argument,
 // defaulting to the "dev" profile if no -P arguments are provided
+
 bootRun {
+  addResources = true
   systemProperties = [
     'spring.profiles.active':   propertyDrivenProfile  ]
       classes.doLast {
