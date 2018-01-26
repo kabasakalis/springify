@@ -19,6 +19,6 @@ before_script:
   - psql -U postgres -c 'create role spiros with superuser login;'
   - gradle -Ptravis migrate update
 script:
-  - gradle -Ptravis  -Padminpwd=$ADMINPWD check
+  - gradle -Ptravis -Padminpwd=$ADMINPWD check -i
 after_success:
   - bash <(curl -s https://codecov.io/bash)
