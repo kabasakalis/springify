@@ -70,7 +70,7 @@ println project.ext.appProps
 
 bootRun {
   addResources = true
-  systemProperties = [
+    systemProperties = [
     'spring.profiles.active':   propertyDrivenProfile  ]
       classes.doLast {
         println 'Adding spring.profiles.active=' + propertyDrivenProfile + ' to application.properties'

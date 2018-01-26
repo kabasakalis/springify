@@ -21,7 +21,6 @@ buildscript {
 
 plugins {
     id 'org.liquibase.gradle' version '1.2.4'
-
 }
 
 apply plugin: 'java'
@@ -38,7 +37,6 @@ jar {
 apply from: './gradle/profiles.gradle'
 apply from: './gradle/db.gradle'
 
-
 group = 'com.kabasakalis'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
@@ -51,30 +49,6 @@ repositories {
     maven { url "http://repo.spring.io/milestone" }
     maven { url "http://repo.spring.io/snapshot" }
     maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local/' }
-}
-
-sourceSets {
-    test {
-        java
-            {
-              // Excluding UIRunner files as these require the javafx libraries
-              // which are not shipped with OpenJDK. These UIRunner classes are
-              // classes that allow developers to run/debug karate tests via a UI
-              // and as such are not required for headless runs on jenkins server
-              // but can run happily via IDE of the developer without needed to be
-              // compiled by gradle.
-              srcDir file('src/test/java')
-              exclude '**/*UiRunner*.java'
-                }
-        resources
-                {
-              // Using recommended karate project layout where karate feature files
-              // and associated javascript resources sit in same /test/java folders
-              // as their java counterparts.
-              srcDir file('src/test/java')
-              exclude '**/*.java'
-                }
-    }
 }
 
 configurations {
@@ -95,18 +69,13 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-security')
     compile("io.jsonwebtoken:jjwt:0.9.0")
     compile('com.github.ulisesbocchio:jasypt-spring-boot-starter:1.16')
-    compile group: 'org.postgresql', name: 'postgresql', version: '42.1.4'
+    compile group: 'org.postgresql', name: 'postgresql', version: '42.2.0'
     compile 'commons-io:commons-io:2.6'
     compile 'com.github.java-json-tools:json-schema-validator:2.2.8'
-    //    Swagger - does not work because of no inheritance support for controllers.
-//    compile "io.springfox:springfox-swagger2:2.7.1-SNAPSHOT"
-//    compile "io.springfox:springfox-data-rest:2.7.1-SNAPSHOT"
-//    compile 'io.springfox:springfox-swagger-ui:2.7.1-SNAPSHOT'
-//    compile "io.springfox:springfox-bean-validators:2.7.1-SNAPSHOT"
 
     runtime('org.springframework.boot:spring-boot-devtools')
+
     compileOnly('org.springframework.boot:spring-boot-configuration-processor')
-//    providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
 
     testCompile 'junit:junit'
     testCompile 'com.intuit.karate:karate-junit4:' + karateVersion

@@ -1,0 +1,59 @@
+println 'Loading  test configuration from test-config.gradle'
+sourceSets {
+    test {
+        java
+            {
+              // Excluding UIRunner files as these require the javafx libraries
+              // which are not shipped with OpenJDK. These UIRunner classes are
+              // classes that allow developers to run/debug karate tests via a UI
+              // and as such are not required for headless runs on jenkins server
+              // but can run happily via IDE of the developer without needed to be
+              // compiled by gradle.
+              srcDir file('src/test/java')
+              exclude '**/*UiRunner*.java'
+                }
+        resources
+                {
+              // Using recommended karate project layout where karate feature files
+              // and associated javascript resources sit in same /test/java folders
+              // as their java counterparts.
+              srcDir file('src/test/java')
+              exclude '**/*.java'
+                }
+    }
+}
+
+test {
+    // pull cucumber options into the cucumber jvm
+    systemProperty "cucumber.options", System.properties.getProperty("cucumber.options")
+    // pull karate options into the jvm
+    systemProperty "karate.env", System.properties.getProperty("karate.env")
+    systemProperty "karate.adminpwd", findProperty("adminpwd")
+   // ensure tests are always run
+
+    outputs.upToDateWhen { false }
+}
+
+apply plugin: 'jacoco'
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled false
+    }
+    afterEvaluate {
+        classDirectories = files(classDirectories.files.collect {
+            fileTree(dir: it,
+                    exclude: ['org/**',
+                              'org/postgresql/**',
+                              '**/util/**',
+                              '**/exceptions/**',
+                              '**/configuration/SecurityConstants.java',
+                              '**/domain/BaseEntity.java',
+                              '**/serializers/BaseResourceSupport.java'
+                              ])
+        })
+    }
+
+}
+
+check.dependsOn jacocoTestReport

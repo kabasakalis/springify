@@ -12,7 +12,7 @@ services:
 before_install:
   - mkdir postgres-driver
   - cd postgres-driver
-  - wget https://jdbc.postgresql.org/download/postgresql-42.1.4.jar
+  - wget https://jdbc.postgresql.org/download/postgresql-42.2.0.jar
   - cd $TRAVIS_BUILD_DIR
 before_script:
   - psql -U postgres -c 'create database springify_test;'
