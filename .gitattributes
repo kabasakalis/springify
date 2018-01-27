@@ -1,3 +1,4 @@
 src/main/resources/public/docs/v1/*.html  linguist-vendored
 *.feature  linguist-vendored
 *.js  linguist-vendored
+*.css  linguist-vendored

@@ -37,7 +37,7 @@ if (project.hasProperty("${prodProfile}")) {
 } else if (project.hasProperty("${debProfile}")) {
 
   // Used for debugging
-  propertyDrivenProfile = debProfile
+  propertyDrivenProfile = devProfile
     apply from: rootProject.file("./gradle/${debProfile}.gradle");
 
 } else if (project.hasProperty("${travisProfile}")) {
