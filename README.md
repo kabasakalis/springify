@@ -21,6 +21,7 @@ The [Spring Data REST](http://projects.spring.io/spring-data-rest/) framework an
 * _Global exception handling with [Aspect Oriented Programming](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#aop)_ using `@ControllerAdvice` annotation.
 * Authentication with [JWT token.](https://jwt.io/)
 * Simple Role base authorization.
+* Java 8 Optional API.
 * Custom modular Gradle setup for profile support.
 * _[PostgreSQL 9.4 database.](https://www.postgresql.org/)_
 * [Liquibase](http://www.liquibase.org/) for database version control.
