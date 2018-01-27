@@ -81,7 +81,7 @@ The request body should be
 ```
 You should get the admin user and his token as a response. Edit the Postman Springify collection to use `Bearer Token` Authorization and paste the token you got from the response in the Token field. Use `Inherit from parent` for all your endpoint configurations in Postman to use this token in your requests.
 
-* At this point you can run the tests with `gradle -Ptests -Padminpwd=[PLAIN_TEXT_PWD] test`
+* At this point you can run the tests with `gradle -Ptests -Padminpwd=[PLAIN_TEXT_ADMIN_PWD] test`
 * You can run individual `*Runner.java` (example `/src/test/java/springifyapi/album/AlbumRunner.java`) test files from your IDE.
 * You can now make requests from Postman to all endpoints, using the token you obtained from login.
 
