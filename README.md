@@ -17,7 +17,7 @@ The [Spring Data REST](http://projects.spring.io/spring-data-rest/) framework an
 * _Extensions of `ResourceSupport`_ for separation of concerns between the domain model and the JSON marshalled response to   avoid littering the model with JSON related annotations like `@JsonIgnore`  or methods that exist solely for the purpose of returning extra data in addition to model properties.
 * _Custom Resource Assemblers_  for the purpose of customizing/extending the response links without littering the controllers.
 * _Domain level exceptions_ (`EntityNotFoundException`, `AssociationNotFoundException`) to enrich the exception responses with additional information using domain-specific semantics.
-* _Custom Exception to `HttpStatus` code mappings_ . Reasonable defaults are used for all generic exceptions with the ability to override them or provide additional mappings for domain-specific extensions.
+* _Custom Exception to `HttpStatus` code mappings_ . Reasonable defaults are used for all generic exceptions with the ability to override them or provide additional mappings for domain-specific exceptions.
 * _Global exception handling with [Aspect Oriented Programming](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#aop)_ using `@ControllerAdvice` annotation.
 * Authentication with [JWT token.](https://jwt.io/)
 * Simple Role base authorization.
@@ -41,9 +41,9 @@ Gradle does not come with built in profile support, so a custom profile set up w
 
 * **_prod_**, **Development Profile**.  Will load production (heroku) postgreSQL and Liquibase settings, (as environmental variables) from `src/main/resources/application-prod.properties` file.  `prod` property is used in `gradle -Pprod migrate update` to update the production database with new migrations. In production `gradle -Pprod bootRun` is not used, since `bootRun` is for development only, the build jar is executed instead. See `Procfile` for details.
 
-* **_tests_**, **Test Profile**.  Will load test postgreSQL and Liquibase settings, from `src/main/resources/application-tests.properties` file.  Run tests with `gradle -Ptests -Padminpwd=[PLAIN_TEXT_PWD] test`. `adminpwd` property is explain is test setup section later.
+* **_tests_**, **Test Profile**.  Will load test postgreSQL and Liquibase settings, from `src/main/resources/application-tests.properties` file.  Run tests with `gradle -Ptests -Padminpwd=[PLAIN_TEXT_PWD] test`. `adminpwd` property is explained in test setup section later.
 
-* **_travis_**, **Travis CI Profile**.  Will load test postgreSQL and Liquibase settings, from `src/main/resources/application-travis.properties` file. Used in `gradle -Ptravis -Padminpwd=$ADMINPWD check` to build the project and run the tests on travis CI server. See `.travis.yml` file for details. `adminpwd` property is explain is test setup section later.
+* **_travis_**, **Travis CI Profile**.  Will load test postgreSQL and Liquibase settings, from `src/main/resources/application-travis.properties` file. Used in `gradle -Ptravis -Padminpwd=$ADMINPWD check` to build the project and run the tests on travis CI server. See `.travis.yml` file for details. `adminpwd` property is explained in test setup section later.
 
 # Local development and tests setup
 `springify` and `spingify-test` databases are used for development and test respectively. Create these local databases
